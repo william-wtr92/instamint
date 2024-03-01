@@ -10,6 +10,7 @@ on:
       - "*"
     paths:
       - ".github/workflows/**"
+      - "p"
       - "apps/client/**"
       - "apps/server/**"
   pull_request:
@@ -44,9 +45,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       - name: Install Business Server dependencies
         run: |
@@ -90,9 +88,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       - name: Install WebApp Client dependencies
         run: |
