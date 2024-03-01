@@ -1,0 +1,11 @@
+{
+  "name": "@instamint/tsconfig-client",
+  "version": "1.0.0",
+  "description": "Tsconfig for client - Next.js",
+  "main": "tsconfig.client.json",
+  "keywords": [
+    "tsconfig.json"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC"
+}

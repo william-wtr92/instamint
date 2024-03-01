@@ -1,0 +1,7 @@
+/node_modules
+/.next
+prettier.config.js
+next.config.js
+.gitignore
+.gitattributes
+.eslintrc.js

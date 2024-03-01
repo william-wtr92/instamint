@@ -1,0 +1,146 @@
+name: Instamint Monorepo CI/CD
+
+on:
+  push:
+    branches:
+      - "main"
+      - "staging"
+      - "ITM-*"
+    tags:
+      - "*"
+    paths:
+      - ".github/workflows/**"
+      - "apps/client/**"
+      - "apps/server/**"
+  pull_request:
+    branches:
+      - "main"
+      - "staging"
+    paths:
+      - ".github/workflows/**"
+      - "apps/client/**"
+      - "apps/server/**"
+
+jobs:
+  lint_server:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    strategy:
+      matrix:
+        node-version: [ 20.x, "node" ]
+    steps:
+      - name: Checkout to ${{ github.ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install Business Server dependencies
+        run: |
+          cd apps/server/instamint-business
+          pnpm install
+
+      - name: Lint Business Server project
+        run: |
+          cd apps/server/instamint-business
+          pnpm run lint
+
+      - name: Install Files Server dependencies
+        run: |
+          cd apps/server/instamint-files
+          pnpm install
+
+      - name: Lint Files Server project
+        run: |
+          cd apps/server/instamint-files
+          pnpm run lint
+
+  lint_client:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    strategy:
+      matrix:
+        node-version: [ 20.x, "node" ]
+    steps:
+      - name: Checkout to ${{ github.ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install WebApp Client dependencies
+        run: |
+          cd apps/client/instamint-webapp
+          pnpm install
+
+      - name: Lint WebApp Client project
+        run: |
+          cd apps/client/instamint-webapp
+          pnpm run lint
+
+  build_and_publish:
+    needs: [lint_server, lint_client]
+    runs-on: ubuntu-latest
+    if: >
+      (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
+      (startsWith(github.ref, 'refs/tags/') && github.event_name == 'push')
+    steps:
+      - name: Checkout to ${{ github.ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to GitHub Packages
+        run: echo "${{ secrets.TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Docker Compose Build
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
+        working-directory: ./
+        env:
+          DB_CONNECTION_HOST: ${{ secrets.DB_CONNECTION_HOST_DOCKER }}
+          DB_CONNECTION_USER: ${{ secrets.DB_CONNECTION_USER_DOCKER }}
+          DB_CONNECTION_PWD: ${{ secrets.DB_CONNECTION_PASSWORD_DOCKER }}
+          DB_CONNECTION_DB: ${{ secrets.DB_CONNECTION_DOCKER }}
+          SECURITY_JWT_SECRET: ${{ secrets.SECURITY_JWT_SECRET }}
+          SECURITY_PASSWORD_PEPPER: ${{ secrets.SECURITY_PASSWORD_PEPPER }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          FILE_SERVICE_URL: ${{ secrets.FILES_SERVICE_URL_DOCKER }}

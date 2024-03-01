@@ -1,0 +1,17 @@
+.env
+.env.example
+.env.test
+*.md
+dist
+node_modules
+.gitattributes
+.gitignore
+prettier.config.js
+sprints-reports
+docs
+.github
+.idea
+.git
+docker-compose.yml
+docker
+bruno

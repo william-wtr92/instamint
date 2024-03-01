@@ -1,1 +1,15 @@
+# ignored files or directories
 .idea/
+.DS_Store
+
+# node_modules
+node_modules/
+*/**/node_modules
+*/**/dist
+
+# build files
+pnpm-lock.yaml
+
+# dotenv files
+.env
+.env.test

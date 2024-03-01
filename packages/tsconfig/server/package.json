@@ -1,0 +1,11 @@
+{
+  "name": "@instamint/tsconfig-server",
+  "version": "1.0.0",
+  "description": "Tsconfig for server - HonoJS",
+  "main": "tsconfig.server.json",
+  "keywords": [
+    "tsconfig.json"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC"
+}

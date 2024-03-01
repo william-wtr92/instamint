@@ -1,0 +1,19 @@
+meta {
+  name: GET - user by id
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3001/user/{{id}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: undifined
+}
+
+vars:pre-request {
+  id: 1
+}
