@@ -17,7 +17,6 @@ on:
 
 jobs:
   build_and_publish_staging:
-    needs: [lint_server, lint_client]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to ${{ github.ref }}
@@ -55,7 +54,6 @@ jobs:
           FILE_SERVICE_URL: ${{ secrets.FILES_SERVICE_URL_DOCKER }}
 
   build_and_publish_prod:
-    needs: [ lint_server, lint_client ]
     runs-on: ubuntu-latest
     if: >
       (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
