@@ -1,4 +1,4 @@
-name: Instamint Monorepo CI/CD
+name: Instamint Monorepo - Lint CI/CD
 
 on:
   push:
