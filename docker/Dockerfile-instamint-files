@@ -30,7 +30,9 @@ FROM base AS prod
 WORKDIR /usr/src/app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY packages/ ./packages/
+COPY packages/eslint/server/ ./packages/eslint/server/
+COPY packages/tsconfig/server/ ./packages/tsconfig/server/
+COPY packages/types/server/ ./packages/types/server/
 COPY apps/server/instamint-files/ ./apps/server/instamint-files/
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
