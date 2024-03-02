@@ -1,24 +1,24 @@
-# Instamint Project
+# 🔮 Instamint Project
 
 Instamint is a young startup which allows _**NFTs & crypto enthusiasts**_ to discover, collect and exchange _**NFTs and much more!**_
 
 
 The main objective of the project is to develop a platform that complies with the specifications detailed in the call for tenders, focusing on innovation, **_sustainability and the integration of Web3 technologies_**. It aims to offer an exceptional user experience through an intuitive and engaging user interface, while strictly complying with security and accessibility standards and legal frameworks, particularly with regard to data protection. The project will also seek to assess and minimise its ecological footprint, affirming its commitment to sustainable development.
 
-## Contributors
+## 🐐 Contributors
 
 - [@William](https://github.com/william-wtr92) > Fullstack Developer / Team Leader
 - [@Pascal](https://github.com/Scalpal) > Fullstack Developer
 - [@Thomas](https://github.com/Thomas-De-Oliveira) > Fullstack Developer
 - [@Hugo](https://github.com/vaillanh) > Fullstack Developer
 
-## Setup
+## 🔨 Setup
 
 - 🐳 Make sure you have **Docker** installed on your machine.
 - 📝 Setup ur **.env** file with the following variables -> [See example](https://github.com/william-wtr92/instamint/blob/main/.env.example).
 
 
-- To run this project clone this repository and run it locally using **docker commands**. <br><br>
+- 💻 To run this project clone this repository and run it locally using **docker commands**. <br><br>
 
   - __**🚀 Production:**__ <br>
     **Start  the project:**
@@ -47,7 +47,7 @@ The main objective of the project is to develop a platform that complies with th
   - **[Back - Instamint Business](http://localhost:3001)** run on port `3001`
   - **[Back - Instamint Files](http://localhost:3002)** run on port `3002`
 
-## Tech Stack
+## ⭐️ Tech Stack
 
 - **Client:** [_Next.js_](https://nextjs.org/docs) & _TypeScript_
 - **Server**: [_HonoJS_](https://hono.dev/getting-started/basic) & _TypeScript_
@@ -59,12 +59,12 @@ The main objective of the project is to develop a platform that complies with th
 - **Monitoring**: _Sentry_
 - **Containerization**: _Docker_
 
-## Other Tools
+## 💡 Other Tools
 
 - **Agile Methodology**: [_Jira_](https://project-william.atlassian.net/jira/software/c/projects/ITM/boards/4/backlog)
 - **Documentation**: [_Confluence_](https://project-william.atlassian.net/wiki/spaces/ITM/pages/16679168/Model+Product+Requirements)
 
-## Utils 
+## ♾️ Utils 
 
 - In the project directory, you can test API endpoints with [Bruno](https://www.usebruno.com/), after installing it and targeting the directory where you cloned the project, _**you will have access to the various endpoints preconfigured on the correct urls and ports, as well as the body, params, etc.**_
 
