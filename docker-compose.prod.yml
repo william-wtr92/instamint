@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-instamint-webapp
-      target: dev
-    image: docker.pkg.github.com/william-wtr92/instamint/instamint-client-webapp:dev
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-client-webapp:prod
     ports:
       - "3000:3000"
     networks:
@@ -16,8 +16,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-instamint-business
-      target: dev
-    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-business:dev
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-business:prod
     ports:
       - "3001:3001"
     environment:
@@ -38,8 +38,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-instamint-files
-      target: dev
-    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-files:dev
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-files:prod
     ports:
       - "3002:3002"
     networks:

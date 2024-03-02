@@ -5,7 +5,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 RUN corepack enable
 
-FROM base AS build
+
+FROM base AS dev
 
 WORKDIR /usr/src/app
 
@@ -16,9 +17,27 @@ COPY apps/client/instamint-webapp ./apps/client/instamint-webapp
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 WORKDIR /usr/src/app/apps/client/instamint-webapp
-
 RUN pnpm install --frozen-lockfile
 
 EXPOSE 3000
 
 CMD ["pnpm", "run", "dev"]
+
+
+FROM base AS prod
+
+WORKDIR /usr/src/app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/ ./packages/
+COPY apps/client/instamint-webapp ./apps/client/instamint-webapp
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+WORKDIR /usr/src/app/apps/client/instamint-webapp
+RUN pnpm install --prod
+RUN pnpm build
+
+EXPOSE 3000
+
+CMD ["pnpm", "run", "start"]

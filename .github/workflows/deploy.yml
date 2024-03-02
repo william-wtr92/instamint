@@ -1,0 +1,64 @@
+name: Instamint Monorepo CI/CD
+
+on:
+  push:
+    branches:
+      - "main"
+      - "staging"
+      - "ITM-*"
+    tags:
+      - "*"
+    paths:
+      - ".github/workflows/**"
+      - "apps/client/**"
+      - "apps/server/**"
+      - "docker/**"
+      - "docker-compose.yml"
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - env: dev
+            compose-file: docker-compose.yml
+          - env: prod
+            compose-file: docker-compose.prod.yml
+            condition: (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+    if: ${{ matrix.condition }}
+    needs: [lint_server, lint_client]
+    steps:
+      - name: Checkout to ${{ github.ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to GitHub Packages
+        run: echo "${{ secrets.TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Docker Compose Build and Push
+        run: |
+          docker-compose -f ${{ matrix.compose-file }} build
+          docker-compose -f ${{ matrix.compose-file }} push
+        working-directory: ./
+        env:
+          DB_CONNECTION_HOST: ${{ secrets.DB_CONNECTION_HOST_DOCKER }}
+          DB_CONNECTION_USER: ${{ secrets.DB_CONNECTION_USER_DOCKER }}
+          DB_CONNECTION_PWD: ${{ secrets.DB_CONNECTION_PASSWORD_DOCKER }}
+          DB_CONNECTION_DB: ${{ secrets.DB_CONNECTION_DOCKER }}
+          SECURITY_JWT_SECRET: ${{ secrets.SECURITY_JWT_SECRET }}
+          SECURITY_PASSWORD_PEPPER: ${{ secrets.SECURITY_PASSWORD_PEPPER }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          FILE_SERVICE_URL: ${{ secrets.FILES_SERVICE_URL_DOCKER }}
