@@ -24,7 +24,7 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
-      - name: SonarQube Scan
+      - name: 🔍 SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
