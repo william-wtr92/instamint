@@ -16,7 +16,9 @@ on:
 
 jobs:
   build_and_publish_staging:
+    name: 📫 Build and Publish Staging
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     if: >
       (github.ref == 'refs/heads/staging' && github.event_name == 'push')
     steps:
@@ -36,10 +38,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Login to GitHub Packages
+      - name: 🔒 Login to GitHub Packages
         run: echo "${{ secrets.TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Docker Compose Build
+      - name: 🐳 Docker Compose Build
         run: |
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
@@ -55,7 +57,9 @@ jobs:
           FILE_SERVICE_URL: ${{ secrets.FILES_SERVICE_URL_DOCKER }}
 
   build_and_publish_prod:
+    name: 📫 Build and Publish Production
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     if: >
       (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
       (startsWith(github.ref, 'refs/tags/') && github.event_name == 'push')
@@ -76,10 +80,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Login to GitHub Packages
+      - name: 🔒 Login to GitHub Packages
         run: echo "${{ secrets.TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Docker Compose Build
+      - name: 🐳 Docker Compose Build
         run: |
           docker-compose -f docker-compose.prod.yml build
           docker-compose -f docker-compose.prod.yml push
