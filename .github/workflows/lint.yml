@@ -35,38 +35,38 @@ jobs:
       matrix:
         node-version: [ 20.x, "node" ]
     steps:
-      - name: Checkout to ${{ github.ref }}
+      - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: Setup pnpm
+      - name: ⚙️ Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🌐 Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
-      - name: Install Business Server dependencies
+      - name: 📥 Install Business Server dependencies
         run: |
           cd apps/server/instamint-business
           pnpm install
 
-      - name: Lint Business Server project
+      - name: ✏️ Lint Business Server project
         run: |
           cd apps/server/instamint-business
           pnpm run lint
 
-      - name: Install Files Server dependencies
+      - name: 📥 Install Files Server dependencies
         run: |
           cd apps/server/instamint-files
           pnpm install
 
-      - name: Lint Files Server project
+      - name: ✏️ Lint Files Server project
         run: |
           cd apps/server/instamint-files
           pnpm run lint
@@ -80,28 +80,28 @@ jobs:
       matrix:
         node-version: [ 20.x, "node" ]
     steps:
-      - name: Checkout to ${{ github.ref }}
+      - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: Setup pnpm
+      - name: ⚙️ Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🌐 Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
-      - name: Install WebApp Client dependencies
+      - name: 📥 Install WebApp Client dependencies
         run: |
           cd apps/client/instamint-webapp
           pnpm install
 
-      - name: Lint WebApp Client project
+      - name: ✏️ Lint WebApp Client project
         run: |
           cd apps/client/instamint-webapp
           pnpm run lint
@@ -115,24 +115,24 @@ jobs:
       matrix:
         node-version: [ 20.x, "node" ]
     steps:
-      - name: Checkout to ${{ github.ref }}
+      - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: Setup pnpm
+      - name: ⚙️ Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 🌐 Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
-      - name: Install deps
+      - name: 📥 Install deps
         run: pnpm install
 
-      - name: Prettier format
+      - name: 📈 Prettier format
         run: pnpm run format:check

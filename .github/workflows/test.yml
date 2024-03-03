@@ -1,7 +1,7 @@
 name: Instamint Monorepo - Test CI/CD
 
 on:
-  push:
+  pull_request:
     branches:
       - "main"
       - "staging"
@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 15
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
-      - name: Checkout to ${{ github.ref }}
+      - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
