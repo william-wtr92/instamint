@@ -1,6 +1,4 @@
-.env
-.env.example
-.env.test
+.env*
 *.md
 dist
 node_modules
@@ -15,3 +13,6 @@ docs
 docker-compose.yml
 docker
 bruno
+.DS_Store
+.dockerignore
+docker
