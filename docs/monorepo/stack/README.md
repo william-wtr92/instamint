@@ -71,6 +71,8 @@ as the important libraries used:
 
 ## 🔑 Security
 
+- **GitHooks**: We use git hooks to execute actions at commit / push time and also on messages given in commits.
+
 - **SonarQube**: A tool for continuous code quality inspection, this will enable us to analyze the code and identify
   security vulnerabilities during our CI (Continuous Integration) runs.
 
