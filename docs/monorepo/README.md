@@ -35,9 +35,12 @@
 - `/.github`: This directory contains the **_GitHub Actions_** workflows, **_pull request templates_**, and other GitHub
   related files.
 
+- `/scripts` : The scripts in this directory are used to automatically install git hooks on pre-commit and pre-push.
+
 - `/bruno`: Bruno API Client with the collections directly in a folder on your filesystem.
 
-- `/docs`: This directory contains the **_documentation_** for the monorepo. This can include \*\*\_process documentation,
+- `/docs`: This directory contains the **_documentation_** for the monorepo. This can include \*\*\_process
+  documentation,
   code
 
 - `/sprints-reports`: This directory include **_sprint planning, sprint review, sprint retrospective_**.

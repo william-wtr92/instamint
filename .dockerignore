@@ -15,4 +15,4 @@ docker
 bruno
 .DS_Store
 .dockerignore
-docker
+scripts
