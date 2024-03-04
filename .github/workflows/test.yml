@@ -1,6 +1,9 @@
 name: Instamint Monorepo - Test CI/CD
 
 on:
+  push:
+    branches:
+      - "ITM-*"
   pull_request:
     branches:
       - "main"
