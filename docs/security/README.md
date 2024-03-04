@@ -170,7 +170,10 @@ We use SonarQube to analyze the code and identify security vulnerabilities durin
 - Create a file named `sonar-project.properties` in the root of the project with the following content:
 
   ```properties
-  sonar.projectKey=your_project_key
+  sonar.projectKey=           ## projectKey
+  sonar.projectName=          ## Name of the project
+  sonar.projectVersion=1.0    ## The version of the project
+  sonar.exclusions=**/__tests__/**       ## Exclude paths
   ```
 
 - Add the following step to the GitHub Actions workflow file:
