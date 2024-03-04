@@ -3,24 +3,16 @@ name: Instamint Monorepo - Deploy CI/CD
 on:
   push:
     branches:
-      - "main"
       - "staging"
     tags:
       - "*"
-    paths:
-      - ".github/workflows/**"
-      - "apps/client/**"
-      - "apps/server/**"
-      - "docker/**"
-      - "docker-compose.yml"
 
 jobs:
   build_and_publish_staging:
     name: 📫 Build and Publish Staging
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    if: >
-      (github.ref == 'refs/heads/staging' && github.event_name == 'push')
+    if: github.ref == 'refs/heads/staging'
     steps:
       - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
@@ -60,9 +52,7 @@ jobs:
     name: 📫 Build and Publish Production
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    if: >
-      (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
-      (startsWith(github.ref, 'refs/tags/') && github.event_name == 'push')
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: 🔬 Checkout to ${{ github.ref }}
         uses: actions/checkout@v4
