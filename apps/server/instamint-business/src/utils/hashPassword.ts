@@ -6,14 +6,14 @@ const pbkdf2 = promisify(pbkdf2Callback)
 
 export const hashPassword = async (
   password: string,
-  salt: string = randomBytes(confApi.security.password.saltlen).toString("hex"),
+  salt: string = randomBytes(confApi.security.password.saltlen).toString("hex")
 ) => {
   const key = await pbkdf2(
     `${password}${confApi.security.password.pepper}`,
     salt,
     confApi.security.password.iterations,
     confApi.security.password.keylen,
-    confApi.security.password.digest,
+    confApi.security.password.digest
   )
 
   return [key.toString("hex"), salt]

@@ -13,10 +13,10 @@ export const perms: MiddlewareHandler = factory.createMiddleware(
     if (!user || user.roleData.right !== "admin") {
       throw createErrorResponse(
         "You don't have permission to access this resource",
-        403,
+        403
       )
     }
 
     await next()
-  },
+  }
 )

@@ -36,7 +36,7 @@ const useSWRInfiniteExample = (): SWRInfiniteResponse => {
   const { ...query } = useSWRInfinite(
     (pageIndex: number, previousPageData) =>
       getKey(pageIndex, previousPageData),
-    fetcher,
+    fetcher
   )
 
   return {

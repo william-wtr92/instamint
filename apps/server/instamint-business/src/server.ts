@@ -23,7 +23,7 @@ const server = async (config: AppConfig): Promise<Hono> => {
     sentry({ dsn: config.sentry.dsn }),
     etag(),
     logger(),
-    prettyJSON(),
+    prettyJSON()
   )
 
   app.get("/", (c: Context) => {

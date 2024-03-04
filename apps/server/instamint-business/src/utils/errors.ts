@@ -7,7 +7,7 @@ type SimpleHeaders = { [key: string]: string }
 export const createErrorResponse = (
   message: string,
   statusCode: number,
-  headers?: SimpleHeaders,
+  headers?: SimpleHeaders
 ): HTTPException => {
   const responseHeaders = new Headers(headers)
 

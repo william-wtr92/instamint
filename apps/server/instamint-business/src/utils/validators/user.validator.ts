@@ -11,7 +11,7 @@ export const userSchema = z.object({
     .regex(new RegExp(".*\\d.*"), "One number")
     .regex(
       new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"),
-      "One special character",
+      "One special character"
     )
     .min(8, "Must be at least 8 characters in length"),
   firstname: z.string(),

@@ -20,7 +20,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
       const decodedToken = await verify(
         jwt,
         configDb.security.jwt.secret,
-        "HS512",
+        "HS512"
       )
 
       if (
@@ -56,5 +56,5 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
 
       throw createErrorResponse("An error occurred", 500)
     }
-  },
+  }
 )

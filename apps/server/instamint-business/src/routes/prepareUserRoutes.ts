@@ -68,9 +68,9 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }): void => {
           user: sanitizeUser(requestBody),
           message: "User created",
         },
-        201,
+        201
       )
-    },
+    }
   )
 
   userAuth.get(
@@ -91,9 +91,9 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }): void => {
         {
           message: `User email ${user.email}`,
         },
-        201,
+        201
       )
-    },
+    }
   )
 
   user.post(
@@ -131,16 +131,16 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }): void => {
           iat: now,
         },
         configDb.security.jwt.secret,
-        "HS512",
+        "HS512"
       )
 
       return c.json(
         {
           jwt,
         },
-        201,
+        201
       )
-    },
+    }
   )
 
   // eslint-disable-next-line no-warning-comments
@@ -159,7 +159,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }): void => {
       const data = await body.json()
 
       return c.json({ statusCode, headers, trailers, data })
-    },
+    }
   )
 
   user.onError((e: Error, c: Context) => handleError(e, c))

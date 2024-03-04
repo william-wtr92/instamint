@@ -8,7 +8,7 @@ export const sanitizeUser = (user: User): Omit<User, "password"> => {
 }
 
 export const sanitizeUsers = (
-  users: UserModel[],
+  users: UserModel[]
 ): Pick<UserModel, "email" | "firstname" | "lastname" | "roleData">[] => {
   return users.map((user: UserModel) => {
     const { email, firstname, lastname, roleData }: UserModel = user
