@@ -201,3 +201,24 @@ We use SonarQube to analyze the code and identify security vulnerabilities durin
 ## 📝 ESLint
 
 We use **ESLint** to **_identify and fix problems_** in the TypeScript code.
+
+## 🤖 DependaBot
+
+#### We use **DependaBot** to **_keep our dependencies up to date_**.
+
+##### He will automatically create pull requests to update the dependencies when new versions are released.
+
+- To activate **DependaBot**, follow the steps below:
+
+  - Go to the `Code security and analysis` tab in the repository settings.
+  - Click on the `Enable Dependabot version updates` button.
+  - You need to complete the template provide by **Github** with `dependabot.yml` in `.github/` folder.
+
+```yml
+version: 2 ## Default version
+updates:
+  - package-ecosystem: npm ## The package ecosystem for the repository (npm for pnpm)
+    directory: "/"
+    schedule:
+      interval: "weekly" ## The interval at which to check for updates (daily, weekly, monthly)
+```
