@@ -2,32 +2,32 @@ DC = docker-compose
 DC_PROD = docker-compose -f docker-compose.prod.yml
 
 GREEN=\033[0;32m
-LIGHT_BLUE=\033[0;36m
-LIGHT_PURPLE=\033[0;95m
-NC=\033[0m
+LIGHT_GREEN=\033[0;92m
+MEDIUM_GREEN=\033[0;32m
+NC=\033[0;1m
 
 default: help
 
 help:
 	@printf "\033[3m\033[4mList of available commands:\033[0m\n"
 	@printf "\n"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-up" "# Start development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-down" "# Stop development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-start" "# Start development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-stop" "# Stop development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-restart" "# Restart development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-build" "# Build or rebuild development services"
-	@printf "${LIGHT_BLUE}%-40s${NC} %s\n" "- make dev-no-cache" "# Build development services without using cache"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-up" "# Start development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-down" "# Stop development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-start" "# Start development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-stop" "# Stop development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-restart" "# Restart development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-build" "# Build or rebuild development services"
+	@printf "${MEDIUM_GREEN}%-40s${NC} %s\n" "- make dev-no-cache" "# Build development services without using cache"
 	@printf "\n"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-up" "# Start production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-down" "# Stop production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-start" "# Start production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-stop" "# Stop production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-restart" "# Restart production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-build" "# Build or rebuild production services"
-	@printf "${LIGHT_PURPLE}%-40s${NC} %s\n" "- make prod-no-cache" "# Build production services without using cache"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-up" "# Start production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-down" "# Stop production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-start" "# Start production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-stop" "# Stop production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-restart" "# Restart production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-build" "# Build or rebuild production services"
+	@printf "${LIGHT_GREEN}%-40s${NC} %s\n" "- make prod-no-cache" "# Build production services without using cache"
 	@printf "\n"
-	@printf "${GREEN}%-40s${NC} %s\n" "- make help" "# Display this help message"
+	@printf "${NC}%-40s${NC} %s\n" "- make help" "# Display this help message"
 
 dev-up:
 	$(DC) up -d
