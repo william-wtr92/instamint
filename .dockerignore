@@ -1,4 +1,4 @@
-.env*
+*.env*
 *.md
 dist
 node_modules
@@ -13,6 +13,7 @@ docs
 docker-compose.yml
 docker
 bruno
-.DS_Store
+*.DS_Store
+/packages/.DS_Store
 .dockerignore
 scripts
