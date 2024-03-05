@@ -3,21 +3,20 @@
   "version": "1.0.0",
   "description": "Instamint is a social sharing platform based around NFTs, includes web3 technologies",
   "scripts": {
+    "changeset": "changeset",
+    "publish:packages": "changeset publish",
+    "version:packages": "changeset version",
     "postinstall": "if [ \"$PNPM_POSTINSTALL_ENABLE\" != \"false\" ]; then chmod +x ./scripts/setup-hooks.sh && ./scripts/setup-hooks.sh; fi",
-
     "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files",
     "build": "pnpm build:webapp && pnpm build:business && pnpm build:files",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier -c \"**/*.{ts,tsx,md}\"",
-
     "build:webapp": "pnpm --filter @instamint/webapp-client build",
     "lint:webapp": "pnpm --filter @instamint/webapp-client lint",
     "dev:webapp": "pnpm --filter @instamint/webapp-client dev",
-
     "build:files": "pnpm --filter @instamint/files-server build",
     "lint:files": "pnpm --filter @instamint/files-server lint",
     "dev:files": "pnpm --filter @instamint/files-server dev",
-
     "build:business": "pnpm --filter @instamint/business-server build",
     "lint:business": "pnpm --filter @instamint/business-server lint",
     "dev:business": "dotenv -e .env -- pnpm --filter @instamint/business-server dev",
@@ -45,5 +44,9 @@
     "@commitlint/config-conventional": "^19.0.3",
     "dotenv-cli": "^7.3.0",
     "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1"
   }
 }
