@@ -1,8 +1,13 @@
 # 🔮 Instamint Project
 
-Instamint is a young startup which allows _**NFTs & crypto enthusiasts**_ to discover, collect and exchange _**NFTs and much more!**_
+Instamint is a young startup which allows _**NFTs & crypto enthusiasts**_ to discover, collect and exchange
+_**NFTs and much more!**_
 
-The main objective of the project is to develop a platform that complies with the specifications detailed in the call for tenders, focusing on innovation, **_sustainability and the integration of Web3 technologies_**. It aims to offer an exceptional user experience through an intuitive and engaging user interface, while strictly complying with security and accessibility standards and legal frameworks, particularly with regard to data protection. The project will also seek to assess and minimise its ecological footprint, affirming its commitment to sustainable development.
+The main objective of the project is to develop a platform that complies with the specifications detailed in the call
+for tenders, focusing on innovation, **_sustainability and the integration of Web3 technologies_**. It aims to offer an
+exceptional user experience through an intuitive and engaging user interface, while strictly complying with security and
+accessibility standards and legal frameworks, particularly with regard to data protection. The project will also seek to
+assess and minimise its ecological footprint, affirming its commitment to sustainable development.
 
 ## 🐐 Contributors
 
@@ -14,7 +19,8 @@ The main objective of the project is to develop a platform that complies with th
 ## 🔨 Setup
 
 - 🐳 Make sure you have **Docker** installed on your machine.
-- 📝 Setup ur **.env** file with the following variables -> [See example](https://github.com/william-wtr92/instamint/blob/main/.env.example).
+- 📝 Setup ur **.env** file with the following
+  variables -> [See example](https://github.com/william-wtr92/instamint/blob/main/.env.example).
 
 - 💻 To run this project clone this repository and run it locally using **docker commands**. <br><br>
 
@@ -22,26 +28,26 @@ The main objective of the project is to develop a platform that complies with th
     **Start the project:**
 
     ```bash
-    docker-compose -f docker-compose.prod.yml up -d
+    make prod-up
     ```
 
     **Stop the project:**
 
     ```bash
-    docker-compose -f docker-compose.prod.yml down
+    make prod-down
     ```
 
   - **⚙️ Development:** <br><br>
     **Start the project:**
 
     ```bash
-    docker-compose up -d
+    make dev-up
     ```
 
     **Stop the project:**
 
     ```bash
-    docker-compose down
+    make dev-down
     ```
 
 - **🔗 Access the project:** <br>
@@ -54,7 +60,8 @@ The main objective of the project is to develop a platform that complies with th
 - **Client:** [_Next.js_](https://nextjs.org/docs) & _TypeScript_
 - **Server**: [_HonoJS_](https://hono.dev/getting-started/basic) & _TypeScript_
 - **Database**: _PostgreSQL_
-- **Mockup**: [_Figma_](https://www.figma.com/file/0vj1ZxDcGJ6YeGLdaouf2u/UI-UX-design?type=design&node-id=0-1&mode=design&t=BJOmZmtqybA)
+- **Mockup**: [
+  _Figma_](https://www.figma.com/file/0vj1ZxDcGJ6YeGLdaouf2u/UI-UX-design?type=design&node-id=0-1&mode=design&t=BJOmZmtqybA)
 - **CI/CD**: _Github Actions_
 - **Testing**: _Jest_
 - **Deployment**: [_Vercel_](https://vercel.com/)
@@ -64,8 +71,12 @@ The main objective of the project is to develop a platform that complies with th
 ## 💡 Other Tools
 
 - **Agile Methodology**: [_Jira_](https://project-william.atlassian.net/jira/software/c/projects/ITM/boards/4/backlog)
-- **Documentation**: [_Confluence_](https://project-william.atlassian.net/wiki/spaces/ITM/pages/16679168/Model+Product+Requirements)
+- **Documentation**: [
+  _Confluence_](https://project-william.atlassian.net/wiki/spaces/ITM/pages/16679168/Model+Product+Requirements)
 
 ## ♾️ Utils
 
-- In the project directory, you can test API endpoints with [Bruno](https://www.usebruno.com/), after installing it and targeting the directory where you cloned the project, _**you will have access to the various endpoints preconfigured on the correct urls and ports, as well as the body, params, etc.**_
+- In the project directory, you can test API endpoints with [Bruno](https://www.usebruno.com/), after installing it and
+  targeting the directory where you cloned the project,
+  _**you will have access to the various endpoints preconfigured on the correct urls and ports, as well as the body,
+  params, etc.**_

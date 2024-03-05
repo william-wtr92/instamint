@@ -98,3 +98,25 @@ if [ $? -ne 0 ]; then           # If the tests fail, exit with an error
   exit 1
 fi
 ```
+
+## 🧩 [Makefile](https://github.com/william-wtr92/instamint/tree/main/Makefile)
+
+#### The Makefile is a useful tool for organizing and executing commands.
+
+- He helps us to standardize the commands and make them more readable, to show the available commands make:
+
+```bash
+make help
+```
+
+- For example, we can start production Compose with the command:
+
+  ```bash
+  make prod-up
+  ```
+
+  - instead of:
+
+  ```bash
+  docker-compose -f docker-compose.prod.yml up -d
+  ```
