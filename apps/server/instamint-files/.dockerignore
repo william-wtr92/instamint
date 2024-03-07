@@ -1,8 +1,0 @@
-dist
-.eslintrc.cjs
-.gitignore
-.gitattributes
-prettier.config.js
-*.md
-.env
-.DS_Store
