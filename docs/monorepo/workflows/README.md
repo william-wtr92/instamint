@@ -52,8 +52,8 @@
 
 ```bash
 git add CHANGELOG.md
-git commit -m "chore(release): 🚀 v{version}"
-git tag -a v{version} -m "v{version}"
+git commit -m "chore(release): 🚀 v{version}" # Example "chore(release): 🚀 v24.03"
+git tag -a v{version} -m "v{version}"  # Example "v24.03"
 git push origin main --tags
 ```
 
