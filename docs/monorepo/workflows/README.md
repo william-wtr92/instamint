@@ -51,7 +51,9 @@
 - **Do the following to release a new version:**
 
 ```bash
-git add CHANGELOG.md
+pnpm run release  # This command will update the version in all /apps/ directory the package.json files with YY.MM format
+
+git add .  # The changes contain the CHANGELOG.md and the package.json files
 git commit -m "chore(release): 🚀 v{version}" # Example "chore(release): 🚀 v24.03"
 git tag -a v{version} -m "v{version}"  # Example "v24.03"
 git push origin main --tags
