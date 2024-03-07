@@ -1,9 +1,10 @@
-# Changelog
+# 📝 Changelog
 
-All notable changes of Instamint Project will be documented in this file.
+#### All notable changes of Instamint Project will be documented in this file.
 
-## 1.0.0 (2024-02-24)
+## [v24.03](https://github.com/william-wtr92/instamint/compare/main..v24.03) (2024-03-22)
 
-### Features
+### 🔧 Chore:
 
-**chore**(init): initialisation of the project architecture and workflow.
+- **chore: init codebase**, by [@william-wtr92](https://github.com/william-wtr92)
+  in ([#2](https://github.com/william-wtr92/instamint/pull/2))
