@@ -47,16 +47,14 @@
 
 ## 💻 Git workflow:
 
-- Ensure that the `CHANGELOG.md` file is updated.
+- Go on the `main` branch.
 - **Do the following to release a new version:**
 
 ```bash
-pnpm run release  # This command will update the version in all /apps/ directory the package.json files with YY.MM format
-
-git add .  # The changes contain the CHANGELOG.md and the package.json files
-git commit -m "chore(release): 🚀 v{version}" # Example "chore(release): 🚀 v24.03"
-git tag -a v{version} -m "v{version}"  # Example "v24.03"
-git push origin main --tags
+pnpm run release
 ```
+
+- This command will update the Changelog with the new **PRs merged into main**, increment the version numbers in all
+  the `package.json` files in `/apps` and create a **new tag with the version number.**
 
 #### ⚠️ When you add a tag to main it triggers the deploy workflow
