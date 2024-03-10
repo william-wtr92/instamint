@@ -1,5 +1,6 @@
 #!/bin/bash
 
+GITHUB_BASE="https://github.com/"
 GITHUB_PROJECT_URL="https://github.com/william-wtr92/instamint"
 CHANGELOG_FILE="CHANGELOG.md"
 TEMP_FILE="new_entries_temp.md"
@@ -14,7 +15,8 @@ if [ -z "$LAST_TAG" ]; then
     LAST_TAG=$(git rev-list --max-parents=0 HEAD)
 fi
 
-COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:"- **%s**, by [@%an]($GITHUB_PROJECT_URL) in ([#%h]($GITHUB_PROJECT_URL/pull/%h))" --reverse)
+COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:"- **%s**, by [@%al]($GITHUB_BASE%al) in ([#%h]($GITHUB_PROJECT_URL/commit/%H))" --reverse | sed -E "s|\(#([0-9]+)\)|([#\1]($GITHUB_PROJECT_URL/pull/\1))|g")
+COMMITS=$(echo "$COMMITS" | sed -E 's/([0-9]+)\+//g')
 
 if [ -z "$COMMITS" ]; then
     echo "⚠️ No commit found since the last tag until now."
