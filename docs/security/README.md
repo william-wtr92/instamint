@@ -3,11 +3,13 @@
 The security of the system is a **_top priority for the development team_**. The system is designed to be secure by
 default, and the development team has _**taken a number of steps**_ to ensure that the _**system is secure**_.
 
-## 🔒 SonarQube
+## 🔍 Code Security
+
+### 🔒 SonarQube
 
 We use SonarQube to analyze the code and identify security vulnerabilities during our CI (Continuous Integration) runs.
 
-### 💻 Setup
+#### 💻 Setup
 
 - To set up SonarQube, follow the steps below:<br><br>
 
@@ -198,11 +200,13 @@ We use SonarQube to analyze the code and identify security vulnerabilities durin
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   ```
 
-## 📝 ESLint
+### 📝 ESLint
 
 We use **ESLint** to **_identify and fix problems_** in the TypeScript code.
 
-## 🤖 DependaBot
+## 🔒 Git Security
+
+### 🤖 Git DependaBot
 
 #### We use **DependaBot** to **_keep our dependencies up to date_**.
 
@@ -212,7 +216,7 @@ We use **ESLint** to **_identify and fix problems_** in the TypeScript code.
 
   - Go to the `Code security and analysis` tab in the repository settings.
   - Click on the `Enable Dependabot version updates` button.
-  - You need to complete the template provide by **Github** with `dependabot.yml` in `.github/` folder.
+  - You need to complete the template provide by **GitHub** with `dependabot.yml` in `.github/` folder.
 
 ```yml
 version: 2 ## Default version
@@ -221,4 +225,36 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly" ## The interval at which to check for updates (daily, weekly, monthly)
+```
+
+### 🛡️ Git Branch Protection
+
+#### We use **_branch protection_** to ensure that the `main` & `staging` branch is always stable and secure.
+
+- We have the following rules in place to protect the `main` & `staging` branch
+
+  - **Require pull request reviews before merging** & **1 required review**
+  - **Require status checks to pass before merging**
+  - **Require branches to be up-to-date before merging**
+  - **Require deploy preview to be successfully**
+  - **Include administrators**
+
+### 👀 Git Secrets
+
+#### We use **_GitHub Secrets_** to store sensitive information.
+
+- We use secrets in **_CI/CD workflows_** to store sensitive information such as **_API keys, tokens, and passwords_**.
+
+```yml
+build_and_publish_staging:
+  - name: 🐳 Docker Compose Build
+    env:
+      DB_CONNECTION_HOST: ${{ secrets.DB_CONNECTION_HOST_DOCKER }}
+      DB_CONNECTION_USER: ${{ secrets.DB_CONNECTION_USER_DOCKER }}
+      DB_CONNECTION_PWD: ${{ secrets.DB_CONNECTION_PASSWORD_DOCKER }}
+      DB_CONNECTION_DB: ${{ secrets.DB_CONNECTION_DOCKER }}
+      SECURITY_JWT_SECRET: ${{ secrets.SECURITY_JWT_SECRET }}
+      SECURITY_PASSWORD_PEPPER: ${{ secrets.SECURITY_PASSWORD_PEPPER }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      FILE_SERVICE_URL: ${{ secrets.FILES_SERVICE_URL_DOCKER }}
 ```
