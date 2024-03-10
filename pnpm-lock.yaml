@@ -202,8 +202,8 @@ importers:
   packages/types/server:
     dependencies:
       hono:
-        specifier: ^4.0.8
-        version: 4.0.9
+        specifier: ^4.0.10
+        version: 4.0.10
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.11.3)
@@ -4184,11 +4184,6 @@ packages:
 
   /hono@4.0.10:
     resolution: {integrity: sha512-sq0RFAC3Ij+bkhZu90EGAQnVI1EhohRsjo9BU+BjXLbC71GSy41JjsFqCeg8MRpO2Gdu0A4MXF5licO89tn/rw==}
-    engines: {node: '>=16.0.0'}
-    dev: false
-
-  /hono@4.0.9:
-    resolution: {integrity: sha512-XkFx6y6jAl08bGmoy53oGtHl8eHUixvmBulfcghrSySoJD3cW4UfFUa7JDGLOsIeJUv/a9d2pBFQUX7rzRnjvA==}
     engines: {node: '>=16.0.0'}
     dev: false
 

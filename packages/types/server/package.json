@@ -9,7 +9,7 @@
   "author": "William - @william-wtr92",
   "license": "ISC",
   "peerDependencies": {
-    "hono": "^4.0.8",
+    "hono": "^4.0.10",
     "knex": "^3.1.0"
   }
 }

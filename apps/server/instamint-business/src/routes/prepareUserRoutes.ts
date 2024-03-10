@@ -21,9 +21,9 @@ import { createErrorResponse } from "@/utils/errors"
 import { rateLimiter } from "@/middlewares/rateLimiter"
 import { handleError } from "@/middlewares/handleError"
 
-const prepareUserRoutes: ApiRoutes = ({ app, db }): void => {
-  const user: Hono = new Hono()
-  const userAuth: Hono = new Hono()
+const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
+  const user = new Hono()
+  const userAuth = new Hono()
 
   if (!db) {
     throw createErrorResponse("Database not available", 500)

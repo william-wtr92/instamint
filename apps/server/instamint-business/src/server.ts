@@ -11,11 +11,11 @@ import { AppConfig } from "./db/config/configTypes"
 import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
 
-const server = async (config: AppConfig): Promise<Hono> => {
+const server = async (config: AppConfig) => {
   const db: Knex = knex(config.db)
   BaseModel.knex(db)
 
-  const app: Hono = new Hono()
+  const app = new Hono()
   app.use(
     "*",
     cors(),

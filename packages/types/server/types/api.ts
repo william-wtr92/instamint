@@ -1,10 +1,10 @@
-import { Hono, Env } from "hono"
+import { Hono } from "hono"
 import { Knex } from "knex"
 
-export type RouteParams<T extends Env = Env> = {
-  app: Hono<T>
+export type RouteParams = {
+  app: Hono
   db?: Knex
 }
 
-export type ApiRoutes<T extends Env = Env> = (params: RouteParams<T>) => void
-export type PrepareRoutes<T extends Env = Env> = (ctx: RouteParams<T>) => void
+export type ApiRoutes = (params: RouteParams) => void
+export type PrepareRoutes = (ctx: RouteParams) => void
