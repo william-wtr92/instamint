@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Instamint is a social sharing platform based around NFTs, includes web3 technologies",
   "scripts": {
-    "postinstall": "if [ \"$PNPM_POSTINSTALL_ENABLE\" != \"false\" ]; then chmod +x ./scripts/setup-hooks.sh && ./scripts/setup-hooks.sh; fi",
-    "version": "chmod +x ./scripts/version.sh && ./scripts/version.sh",
-    "changelog": "chmod +x ./scripts/changelog.sh && ./scripts/changelog.sh -- $1",
-    "release": "chmod +x ./scripts/release.sh && ./scripts/release.sh",
+    "postinstall": "chmod +x ./scripts/postinstall.sh && bash ./scripts/postinstall.sh",
+    "version": "chmod +x ./scripts/version.sh && bash ./scripts/version.sh",
+    "changelog": "chmod +x ./scripts/changelog.sh && bash ./scripts/changelog.sh -- $1",
+    "release": "chmod +x ./scripts/release.sh && bash ./scripts/release.sh",
 
     "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files",
     "build": "pnpm build:webapp && pnpm build:business && pnpm build:files",
