@@ -11,6 +11,7 @@ FROM base AS dev
 
 WORKDIR /usr/src/app
 
+COPY scripts/postinstall.sh ./scripts/postinstall.sh
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/ ./packages/
 COPY apps/server/instamint-business/ ./apps/server/instamint-business/
@@ -30,6 +31,7 @@ FROM base AS prod
 
 WORKDIR /usr/src/app
 
+COPY scripts/postinstall.sh ./scripts/postinstall.sh
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/eslint/server/ ./packages/eslint/server/
 COPY packages/tsconfig/server/ ./packages/tsconfig/server/

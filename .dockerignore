@@ -25,4 +25,11 @@ docs
 .idea
 docker
 bruno
-scripts
+
+scripts/changelog.sh
+scripts/commit-msg.sh
+scripts/pre-commit.sh
+scripts/pre-push.sh
+scripts/release.sh
+scripts/setup-hooks.sh
+scripts/version.sh
