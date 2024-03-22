@@ -1,4 +1,4 @@
-# PR Title (JIRA Link)
+# PR Title [ITM-](https://project-william.atlassian.net/browse/ITM-)
 
 Summarize the intention and content of your PR here.
 
@@ -23,7 +23,8 @@ What type of change are you making? (Check all that apply)
 
 ## How Has This Been Tested?
 
-Explain the tests you conducted to validate your changes. Provide clear instructions so that the code review can replicate your tests and confirm the results.
+Explain the tests you conducted to validate your changes. Provide clear instructions so that the code review can
+replicate your tests and confirm the results.
 
 - [ ] Test A
 - [ ] Test B
