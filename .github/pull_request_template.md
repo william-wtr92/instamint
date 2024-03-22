@@ -17,6 +17,9 @@ Describe the changes you have made. For lists of significant changes, it may be 
 What type of change are you making? (Check all that apply)
 
 - [ ] Feature (non-breaking change which adds functionality)
+- [ ] Chore (non-breaking change that doesn't add functionality)
+- [ ] Enhancement (non-breaking change which improves an existing feature)
+- [ ] Refactor (code change that neither fixes a bug nor adds a feature)
 - [ ] Bug fix (non-breaking change which solves an issue)
 - [ ] Breaking change (change that could cause the current operation of the application to stop)
 - [ ] Documentation (changes or additions in the documentation)
