@@ -20,7 +20,7 @@
 - `/root/`: The root of the monorepo contains the **_configuration files, Docker Compose, scripts_** that are used to
   manage the monorepo.
 
-- `/apps/client & /apps/server `: This directories contains the **_applications_** that are part of the monorepo. Each
+- `/apps/client & /apps/server `: These directories contains the **_applications_** that are part of the monorepo. Each
   application is a separate
   project with its own **_source code, dependencies, and build process_**.
 
