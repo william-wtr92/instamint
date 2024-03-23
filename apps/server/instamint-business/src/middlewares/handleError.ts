@@ -10,15 +10,11 @@ export const handleError = async (e: Error, c: Context): Promise<Response> => {
   let statusCode = 500
 
   if (e instanceof HTTPException && e.res) {
-    try {
-      const body = await e.res.text()
-      const errorDetails = JSON.parse(body)
+    const body = await e.res.text()
+    const errorDetails = JSON.parse(body)
 
-      errorMessage = errorDetails.message || errorMessage
-      statusCode = e.res.status
-    } catch (parseError) {
-      errorMessage = e.message || errorMessage
-    }
+    errorMessage = errorDetails.message || errorMessage
+    statusCode = e.res.status
   } else {
     errorMessage = e.message || errorMessage
   }
