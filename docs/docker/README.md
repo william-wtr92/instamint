@@ -2,7 +2,7 @@
 
 #### In Instamint project, we use Docker to containerize our applications.
 
-- In the **Instamint project**, we use Docker to containerise our applications. This allows us to run our applications
+- In the **Instamint project**, we use Docker to containerize our applications. This allows us to run our applications
   in a
   consistent environment, whatever the host system. It's also easier to manage dependencies and isolate our applications
   from each other.

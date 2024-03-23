@@ -16,7 +16,7 @@ import { hashPassword } from "@/utils/hashPassword"
 import { sanitizeUser, sanitizeUsers } from "@/utils/dto/sanitizeUser"
 import configDb from "@/db/config/config"
 import { auth } from "@/middlewares/auth"
-import { perms } from "@/middlewares/perms"
+import { isAdmin } from "@/middlewares/perms"
 import { createErrorResponse } from "@/utils/errors"
 import { rateLimiter } from "@/middlewares/rateLimiter"
 import { handleError } from "@/middlewares/handleError"
@@ -29,7 +29,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
     throw createErrorResponse("Database not available", 500)
   }
 
-  user.get("/all", async (c: Context): Promise<Response> => {
+  user.get("/", async (c: Context): Promise<Response> => {
     const users: UserModel[] = await UserModel.query()
 
     return c.json({ users: sanitizeUsers(users) }, 200)
@@ -76,7 +76,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
   userAuth.get(
     "/:id",
     auth,
-    perms,
+    isAdmin,
     zValidator("param", idSchema),
     async (c: Context): Promise<Response> => {
       const id: string = c.req.param("id")
@@ -165,8 +165,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
   user.onError((e: Error, c: Context) => handleError(e, c))
   userAuth.onError((e: Error, c: Context) => handleError(e, c))
 
-  app.route("/user", user)
-  app.route("/user", userAuth)
+  app.route("/users", user)
+  app.route("/users", userAuth)
 }
 
 export default prepareUserRoutes

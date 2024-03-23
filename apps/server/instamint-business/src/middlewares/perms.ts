@@ -6,7 +6,7 @@ import UserModel from "@/db/models/UserModel"
 
 const factory: Factory = createFactory()
 
-export const perms: MiddlewareHandler = factory.createMiddleware(
+export const isAdmin: MiddlewareHandler = factory.createMiddleware(
   async (c: Context, next: Next) => {
     const user: UserModel = c.get("user")
 

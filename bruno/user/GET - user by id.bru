@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: http://localhost:3001/user/{{id}}
+  url: http://localhost:3001/users/{{id}}
   body: none
   auth: bearer
 }
 
 auth:bearer {
-  token: undifined
+  token: 
 }
 
 vars:pre-request {
