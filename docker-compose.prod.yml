@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  instamint-webapp:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-instamint-webapp
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-client-webapp:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - instamint_network
+
+  instamint-business:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-instamint-business
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-business:latest
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_CONNECTION_HOST=db
+      - DB_CONNECTION_USER=${DB_CONNECTION_USER_DOCKER}
+      - DB_CONNECTION_PWD=${DB_CONNECTION_PASSWORD_DOCKER}
+      - DB_CONNECTION_DB=${DB_CONNECTION_DOCKER}
+      - SECURITY_JWT_SECRET=${SECURITY_JWT_SECRET}
+      - SECURITY_PASSWORD_PEPPER=${SECURITY_PASSWORD_PEPPER}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - FILES_SERVICE_URL=${FILES_SERVICE_URL_DOCKER}
+    depends_on:
+      - db
+    networks:
+      - instamint_network
+
+  instamint-files:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-instamint-files
+      target: prod
+    image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-files:latest
+    ports:
+      - "3002:3002"
+    networks:
+      - instamint_network
+
+  db:
+    image: "postgres:13"
+    environment:
+      POSTGRES_USER: ${DB_CONNECTION_USER_DOCKER}
+      POSTGRES_PASSWORD: ${DB_CONNECTION_PASSWORD_DOCKER}
+      POSTGRES_DB: ${DB_CONNECTION_DOCKER}
+    ports:
+      - "5432:5432"
+    networks:
+      - instamint_network
+
+networks:
+  instamint_network:
+    driver: bridge

@@ -1,0 +1,15 @@
+{
+  "name": "@instamint/server-types",
+  "version": "1.0.0",
+  "description": "Typing for Instamint Server- HonoJS",
+  "main": "index.ts",
+  "keywords": [
+    "types"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC",
+  "peerDependencies": {
+    "hono": "^4.0.10",
+    "knex": "^3.1.0"
+  }
+}

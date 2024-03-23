@@ -1,0 +1,46 @@
+{
+  "name": "@instamint/business-server",
+  "version": "1.0.0",
+  "description": "Business API service for Instamint",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsx watch ./src/index.ts",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts",
+    "test": "NODE_ENV=test jest --forceExit --verbose --maxWorkers=1",
+    "test:ci": "NODE_ENV=test jest --forceExit --maxWorkers=3 --ci",
+    "test:watch": "NODE_ENV=test jest --watch",
+    "kn:latest": "knex migrate:latest",
+    "kn:rollback": "knex migrate:rollback",
+    "kn:make": "knex migrate:make $1"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20240222.0",
+    "@hono/node-server": "^1.8.2",
+    "@hono/sentry": "^1.0.1",
+    "@hono/zod-validator": "^0.1.11",
+    "@jest/globals": "^29.7.0",
+    "dotenv": "^16.4.5",
+    "hono": "^4.0.10",
+    "jest": "^29.7.0",
+    "knex": "^3.1.0",
+    "objection": "^3.1.4",
+    "pg": "^8.11.3",
+    "rate-limiter-flexible": "^4.0.1",
+    "ts-node": "^10.9.2",
+    "undici": "^6.7.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@instamint/eslint-config-server": "workspace:^",
+    "@instamint/server-types": "workspace:^",
+    "@instamint/tsconfig-server": "workspace:^",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.25",
+    "esbuild-jest": "^0.5.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.4.2"
+  }
+}

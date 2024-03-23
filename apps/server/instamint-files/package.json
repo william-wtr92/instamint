@@ -1,0 +1,20 @@
+{
+  "name": "@instamint/files-server",
+  "version": "1.0.0",
+  "description": "Images service for Instamint",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.8.2",
+    "hono": "^4.0.10"
+  },
+  "devDependencies": {
+    "@instamint/eslint-config-server": "workspace:^",
+    "@instamint/tsconfig-server": "workspace:^",
+    "tsx": "^3.14.0"
+  }
+}

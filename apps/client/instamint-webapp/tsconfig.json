@@ -1,0 +1,12 @@
+{
+  "extends": "@instamint/tsconfig-client/tsconfig.client.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/web/*": ["./src/web/*"],
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
