@@ -27,7 +27,7 @@ describe("/user endpoint", () => {
     }
 
     const app = await appContext
-    const response = await app.request("/user", {
+    const response = await app.request("/users", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

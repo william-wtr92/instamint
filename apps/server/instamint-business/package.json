@@ -21,6 +21,7 @@
     "@hono/node-server": "^1.8.2",
     "@hono/sentry": "^1.0.1",
     "@hono/zod-validator": "^0.1.11",
+    "@jest/globals": "^29.7.0",
     "dotenv": "^16.4.5",
     "hono": "^4.0.10",
     "jest": "^29.7.0",
