@@ -1,12 +1,8 @@
-# Server Side (Business API) - HonoJS
+# 🖥️ Server Side (Business API) - HonoJS
 
-# Getting Started
+## ⚙️ Getting Started
 
-First, run the development server:
-
-```bash
-# Install dependencies
-npm install
-# Run the server
-npm run dev
-```
+- You need to have **PNPM** installed, if not you can install it by following
+  the [instructions](https://pnpm.io/installation).
+- Install the dependencies by running `pnpm install`.
+- Start the development server by running `pnpm run dev`.

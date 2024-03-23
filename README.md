@@ -18,11 +18,13 @@ assess and minimise its ecological footprint, affirming its commitment to sustai
 
 ## 🔨 Setup
 
-- 🐳 Make sure you have **Docker** installed on your machine.
-- 📝 Setup ur **.env** file with the following
+### 🐳 From Docker environment
+
+- Make sure you have **Docker** installed on your machine.
+- Setup ur **.env** file with the following
   variables -> [See example](https://github.com/william-wtr92/instamint/blob/main/.env.example).
 
-- 💻 To run this project clone this repository and run it locally using **docker commands**. <br><br>
+- To run this project clone this repository and run it locally using **docker commands**. <br><br>
 
   - **🚀 Production:** <br><br>
     **Start the project:**
@@ -50,10 +52,36 @@ assess and minimise its ecological footprint, affirming its commitment to sustai
     make dev-down
     ```
 
-- **🔗 Access the project:** <br>
-  - **[Front - Instamint Webapp](http://localhost:3000)** run on port `3000`
-  - **[Back - Instamint Business](http://localhost:3001)** run on port `3001`
-  - **[Back - Instamint Files](http://localhost:3002)** run on port `3002`
+### 🔑 From the local environment
+
+- You need to have **PNPM** installed, if not you can install it by following
+  the [instructions](https://pnpm.io/installation).
+- Install the dependencies by running `pnpm install` at `root`.
+- Start the `development server` by running the following commands at `root`:
+
+  ##### **🖥️ Front - Instamint Webapp:**
+
+  ```bash
+  pnpm run dev:webapp
+  ```
+
+  ##### **🖥️ Back - Instamint Business:**
+
+  ```bash
+  pnpm run dev:business
+  ```
+
+  ##### **🖥️ Back - Instamint Files:**
+
+  ```bash
+  pnpm run dev:files
+  ```
+
+### **🔗 Access the project:** <br>
+
+- **[Front - Instamint Webapp](http://localhost:3000)** run on port `3000`
+- **[Back - Instamint Business](http://localhost:3001)** run on port `3001`
+- **[Back - Instamint Files](http://localhost:3002)** run on port `3002`
 
 ## ⭐️ Tech Stack
 
