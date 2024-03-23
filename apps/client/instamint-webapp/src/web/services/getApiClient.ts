@@ -1,12 +1,10 @@
-import Axios, { AxiosInstance } from "axios"
+import axios from "axios"
 
 // Unfinished GetApiClient for now
 export const getApiClient = () => {
-  const reqInstance: AxiosInstance = Axios.create({
+  return axios.create({
     headers: {
       Authorization: `Bearer`,
     },
   })
-
-  return reqInstance
 }
