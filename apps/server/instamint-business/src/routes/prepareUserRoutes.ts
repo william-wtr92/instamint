@@ -59,60 +59,56 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
       const requestBody: User = await c.req.json()
       const { username, email, password, rgpdValidation }: User = requestBody
 
+      const emailExist = await db("users").where({ email }).first()
+      const usernameExist = await db("users").where({ username }).first()
+
+      if (emailExist || usernameExist) {
+        return c.json({ message: emailOrUsernameAlreadyExist }, 400)
+      }
+
+      if (!rgpdValidation) {
+        return c.json({ message: rgpdValidationIsRequired }, 400)
+      }
+
+      const [passwordHash, passwordSalt]: string[] =
+        await hashPassword(password)
+
+      const newUser: InsertedUser = {
+        username,
+        email,
+        passwordHash,
+        passwordSalt,
+        rgpdValidation,
+      }
+
+      const mailToken = await sign(
+        {
+          payload: {
+            user: {
+              email,
+            },
+          },
+          exp: appConfig.security.jwt.expiresIn,
+          nbf: now,
+          iat: now,
+        },
+        appConfig.security.jwt.secret,
+        "HS512"
+      )
+
+      sgMail.setApiKey(appConfig.sendgrid.apiKey)
+
+      const sendGridMail: MailBuild<{ username: string; token: string }> = {
+        to: email,
+        from: appConfig.sendgrid.sender,
+        templateId: "d-66e0b9564a2b499e92a61c4a358f3e6c",
+        dynamic_template_data: { username, token: mailToken },
+      }
+
       const trx = await db.transaction()
 
       try {
-        const emailExist = await trx("users").where({ email }).first()
-        const usernameExist = await trx("users").where({ username }).first()
-
-        if (emailExist || usernameExist) {
-          await trx.rollback()
-
-          return c.json({ message: emailOrUsernameAlreadyExist }, 400)
-        }
-
-        if (!rgpdValidation) {
-          await trx.rollback()
-
-          return c.json({ message: rgpdValidationIsRequired }, 400)
-        }
-
-        const [passwordHash, passwordSalt]: string[] =
-          await hashPassword(password)
-
-        const newUser: InsertedUser = {
-          username,
-          email,
-          passwordHash,
-          passwordSalt,
-          rgpdValidation,
-        }
-
         await trx("users").insert(newUser)
-
-        const mailToken = await sign(
-          {
-            payload: {
-              user: {
-                email,
-              },
-            },
-            exp: appConfig.security.jwt.expiresIn,
-            nbf: now,
-            iat: now,
-          },
-          appConfig.security.jwt.secret,
-          "HS512"
-        )
-
-        sgMail.setApiKey(appConfig.sendgrid.apiKey)
-
-        const sendGridMail: MailBuild<{ username: string; token: string }> = {
-          to: email,
-          from: appConfig.sendgrid.sender,
-          templateId: "d-66e0b9564a2b499e92a61c4a358f3e6c",
-          dynamic_template_data: { username, token: mailToken },
-        }
 
         await sgMail.send(sendGridMail)
 
