@@ -2,7 +2,7 @@ import { createFactory, Factory } from "hono/factory"
 import { Context, Next } from "hono"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
-import { createErrorResponse } from "@/utils/errors"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 
 const factory: Factory = createFactory()
 

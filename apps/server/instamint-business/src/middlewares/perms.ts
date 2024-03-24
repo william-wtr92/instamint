@@ -1,7 +1,7 @@
 import { createFactory, Factory } from "hono/factory"
 import { Context, MiddlewareHandler, Next } from "hono"
 
-import { createErrorResponse } from "@/utils/errors"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import UserModel from "@/db/models/UserModel"
 
 const factory: Factory = createFactory()

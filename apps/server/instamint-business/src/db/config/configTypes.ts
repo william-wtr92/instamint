@@ -37,6 +37,11 @@ const sentrySchema = z.object({
   dsn: z.string(),
 })
 
+const sendgridSchema = z.object({
+  apiKey: z.string(),
+  sender: z.string(),
+})
+
 const microservicesSchema = z.object({
   files: z.string(),
 })
@@ -46,6 +51,7 @@ export const configTypes = z.object({
   db: dbConfigSchema,
   security: securityConfigSchema,
   sentry: sentrySchema,
+  sendgrid: sendgridSchema,
   microservices: microservicesSchema,
 })
 
