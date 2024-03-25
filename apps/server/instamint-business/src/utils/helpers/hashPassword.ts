@@ -1,7 +1,7 @@
 import { pbkdf2 as pbkdf2Callback, randomBytes } from "crypto"
 import { promisify } from "util"
 
-import appConfig from "../db/config/config"
+import appConfig from "../../db/config/config"
 
 const pbkdf2 = promisify(pbkdf2Callback)
 

@@ -1,7 +1,7 @@
 {
   "name": "@instamint/server-types",
   "version": "1.0.0",
-  "description": "Typing for Instamint Server- HonoJS",
+  "description": "Typing for Instamint Server - HonoJS",
   "main": "index.ts",
   "keywords": [
     "types"

@@ -14,8 +14,11 @@ export const unspecifiedErrorOccurred = "An unspecified error occurred"
 
 /* USERS MESSAGES */
 export const emailOrUsernameAlreadyExist = "Email or Username already exist"
+export const emailNotExists = "Email not exists"
+export const emailSent = "Email sent"
 export const rgpdValidationIsRequired = "RGPD validation is required"
 export const userCreated = "User created"
 export const errorDuringUserRegistration = "Error during user registration"
 export const userNotFound = "User not found"
-export const userMailValidated = "Email validated"
+export const userEmailValidated = "Email validated"
+export const userEmailAlreadyValidated = "Email already validated"

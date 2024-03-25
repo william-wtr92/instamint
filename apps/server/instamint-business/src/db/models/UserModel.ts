@@ -1,6 +1,6 @@
 import BaseModel from "./BaseModel"
 import RoleModel from "./RoleModel"
-import { hashPassword } from "@/utils/hashPassword"
+import { hashPassword } from "@/utils/helpers/hashPassword"
 
 class UserModel extends BaseModel {
   static tableName: string = "users"

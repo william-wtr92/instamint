@@ -9,13 +9,17 @@ import {
   idSchema,
   loginSchema,
   UserLogin,
-  userSchema,
-  User,
-  userMailValidationSchema,
-  UserMailToken,
 } from "@/utils/validators/users.validator"
+import {
+  baseSignupSchema,
+  SignUpTypes,
+  userEmailValidationSchema,
+  UserEmailToken,
+  userResendEmailValidationSchema,
+  UserResendEmail,
+} from "@instamint/shared-types"
 import UserModel from "@/db/models/UserModel"
-import { hashPassword } from "@/utils/hashPassword"
+import { hashPassword } from "@/utils/helpers/hashPassword"
 import { sanitizeUser, sanitizeUsers } from "@/utils/dto/sanitizeUsers"
 import appConfig from "@/db/config/config"
 import { auth } from "@/middlewares/auth"
@@ -25,18 +29,21 @@ import { rateLimiter } from "@/middlewares/rateLimiter"
 import { handleError } from "@/middlewares/handleError"
 import {
   databaseNotAvailable,
+  emailNotExists,
   emailOrUsernameAlreadyExist,
+  emailSent,
   errorDuringUserRegistration,
   rgpdValidationIsRequired,
   tokenNotProvided,
   userCreated,
-  userMailValidated,
+  userEmailAlreadyValidated,
+  userEmailValidated,
   userNotFound,
 } from "@/utils/messages"
-import { now } from "@/utils/times"
-import { MailBuild } from "@/types/mails.types"
-import { InsertedUser } from "@/types/users.types"
+import { now } from "@/utils/helpers/times"
+import { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { mailBuilder } from "@/utils/helpers/mailBuilder"
 
 const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
   const users = new Hono()
@@ -47,22 +54,22 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
   }
 
   users.get("/", async (c: Context): Promise<Response> => {
-    const users: UserModel[] = await UserModel.query()
+    const users = await UserModel.query()
 
     return c.json({ users: sanitizeUsers(users) }, 200)
   })
 
   users.post(
     "/",
-    zValidator("json", userSchema),
+    zValidator("json", baseSignupSchema),
     async (c: Context): Promise<Response> => {
-      const requestBody: User = await c.req.json()
-      const { username, email, password, rgpdValidation }: User = requestBody
+      const requestBody: SignUpTypes = await c.req.json()
+      const { username, email, password, rgpdValidation }: SignUpTypes =
+        requestBody
 
-      const emailExist = await db("users").where({ email }).first()
-      const usernameExist = await db("users").where({ username }).first()
+      const userExist = await UserModel.query().findOne({ email, username })
 
-      if (emailExist || usernameExist) {
+      if (userExist) {
         return c.json({ message: emailOrUsernameAlreadyExist }, 400)
       }
 
@@ -81,29 +88,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
         rgpdValidation,
       }
 
-      const mailToken = await sign(
-        {
-          payload: {
-            user: {
-              email,
-            },
-          },
-          exp: appConfig.security.jwt.expiresIn,
-          nbf: now,
-          iat: now,
-        },
-        appConfig.security.jwt.secret,
-        "HS512"
-      )
-
-      sgMail.setApiKey(appConfig.sendgrid.apiKey)
-
-      const sendGridMail: MailBuild<{ username: string; token: string }> = {
-        to: email,
-        from: appConfig.sendgrid.sender,
-        templateId: "d-66e0b9564a2b499e92a61c4a358f3e6c",
-        dynamic_template_data: { username, token: mailToken },
-      }
+      const sendGridMail = await mailBuilder({ username, email })
 
       const trx = await db.transaction()
 
@@ -131,40 +116,76 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
 
   users.post(
     "/emailValidation",
-    zValidator("json", userMailValidationSchema),
+    zValidator("json", userEmailValidationSchema),
     async (c: Context): Promise<Response> => {
-      const { token }: UserMailToken = await c.req.json()
+      const { validation }: UserEmailToken = await c.req.json()
 
-      if (!token) {
+      if (validation == null) {
         throw createErrorResponse(tokenNotProvided, 400)
       }
 
       try {
         const decodedToken = await verify(
-          token,
+          validation,
           appConfig.security.jwt.secret,
           "HS512"
         )
 
         const email: string = decodedToken.payload.user.email
 
-        const user = await db("users").where({ email }).first()
+        const user = await UserModel.query().findOne({ email })
 
         if (!user) {
           return c.json({ message: userNotFound }, 404)
+        }
+
+        if (user.emailValidation) {
+          return c.json({ message: userEmailAlreadyValidated }, 400)
         }
 
         await db("users").where({ email }).update({ emailValidation: true })
 
         return c.json(
           {
-            message: userMailValidated,
+            message: userEmailValidated,
           },
           200
         )
       } catch (err) {
         throw jwtTokenErrors(err)
       }
+    }
+  )
+
+  users.post(
+    "/resendEmailValidation",
+    zValidator("json", userResendEmailValidationSchema),
+    async (c: Context): Promise<Response> => {
+      const { email }: UserResendEmail = await c.req.json()
+
+      const user = await UserModel.query().findOne({ email })
+
+      if (!user) {
+        return c.json({ message: emailNotExists }, 400)
+      }
+
+      if (user.emailValidation) {
+        return c.json({ message: userEmailAlreadyValidated }, 400)
+      }
+
+      const sendGridMail = await mailBuilder({
+        username: user.username,
+        email: user.email,
+      })
+
+      await sgMail.send(sendGridMail)
+
+      return c.json(
+        {
+          message: emailSent,
+        },
+        200
+      )
     }
   )
 

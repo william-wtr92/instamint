@@ -1,7 +1,7 @@
 import { config } from "dotenv"
 
 import { AppConfig, configTypes } from "./configTypes"
-import { oneDay } from "../../utils/times"
+import { oneDay } from "../../utils/helpers/times"
 
 if (process.env.NODE_ENV === "test") {
   config({ path: ".env.test" })

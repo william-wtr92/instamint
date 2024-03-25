@@ -1,10 +1,10 @@
-import { User } from "@/utils/validators/users.validator"
+import { BaseSignUpTypes } from "@instamint/shared-types"
 import UserModel from "@/db/models/UserModel"
 
 export const sanitizeUser = (
-  user: User
-): Omit<User, "password" | "rgpdValidation"> => {
-  const { username, email }: User = user
+  user: BaseSignUpTypes
+): Omit<BaseSignUpTypes, "password" | "rgpdValidation"> => {
+  const { username, email }: BaseSignUpTypes = user
 
   return { username, email }
 }
