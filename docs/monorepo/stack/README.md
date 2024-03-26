@@ -53,6 +53,10 @@ as the important libraries used:
 - **Jest**: A JavaScript test framework focused on simplicity, which will allow us to test our application and make sure
   it works as expected.
 
+- **Redis**: An open-source, in-memory data structure store, used as a database, cache, and message broker. This will
+  enable
+  us to store our data in memory and make our application faster.
+
 ## 🛜 Versioning
 
 - **GitHub**: A code hosting platform for version control and collaboration, this will enable us to store our code and
