@@ -13,9 +13,11 @@ export type AppContextProviderProps = {
 type AppContextActionsType<T> = (data: T) => Promise<[Error | null, T?]>
 
 export type AppContextType = {
-  actions: {
-    signup: AppContextActionsType<SignUpTypes>
-    emailValidation: AppContextActionsType<UserEmailToken>
-    resendEmailValidation: AppContextActionsType<UserResendEmail>
+  services: {
+    users: {
+      signup: AppContextActionsType<SignUpTypes>
+      emailValidation: AppContextActionsType<UserEmailToken>
+      resendEmailValidation: AppContextActionsType<UserResendEmail>
+    }
   }
 }

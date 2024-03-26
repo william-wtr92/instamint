@@ -1,4 +1,5 @@
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useRouter } from "next/router"
 import { useCallback, useState } from "react"
 
 import { queryParamsHelper } from "@/web/utils/queryParamsHelper"
@@ -6,7 +7,6 @@ import { Button } from "@instamint/ui-kit"
 import { UserEmailToken } from "@instamint/shared-types"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useRouter } from "next/router"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -22,13 +22,19 @@ export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   }
 }
 
-const UsersEmailValidationPage = ({ validation }: UserEmailToken) => {
+const UsersEmailValidationPage = (
+  _props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  const { validation } = _props
+
   const router = useRouter()
   const [error, setError] = useState<Error | string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
 
   const {
-    actions: { emailValidation },
+    services: {
+      users: { emailValidation },
+    },
   } = useAppContext()
 
   const onSubmit = useCallback(async () => {

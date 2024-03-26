@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
+import { useRouter } from "next/router"
 
 import {
   Form,
@@ -16,7 +17,6 @@ import {
 } from "@instamint/ui-kit"
 import { signUpSchema, SignUpTypes } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useRouter } from "next/router"
 
 const SignUpPage = () => {
   const router = useRouter()
@@ -24,7 +24,9 @@ const SignUpPage = () => {
   const [success, setSuccess] = useState<string | null>(null)
 
   const {
-    actions: { signup },
+    services: {
+      users: { signup },
+    },
   } = useAppContext()
 
   const form = useForm<SignUpTypes>({

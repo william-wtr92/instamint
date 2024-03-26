@@ -1,7 +1,11 @@
 import { AxiosInstance } from "axios"
 
-type Api = {
+export type Api = {
   api: AxiosInstance
+}
+
+export type PrepareServicesType = Api & {
+  jwt?: string
 }
 
 export type ServicesTypes<T> = (

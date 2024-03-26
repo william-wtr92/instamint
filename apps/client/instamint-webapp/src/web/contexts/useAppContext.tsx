@@ -9,9 +9,7 @@ import {
 import { createApiClient } from "@/web/services/createApiClient"
 import { config } from "@/web/config"
 import { AppContextProviderProps, AppContextType } from "@/types"
-import signupService from "@/web/services/users/signupService"
-import emailValidationService from "@/web/services/users/emailValidationService"
-import resendEmailValidationService from "@/web/services/users/resendEmailValidationService"
+import { prepareServices } from "@/web/services/prepareServices"
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
@@ -22,19 +20,9 @@ export const AppContextProvider: FC<
   const [jwt, setJwt] = useState<string | undefined>(undefined)
   const api = createApiClient({ jwt, baseURL: config.api.baseUrl })
 
-  const signup = signupService({ api })
-  const emailValidation = emailValidationService({ api })
-  const resendEmailValidation = resendEmailValidationService({ api })
+  const services = prepareServices({ api })
 
-  const value = {
-    actions: {
-      signup,
-      emailValidation,
-      resendEmailValidation,
-    },
-  }
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={services}>{children}</AppContext.Provider>
 }
 
 const useAppContext = () => {

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
+import { useRouter } from "next/router"
 
 import {
   Form,
@@ -18,7 +19,6 @@ import {
   userResendEmailValidationSchema,
 } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useRouter } from "next/router"
 
 const UsersResendEmailValidationPage = () => {
   const router = useRouter()
@@ -26,8 +26,11 @@ const UsersResendEmailValidationPage = () => {
   const [success, setSuccess] = useState<string | null>(null)
 
   const {
-    actions: { resendEmailValidation },
+    services: {
+      users: { resendEmailValidation },
+    },
   } = useAppContext()
+
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
     defaultValues: {
