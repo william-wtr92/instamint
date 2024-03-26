@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
 import { useRouter } from "next/router"
+import { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import {
   Form,
@@ -18,7 +21,19 @@ import {
 import { signUpSchema, SignUp } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["signup"])),
+    },
+  }
+}
+
 const SignUpPage = () => {
+  const { t } = useTranslation("signup")
+
   const router = useRouter()
   const [error, setError] = useState<Error | string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -50,13 +65,13 @@ const SignUpPage = () => {
         return
       }
 
-      setSuccess("User created successfully. You'll be redirected shortly!")
+      setSuccess(t("success"))
 
       setInterval(async () => {
         await router.push("/")
       }, 3000)
     },
-    [signup, router]
+    [signup, router, t]
   )
 
   return (
@@ -73,17 +88,17 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    Username
+                    {t("usernameLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
-                      placeholder="Please enter your username"
+                      placeholder={t("usernamePlaceholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-xs">
-                    This is your public display name.
+                    {t("usernameDescription")}
                   </FormDescription>
                   <FormMessage className="relative left-2 text-error-primary" />
                 </FormItem>
@@ -95,18 +110,18 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    Email
+                    {t("emailLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
                       type="email"
-                      placeholder="Please enter your email address"
+                      placeholder={t("emailPlaceholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-xs">
-                    Please enter a valid email address.
+                    {t("emailDescription")}
                   </FormDescription>
                   <FormMessage className="relative left-2 text-error-primary" />
                 </FormItem>
@@ -118,18 +133,18 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    Password
+                    {t("passwordLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
                       type="password"
-                      placeholder="Please enter your password"
+                      placeholder={t("passwordPlaceholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2 mt-2 text-xs">
-                    Please enter a secure password.
+                    {t("passwordDescription")}
                   </FormDescription>
                   <FormMessage className="relative left-2 text-error-primary" />
                 </FormItem>
@@ -141,18 +156,18 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    Confirm Password
+                    {t("confirmPasswordLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
                       type="password"
-                      placeholder="Confirm your password"
+                      placeholder={t("confirmPasswordPlaceholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2 mt-2 text-xs">
-                    Please confirm your password.
+                    {t("confirmPasswordDescription")}
                   </FormDescription>
                   <FormMessage className="relative left-2 text-error-primary" />
                 </FormItem>
@@ -172,9 +187,9 @@ const SignUpPage = () => {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Terms & Conditions</FormLabel>
+                    <FormLabel>{t("termsLabel")}</FormLabel>
                     <FormDescription className="relative left-1 mt-2 text-xs">
-                      I agree to the terms and conditions.
+                      {t("termsDescription")}
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -184,7 +199,7 @@ const SignUpPage = () => {
               className="border-2 border-black px-5 py-2 w-[60%]"
               type="submit"
             >
-              Submit
+              {t("submit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-black">{success}</p>

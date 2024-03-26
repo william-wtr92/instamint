@@ -1,6 +1,21 @@
 import Head from "next/head"
+import { GetServerSideProps } from "next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useTranslation } from "next-i18next"
 
-export default function Home() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["common"])),
+    },
+  }
+}
+
+const Home = () => {
+  const { t } = useTranslation("common")
+
   return (
     <>
       <Head>
@@ -10,8 +25,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex justify-center items-center h-screen">
-        <h1 className="font-bold text-6xl">👀 Instamint WIP ! </h1>
+        <h1 className="font-bold text-6xl">{t("title")}</h1>
       </main>
     </>
   )
 }
+
+export default Home

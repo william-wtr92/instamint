@@ -1,0 +1,18 @@
+{
+  "usernameLabel": "Nom d'utilisateur",
+  "usernamePlaceholder": "Entrez votre nom d'utilisateur",
+  "usernameDescription": "Ceci sera votre nom d'utilisateur unique.",
+  "emailLabel": "Email",
+  "emailPlaceholder": "Entrez votre adresse email",
+  "emailDescription": "Veuillez entrer une adresse email valide.",
+  "passwordLabel": "Mot de passe",
+  "passwordPlaceholder": "Entrez votre mot de passe",
+  "passwordDescription": "Veuillez entrer un mot de passe sécurisé.",
+  "confirmPasswordLabel": "Confirmer le mot de passe",
+  "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+  "confirmPasswordDescription": "Veuillez confirmer votre mot de passe.",
+  "termsLabel": "Conditions d'utilisation",
+  "termsDescription": "J'accepte les conditions d'utilisation",
+  "submit": "Créer un compte",
+  "success": "Votre compte a été créé avec succès."
+}

@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
 import { useRouter } from "next/router"
+import { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import {
   Form,
@@ -20,7 +23,19 @@ import {
 } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["email"])),
+    },
+  }
+}
+
 const UsersResendEmailValidationPage = () => {
+  const { t } = useTranslation("email")
+
   const router = useRouter()
   const [error, setError] = useState<Error | string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -48,13 +63,13 @@ const UsersResendEmailValidationPage = () => {
         return
       }
 
-      setSuccess("Email sent successfully. Please check your email.")
+      setSuccess(t("emailSentSuccessfully"))
 
       setInterval(async () => {
         await router.push("/")
       }, 3000)
     },
-    [resendEmailValidation, router]
+    [resendEmailValidation, router, t]
   )
 
   return (
@@ -71,17 +86,17 @@ const UsersResendEmailValidationPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    Email
+                    {t("emailLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
-                      placeholder="Please enter your email"
+                      placeholder={t("emailPlaceholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-xs">
-                    Enter your email address to receive a validation email.
+                    {t("emailDescription")}
                   </FormDescription>
                   <FormMessage className="relative left-2 text-error-primary" />
                 </FormItem>
@@ -91,7 +106,7 @@ const UsersResendEmailValidationPage = () => {
               className="border-2 border-black px-5 py-2 w-[60%]"
               type="submit"
             >
-              Submit
+              {t("buttonSubmit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-black">{success}</p>
