@@ -19,11 +19,11 @@
 
 ```ts
 users.post("/", async (c: Context): Promise<Response> => {
-  ;[your_logic_here]
+  /* your logic */
   const trx = await db.transaction() // start a transaction
 
   try {
-    ;[your_db_operations_here]
+    /* your db operations */
 
     await trx.commit() // commit the transaction if all operations are successful
 

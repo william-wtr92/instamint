@@ -11,6 +11,7 @@
       - [💾 Database](./monorepo/tech/db/README.md)
       - [🐥 SendGrid](./monorepo/tech/sendgrid/README.md)
       - [🎨 Custom UI-Kit](./monorepo/tech/ui/README.md)
+      - [🎒 Redis](./monorepo/tech/redis/README.md)
   - [🚀 Deploy](./deploy/README.md)
     - [⚙️ Release process](./deploy/release/README.md)
     - [🤖 Github Actions](./deploy/workflows/README.md)
