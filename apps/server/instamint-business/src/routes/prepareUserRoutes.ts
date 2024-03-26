@@ -33,24 +33,30 @@ import {
   emailOrUsernameAlreadyExist,
   emailSent,
   errorDuringUserRegistration,
+  redisNotAvailable,
   rgpdValidationIsRequired,
   tokenNotProvided,
   userCreated,
   userEmailAlreadyValidated,
   userEmailValidated,
+  userMustWaitBeforeSendingAnotherMail,
   userNotFound,
 } from "@/utils/messages"
-import { now } from "@/utils/helpers/times"
+import { now, tenMinutes } from "@/utils/helpers/times"
 import { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 
-const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
+const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
   const users = new Hono()
   const usersAuth = new Hono()
 
   if (!db) {
     throw createErrorResponse(databaseNotAvailable, 500)
+  }
+
+  if (!redis) {
+    throw createErrorResponse(redisNotAvailable, 500)
   }
 
   users.get("/", async (c: Context): Promise<Response> => {
@@ -163,6 +169,13 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
     async (c: Context): Promise<Response> => {
       const { email }: UserResendEmail = await c.req.json()
 
+      const cacheEmailValidationKey = `email_validation:${email}`
+      const lastEmailValidation = await redis.get(cacheEmailValidationKey)
+
+      if (lastEmailValidation) {
+        return c.json({ message: userMustWaitBeforeSendingAnotherMail }, 429)
+      }
+
       const user = await UserModel.query().findOne({ email })
 
       if (!user) {
@@ -179,6 +192,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
       })
 
       await sgMail.send(sendGridMail)
+
+      await redis.set(cacheEmailValidationKey, now, "EX", tenMinutes)
 
       return c.json(
         {
@@ -197,7 +212,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
     async (c: Context): Promise<Response> => {
       const id: string = c.req.param("id")
 
-      const user: UserModel | undefined = await UserModel.query().findById(id)
+      const user = await UserModel.query().findById(id)
 
       if (!user) {
         throw createErrorResponse("User not found", 404)
@@ -219,13 +234,13 @@ const prepareUserRoutes: ApiRoutes = ({ app, db }) => {
       const requestBody: UserLogin = await c.req.json()
       const { email, password }: UserLogin = requestBody
 
-      const user: UserModel | undefined = await UserModel.query()
+      const user = await UserModel.query()
         .findOne({
           email,
         })
         .withGraphFetched("roleData")
 
-      const validity: boolean | undefined = await user?.checkPassword(password)
+      const validity = await user?.checkPassword(password)
 
       if (!user || !validity) {
         throw createErrorResponse("Invalid email or password", 401)

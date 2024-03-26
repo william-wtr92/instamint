@@ -25,6 +25,9 @@ services:
       - DB_CONNECTION_USER=${DB_CONNECTION_USER_DOCKER}
       - DB_CONNECTION_PWD=${DB_CONNECTION_PASSWORD_DOCKER}
       - DB_CONNECTION_DB=${DB_CONNECTION_DOCKER}
+      - REDIS_HOST=${REDIS_HOST_DOCKER}
+      - REDIS_PORT=${REDIS_PORT_DOCKER}
+      - REDIS_PASSWORD=${REDIS_PASSWORD_DOCKER}
       - SECURITY_JWT_SECRET=${SECURITY_JWT_SECRET}
       - SECURITY_PASSWORD_PEPPER=${SECURITY_PASSWORD_PEPPER}
       - SENTRY_DSN=${SENTRY_DSN}
@@ -33,6 +36,7 @@ services:
       - FILES_SERVICE_URL=${FILES_SERVICE_URL_DOCKER}
     depends_on:
       - db
+      - redis
     networks:
       - instamint_network
 
@@ -55,6 +59,13 @@ services:
       POSTGRES_DB: ${DB_CONNECTION_DOCKER}
     ports:
       - "5432:5432"
+    networks:
+      - instamint_network
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
     networks:
       - instamint_network
 

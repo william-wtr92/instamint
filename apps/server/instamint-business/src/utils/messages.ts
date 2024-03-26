@@ -1,5 +1,6 @@
-/* DATABASE MESSAGES */
+/* GLOBALS MESSAGES */
 export const databaseNotAvailable = "Database not available"
+export const redisNotAvailable = "Redis not available"
 
 /* TOKEN MESSAGES */
 export const tokenNotProvided = "No token provided"
@@ -22,3 +23,5 @@ export const errorDuringUserRegistration = "Error during user registration"
 export const userNotFound = "User not found"
 export const userEmailValidated = "Email validated"
 export const userEmailAlreadyValidated = "Email already validated"
+export const userMustWaitBeforeSendingAnotherMail =
+  "Please wait 10 minutes before trying again."

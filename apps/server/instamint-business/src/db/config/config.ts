@@ -31,6 +31,11 @@ const appConfig = configTypes.parse({
       loadExtensions: [".ts"],
     },
   },
+  redis: {
+    host: process.env.REDIS_HOST!,
+    port: process.env.REDIS_PORT!,
+    password: process.env.REDIS_PASSWORD!,
+  },
   security: {
     jwt: {
       secret: process.env.SECURITY_JWT_SECRET!,

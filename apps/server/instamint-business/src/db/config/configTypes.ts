@@ -19,6 +19,12 @@ const dbConfigSchema = z.object({
   }),
 })
 
+const redisConfigSchema = z.object({
+  host: z.string(),
+  port: z.string(),
+  password: z.string(),
+})
+
 const securityConfigSchema = z.object({
   jwt: z.object({
     secret: z.string(),
@@ -49,6 +55,7 @@ const microservicesSchema = z.object({
 export const configTypes = z.object({
   port: z.number(),
   db: dbConfigSchema,
+  redis: redisConfigSchema,
   security: securityConfigSchema,
   sentry: sentrySchema,
   sendgrid: sendgridSchema,
