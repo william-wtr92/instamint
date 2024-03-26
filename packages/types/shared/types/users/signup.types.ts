@@ -32,5 +32,5 @@ export const signUpSchema = baseSignupSchema
     path: ["confirmPassword"],
   })
 
-export type BaseSignUpTypes = z.infer<typeof baseSignupSchema>
-export type SignUpTypes = z.infer<typeof signUpSchema>
+export type BaseSignUp = z.infer<typeof baseSignupSchema>
+export type SignUp = z.infer<typeof signUpSchema>

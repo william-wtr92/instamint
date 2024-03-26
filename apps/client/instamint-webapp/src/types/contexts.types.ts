@@ -1,23 +1,19 @@
 import { ReactNode } from "react"
 
-import {
-  SignUpTypes,
-  UserEmailToken,
-  UserResendEmail,
-} from "@instamint/shared-types"
+import { UsersServices } from "@/types"
 
 export type AppContextProviderProps = {
   children: ReactNode
 }
 
-type AppContextActionsType<T> = (data: T) => Promise<[Error | null, T?]>
+export type ServicesActions<T> = (data: T) => Promise<[Error | null, T?]>
+
+type ServicesActionsMappings<Actions extends Record<string, unknown>> = {
+  [K in keyof Actions]: ServicesActions<Actions[K]>
+}
 
 export type AppContextType = {
   services: {
-    users: {
-      signup: AppContextActionsType<SignUpTypes>
-      emailValidation: AppContextActionsType<UserEmailToken>
-      resendEmailValidation: AppContextActionsType<UserResendEmail>
-    }
+    users: ServicesActionsMappings<UsersServices>
   }
 }

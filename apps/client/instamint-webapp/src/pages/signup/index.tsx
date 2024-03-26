@@ -15,7 +15,7 @@ import {
   Button,
   Checkbox,
 } from "@instamint/ui-kit"
-import { signUpSchema, SignUpTypes } from "@instamint/shared-types"
+import { signUpSchema, SignUp } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
 
 const SignUpPage = () => {
@@ -29,7 +29,7 @@ const SignUpPage = () => {
     },
   } = useAppContext()
 
-  const form = useForm<SignUpTypes>({
+  const form = useForm<SignUp>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: "",
@@ -41,7 +41,7 @@ const SignUpPage = () => {
   })
 
   const onSubmit = useCallback(
-    async (values: SignUpTypes) => {
+    async (values: SignUp) => {
       const [err] = await signup(values)
 
       if (err) {

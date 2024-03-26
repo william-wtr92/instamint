@@ -1,10 +1,10 @@
-import { SignUpTypes } from "@instamint/shared-types"
+import { SignUp } from "@instamint/shared-types"
 
 import { routes } from "@/web/routes"
 import { handleError } from "@/web/utils/handleError"
-import { ServicesTypes } from "@/types"
+import { Services } from "@/types"
 
-const signupService: ServicesTypes<SignUpTypes> =
+const signupService: Services<SignUp> =
   ({ api }) =>
   async (data) => {
     try {

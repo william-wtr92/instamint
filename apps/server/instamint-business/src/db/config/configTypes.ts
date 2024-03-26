@@ -39,27 +39,27 @@ const securityConfigSchema = z.object({
   }),
 })
 
-const sentrySchema = z.object({
+const sentryConfigSchema = z.object({
   dsn: z.string(),
 })
 
-const sendgridSchema = z.object({
+const sendgridConfigSchema = z.object({
   apiKey: z.string(),
   sender: z.string(),
 })
 
-const microservicesSchema = z.object({
+const microservicesConfigSchema = z.object({
   files: z.string(),
 })
 
-export const configTypes = z.object({
+export const baseConfig = z.object({
   port: z.number(),
   db: dbConfigSchema,
   redis: redisConfigSchema,
   security: securityConfigSchema,
-  sentry: sentrySchema,
-  sendgrid: sendgridSchema,
-  microservices: microservicesSchema,
+  sentry: sentryConfigSchema,
+  sendgrid: sendgridConfigSchema,
+  microservices: microservicesConfigSchema,
 })
 
-export type AppConfig = z.infer<typeof configTypes>
+export type AppConfig = z.infer<typeof baseConfig>

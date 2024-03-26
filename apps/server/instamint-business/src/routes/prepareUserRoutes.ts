@@ -12,7 +12,7 @@ import {
 } from "@/utils/validators/users.validator"
 import {
   baseSignupSchema,
-  SignUpTypes,
+  SignUp,
   userEmailValidationSchema,
   UserEmailToken,
   userResendEmailValidationSchema,
@@ -69,9 +69,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
     "/",
     zValidator("json", baseSignupSchema),
     async (c: Context): Promise<Response> => {
-      const requestBody: SignUpTypes = await c.req.json()
-      const { username, email, password, rgpdValidation }: SignUpTypes =
-        requestBody
+      const requestBody: SignUp = await c.req.json()
+      const { username, email, password, rgpdValidation }: SignUp = requestBody
 
       const userExist = await UserModel.query().findOne({ email, username })
 

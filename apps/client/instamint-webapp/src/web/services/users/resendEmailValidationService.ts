@@ -2,9 +2,9 @@ import { UserResendEmail } from "@instamint/shared-types"
 
 import { routes } from "@/web/routes"
 import { handleError } from "@/web/utils/handleError"
-import { ServicesTypes } from "@/types"
+import { Services } from "@/types"
 
-const resendEmailValidationService: ServicesTypes<UserResendEmail> =
+const resendEmailValidationService: Services<UserResendEmail> =
   ({ api }) =>
   async (data) => {
     try {
