@@ -1,18 +1,39 @@
 {
-  "usernameLabel": "Username",
-  "usernamePlaceholder": "Please enter your username",
-  "usernameDescription": "This is your public display name.",
-  "emailLabel": "Email",
-  "emailPlaceholder": "Please enter your email address",
-  "emailDescription": "Please enter a valid email address.",
-  "passwordLabel": "Password",
-  "passwordPlaceholder": "Please enter your password",
-  "passwordDescription": "Please enter a secure password.",
-  "confirmPasswordLabel": "Confirm Password",
-  "confirmPasswordPlaceholder": "Confirm your password",
-  "confirmPasswordDescription": "Please confirm your password.",
-  "termsLabel": "Terms & Conditions",
-  "termsDescription": "I agree to the terms and conditions.",
+  "username": {
+    "label": "Username",
+    "placeholder": "Please enter your username",
+    "description": "This is your public display name.",
+    "error": "Special characters are not permitted in username."
+  },
+  "email": {
+    "label": "Email",
+    "placeholder": "Please enter your email address",
+    "description": "Please enter a valid email address.",
+    "error": "Please enter a valid email address."
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Please enter your password",
+    "description": "Please enter a secure password.",
+    "criteria": {
+      "uppercase": "An uppercase letter",
+      "lowercase": "A lowercase letter",
+      "number": "A number",
+      "specialCharacter": "A special character",
+      "length": "8 characters long"
+    }
+  },
+  "confirmPassword": {
+    "label": "Confirm Password",
+    "placeholder": "Confirm your password",
+    "description": "Please confirm your password.",
+    "error": "Passwords do not match."
+  },
+  "terms": {
+    "label": "Terms & Conditions",
+    "description": "I agree to the terms and conditions.",
+    "error": "You must agree to the terms and conditions."
+  },
   "submit": "Create Account",
   "success": "User created successfully. You'll be redirected shortly!"
 }

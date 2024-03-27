@@ -4,7 +4,7 @@ import { useCallback, useState } from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 
-import { queryParamsHelper } from "@/web/utils/queryParamsHelper"
+import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import { Button } from "@instamint/ui-kit"
 import type { UserEmailToken } from "@instamint/shared-types"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
@@ -55,14 +55,14 @@ const UsersEmailValidationPage = (
         return
       }
 
-      setSuccess(t("successValidEmail"))
+      setSuccess(t("validation.success"))
     } else {
-      setError(t("errorValidEmail"))
+      setError(t("validation.errorNoToken"))
     }
 
     const timeout = setTimeout(async () => {
       await router.push("/")
-    }, 3000)
+    }, 10000)
 
     return () => clearTimeout(timeout)
   }, [emailValidation, validation, router, t])
@@ -71,13 +71,13 @@ const UsersEmailValidationPage = (
     <>
       <div className="mt-10 flex justify-center">
         <div className="w-[90%] flex flex-col gap-6 items-center shadow-md shadow-gray-300 rounded-md p-10 sm:w-[70%] xl:w-1/3">
-          <h1 className="font-bold text-center">{t("titleValidEmail")}</h1>
+          <h1 className="font-bold text-center">{t("validation.title")}</h1>
           <Button
             className="flex gap-3 border-2 border-black"
             onClick={onSubmit}
           >
             <EnvelopeIcon className="w-5 h-5" />
-            <span>{t("buttonValidEmail")}</span>
+            <span>{t("validation.button")}</span>
           </Button>
           {success ? (
             <p className="text-sm text-center text-black">{success}</p>

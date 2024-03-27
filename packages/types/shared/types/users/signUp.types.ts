@@ -1,5 +1,20 @@
 import { z } from "zod"
 
+const passwordErrorMessages = {
+  uppercase: "One uppercase character",
+  lowercase: "One lowercase character",
+  number: "One number",
+  specialCharacter: "One special character",
+  length: "Must be at least 8 characters in length",
+} as const
+
+export const passwordRegex = {
+  uppercase: ".*[A-Z].*",
+  lowercase: ".*[a-z].*",
+  number: ".*\\d.*",
+  specialCharacter: ".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*",
+} as const
+
 export const baseSignupSchema = z.object({
   username: z
     .string()
@@ -12,14 +27,14 @@ export const baseSignupSchema = z.object({
   }),
   password: z
     .string()
-    .regex(new RegExp(".*[A-Z].*"), "One uppercase character")
-    .regex(new RegExp(".*[a-z].*"), "One lowercase character")
-    .regex(new RegExp(".*\\d.*"), "One number")
+    .regex(new RegExp(passwordRegex.uppercase), passwordErrorMessages.uppercase)
+    .regex(new RegExp(passwordRegex.lowercase), passwordErrorMessages.lowercase)
+    .regex(new RegExp(passwordRegex.number), passwordErrorMessages.number)
     .regex(
-      new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"),
-      "One special character"
+      new RegExp(passwordRegex.specialCharacter),
+      passwordErrorMessages.specialCharacter
     )
-    .min(8, "Must be at least 8 characters in length"),
+    .min(8, passwordErrorMessages.length),
   gdprValidation: z.boolean(),
 })
 

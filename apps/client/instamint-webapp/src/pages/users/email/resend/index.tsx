@@ -48,6 +48,7 @@ const UsersResendEmailValidationPage = () => {
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
+    mode: "onBlur",
     defaultValues: {
       email: "",
     },
@@ -63,7 +64,7 @@ const UsersResendEmailValidationPage = () => {
         return
       }
 
-      setSuccess(t("emailSentSuccessfully"))
+      setSuccess(t("resend.successfully"))
 
       const timeout = setTimeout(async () => {
         await router.push("/")
@@ -88,27 +89,35 @@ const UsersResendEmailValidationPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("emailLabel")}
+                    {t("resend.email.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
-                      placeholder={t("emailPlaceholder")}
+                      placeholder={t("resend.email.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-xs">
-                    {t("emailDescription")}
+                    {t("resend.email.description")}
                   </FormDescription>
-                  <FormMessage className="relative left-2 text-error-primary" />
+                  <FormMessage
+                    className="relative left-2 text-error-primary"
+                    useCustomError={true}
+                  >
+                    {form.formState.errors.email ? (
+                      <div>{t("resend.email.error")}</div>
+                    ) : null}
+                  </FormMessage>
                 </FormItem>
               )}
             />
             <Button
-              className="border-2 border-black px-5 py-2 w-[60%]"
+              disabled={!form.formState.isValid}
+              className={`border-2 border-black px-5 py-2 w-[60%] ${!form.formState.isValid ? "cursor-not-allowed" : ""}`}
               type="submit"
             >
-              {t("buttonSubmit")}
+              {t("resend.email.submit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-black">{success}</p>

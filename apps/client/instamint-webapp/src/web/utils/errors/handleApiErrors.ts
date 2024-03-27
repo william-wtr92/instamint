@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios"
 
-export const handleError = (error: unknown): Error => {
+export const handleApiErrors = (error: unknown): Error => {
   if ((error as AxiosError).isAxiosError) {
     const axiosError = error as AxiosError
     let errorMessage = "Oops. Something went wrong"

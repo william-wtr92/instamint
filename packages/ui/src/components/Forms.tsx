@@ -135,10 +135,12 @@ FormDescription.displayName = "FormDescription"
 
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
+  React.HTMLAttributes<HTMLParagraphElement> & { useCustomError?: boolean }
+>(({ className, children, useCustomError = false, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
+
+  const body =
+    useCustomError && children ? children : error ? String(error.message) : null
 
   if (!body) {
     return null

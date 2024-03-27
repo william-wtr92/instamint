@@ -1,7 +1,7 @@
 import type { UserEmailToken } from "@instamint/shared-types"
 
 import { routes } from "@/web/routes"
-import { handleError } from "@/web/utils/handleError"
+import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
 const emailValidationService: Services<UserEmailToken> =
@@ -19,7 +19,7 @@ const emailValidationService: Services<UserEmailToken> =
 
       return [null, responseData]
     } catch (err) {
-      return [handleError(err)]
+      return [handleApiErrors(err)]
     }
   }
 

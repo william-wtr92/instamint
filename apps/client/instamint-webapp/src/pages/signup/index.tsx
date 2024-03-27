@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
@@ -20,6 +20,7 @@ import {
 } from "@instamint/ui-kit"
 import { signUpSchema, type SignUp } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
+import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -43,9 +44,19 @@ const SignUpPage = () => {
 
   const [error, setError] = useState<Error | string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [passwordCriteria, setPasswordCriteria] = useState<
+    Record<string, boolean>
+  >({
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    specialCharacter: false,
+    length: false,
+  })
 
   const form = useForm<SignUp>({
     resolver: zodResolver(signUpSchema),
+    mode: "onBlur",
     defaultValues: {
       username: "",
       email: "",
@@ -54,6 +65,17 @@ const SignUpPage = () => {
       gdprValidation: false,
     },
   })
+
+  const {
+    watch,
+    formState: { errors },
+  } = form
+
+  const password = watch("password")
+
+  useEffect(() => {
+    setPasswordCriteria(checkPasswordHelper(password))
+  }, [password])
 
   const onSubmit = useCallback(
     async (values: SignUp) => {
@@ -76,6 +98,11 @@ const SignUpPage = () => {
     [signUp, router, t]
   )
 
+  const disabled =
+    !form.formState.isValid ||
+    !form.watch("gdprValidation") ||
+    !Object.values(passwordCriteria).every(Boolean)
+
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="w-[95%] sm:w-[70%] xl:w-[40%]">
@@ -90,19 +117,24 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("usernameLabel")}
+                    {t("username.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
-                      placeholder={t("usernamePlaceholder")}
+                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                      placeholder={t("username.placeholder")}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2  mt-2 text-xs">
-                    {t("usernameDescription")}
+                  <FormDescription className="relative left-2  mt-2 text-medium">
+                    {t("username.description")}
                   </FormDescription>
-                  <FormMessage className="relative left-2 text-error-primary" />
+                  <FormMessage
+                    className="relative left-2 text-error-primary"
+                    useCustomError={true}
+                  >
+                    {errors.username ? <div>{t("username.error")}</div> : null}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -112,20 +144,25 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("emailLabel")}
+                    {t("email.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
+                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="email"
-                      placeholder={t("emailPlaceholder")}
+                      placeholder={t("email.placeholder")}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2  mt-2 text-xs">
-                    {t("emailDescription")}
+                  <FormDescription className="relative left-2  mt-2 text-medium">
+                    {t("email.description")}
                   </FormDescription>
-                  <FormMessage className="relative left-2 text-error-primary" />
+                  <FormMessage
+                    className="relative left-2 text-error-primary"
+                    useCustomError={true}
+                  >
+                    {errors.email ? <div>{t("email.error")}</div> : null}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -135,20 +172,38 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("passwordLabel")}
+                    {t("password.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
+                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="password"
-                      placeholder={t("passwordPlaceholder")}
+                      placeholder={t("password.placeholder")}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2 mt-2 text-xs">
-                    {t("passwordDescription")}
+                  <FormDescription className="relative left-2 mt-2 text-medium">
+                    {t("password.description")}
                   </FormDescription>
-                  <FormMessage className="relative left-2 text-error-primary" />
+                  <div className="mt-4 w-full px-4 rounded-md xl:w-1/3">
+                    {Object.entries(passwordCriteria).map(([key, value]) => (
+                      <div
+                        key={key}
+                        className={`flex items-center gap-3 text-medium`}
+                      >
+                        <span
+                          className={`w-3 h-3 border border-input  rounded-2xl ${
+                            value ? "bg-accent-500" : "bg-neutral-700"
+                          } `}
+                        ></span>
+                        <span
+                          className={`${value ? "font-light" : "font-bold"} `}
+                        >
+                          {t(`password.criteria.${key}`)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </FormItem>
               )}
             />
@@ -158,20 +213,27 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("confirmPasswordLabel")}
+                    {t("confirmPassword.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
+                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="password"
-                      placeholder={t("confirmPasswordPlaceholder")}
+                      placeholder={t("confirmPassword.placeholder")}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2 mt-2 text-xs">
-                    {t("confirmPasswordDescription")}
+                  <FormDescription className="relative left-2 mt-2 text-medium">
+                    {t("confirmPassword.description")}
                   </FormDescription>
-                  <FormMessage className="relative left-2 text-error-primary" />
+                  <FormMessage
+                    className="relative left-2 text-error-primary"
+                    useCustomError={true}
+                  >
+                    {errors.confirmPassword ? (
+                      <div>{t("confirmPassword.error")}</div>
+                    ) : null}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -183,22 +245,23 @@ const SignUpPage = () => {
                   <FormControl>
                     <Checkbox
                       id="terms2"
-                      className="flex justify-center justify-items-center items-center border-2 border-black w-7 h-7 rounded-md"
+                      className="flex justify-center justify-items-center items-center border-2 border-black w-7 h-7 rounded-md data-[state=checked]:bg-accent-400 data-[state=checked]:text-white data-[state=checked]:border-0"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>{t("termsLabel")}</FormLabel>
-                    <FormDescription className="relative left-1 mt-2 text-xs">
-                      {t("termsDescription")}
+                    <FormLabel>{t("terms.label")}</FormLabel>
+                    <FormDescription className="relative left-[0.1rem]  mt-2 text-medium">
+                      {t("terms.description")}
                     </FormDescription>
                   </div>
                 </FormItem>
               )}
             />
             <Button
-              className="border-2 border-black px-5 py-2 w-[60%]"
+              disabled={disabled}
+              className={`border-2 border-black px-5 py-2 w-[60%] ${!form.formState.isValid ? "cursor-not-allowed" : ""}`}
               type="submit"
             >
               {t("submit")}
