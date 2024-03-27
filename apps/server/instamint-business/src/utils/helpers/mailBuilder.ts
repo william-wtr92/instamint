@@ -3,7 +3,7 @@ import sgMail from "@sendgrid/mail"
 
 import appConfig from "@/db/config/config"
 import { now } from "@/utils/helpers/times"
-import { MailBuild, MailData } from "@/types"
+import type { MailBuild, MailData } from "@/types"
 
 export const mailBuilder = async (data: MailData) => {
   const mailToken = await sign(

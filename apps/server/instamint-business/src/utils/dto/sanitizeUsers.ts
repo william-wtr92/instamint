@@ -1,9 +1,9 @@
-import { BaseSignUp } from "@instamint/shared-types"
-import UserModel from "@/db/models/UserModel"
+import type { BaseSignUp } from "@instamint/shared-types"
+import type UserModel from "@/db/models/UserModel"
 
 export const sanitizeUser = (
   user: BaseSignUp
-): Omit<BaseSignUp, "password" | "rgpdValidation"> => {
+): Omit<BaseSignUp, "password" | "gdprValidation"> => {
   const { username, email }: BaseSignUp = user
 
   return { username, email }

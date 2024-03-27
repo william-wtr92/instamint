@@ -24,7 +24,7 @@ describe("/users endpoint", () => {
       username: "instamint01",
       email: "test@example.com",
       password: "Password123==+",
-      rgpdValidation: true,
+      gdprValidation: true,
     }
 
     const app = await appContext

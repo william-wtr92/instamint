@@ -1,5 +1,5 @@
-import { createFactory, Factory } from "hono/factory"
-import { Context, MiddlewareHandler, Next } from "hono"
+import { createFactory, type Factory } from "hono/factory"
+import type { Context, MiddlewareHandler, Next } from "hono"
 import { verify } from "hono/jwt"
 
 import appConfig from "@/db/config/config"

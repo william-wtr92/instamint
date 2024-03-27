@@ -20,7 +20,7 @@ export const baseSignupSchema = z.object({
       "One special character"
     )
     .min(8, "Must be at least 8 characters in length"),
-  rgpdValidation: z.boolean(),
+  gdprValidation: z.boolean(),
 })
 
 export const signUpSchema = baseSignupSchema

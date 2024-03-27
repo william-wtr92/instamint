@@ -1,22 +1,22 @@
-import { Context, Hono } from "hono"
+import { type Context, Hono } from "hono"
 import { sign, verify } from "hono/jwt"
 import { zValidator } from "@hono/zod-validator"
-import { Dispatcher, request } from "undici"
-import { ApiRoutes } from "@instamint/server-types"
+import { type Dispatcher, request } from "undici"
+import type { ApiRoutes } from "@instamint/server-types"
 import sgMail from "@sendgrid/mail"
 
 import {
   idSchema,
   loginSchema,
-  UserLogin,
+  type UserLogin,
 } from "@/utils/validators/users.validator"
 import {
   baseSignupSchema,
-  SignUp,
+  type SignUp,
   userEmailValidationSchema,
-  UserEmailToken,
+  type UserEmailToken,
   userResendEmailValidationSchema,
-  UserResendEmail,
+  type UserResendEmail,
 } from "@instamint/shared-types"
 import UserModel from "@/db/models/UserModel"
 import { hashPassword } from "@/utils/helpers/hashPassword"
@@ -34,7 +34,7 @@ import {
   emailSent,
   errorDuringUserRegistration,
   redisNotAvailable,
-  rgpdValidationIsRequired,
+  gdprValidationIsRequired,
   tokenNotProvided,
   userCreated,
   userEmailAlreadyValidated,
@@ -43,7 +43,7 @@ import {
   userNotFound,
 } from "@/utils/messages"
 import { now, tenMinutes } from "@/utils/helpers/times"
-import { InsertedUser } from "@/types"
+import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 
@@ -70,7 +70,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
     zValidator("json", baseSignupSchema),
     async (c: Context): Promise<Response> => {
       const requestBody: SignUp = await c.req.json()
-      const { username, email, password, rgpdValidation }: SignUp = requestBody
+      const { username, email, password, gdprValidation }: SignUp = requestBody
 
       const userExist = await UserModel.query().findOne({ email, username })
 
@@ -78,8 +78,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json({ message: emailOrUsernameAlreadyExist }, 400)
       }
 
-      if (!rgpdValidation) {
-        return c.json({ message: rgpdValidationIsRequired }, 400)
+      if (!gdprValidation) {
+        return c.json({ message: gdprValidationIsRequired }, 400)
       }
 
       const [passwordHash, passwordSalt]: string[] =
@@ -90,7 +90,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         email,
         passwordHash,
         passwordSalt,
-        rgpdValidation,
+        gdprValidation,
       }
 
       const sendGridMail = await mailBuilder({ username, email })

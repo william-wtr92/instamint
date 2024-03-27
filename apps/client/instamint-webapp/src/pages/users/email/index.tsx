@@ -1,4 +1,4 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { useRouter } from "next/router"
 import { useCallback, useState } from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next"
 
 import { queryParamsHelper } from "@/web/utils/queryParamsHelper"
 import { Button } from "@instamint/ui-kit"
-import { UserEmailToken } from "@instamint/shared-types"
+import type { UserEmailToken } from "@instamint/shared-types"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
 import useAppContext from "@/web/contexts/useAppContext"
 
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   return {
     props: {
       validation: validationValue,
-      ...(await serverSideTranslations(locale!, ["email"])),
+      ...(await serverSideTranslations(locale ?? "en", ["email"])),
     },
   }
 }
@@ -32,18 +32,18 @@ const UsersEmailValidationPage = (
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const { validation } = _props
-
-  const { t } = useTranslation("email")
-
   const router = useRouter()
-  const [error, setError] = useState<Error | string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
 
   const {
     services: {
       users: { emailValidation },
     },
   } = useAppContext()
+
+  const { t } = useTranslation("email")
+
+  const [error, setError] = useState<Error | string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
 
   const onSubmit = useCallback(async () => {
     if (validation != null) {
@@ -56,17 +56,15 @@ const UsersEmailValidationPage = (
       }
 
       setSuccess(t("successValidEmail"))
-
-      setInterval(async () => {
-        await router.push("/")
-      }, 3000)
     } else {
       setError(t("errorValidEmail"))
-
-      setInterval(async () => {
-        await router.push("/")
-      }, 20000)
     }
+
+    const timeout = setTimeout(async () => {
+      await router.push("/")
+    }, 3000)
+
+    return () => clearTimeout(timeout)
   }, [emailValidation, validation, router, t])
 
   return (

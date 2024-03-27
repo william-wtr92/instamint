@@ -1,6 +1,6 @@
-import { AxiosInstance } from "axios"
+import type { AxiosInstance } from "axios"
 
-import { AppContextType } from "@/types"
+import type { AppContextType } from "@/types"
 
 export type Api = {
   api: AxiosInstance

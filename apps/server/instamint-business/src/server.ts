@@ -1,4 +1,4 @@
-import { Context, Hono } from "hono"
+import { type Context, Hono } from "hono"
 import { logger } from "hono/logger"
 import { cors } from "hono/cors"
 import { prettyJSON } from "hono/pretty-json"
@@ -8,7 +8,7 @@ import { sentry } from "@hono/sentry"
 import knex from "knex"
 import Redis from "ioredis"
 
-import { AppConfig } from "./db/config/configTypes"
+import type { AppConfig } from "./db/config/configTypes"
 import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
 

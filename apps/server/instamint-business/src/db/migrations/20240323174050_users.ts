@@ -1,4 +1,4 @@
-import { Knex } from "knex"
+import type { Knex } from "knex"
 
 export const up = async (knex: Knex): Promise<void> => {
   await knex.schema
@@ -18,7 +18,7 @@ export const up = async (knex: Knex): Promise<void> => {
     table.text("passwordSalt").notNullable()
     table.timestamps(true, true, true)
     table.boolean("emailValidation").notNullable().defaultTo(false)
-    table.boolean("rgpdValidation").notNullable().defaultTo(false)
+    table.boolean("gdprValidation").notNullable().defaultTo(false)
     table.integer("roleId").references("id").inTable("roles").defaultTo(1)
   })
 }

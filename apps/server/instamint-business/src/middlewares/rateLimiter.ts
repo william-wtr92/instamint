@@ -1,5 +1,5 @@
-import { createFactory, Factory } from "hono/factory"
-import { Context, Next } from "hono"
+import { createFactory, type Factory } from "hono/factory"
+import type { Context, Next } from "hono"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"

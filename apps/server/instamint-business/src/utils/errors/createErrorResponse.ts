@@ -1,6 +1,6 @@
 import { HTTPException } from "hono/http-exception"
 
-import { StatusCode } from "@instamint/server-types"
+import type { StatusCode } from "@instamint/server-types"
 
 type SimpleHeaders = { [key: string]: string }
 

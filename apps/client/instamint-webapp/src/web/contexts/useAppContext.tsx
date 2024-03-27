@@ -1,14 +1,14 @@
 import {
   createContext,
-  FC,
-  PropsWithChildren,
+  type FC,
+  type PropsWithChildren,
   useContext,
   useState,
 } from "react"
 
 import { createApiClient } from "@/web/services/createApiClient"
 import { config } from "@/web/config"
-import { AppContextProviderProps, AppContextType } from "@/types"
+import type { AppContextProviderProps, AppContextType } from "@/types"
 import { prepareServices } from "@/web/services/prepareServices"
 
 const AppContext = createContext<AppContextType | undefined>(undefined)

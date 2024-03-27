@@ -1,9 +1,9 @@
-import { AxiosError } from "axios"
+import type { AxiosError } from "axios"
 
 export const handleError = (error: unknown): Error => {
   if ((error as AxiosError).isAxiosError) {
     const axiosError = error as AxiosError
-    let errorMessage: string = "Oops. Something went wrong"
+    let errorMessage = "Oops. Something went wrong"
 
     if (typeof axiosError.response?.data === "string") {
       errorMessage = axiosError.response.data

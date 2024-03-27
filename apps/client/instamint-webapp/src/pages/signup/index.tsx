@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
 import { useRouter } from "next/router"
-import { GetServerSideProps } from "next"
+import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
@@ -18,7 +18,7 @@ import {
   Button,
   Checkbox,
 } from "@instamint/ui-kit"
-import { signUpSchema, SignUp } from "@instamint/shared-types"
+import { signUpSchema, type SignUp } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -26,23 +26,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ["signup"])),
+      ...(await serverSideTranslations(locale ?? "en", ["signup"])),
     },
   }
 }
 
 const SignUpPage = () => {
-  const { t } = useTranslation("signup")
-
   const router = useRouter()
-  const [error, setError] = useState<Error | string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-
   const {
     services: {
-      users: { signup },
+      users: { signUp },
     },
   } = useAppContext()
+
+  const { t } = useTranslation("signup")
+
+  const [error, setError] = useState<Error | string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
 
   const form = useForm<SignUp>({
     resolver: zodResolver(signUpSchema),
@@ -51,13 +51,13 @@ const SignUpPage = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      rgpdValidation: false,
+      gdprValidation: false,
     },
   })
 
   const onSubmit = useCallback(
     async (values: SignUp) => {
-      const [err] = await signup(values)
+      const [err] = await signUp(values)
 
       if (err) {
         setError(err)
@@ -67,11 +67,13 @@ const SignUpPage = () => {
 
       setSuccess(t("success"))
 
-      setInterval(async () => {
+      const timeout = setTimeout(async () => {
         await router.push("/")
       }, 3000)
+
+      return () => clearTimeout(timeout)
     },
-    [signup, router, t]
+    [signUp, router, t]
   )
 
   return (
@@ -175,7 +177,7 @@ const SignUpPage = () => {
             />
             <FormField
               control={form.control}
-              name="rgpdValidation"
+              name="gdprValidation"
               render={({ field }) => (
                 <FormItem className="w-full flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>

@@ -12,6 +12,12 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "@typescript-eslint/array-type": ["error", { default: "array" }],
+    "@typescript-eslint/ban-types": "error",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/no-inferrable-types": "error",
     indent: "off",
     "linebreak-style": ["error", "unix"],
     quotes: [

@@ -1,6 +1,6 @@
 # 🎨 Custom UI-Kit
 
-💡At **Instamint**, we use our own `UI-Kit`, which allows us to externalise our reusable components across all our
+💡At **Instamint**, we use our own `UI-Kit`, which allows us to externalize our reusable components across all our
 projects, thereby ensuring greater flexibility.
 
 ## 📦 Installation

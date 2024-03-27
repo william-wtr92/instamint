@@ -1,6 +1,6 @@
 import { config } from "dotenv"
 
-import { AppConfig, baseConfig } from "./configTypes"
+import { type AppConfig, baseConfig } from "./configTypes"
 import { oneDay } from "../../utils/helpers/times"
 
 if (process.env.NODE_ENV === "test") {

@@ -1,7 +1,7 @@
 import BaseModel from "./BaseModel"
 
 class RoleModel extends BaseModel {
-  static tableName: string = "roles"
+  static tableName = "roles"
   right!: string
 }
 

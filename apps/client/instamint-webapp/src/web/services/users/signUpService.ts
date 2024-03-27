@@ -1,19 +1,21 @@
-import { SignUp } from "@instamint/shared-types"
+import type { SignUp } from "@instamint/shared-types"
 
 import { routes } from "@/web/routes"
 import { handleError } from "@/web/utils/handleError"
-import { Services } from "@/types"
+import type { Services } from "@/types"
 
-const signupService: Services<SignUp> =
+const signUpService: Services<SignUp> =
   ({ api }) =>
   async (data) => {
     try {
-      const { data: responseData } = await api.post(routes.users.signup, {
+      const body = {
         username: data.username,
         email: data.email,
         password: data.password,
-        rgpdValidation: data.rgpdValidation,
-      })
+        gdprValidation: data.gdprValidation,
+      }
+
+      const { data: responseData } = await api.post(routes.users.signUp, body)
 
       return [null, responseData]
     } catch (err) {
@@ -21,4 +23,4 @@ const signupService: Services<SignUp> =
     }
   }
 
-export default signupService
+export default signUpService

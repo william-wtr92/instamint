@@ -2,7 +2,7 @@ import { defineRoutes } from "@/types"
 
 export const routes = defineRoutes({
   users: {
-    signup: "/users",
+    signUp: "/users",
     emailValidation: "/users/emailValidation",
     resendEmailValidation: "/users/resendEmailValidation",
   },

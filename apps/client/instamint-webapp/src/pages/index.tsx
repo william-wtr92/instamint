@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { GetServerSideProps } from "next"
+import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 
@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ["common"])),
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   }
 }

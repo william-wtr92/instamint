@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { CreateApiClient } from "@/types"
+import type { CreateApiClient } from "@/types"
 
 export const createApiClient: CreateApiClient = ({ jwt, baseURL }) => {
   return axios.create({

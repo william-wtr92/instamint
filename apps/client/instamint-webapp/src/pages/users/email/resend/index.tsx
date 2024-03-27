@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
 import { useRouter } from "next/router"
-import { GetServerSideProps } from "next"
+import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
@@ -18,7 +18,7 @@ import {
   Button,
 } from "@instamint/ui-kit"
 import {
-  UserResendEmail,
+  type UserResendEmail,
   userResendEmailValidationSchema,
 } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -28,23 +28,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ["email"])),
+      ...(await serverSideTranslations(locale ?? "en", ["email"])),
     },
   }
 }
 
 const UsersResendEmailValidationPage = () => {
-  const { t } = useTranslation("email")
-
   const router = useRouter()
-  const [error, setError] = useState<Error | string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-
   const {
     services: {
       users: { resendEmailValidation },
     },
   } = useAppContext()
+
+  const { t } = useTranslation("email")
+
+  const [error, setError] = useState<Error | string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
@@ -65,9 +65,11 @@ const UsersResendEmailValidationPage = () => {
 
       setSuccess(t("emailSentSuccessfully"))
 
-      setInterval(async () => {
+      const timeout = setTimeout(async () => {
         await router.push("/")
       }, 3000)
+
+      return () => clearTimeout(timeout)
     },
     [resendEmailValidation, router, t]
   )

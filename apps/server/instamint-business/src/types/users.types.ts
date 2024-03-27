@@ -3,5 +3,5 @@ export type InsertedUser = {
   email: string
   passwordHash: string
   passwordSalt: string
-  rgpdValidation: boolean
+  gdprValidation: boolean
 }

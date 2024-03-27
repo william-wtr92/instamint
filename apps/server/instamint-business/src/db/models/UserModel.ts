@@ -3,7 +3,7 @@ import RoleModel from "./RoleModel"
 import { hashPassword } from "@/utils/helpers/hashPassword"
 
 class UserModel extends BaseModel {
-  static tableName: string = "users"
+  static tableName = "users"
 
   id!: number
   username!: string
@@ -13,7 +13,7 @@ class UserModel extends BaseModel {
   createdAt!: Date
   updatedAt!: Date
   emailValidation!: boolean
-  rgpdValidation!: boolean
+  gdprValidation!: boolean
   roleId!: number
   roleData!: RoleModel
 
