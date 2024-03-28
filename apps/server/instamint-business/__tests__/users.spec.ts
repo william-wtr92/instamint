@@ -38,6 +38,6 @@ describe("/users endpoint", () => {
 
     const data = await response.json()
     expect(response.status).toBe(201)
-    expect(data).toHaveProperty("message", userCreated)
+    expect(data).toHaveProperty("message", userCreated.message)
   })
 })
