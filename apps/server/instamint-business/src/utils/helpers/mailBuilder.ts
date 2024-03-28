@@ -2,10 +2,10 @@ import { sign } from "hono/jwt"
 import sgMail from "@sendgrid/mail"
 
 import appConfig from "@/db/config/config"
-import { now } from "@/utils/helpers/times"
+import { now, oneHour } from "@/utils/helpers/times"
 import type { MailBuild, MailData } from "@/types"
 
-export const mailBuilder = async (data: MailData) => {
+export const mailBuilder = async (data: MailData, expiration?: number) => {
   const mailToken = await sign(
     {
       payload: {
@@ -13,7 +13,7 @@ export const mailBuilder = async (data: MailData) => {
           email: data.email,
         },
       },
-      exp: appConfig.security.jwt.expiresIn,
+      exp: expiration ? expiration : oneHour,
       nbf: now,
       iat: now,
     },

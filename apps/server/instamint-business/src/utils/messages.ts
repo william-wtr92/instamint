@@ -9,6 +9,11 @@ export const redisNotAvailable = {
   message: "Redis not available",
 } as const
 
+export const toManyRequests = {
+  errorCode: "toManyRequests",
+  message: "To many requests",
+} as const
+
 /* TOKEN MESSAGES */
 export const tokenNotProvided = {
   errorCode: "tokenNotProvided",
@@ -86,4 +91,10 @@ export const emailSent = {
 export const userMustWaitBeforeSendingAnotherMail = {
   errorCode: "userMustWaitBeforeSendingAnotherMail",
   message: "Please wait 10 minutes before trying again.",
+} as const
+
+/* AUTH MESSAGES */
+export const notHavePermission = {
+  errorCode: "notHavePermission",
+  message: "You don't have permission",
 } as const

@@ -42,7 +42,7 @@ import {
   userMustWaitBeforeSendingAnotherMail,
   userNotFound,
 } from "@/utils/messages"
-import { now, tenMinutes } from "@/utils/helpers/times"
+import { now, oneHour, tenMinutesNotBasedOnNow } from "@/utils/helpers/times"
 import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -94,7 +94,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         gdprValidation,
       }
 
-      const sendGridMail = await mailBuilder({ username, email })
+      const sendGridMail = await mailBuilder({ username, email }, oneHour)
 
       const trx = await db.transaction()
 
@@ -175,14 +175,22 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(userEmailAlreadyValidated, 400)
       }
 
-      const sendGridMail = await mailBuilder({
-        username: user.username,
-        email: user.email,
-      })
+      const sendGridMail = await mailBuilder(
+        {
+          username: user.username,
+          email: user.email,
+        },
+        oneHour
+      )
 
       await sgMail.send(sendGridMail)
 
-      await redis.set(cacheEmailValidationKey, now, "EX", tenMinutes)
+      await redis.set(
+        cacheEmailValidationKey,
+        now,
+        "EX",
+        tenMinutesNotBasedOnNow
+      )
 
       return c.json(emailSent, 200)
     }
@@ -199,7 +207,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const user = await UserModel.query().findById(id)
 
       if (!user) {
-        throw createErrorResponse("User not found", 404)
+        return c.json(userNotFound, 404)
       }
 
       return c.json(
@@ -227,7 +235,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const validity = await user?.checkPassword(password)
 
       if (!user || !validity) {
-        throw createErrorResponse("Invalid email or password", 401)
+        return c.json(emailNotExists, 400)
       }
 
       const jwt: string = await sign(
@@ -266,7 +274,12 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         await request(appConfig.microservices.files)
 
       if (statusCode !== 200) {
-        throw createErrorResponse("Microservice error", statusCode)
+        return c.json(
+          {
+            message: "Microservice not available",
+          },
+          404
+        )
       }
 
       const data = await body.json()

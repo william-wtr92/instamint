@@ -3,6 +3,7 @@ import type { Context, Next } from "hono"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { toManyRequests } from "@/utils/messages"
 
 const factory: Factory = createFactory()
 
@@ -22,7 +23,7 @@ export const rateLimiter = (points: number, duration: number) => {
     try {
       await customOptions.consume(ip)
     } catch (e) {
-      throw createErrorResponse("Too many requests", 429)
+      throw createErrorResponse(toManyRequests, 429)
     }
 
     await next()

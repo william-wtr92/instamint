@@ -35,5 +35,5 @@
     "error": "You must agree to the terms and conditions."
   },
   "submit": "Create Account",
-  "success": "User created successfully. You'll be redirected shortly!"
+  "success": "User created successfully. Look out for an email to verify your account."
 }
