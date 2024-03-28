@@ -22,6 +22,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -55,6 +56,8 @@ const SignUpPage = () => {
     specialCharacter: false,
     length: false,
   })
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [isFocused, setIsFocused] = useState<boolean>(false)
 
   useDelayedRedirect("/", redirectDelay, triggerRedirect)
 
@@ -76,6 +79,7 @@ const SignUpPage = () => {
   } = form
 
   const password = watch("password")
+  const checkPassword = Object.values(passwordCriteria).every(Boolean)
 
   useEffect(() => {
     setPasswordCriteria(checkPasswordHelper(password))
@@ -100,9 +104,7 @@ const SignUpPage = () => {
   )
 
   const disabled =
-    !form.formState.isValid ||
-    !form.watch("gdprValidation") ||
-    !Object.values(passwordCriteria).every(Boolean)
+    !form.formState.isValid || !form.watch("gdprValidation") || !checkPassword
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
@@ -124,6 +126,9 @@ const SignUpPage = () => {
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       placeholder={t("signup:username.placeholder")}
+                      onFocus={() => {
+                        setIsFocused(false)
+                      }}
                       {...field}
                     />
                   </FormControl>
@@ -154,12 +159,12 @@ const SignUpPage = () => {
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="email"
                       placeholder={t("signup:email.placeholder")}
+                      onFocus={() => {
+                        setIsFocused(false)
+                      }}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2  mt-2 text-medium">
-                    {t("signup:email.description")}
-                  </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
@@ -175,40 +180,61 @@ const SignUpPage = () => {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel className="relative left-1 font-bold">
-                    {t("signup:password.label")}
+                <FormItem className="relative w-full">
+                  <FormLabel className="relative left-1 font-bold flex gap-2 items-center">
+                    <span>{t("signup:password.label")}</span>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
-                      type="password"
-                      placeholder={t("signup:password.placeholder")}
-                      {...field}
-                    />
+                    <div className="relative">
+                      <Input
+                        className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                        type={showPassword ? "text" : "password"}
+                        placeholder={t("signup:password.placeholder")}
+                        {...field}
+                        onFocus={() => {
+                          setIsFocused(true)
+                        }}
+                        onBlur={() => setIsFocused(false)}
+                      />
+                      {showPassword ? (
+                        <EyeSlashIcon
+                          className="absolute right-2 top-1/4 w-4 h-5 hover:cursor-pointer"
+                          onClick={() => setShowPassword(!showPassword)}
+                        />
+                      ) : (
+                        <EyeIcon
+                          className="absolute right-2 top-1/4 w-4 h-5 hover:cursor-pointer"
+                          onClick={() => setShowPassword(!showPassword)}
+                        />
+                      )}
+                    </div>
                   </FormControl>
-                  <FormDescription className="relative left-2 mt-2 text-medium">
-                    {t("signup:password.description")}
-                  </FormDescription>
-                  <div className="mt-4 w-full px-4 rounded-md xl:w-1/3">
-                    {Object.entries(passwordCriteria).map(([key, value]) => (
-                      <div
-                        key={key}
-                        className={`flex items-center gap-3 text-medium`}
-                      >
-                        <span
-                          className={`w-3 h-3 border border-input  rounded-2xl ${
-                            value ? "bg-accent-500" : "bg-neutral-700"
-                          } `}
-                        ></span>
-                        <span
-                          className={`${value ? "font-light" : "font-bold"} `}
-                        >
-                          {t(`signup:password.criteria.${key}`)}
-                        </span>
+                  {isFocused ? (
+                    <div
+                      className="relative -left-4 rounded-md mt-4 bg-white bg-opacity-40 xl:border-1 xl:shadow-2xl p-4 xl:-bottom-10 xl:-left-56 xl:absolute"
+                      tabIndex={-1}
+                    >
+                      <div className="w-full px-4 rounded-md">
+                        {Object.entries(passwordCriteria).map(
+                          ([key, value]) => (
+                            <span
+                              key={key}
+                              className={`flex items-center gap-3 text-medium`}
+                            >
+                              <span
+                                className={`w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-50"}`}
+                              ></span>
+                              <span
+                                className={`${value ? "font-light" : "font-bold"} `}
+                              >
+                                {t(`signup:password.criteria.${key}`)}
+                              </span>
+                            </span>
+                          )
+                        )}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ) : null}
                 </FormItem>
               )}
             />
@@ -225,12 +251,12 @@ const SignUpPage = () => {
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="password"
                       placeholder={t("signup:confirmPassword.placeholder")}
+                      onFocus={() => {
+                        setIsFocused(false)
+                      }}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2 mt-2 text-medium">
-                    {t("signup:confirmPassword.description")}
-                  </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
@@ -253,6 +279,9 @@ const SignUpPage = () => {
                       className="flex justify-center justify-items-center items-center border-2 border-black w-7 h-7 rounded-md data-[state=checked]:bg-accent-400 data-[state=checked]:text-white data-[state=checked]:border-0"
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      onFocus={() => {
+                        setIsFocused(false)
+                      }}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">

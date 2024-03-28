@@ -9,7 +9,7 @@ import {
   tokenInvalidStructure,
   tokenNotProvided,
   userNotFound,
-} from "@/utils/messages"
+} from "@/def/messages"
 
 const factory: Factory = createFactory()
 

@@ -3,7 +3,7 @@ import type { Context, Next } from "hono"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { toManyRequests } from "@/utils/messages"
+import { toManyRequests } from "@/def/messages"
 
 const factory: Factory = createFactory()
 

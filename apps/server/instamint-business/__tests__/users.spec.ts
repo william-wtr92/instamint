@@ -3,7 +3,7 @@ import { describe, test, expect, beforeAll, afterAll } from "@jest/globals"
 
 import server from "@/server"
 import appConfig from "@/db/config/config"
-import { userCreated } from "@/utils/messages"
+import { userCreated } from "@/def/messages"
 
 beforeAll(async () => {
   const db = knex(appConfig.db)

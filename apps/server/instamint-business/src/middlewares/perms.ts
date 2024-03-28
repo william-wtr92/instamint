@@ -3,7 +3,7 @@ import type { Context, MiddlewareHandler, Next } from "hono"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import type UserModel from "@/db/models/UserModel"
-import { notHavePermission } from "@/utils/messages"
+import { notHavePermission } from "@/def/messages"
 
 const factory: Factory = createFactory()
 

@@ -41,11 +41,18 @@ import {
   userEmailValidated,
   userMustWaitBeforeSendingAnotherMail,
   userNotFound,
-} from "@/utils/messages"
-import { now, oneHour, tenMinutesNotBasedOnNow } from "@/utils/helpers/times"
+  tokenExpired,
+} from "@/def/messages"
+import {
+  now,
+  oneHour,
+  oneHourNotBasedOnNow,
+  tenMinutesNotBasedOnNow,
+} from "@/utils/helpers/times"
 import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
+import { redisKeys } from "@/def/redisKeys"
 
 const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
   const users = new Hono()
@@ -95,6 +102,9 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const sendGridMail = await mailBuilder({ username, email }, oneHour)
+      const emailTokenKey = redisKeys.users.emailToken(
+        sendGridMail.dynamic_template_data.token
+      )
 
       const trx = await db.transaction()
 
@@ -102,6 +112,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         await trx("users").insert(newUser)
 
         await sgMail.send(sendGridMail)
+
+        await redis.set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
 
         await trx.commit()
 
@@ -122,6 +134,13 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (validation == null) {
         return c.json(tokenNotProvided, 400)
+      }
+
+      const emailTokenKey = redisKeys.users.emailToken(validation)
+      const emailToken = await redis.get(emailTokenKey)
+
+      if (!emailToken) {
+        return c.json(tokenExpired, 400)
       }
 
       try {
@@ -145,6 +164,8 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await db("users").where({ email }).update({ emailValidation: true })
 
+        await redis.del(emailTokenKey)
+
         return c.json(userEmailValidated, 200)
       } catch (err) {
         throw jwtTokenErrors(err)
@@ -158,7 +179,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const { email }: UserResendEmail = await c.req.json()
 
-      const cacheEmailValidationKey = `email_validation:${email}`
+      const cacheEmailValidationKey = redisKeys.users.emailValidation(email)
       const lastEmailValidation = await redis.get(cacheEmailValidationKey)
 
       if (lastEmailValidation) {
@@ -182,15 +203,17 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         },
         oneHour
       )
+      const emailTokenKey = redisKeys.users.emailToken(
+        sendGridMail.dynamic_template_data.token
+      )
 
       await sgMail.send(sendGridMail)
 
-      await redis.set(
-        cacheEmailValidationKey,
-        now,
-        "EX",
-        tenMinutesNotBasedOnNow
-      )
+      await redis
+        .multi()
+        .set(cacheEmailValidationKey, now, "EX", tenMinutesNotBasedOnNow)
+        .set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
+        .exec()
 
       return c.json(emailSent, 200)
     }

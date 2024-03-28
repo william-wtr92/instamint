@@ -4,7 +4,7 @@ import {
   tokenInvalidStructure,
   tokenSignatureMismatched,
   unspecifiedErrorOccurred,
-} from "@/utils/messages"
+} from "@/def/messages"
 
 export const jwtTokenErrors = <T>(err: T) => {
   if (err instanceof Error && err.name == "JwtTokenSignatureMismatched") {

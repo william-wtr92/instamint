@@ -2,7 +2,7 @@ import type { Context } from "hono"
 import { HTTPException } from "hono/http-exception"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { unspecifiedErrorOccurred } from "@/utils/messages"
+import { unspecifiedErrorOccurred } from "@/def/messages"
 
 export const handleError = async (e: Error, c: Context): Promise<Response> => {
   let errorMessage = unspecifiedErrorOccurred

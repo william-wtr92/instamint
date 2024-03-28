@@ -8,13 +8,11 @@
   "email": {
     "label": "Email",
     "placeholder": "Entrez votre adresse email",
-    "description": "Veuillez entrer une adresse email valide.",
     "error": "Veuillez entrer une adresse email valide."
   },
   "password": {
     "label": "Mot de passe",
     "placeholder": "Entrez votre mot de passe",
-    "description": "Veuillez entrer un mot de passe sécurisé.",
     "criteria": {
       "uppercase": "Une lettre majuscule",
       "lowercase": "Une lettre minuscule",
@@ -26,7 +24,6 @@
   "confirmPassword": {
     "label": "Confirmer le mot de passe",
     "placeholder": "Confirmez votre mot de passe",
-    "description": "Veuillez confirmer votre mot de passe.",
     "error": "Les mots de passe ne correspondent pas."
   },
   "terms": {

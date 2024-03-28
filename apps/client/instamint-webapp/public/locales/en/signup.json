@@ -8,13 +8,11 @@
   "email": {
     "label": "Email",
     "placeholder": "Please enter your email address",
-    "description": "Please enter a valid email address.",
     "error": "Please enter a valid email address."
   },
   "password": {
     "label": "Password",
     "placeholder": "Please enter your password",
-    "description": "Please enter a secure password.",
     "criteria": {
       "uppercase": "An uppercase letter",
       "lowercase": "A lowercase letter",
@@ -26,7 +24,6 @@
   "confirmPassword": {
     "label": "Confirm Password",
     "placeholder": "Confirm your password",
-    "description": "Please confirm your password.",
     "error": "Passwords do not match."
   },
   "terms": {
