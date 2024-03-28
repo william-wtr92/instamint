@@ -5,7 +5,7 @@ import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { unspecifiedErrorOccurred } from "@/utils/messages"
 
 export const handleError = async (e: Error, c: Context): Promise<Response> => {
-  let errorMessage = unspecifiedErrorOccurred
+  let errorMessage: string = unspecifiedErrorOccurred.message
   let statusCode = 500
 
   if (e instanceof HTTPException && e.res) {

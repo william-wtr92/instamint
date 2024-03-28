@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useEffect, useState } from "react"
-import { useRouter } from "next/router"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -21,29 +20,32 @@ import {
 import { signUpSchema, type SignUp } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
+import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
+import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["signup"])),
+      ...(await serverSideTranslations(locale ?? "en", ["errors", "signup"])),
     },
   }
 }
 
 const SignUpPage = () => {
-  const router = useRouter()
   const {
     services: {
       users: { signUp },
     },
   } = useAppContext()
 
-  const { t } = useTranslation("signup")
+  const { t } = useTranslation(["errors", "signup"])
 
-  const [error, setError] = useState<Error | string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
+  const [redirectDelay, setRedirectDelay] = useState<number>(0)
+  const [error, setError] = useShowTemp<Error | string | null>(null, 10000)
+  const [success, setSuccess] = useShowTemp<string | null>(null, 5000)
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
   >({
@@ -53,6 +55,8 @@ const SignUpPage = () => {
     specialCharacter: false,
     length: false,
   })
+
+  useDelayedRedirect("/", redirectDelay, triggerRedirect)
 
   const form = useForm<SignUp>({
     resolver: zodResolver(signUpSchema),
@@ -82,20 +86,17 @@ const SignUpPage = () => {
       const [err] = await signUp(values)
 
       if (err) {
-        setError(err)
+        setError(t(`errors:users.${err.message}`))
+        setRedirectDelay(10000)
 
         return
       }
 
-      setSuccess(t("success"))
-
-      const timeout = setTimeout(async () => {
-        await router.push("/")
-      }, 3000)
-
-      return () => clearTimeout(timeout)
+      setSuccess(t("signup:success"))
+      setRedirectDelay(5000)
+      setTriggerRedirect(true)
     },
-    [signUp, router, t]
+    [setError, setSuccess, setTriggerRedirect, signUp, t]
   )
 
   const disabled =
@@ -117,23 +118,25 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("username.label")}
+                    {t("signup:username.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
-                      placeholder={t("username.placeholder")}
+                      placeholder={t("signup:username.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-medium">
-                    {t("username.description")}
+                    {t("signup:username.description")}
                   </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
                   >
-                    {errors.username ? <div>{t("username.error")}</div> : null}
+                    {errors.username ? (
+                      <span>{t("signup:username.error")}</span>
+                    ) : null}
                   </FormMessage>
                 </FormItem>
               )}
@@ -144,24 +147,26 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("email.label")}
+                    {t("signup:email.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="email"
-                      placeholder={t("email.placeholder")}
+                      placeholder={t("signup:email.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-medium">
-                    {t("email.description")}
+                    {t("signup:email.description")}
                   </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
                   >
-                    {errors.email ? <div>{t("email.error")}</div> : null}
+                    {errors.email ? (
+                      <span>{t("signup:email.error")}</span>
+                    ) : null}
                   </FormMessage>
                 </FormItem>
               )}
@@ -172,18 +177,18 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("password.label")}
+                    {t("signup:password.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="password"
-                      placeholder={t("password.placeholder")}
+                      placeholder={t("signup:password.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2 mt-2 text-medium">
-                    {t("password.description")}
+                    {t("signup:password.description")}
                   </FormDescription>
                   <div className="mt-4 w-full px-4 rounded-md xl:w-1/3">
                     {Object.entries(passwordCriteria).map(([key, value]) => (
@@ -199,7 +204,7 @@ const SignUpPage = () => {
                         <span
                           className={`${value ? "font-light" : "font-bold"} `}
                         >
-                          {t(`password.criteria.${key}`)}
+                          {t(`signup:password.criteria.${key}`)}
                         </span>
                       </div>
                     ))}
@@ -213,25 +218,25 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("confirmPassword.label")}
+                    {t("signup:confirmPassword.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
                       type="password"
-                      placeholder={t("confirmPassword.placeholder")}
+                      placeholder={t("signup:confirmPassword.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2 mt-2 text-medium">
-                    {t("confirmPassword.description")}
+                    {t("signup:confirmPassword.description")}
                   </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
                   >
                     {errors.confirmPassword ? (
-                      <div>{t("confirmPassword.error")}</div>
+                      <span>{t("signup:confirmPassword.error")}</span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -251,9 +256,9 @@ const SignUpPage = () => {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>{t("terms.label")}</FormLabel>
+                    <FormLabel>{t("signup:terms.label")}</FormLabel>
                     <FormDescription className="relative left-[0.1rem]  mt-2 text-medium">
-                      {t("terms.description")}
+                      {t("signup:terms.description")}
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -261,10 +266,10 @@ const SignUpPage = () => {
             />
             <Button
               disabled={disabled}
-              className={`border-2 border-black px-5 py-2 w-[60%] ${!form.formState.isValid ? "cursor-not-allowed" : ""}`}
+              className={`border-2 border-black px-5 py-2 w-[60%] ${disabled ? "cursor-not-allowed" : ""}`}
               type="submit"
             >
-              {t("submit")}
+              {t("signup:submit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-black">{success}</p>

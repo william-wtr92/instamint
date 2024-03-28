@@ -1,9 +1,9 @@
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import {
-  errorOccurred,
   tokenExpired,
   tokenInvalidStructure,
   tokenSignatureMismatched,
+  unspecifiedErrorOccurred,
 } from "@/utils/messages"
 
 export const jwtTokenErrors = <T>(err: T) => {
@@ -15,5 +15,5 @@ export const jwtTokenErrors = <T>(err: T) => {
     throw createErrorResponse(tokenExpired, 401)
   }
 
-  throw createErrorResponse(errorOccurred, 500)
+  throw createErrorResponse(unspecifiedErrorOccurred, 500)
 }

@@ -72,7 +72,7 @@ users.post("/resendEmailValidation", async (c: Context): Promise<Response> => {
   const lastEmailValidation = await redis.get(cacheEmailValidationKey) // Get last email validation from Redis
 
   if (lastEmailValidation) {
-    return c.json({ message: userMustWaitBeforeSendingAnotherMail }, 429) // Return error if user must wait before sending another email
+    return c.json(userMustWaitBeforeSendingAnotherMail, 429) // Return error if user must wait before sending another email
   }
 
   /* ... */

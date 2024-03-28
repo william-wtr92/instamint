@@ -72,14 +72,15 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const requestBody: SignUp = await c.req.json()
       const { username, email, password, gdprValidation }: SignUp = requestBody
 
-      const userExist = await UserModel.query().findOne({ email, username })
+      const userExistByEmail = await UserModel.query().findOne({ email })
+      const userExistByUsername = await UserModel.query().findOne({ username })
 
-      if (userExist) {
-        return c.json({ message: emailOrUsernameAlreadyExist }, 400)
+      if (userExistByEmail || userExistByUsername) {
+        return c.json(emailOrUsernameAlreadyExist, 400)
       }
 
       if (!gdprValidation) {
-        return c.json({ message: gdprValidationIsRequired }, 400)
+        return c.json(gdprValidationIsRequired, 400)
       }
 
       const [passwordHash, passwordSalt]: string[] =
@@ -104,13 +105,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await trx.commit()
 
-        return c.json(
-          {
-            user: sanitizeUser(requestBody),
-            message: userCreated,
-          },
-          201
-        )
+        return c.json({ ...userCreated, user: sanitizeUser(requestBody) }, 201)
       } catch (error) {
         await trx.rollback()
 
@@ -126,7 +121,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { validation }: UserEmailToken = await c.req.json()
 
       if (validation == null) {
-        throw createErrorResponse(tokenNotProvided, 400)
+        return c.json(tokenNotProvided, 400)
       }
 
       try {
@@ -141,21 +136,16 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         const user = await UserModel.query().findOne({ email })
 
         if (!user) {
-          return c.json({ message: userNotFound }, 404)
+          return c.json(userNotFound, 404)
         }
 
         if (user.emailValidation) {
-          return c.json({ message: userEmailAlreadyValidated }, 400)
+          return c.json(userEmailAlreadyValidated, 400)
         }
 
         await db("users").where({ email }).update({ emailValidation: true })
 
-        return c.json(
-          {
-            message: userEmailValidated,
-          },
-          200
-        )
+        return c.json(userEmailValidated, 200)
       } catch (err) {
         throw jwtTokenErrors(err)
       }
@@ -172,17 +162,17 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const lastEmailValidation = await redis.get(cacheEmailValidationKey)
 
       if (lastEmailValidation) {
-        return c.json({ message: userMustWaitBeforeSendingAnotherMail }, 429)
+        return c.json(userMustWaitBeforeSendingAnotherMail, 429)
       }
 
       const user = await UserModel.query().findOne({ email })
 
       if (!user) {
-        return c.json({ message: emailNotExists }, 400)
+        return c.json(emailNotExists, 400)
       }
 
       if (user.emailValidation) {
-        return c.json({ message: userEmailAlreadyValidated }, 400)
+        return c.json(userEmailAlreadyValidated, 400)
       }
 
       const sendGridMail = await mailBuilder({
@@ -194,12 +184,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       await redis.set(cacheEmailValidationKey, now, "EX", tenMinutes)
 
-      return c.json(
-        {
-          message: emailSent,
-        },
-        200
-      )
+      return c.json(emailSent, 200)
     }
   )
 

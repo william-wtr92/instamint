@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback, useState } from "react"
-import { useRouter } from "next/router"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -22,29 +21,34 @@ import {
   userResendEmailValidationSchema,
 } from "@instamint/shared-types"
 import useAppContext from "@/web/contexts/useAppContext"
+import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
+import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["email"])),
+      ...(await serverSideTranslations(locale ?? "en", ["errors", "email"])),
     },
   }
 }
 
 const UsersResendEmailValidationPage = () => {
-  const router = useRouter()
   const {
     services: {
       users: { resendEmailValidation },
     },
   } = useAppContext()
 
-  const { t } = useTranslation("email")
+  const { t } = useTranslation(["errors", "email"])
 
-  const [error, setError] = useState<Error | string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
+  const [redirectDelay, setRedirectDelay] = useState<number>(0)
+  const [error, setError] = useShowTemp<Error | string | null>(null, 10000)
+  const [success, setSuccess] = useShowTemp<string | null>(null, 5000)
+
+  useDelayedRedirect("/", redirectDelay, triggerRedirect)
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
@@ -59,20 +63,18 @@ const UsersResendEmailValidationPage = () => {
       const [err] = await resendEmailValidation(values)
 
       if (err) {
-        setError(err)
+        setError(t(`errors:users.${err.message}`))
+        setRedirectDelay(10000)
 
         return
       }
 
-      setSuccess(t("resend.successfully"))
+      setSuccess(t("email:resend.successfully"))
+      setRedirectDelay(5000)
 
-      const timeout = setTimeout(async () => {
-        await router.push("/")
-      }, 3000)
-
-      return () => clearTimeout(timeout)
+      setTriggerRedirect(true)
     },
-    [resendEmailValidation, router, t]
+    [setError, setSuccess, setTriggerRedirect, resendEmailValidation, t]
   )
 
   return (
@@ -89,24 +91,24 @@ const UsersResendEmailValidationPage = () => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("resend.email.label")}
+                    {t("email:resend.email.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
-                      placeholder={t("resend.email.placeholder")}
+                      placeholder={t("email:resend.email.placeholder")}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="relative left-2  mt-2 text-xs">
-                    {t("resend.email.description")}
+                    {t("email:resend.email.description")}
                   </FormDescription>
                   <FormMessage
                     className="relative left-2 text-error-primary"
                     useCustomError={true}
                   >
                     {form.formState.errors.email ? (
-                      <div>{t("resend.email.error")}</div>
+                      <span>{t("email:resend.email.error")}</span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -117,7 +119,7 @@ const UsersResendEmailValidationPage = () => {
               className={`border-2 border-black px-5 py-2 w-[60%] ${!form.formState.isValid ? "cursor-not-allowed" : ""}`}
               type="submit"
             >
-              {t("resend.email.submit")}
+              {t("email:resend.email.submit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-black">{success}</p>

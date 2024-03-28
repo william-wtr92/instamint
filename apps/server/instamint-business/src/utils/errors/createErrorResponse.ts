@@ -5,7 +5,7 @@ import type { StatusCode } from "@instamint/server-types"
 type SimpleHeaders = { [key: string]: string }
 
 export const createErrorResponse = (
-  message: string,
+  error: object | string,
   statusCode: number,
   headers?: SimpleHeaders
 ): HTTPException => {
@@ -13,7 +13,13 @@ export const createErrorResponse = (
 
   responseHeaders.set("Content-Type", "application/json")
 
-  const responseBody = JSON.stringify({ message })
+  let responseBody = ""
+
+  if (typeof error === "string") {
+    responseBody = JSON.stringify({ message: error })
+  } else if (typeof error === "object" && "message" in error) {
+    responseBody = JSON.stringify({ message: error.message })
+  }
 
   const errorResponse = new Response(responseBody, {
     status: statusCode,

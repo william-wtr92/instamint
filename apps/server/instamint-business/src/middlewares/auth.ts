@@ -18,7 +18,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
     const jwt = c.req.header("Authorization")?.slice(7)
 
     if (!jwt) {
-      return c.json({ message: tokenNotProvided }, 401)
+      return c.json(tokenNotProvided, 401)
     }
 
     try {
@@ -41,7 +41,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
           .findById(userId)
 
         if (!user) {
-          return c.json({ message: userNotFound }, 404)
+          return c.json(userNotFound, 404)
         }
 
         c.set("user", user)
@@ -49,7 +49,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
         await next()
       }
 
-      return c.json({ message: tokenInvalidStructure }, 401)
+      return c.json(tokenInvalidStructure, 401)
     } catch (err) {
       throw jwtTokenErrors(err)
     }

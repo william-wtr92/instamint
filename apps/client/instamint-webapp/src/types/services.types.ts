@@ -2,18 +2,15 @@ import type { AxiosInstance } from "axios"
 
 import type { AppContextType } from "@/types"
 
-export type Api = {
+type ArgsPrepareServices = {
   api: AxiosInstance
-}
-
-type ArgsPrepareServices = Api & {
   jwt?: string
 }
 
 export type PrepareServicesContext = (
-  args: ArgsPrepareServices
+  context: ArgsPrepareServices
 ) => AppContextType
 
 export type Services<T> = (
-  args: Api
+  args: ArgsPrepareServices
 ) => (data: T) => Promise<[Error | null, T?]>

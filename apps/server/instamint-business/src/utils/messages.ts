@@ -1,27 +1,89 @@
 /* GLOBALS MESSAGES */
-export const databaseNotAvailable = "Database not available"
-export const redisNotAvailable = "Redis not available"
+export const databaseNotAvailable = {
+  errorCode: "databaseNotAvailable",
+  message: "Database not available",
+} as const
+
+export const redisNotAvailable = {
+  errorCode: "redisNotAvailable",
+  message: "Redis not available",
+} as const
 
 /* TOKEN MESSAGES */
-export const tokenNotProvided = "No token provided"
-export const tokenExpired = "Token has expired"
-export const tokenInvalidStructure = "Token has invalid structure"
-export const tokenSignatureMismatched =
-  "Token has invalid - signature mismatched"
+export const tokenNotProvided = {
+  errorCode: "tokenNotProvided",
+  message: "No token provided",
+} as const
+
+export const tokenExpired = {
+  errorCode: "tokenExpired",
+  message: "Token has expired",
+} as const
+
+export const tokenInvalidStructure = {
+  errorCode: "tokenInvalidStructure",
+  message: "Token has invalid structure",
+} as const
+
+export const tokenSignatureMismatched = {
+  errorCode: "tokenSignatureMismatched",
+  message: "Token has invalid - signature mismatched",
+} as const
 
 /* GLOBAL MESSAGES */
-export const errorOccurred = "An error occurred"
-export const unspecifiedErrorOccurred = "An unspecified error occurred"
+export const unspecifiedErrorOccurred = {
+  errorCode: "unspecifiedErrorOccurred",
+  message: "An unspecified error occurred",
+} as const
 
 /* USERS MESSAGES */
-export const emailOrUsernameAlreadyExist = "Email or Username already exist"
-export const emailNotExists = "Email not exists"
-export const emailSent = "Email sent"
-export const gdprValidationIsRequired = "RGPD validation is required"
-export const userCreated = "User created"
-export const errorDuringUserRegistration = "Error during user registration"
-export const userNotFound = "User not found"
-export const userEmailValidated = "Email validated"
-export const userEmailAlreadyValidated = "Email already validated"
-export const userMustWaitBeforeSendingAnotherMail =
-  "Please wait 10 minutes before trying again."
+export const emailOrUsernameAlreadyExist = {
+  errorCode: "emailOrUsernameAlreadyExist",
+  message: "Email or Username already exist",
+} as const
+
+export const emailNotExists = {
+  errorCode: "emailNotExists",
+  message: "Email not exists",
+} as const
+
+export const gdprValidationIsRequired = {
+  errorCode: "gdprValidationIsRequired",
+  message: "RGPD validation is required",
+} as const
+
+export const userCreated = {
+  errorCode: "userCreated",
+  message: "User created",
+} as const
+
+export const errorDuringUserRegistration = {
+  errorCode: "errorDuringUserRegistration",
+  message: "Error during user registration",
+} as const
+
+export const userNotFound = {
+  errorCode: "userNotFound",
+  message: "User not found",
+} as const
+
+export const userEmailValidated = {
+  errorCode: "userEmailValidated",
+  message: "Email validated",
+} as const
+
+export const userEmailAlreadyValidated = {
+  errorCode: "userEmailAlreadyValidated",
+  message: "Email already validated",
+} as const
+
+/* MAIL MESSAGES */
+export const emailSent = {
+  errorCode: "emailSent",
+  message: "Email sent",
+} as const
+
+export const userMustWaitBeforeSendingAnotherMail = {
+  errorCode: "userMustWaitBeforeSendingAnotherMail",
+  message: "Please wait 10 minutes before trying again.",
+} as const
