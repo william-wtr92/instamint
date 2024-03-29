@@ -1,3 +1,3 @@
-import configDb from "./src/db/config/config"
+import appConfig from "./src/db/config/config"
 
-export default configDb.db
+export default appConfig.db

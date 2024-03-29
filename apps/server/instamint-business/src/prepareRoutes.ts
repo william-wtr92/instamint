@@ -1,4 +1,4 @@
-import { PrepareRoutes } from "@instamint/server-types"
+import type { PrepareRoutes } from "@instamint/server-types"
 
 import prepareUserRoutes from "@/routes/prepareUserRoutes"
 

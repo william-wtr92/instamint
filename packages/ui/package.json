@@ -1,0 +1,37 @@
+{
+  "name": "@instamint/ui-kit",
+  "version": "1.0.0",
+  "description": "Components Library for Instamint Client",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "keywords": [
+    "ui"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC",
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.363.0",
+    "react": "^18.2.0",
+    "react-hook-form": "^7.51.1",
+    "tailwind-merge": "^2.2.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@instamint/eslint-config-client": "workspace:^",
+    "@instamint/tsconfig-client": "workspace:^",
+    "@types/node": "^20.11.25",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.2"
+  }
+}

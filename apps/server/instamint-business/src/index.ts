@@ -1,10 +1,11 @@
 import { serve } from "@hono/node-server"
-import config from "./db/config/config"
+
+import appConfig from "./db/config/config"
 import server from "./server"
 
-server(config).then((app): void => {
+server(appConfig).then((app): void => {
   serve({
     fetch: app.fetch,
-    port: config.port,
+    port: appConfig.port,
   })
 })

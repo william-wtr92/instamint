@@ -5,6 +5,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/web/*": ["./src/web/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/types/*": ["./src/types/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

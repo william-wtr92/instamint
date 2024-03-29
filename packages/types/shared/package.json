@@ -1,0 +1,18 @@
+{
+  "name": "@instamint/shared-types",
+  "version": "1.0.0",
+  "description": "Shared Types for Instamint",
+  "main": "index.ts",
+  "keywords": [
+    "types",
+    "shared"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}

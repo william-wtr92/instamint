@@ -1,0 +1,18 @@
+{
+  "validation": {
+    "title": "Please validate your email address to access Instamint",
+    "button": "Valid your email",
+    "success": "Email validated successfully. You'll be redirected shortly!",
+    "errorNoToken": "Please check your mail and click on 'Verify Email Now', you'll be redirected shortly!"
+  },
+  "resend": {
+    "successfully": "Email sent successfully. Please check your email.",
+    "email": {
+      "label": "Email",
+      "placeholder": "Please enter your email",
+      "description": "Enter your email address to receive a validation email.",
+      "error": "Please enter a valid email address.",
+      "submit": "Submit"
+    }
+  }
+}

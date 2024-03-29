@@ -56,6 +56,10 @@ assess and minimise its ecological footprint, affirming its commitment to sustai
 
 - You need to have **PNPM** installed, if not you can install it by following
   the [instructions](https://pnpm.io/installation).
+- Setup ur **.env** file with the following
+  variables -> [See example](https://github.com/william-wtr92/instamint/blob/main/.env.example).
+- Install [PostgreSQL](https://www.postgresql.org/download/) & [Redis](https://redis.io/docs/install/install-redis/) on
+  your local machine.
 - Install the dependencies by running `pnpm install` at `root`.
 - Start the `development server` by running the following commands at `root`:
 

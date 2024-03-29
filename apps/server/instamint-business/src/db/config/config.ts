@@ -1,5 +1,7 @@
 import { config } from "dotenv"
-import { AppConfig, configTypes } from "./configTypes"
+
+import { type AppConfig, baseConfig } from "./configTypes"
+import { oneDay } from "../../utils/helpers/times"
 
 if (process.env.NODE_ENV === "test") {
   config({ path: ".env.test" })
@@ -7,7 +9,7 @@ if (process.env.NODE_ENV === "test") {
   config()
 }
 
-const configDb = configTypes.parse({
+const appConfig = baseConfig.parse({
   port: 3001,
   db: {
     client: "pg",
@@ -29,10 +31,16 @@ const configDb = configTypes.parse({
       loadExtensions: [".ts"],
     },
   },
+  redis: {
+    host: process.env.REDIS_HOST!,
+    port: process.env.REDIS_PORT!,
+    password: process.env.REDIS_PASSWORD!,
+  },
   security: {
     jwt: {
       secret: process.env.SECURITY_JWT_SECRET!,
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+      expiresIn: oneDay,
+      algorithm: "HS512",
     },
     password: {
       saltlen: 512,
@@ -45,9 +53,13 @@ const configDb = configTypes.parse({
   sentry: {
     dsn: process.env.SENTRY_DSN!,
   },
+  sendgrid: {
+    apiKey: process.env.SENDGRID_API_KEY!,
+    sender: process.env.SENDGRID_SENDER!,
+  },
   microservices: {
     files: process.env.FILES_SERVICE_URL!,
   },
 }) satisfies AppConfig
 
-export default configDb
+export default appConfig

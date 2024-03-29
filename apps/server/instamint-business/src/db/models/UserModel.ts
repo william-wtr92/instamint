@@ -1,18 +1,19 @@
 import BaseModel from "./BaseModel"
 import RoleModel from "./RoleModel"
-import { hashPassword } from "@/utils/hashPassword"
+import { hashPassword } from "@/utils/helpers/hashPassword"
 
 class UserModel extends BaseModel {
-  static tableName: string = "user"
+  static tableName = "users"
 
   id!: number
-  passwordSalt!: string
-  passwordHash!: string
+  username!: string
   email!: string
+  passwordHash!: string
+  passwordSalt!: string
   createdAt!: Date
   updatedAt!: Date
-  firstname!: string
-  lastname!: string
+  emailValidation!: boolean
+  gdprValidation!: boolean
   roleId!: number
   roleData!: RoleModel
 
@@ -23,8 +24,8 @@ class UserModel extends BaseModel {
         modelClass: RoleModel,
         filter: (query: any) => query.select("right"),
         join: {
-          from: "user.roleId",
-          to: "role.id",
+          from: "users.roleId",
+          to: "roles.id",
         },
       },
     }

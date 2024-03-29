@@ -34,6 +34,8 @@ COPY scripts/postinstall.sh ./scripts/postinstall.sh
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/eslint/client/ ./packages/eslint/client/
 COPY packages/tsconfig/client/ ./packages/tsconfig/client/
+COPY packages/types/shared/ ./packages/types/shared/
+COPY packages/ui/ ./packages/ui/
 COPY apps/client/instamint-webapp ./apps/client/instamint-webapp
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile

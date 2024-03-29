@@ -1,0 +1,15 @@
+{
+  "users": {
+    "userNotFound": "This account does not exist.",
+    "emailOrUsernameAlreadyExist": "Email or username already exist.",
+    "gdprValidationIsRequired": "You must accept the GDPR validation.",
+    "errorDuringUserRegistration": "Error during user registration.",
+    "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
+    "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
+    "tokenExpired": "Your link is expired. Please request a new one.",
+    "unspecifiedErrorOccurred": "An unknown error has occurred. Please try again later.",
+    "userEmailAlreadyValidated": "This email has already been validated.",
+    "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
+    "emailNotExists": "This email does not exist."
+  }
+}

@@ -1,8 +1,9 @@
-import { createFactory, Factory } from "hono/factory"
-import { Context, MiddlewareHandler, Next } from "hono"
+import { createFactory, type Factory } from "hono/factory"
+import type { Context, MiddlewareHandler, Next } from "hono"
 
-import { createErrorResponse } from "@/utils/errors"
-import UserModel from "@/db/models/UserModel"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import type UserModel from "@/db/models/UserModel"
+import { authMessages } from "@/def"
 
 const factory: Factory = createFactory()
 
@@ -11,10 +12,7 @@ export const isAdmin: MiddlewareHandler = factory.createMiddleware(
     const user: UserModel = c.get("user")
 
     if (!user || user.roleData.right !== "admin") {
-      throw createErrorResponse(
-        "You don't have permission to access this resource",
-        403
-      )
+      throw createErrorResponse(authMessages.notHavePermission, 403)
     }
 
     await next()

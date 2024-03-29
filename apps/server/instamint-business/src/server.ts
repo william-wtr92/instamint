@@ -1,26 +1,32 @@
-import { Context, Hono } from "hono"
+import { type Context, Hono } from "hono"
 import { logger } from "hono/logger"
 import { cors } from "hono/cors"
 import { prettyJSON } from "hono/pretty-json"
 import { etag } from "hono/etag"
 import { secureHeaders } from "hono/secure-headers"
 import { sentry } from "@hono/sentry"
-import knex, { Knex } from "knex"
+import knex from "knex"
+import Redis from "ioredis"
 
-import { AppConfig } from "./db/config/configTypes"
+import type { AppConfig } from "./db/config/configTypes"
 import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
 
-const server = async (config: AppConfig) => {
-  const db: Knex = knex(config.db)
+const server = async (appConfig: AppConfig) => {
+  const db = knex(appConfig.db)
   BaseModel.knex(db)
+
+  const redis = new Redis({
+    port: parseInt(appConfig.redis.port),
+    host: appConfig.redis.host,
+  })
 
   const app = new Hono()
   app.use(
     "*",
     cors(),
     secureHeaders(),
-    sentry({ dsn: config.sentry.dsn }),
+    sentry({ dsn: appConfig.sentry.dsn }),
     etag(),
     logger(),
     prettyJSON()
@@ -30,10 +36,10 @@ const server = async (config: AppConfig) => {
     return c.text("Instamint Business API!")
   })
 
-  prepareRoutes({ app, db })
+  prepareRoutes({ app, db, redis })
 
   // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${config.port}`)
+  console.log(`Server is running on port ${appConfig.port}`)
 
   return app
 }

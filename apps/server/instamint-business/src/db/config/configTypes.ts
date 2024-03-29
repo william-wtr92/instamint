@@ -19,10 +19,17 @@ const dbConfigSchema = z.object({
   }),
 })
 
+const redisConfigSchema = z.object({
+  host: z.string(),
+  port: z.string(),
+  password: z.string(),
+})
+
 const securityConfigSchema = z.object({
   jwt: z.object({
     secret: z.string(),
     expiresIn: z.number(),
+    algorithm: z.literal("HS512"),
   }),
   password: z.object({
     saltlen: z.number(),
@@ -33,20 +40,27 @@ const securityConfigSchema = z.object({
   }),
 })
 
-const sentrySchema = z.object({
+const sentryConfigSchema = z.object({
   dsn: z.string(),
 })
 
-const microservicesSchema = z.object({
+const sendgridConfigSchema = z.object({
+  apiKey: z.string(),
+  sender: z.string(),
+})
+
+const microservicesConfigSchema = z.object({
   files: z.string(),
 })
 
-export const configTypes = z.object({
+export const baseConfig = z.object({
   port: z.number(),
   db: dbConfigSchema,
+  redis: redisConfigSchema,
   security: securityConfigSchema,
-  sentry: sentrySchema,
-  microservices: microservicesSchema,
+  sentry: sentryConfigSchema,
+  sendgrid: sendgridConfigSchema,
+  microservices: microservicesConfigSchema,
 })
 
-export type AppConfig = z.infer<typeof configTypes>
+export type AppConfig = z.infer<typeof baseConfig>
