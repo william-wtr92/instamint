@@ -3,7 +3,7 @@ import { describe, test, expect, beforeAll, afterAll } from "@jest/globals"
 
 import server from "@/server"
 import appConfig from "@/db/config/config"
-import { userCreated } from "@/def/messages"
+import { usersMessages } from "@/def"
 
 beforeAll(async () => {
   const db = knex(appConfig.db)
@@ -38,6 +38,6 @@ describe("/users endpoint", () => {
 
     const data = await response.json()
     expect(response.status).toBe(201)
-    expect(data).toHaveProperty("message", userCreated.message)
+    expect(data).toHaveProperty("message", usersMessages.userCreated.message)
   })
 })
