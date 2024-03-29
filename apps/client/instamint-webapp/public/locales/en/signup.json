@@ -3,7 +3,7 @@
     "label": "Username",
     "placeholder": "Please enter your username",
     "description": "This is your public display name.",
-    "error": "Special characters are not permitted in username."
+    "error": "The username must be: min 3 characters, max 20 characters and no special characters."
   },
   "email": {
     "label": "Email",

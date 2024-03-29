@@ -3,7 +3,7 @@
     "label": "Nom d'utilisateur",
     "placeholder": "Entrez votre nom d'utilisateur",
     "description": "Ceci sera votre nom d'utilisateur unique.",
-    "error": "Les caractères spéciaux ne sont pas autorisés dans le nom d'utilisateur."
+    "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
   },
   "email": {
     "label": "Email",

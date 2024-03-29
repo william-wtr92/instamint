@@ -21,7 +21,9 @@ export const baseSignupSchema = z.object({
     .regex(
       new RegExp("^[a-zA-Z0-9]+$"),
       "The user name can contain only lower case letters, upper case letters and numbers !"
-    ),
+    )
+    .min(3, "The user name must be at least 3 characters long !")
+    .max(20, "The user name must be at most 20 characters long !"),
   email: z.string().email({
     message: "Invalid email address",
   }),
