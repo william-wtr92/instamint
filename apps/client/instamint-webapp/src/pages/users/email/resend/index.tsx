@@ -45,8 +45,8 @@ const UsersResendEmailValidationPage = () => {
 
   const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
   const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 10000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 5000)
+  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
+  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
   useDelayedRedirect("/", redirectDelay, triggerRedirect)
 
@@ -64,14 +64,12 @@ const UsersResendEmailValidationPage = () => {
 
       if (err) {
         setError(t(`errors:users.${err.message}`))
-        setRedirectDelay(10000)
 
         return
       }
 
       setSuccess(t("email:resend.successfully"))
-      setRedirectDelay(5000)
-
+      setRedirectDelay(3000)
       setTriggerRedirect(true)
     },
     [setError, setSuccess, setTriggerRedirect, resendEmailValidation, t]
@@ -83,7 +81,7 @@ const UsersResendEmailValidationPage = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full flex items-center flex-col p-content space-y-8 bg-white rounded-md shadow-xl"
+            className="w-full flex items-center flex-col p-text-large-screen space-y-8 bg-white rounded-md shadow-xl"
           >
             <FormField
               control={form.control}
@@ -116,7 +114,7 @@ const UsersResendEmailValidationPage = () => {
             />
             <Button
               disabled={!form.formState.isValid}
-              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : ""}`}
+              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
               {t("email:resend.email.submit")}

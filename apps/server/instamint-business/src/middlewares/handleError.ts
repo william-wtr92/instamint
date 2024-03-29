@@ -2,10 +2,10 @@ import type { Context } from "hono"
 import { HTTPException } from "hono/http-exception"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { unspecifiedErrorOccurred } from "@/def/messages"
+import { globalsMessages } from "@/def"
 
 export const handleError = async (e: Error, c: Context): Promise<Response> => {
-  let errorMessage = unspecifiedErrorOccurred
+  let errorMessage = globalsMessages.unspecifiedErrorOccurred
   let statusCode = 500
 
   if (e instanceof HTTPException && e.res) {

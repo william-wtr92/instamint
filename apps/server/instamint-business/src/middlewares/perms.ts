@@ -3,7 +3,7 @@ import type { Context, MiddlewareHandler, Next } from "hono"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import type UserModel from "@/db/models/UserModel"
-import { notHavePermission } from "@/def/messages"
+import { authMessages } from "@/def"
 
 const factory: Factory = createFactory()
 
@@ -12,7 +12,7 @@ export const isAdmin: MiddlewareHandler = factory.createMiddleware(
     const user: UserModel = c.get("user")
 
     if (!user || user.roleData.right !== "admin") {
-      throw createErrorResponse(notHavePermission, 403)
+      throw createErrorResponse(authMessages.notHavePermission, 403)
     }
 
     await next()

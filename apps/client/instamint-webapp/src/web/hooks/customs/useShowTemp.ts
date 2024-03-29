@@ -7,10 +7,14 @@ export const useShowTemp = <T>(
   const [element, setElement] = useState<T>(defaultElement)
 
   useEffect(() => {
+    if (element === defaultElement) {
+      return
+    }
+
     const timer = setTimeout(() => setElement(defaultElement), duration)
 
     return () => clearTimeout(timer)
-  }, [defaultElement, duration, setElement])
+  }, [defaultElement, duration, element])
 
   return [element, setElement]
 }

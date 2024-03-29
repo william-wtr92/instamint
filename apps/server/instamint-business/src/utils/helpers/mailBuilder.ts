@@ -18,7 +18,7 @@ export const mailBuilder = async (data: MailData, expiration?: number) => {
       iat: now,
     },
     appConfig.security.jwt.secret,
-    "HS512"
+    appConfig.security.jwt.algorithm
   )
 
   sgMail.setApiKey(appConfig.sendgrid.apiKey)

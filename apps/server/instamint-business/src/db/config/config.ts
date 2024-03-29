@@ -40,6 +40,7 @@ const appConfig = baseConfig.parse({
     jwt: {
       secret: process.env.SECURITY_JWT_SECRET!,
       expiresIn: oneDay,
+      algorithm: "HS512",
     },
     password: {
       saltlen: 512,

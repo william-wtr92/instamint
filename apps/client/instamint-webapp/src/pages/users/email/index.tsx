@@ -44,8 +44,8 @@ const UsersEmailValidationPage = (
 
   const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
   const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 10000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 5000)
+  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
+  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
   useDelayedRedirect("/", redirectDelay, triggerRedirect)
 
@@ -55,16 +55,14 @@ const UsersEmailValidationPage = (
 
       if (err) {
         setError(t(`errors:users.${err.message}`))
-        setRedirectDelay(10000)
 
         return
       }
 
       setSuccess(t("email:validation.success"))
-      setRedirectDelay(5000)
+      setRedirectDelay(3000)
     } else {
       setError(t("email:validation.errorNoToken"))
-      setRedirectDelay(10000)
     }
 
     setTriggerRedirect(true)
@@ -78,7 +76,7 @@ const UsersEmailValidationPage = (
             {t("email:validation.title")}
           </h1>
           <Button
-            className="flex gap-3 bg-accent-500 text-white font-semibold py-2.5"
+            className="flex gap-3 bg-accent-500 text-white font-semibold py-2.5 hover:cursor-pointer"
             onClick={onSubmit}
           >
             <EnvelopeIcon className="w-5 h-5" />

@@ -18,7 +18,7 @@
 - **For example:**
 
 ```ts
-users.post("/", async (c: Context): Promise<Response> => {
+route.post("/", async (c: Context): Promise<Response> => {
   /* your logic */
   const trx = await db.transaction() // start a transaction
 

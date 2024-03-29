@@ -45,8 +45,8 @@ const SignUpPage = () => {
 
   const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
   const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 10000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 5000)
+  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
+  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
   >({
@@ -91,13 +91,12 @@ const SignUpPage = () => {
 
       if (err) {
         setError(t(`errors:users.${err.message}`))
-        setRedirectDelay(10000)
 
         return
       }
 
       setSuccess(t("signup:success"))
-      setRedirectDelay(5000)
+      setRedirectDelay(3000)
       setTriggerRedirect(true)
     },
     [setError, setSuccess, setTriggerRedirect, signUp, t]
@@ -215,7 +214,7 @@ const SignUpPage = () => {
                           className={`flex items-center gap-3 text-medium ${value ? "opacity-100" : "opacity-60"}`}
                         >
                           <span
-                            className={`w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-200"}`}
+                            className={`transition-colors duration-500 w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-200"}`}
                           ></span>
                           <span
                             className={`${value ? "text-medium font-semibold" : "text-medium font-light"} `}
@@ -281,8 +280,8 @@ const SignUpPage = () => {
               )}
             />
             <Button
-              disabled={disabled}
-              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!disabled ? "cursor-not-allowed opacity-50" : ""}`}
+              disabled={!disabled}
+              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!disabled ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
               {t("signup:submit")}

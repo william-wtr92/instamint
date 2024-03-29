@@ -5,11 +5,7 @@ import { verify } from "hono/jwt"
 import appConfig from "@/db/config/config"
 import UserModel from "@/db/models/UserModel"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import {
-  tokenInvalidStructure,
-  tokenNotProvided,
-  userNotFound,
-} from "@/def/messages"
+import { usersMessages, globalsMessages } from "@/def"
 
 const factory: Factory = createFactory()
 
@@ -18,14 +14,14 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
     const jwt = c.req.header("Authorization")?.slice(7)
 
     if (!jwt) {
-      return c.json(tokenNotProvided, 401)
+      return c.json(globalsMessages.tokenNotProvided, 401)
     }
 
     try {
       const decodedToken = await verify(
         jwt,
         appConfig.security.jwt.secret,
-        "HS512"
+        appConfig.security.jwt.algorithm
       )
 
       if (
@@ -41,7 +37,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
           .findById(userId)
 
         if (!user) {
-          return c.json(userNotFound, 404)
+          return c.json(usersMessages.userNotFound, 404)
         }
 
         c.set("user", user)
@@ -49,7 +45,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
         await next()
       }
 
-      return c.json(tokenInvalidStructure, 401)
+      return c.json(globalsMessages.tokenInvalidStructure, 401)
     } catch (err) {
       throw jwtTokenErrors(err)
     }

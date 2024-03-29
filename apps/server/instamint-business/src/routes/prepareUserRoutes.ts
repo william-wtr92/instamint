@@ -28,21 +28,11 @@ import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { rateLimiter } from "@/middlewares/rateLimiter"
 import { handleError } from "@/middlewares/handleError"
 import {
-  databaseNotAvailable,
-  emailNotExists,
-  emailOrUsernameAlreadyExist,
-  emailSent,
-  errorDuringUserRegistration,
-  redisNotAvailable,
-  gdprValidationIsRequired,
-  tokenNotProvided,
-  userCreated,
-  userEmailAlreadyValidated,
-  userEmailValidated,
-  userMustWaitBeforeSendingAnotherMail,
-  userNotFound,
-  tokenExpired,
-} from "@/def/messages"
+  usersMessages,
+  globalsMessages,
+  emailsMessages,
+  redisKeys,
+} from "@/def"
 import {
   now,
   oneHour,
@@ -52,18 +42,17 @@ import {
 import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
-import { redisKeys } from "@/def/redisKeys"
 
 const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
   const users = new Hono()
   const usersAuth = new Hono()
 
   if (!db) {
-    throw createErrorResponse(databaseNotAvailable, 500)
+    throw createErrorResponse(globalsMessages.databaseNotAvailable, 500)
   }
 
   if (!redis) {
-    throw createErrorResponse(redisNotAvailable, 500)
+    throw createErrorResponse(globalsMessages.redisNotAvailable, 500)
   }
 
   users.get("/", async (c: Context): Promise<Response> => {
@@ -83,11 +72,11 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const userExistByUsername = await UserModel.query().findOne({ username })
 
       if (userExistByEmail || userExistByUsername) {
-        return c.json(emailOrUsernameAlreadyExist, 400)
+        return c.json(usersMessages.emailOrUsernameAlreadyExist, 400)
       }
 
       if (!gdprValidation) {
-        return c.json(gdprValidationIsRequired, 400)
+        return c.json(usersMessages.gdprValidationIsRequired, 400)
       }
 
       const [passwordHash, passwordSalt]: string[] =
@@ -106,22 +95,22 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         sendGridMail.dynamic_template_data.token
       )
 
-      const trx = await db.transaction()
-
       try {
-        await trx("users").insert(newUser)
+        await db("users").insert(newUser)
 
         await sgMail.send(sendGridMail)
 
         await redis.set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
 
-        await trx.commit()
-
-        return c.json({ ...userCreated, user: sanitizeUser(requestBody) }, 201)
+        return c.json(
+          { ...usersMessages.userCreated, user: sanitizeUser(requestBody) },
+          201
+        )
       } catch (error) {
-        await trx.rollback()
-
-        throw createErrorResponse(errorDuringUserRegistration, 500)
+        throw createErrorResponse(
+          usersMessages.errorDuringUserRegistration,
+          500
+        )
       }
     }
   )
@@ -133,21 +122,21 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { validation }: UserEmailToken = await c.req.json()
 
       if (validation == null) {
-        return c.json(tokenNotProvided, 400)
+        return c.json(globalsMessages.tokenNotProvided, 400)
       }
 
       const emailTokenKey = redisKeys.users.emailToken(validation)
       const emailToken = await redis.get(emailTokenKey)
 
       if (!emailToken) {
-        return c.json(tokenExpired, 400)
+        return c.json(globalsMessages.tokenExpired, 400)
       }
 
       try {
         const decodedToken = await verify(
           validation,
           appConfig.security.jwt.secret,
-          "HS512"
+          appConfig.security.jwt.algorithm
         )
 
         const email: string = decodedToken.payload.user.email
@@ -155,18 +144,18 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         const user = await UserModel.query().findOne({ email })
 
         if (!user) {
-          return c.json(userNotFound, 404)
+          return c.json(usersMessages.userNotFound, 404)
         }
 
         if (user.emailValidation) {
-          return c.json(userEmailAlreadyValidated, 400)
+          return c.json(usersMessages.userEmailAlreadyValidated, 400)
         }
 
         await db("users").where({ email }).update({ emailValidation: true })
 
         await redis.del(emailTokenKey)
 
-        return c.json(userEmailValidated, 200)
+        return c.json(usersMessages.userEmailValidated, 200)
       } catch (err) {
         throw jwtTokenErrors(err)
       }
@@ -183,17 +172,17 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const lastEmailValidation = await redis.get(cacheEmailValidationKey)
 
       if (lastEmailValidation) {
-        return c.json(userMustWaitBeforeSendingAnotherMail, 429)
+        return c.json(emailsMessages.userMustWaitBeforeSendingAnotherMail, 429)
       }
 
       const user = await UserModel.query().findOne({ email })
 
       if (!user) {
-        return c.json(emailNotExists, 400)
+        return c.json(usersMessages.emailNotExists, 400)
       }
 
       if (user.emailValidation) {
-        return c.json(userEmailAlreadyValidated, 400)
+        return c.json(usersMessages.userEmailAlreadyValidated, 400)
       }
 
       const sendGridMail = await mailBuilder(
@@ -215,7 +204,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
         .set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
         .exec()
 
-      return c.json(emailSent, 200)
+      return c.json(emailsMessages.emailSent, 200)
     }
   )
 
@@ -230,7 +219,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const user = await UserModel.query().findById(id)
 
       if (!user) {
-        return c.json(userNotFound, 404)
+        return c.json(usersMessages.userNotFound, 404)
       }
 
       return c.json(
@@ -258,7 +247,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
       const validity = await user?.checkPassword(password)
 
       if (!user || !validity) {
-        return c.json(emailNotExists, 400)
+        return c.json(usersMessages.emailNotExists, 400)
       }
 
       const jwt: string = await sign(
@@ -275,7 +264,7 @@ const prepareUserRoutes: ApiRoutes = ({ app, db, redis }) => {
           iat: now,
         },
         appConfig.security.jwt.secret,
-        "HS512"
+        appConfig.security.jwt.algorithm
       )
 
       return c.json(

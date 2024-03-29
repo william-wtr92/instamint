@@ -29,6 +29,7 @@ const securityConfigSchema = z.object({
   jwt: z.object({
     secret: z.string(),
     expiresIn: z.number(),
+    algorithm: z.literal("HS512"),
   }),
   password: z.object({
     saltlen: z.number(),
