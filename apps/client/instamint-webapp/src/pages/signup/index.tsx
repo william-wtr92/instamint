@@ -214,7 +214,7 @@ const SignUpPage = () => {
                           className={`flex items-center gap-3 text-medium ${value ? "opacity-100" : "opacity-60"}`}
                         >
                           <span
-                            className={`transition-colors duration-500 w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-200"}`}
+                            className={`transition-colors duration-500 size-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-200"}`}
                           ></span>
                           <span
                             className={`${value ? "text-medium font-semibold" : "text-medium font-light"} `}
@@ -264,7 +264,7 @@ const SignUpPage = () => {
                   <FormControl>
                     <Checkbox
                       id="terms2"
-                      className="transition duration-700 flex justify-center justify-items-center items-center border-1 w-7 h-7 rounded-md data-[state=checked]:bg-accent-500 data-[state=checked]:text-white focus-visible:outline-accent-500"
+                      className="transition duration-700 flex justify-center justify-items-center items-center border-1 size-7 rounded-md data-[state=checked]:bg-accent-500 data-[state=checked]:text-white focus-visible:outline-accent-500"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       onFocus={() => setIsFocused(false)}
