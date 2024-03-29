@@ -73,19 +73,19 @@ const UsersEmailValidationPage = (
   return (
     <>
       <div className="mt-10 flex justify-center">
-        <div className="w-[90%] flex flex-col gap-6 items-center shadow-md shadow-gray-300 rounded-md p-10 sm:w-[70%] xl:w-1/3">
+        <div className="w-[90%] flex flex-col gap-6 items-center shadow-xl rounded-md p-10 sm:w-[70%] xl:w-1/3">
           <h1 className="font-bold text-center">
             {t("email:validation.title")}
           </h1>
           <Button
-            className="flex gap-3 border-2 border-black"
+            className="flex gap-3 bg-accent-500 text-white font-semibold py-2.5"
             onClick={onSubmit}
           >
             <EnvelopeIcon className="w-5 h-5" />
             <span>{t("email:validation.button")}</span>
           </Button>
           {success ? (
-            <p className="text-sm text-center text-black">{success}</p>
+            <p className="text-sm text-center text-accent-600">{success}</p>
           ) : null}
           {error ? (
             <p className="text-md text-center text-error-primary">

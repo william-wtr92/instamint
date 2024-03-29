@@ -104,7 +104,7 @@ const SignUpPage = () => {
   )
 
   const disabled =
-    !form.formState.isValid || !form.watch("gdprValidation") || !checkPassword
+    form.formState.isValid && form.watch("gdprValidation") && checkPassword
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
@@ -112,7 +112,7 @@ const SignUpPage = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full flex items-center flex-col p-6 space-y-8 bg-white rounded-md shadow-xl"
+            className="w-full flex items-center flex-col p-text-large-screen space-y-8 bg-white rounded-md shadow-xl"
           >
             <FormField
               control={form.control}
@@ -124,15 +124,13 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
                       placeholder={t("signup:username.placeholder")}
-                      onFocus={() => {
-                        setIsFocused(false)
-                      }}
+                      onFocus={() => setIsFocused(false)}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2  mt-2 text-medium">
+                  <FormDescription className="relative left-2 mt-2 text-medium">
                     {t("signup:username.description")}
                   </FormDescription>
                   <FormMessage
@@ -156,12 +154,10 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
                       type="email"
                       placeholder={t("signup:email.placeholder")}
-                      onFocus={() => {
-                        setIsFocused(false)
-                      }}
+                      onFocus={() => setIsFocused(false)}
                       {...field}
                     />
                   </FormControl>
@@ -187,14 +183,13 @@ const SignUpPage = () => {
                   <FormControl>
                     <div className="relative">
                       <Input
-                        className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                        className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
                         type={showPassword ? "text" : "password"}
                         placeholder={t("signup:password.placeholder")}
                         {...field}
                         onFocus={() => {
                           setIsFocused(true)
                         }}
-                        onBlur={() => setIsFocused(false)}
                       />
                       {showPassword ? (
                         <EyeSlashIcon
@@ -209,32 +204,28 @@ const SignUpPage = () => {
                       )}
                     </div>
                   </FormControl>
-                  {isFocused ? (
-                    <div
-                      className="relative -left-4 rounded-md mt-4 bg-white bg-opacity-40 xl:border-1 xl:shadow-2xl p-4 xl:-bottom-10 xl:-left-56 xl:absolute"
-                      tabIndex={-1}
-                    >
-                      <div className="w-full px-4 rounded-md">
-                        {Object.entries(passwordCriteria).map(
-                          ([key, value]) => (
-                            <span
-                              key={key}
-                              className={`flex items-center gap-3 text-medium`}
-                            >
-                              <span
-                                className={`w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-50"}`}
-                              ></span>
-                              <span
-                                className={`${value ? "font-light" : "font-bold"} `}
-                              >
-                                {t(`signup:password.criteria.${key}`)}
-                              </span>
-                            </span>
-                          )
-                        )}
-                      </div>
+                  <div
+                    className={`relative rounded-md bg-white mt-6 xl:mt-0 xl:p-4 xl:z-[-1] xl:transition-transform xl:duration-700 xl:ease-in-out xl:transform xl:bg-opacity-40 xl:shadow-2xl xl:absolute xl:-bottom-10 xl:-left-56 ${isFocused ? "xl:translate-x-0" : "xl:translate-x-[115%]"}`}
+                    tabIndex={-1}
+                  >
+                    <div className={`w-full px-4 rounded-md`}>
+                      {Object.entries(passwordCriteria).map(([key, value]) => (
+                        <span
+                          key={key}
+                          className={`flex items-center gap-3 text-medium ${value ? "opacity-100" : "opacity-60"}`}
+                        >
+                          <span
+                            className={`w-3 h-3 border border-input  rounded-2xl ${value ? "bg-accent-600" : "bg-neutral-200"}`}
+                          ></span>
+                          <span
+                            className={`${value ? "text-medium font-semibold" : "text-medium font-light"} `}
+                          >
+                            {t(`signup:password.criteria.${key}`)}
+                          </span>
+                        </span>
+                      ))}
                     </div>
-                  ) : null}
+                  </div>
                 </FormItem>
               )}
             />
@@ -248,12 +239,10 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-300"
+                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
                       type="password"
                       placeholder={t("signup:confirmPassword.placeholder")}
-                      onFocus={() => {
-                        setIsFocused(false)
-                      }}
+                      onFocus={() => setIsFocused(false)}
                       {...field}
                     />
                   </FormControl>
@@ -276,17 +265,15 @@ const SignUpPage = () => {
                   <FormControl>
                     <Checkbox
                       id="terms2"
-                      className="flex justify-center justify-items-center items-center border-2 border-black w-7 h-7 rounded-md data-[state=checked]:bg-accent-400 data-[state=checked]:text-white data-[state=checked]:border-0"
+                      className="transition duration-700 flex justify-center justify-items-center items-center border-1 w-7 h-7 rounded-md data-[state=checked]:bg-accent-500 data-[state=checked]:text-white focus-visible:outline-accent-500"
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      onFocus={() => {
-                        setIsFocused(false)
-                      }}
+                      onFocus={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>{t("signup:terms.label")}</FormLabel>
-                    <FormDescription className="relative left-[0.1rem]  mt-2 text-medium">
+                    <FormDescription className="relative left-[0.1rem] mt-2 text-medium">
                       {t("signup:terms.description")}
                     </FormDescription>
                   </div>
@@ -295,13 +282,13 @@ const SignUpPage = () => {
             />
             <Button
               disabled={disabled}
-              className={`border-2 border-black px-5 py-2 w-[60%] ${disabled ? "cursor-not-allowed" : ""}`}
+              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!disabled ? "cursor-not-allowed opacity-50" : ""}`}
               type="submit"
             >
               {t("signup:submit")}
             </Button>
             {success ? (
-              <p className="text-sm text-center text-black">{success}</p>
+              <p className="text-sm text-center text-accent-600">{success}</p>
             ) : null}
             {error ? (
               <p className="text-md text-center text-error-primary">

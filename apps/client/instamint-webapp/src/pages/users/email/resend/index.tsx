@@ -83,7 +83,7 @@ const UsersResendEmailValidationPage = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full flex items-center flex-col p-6 space-y-8 bg-white rounded-md shadow-xl"
+            className="w-full flex items-center flex-col p-content space-y-8 bg-white rounded-md shadow-xl"
           >
             <FormField
               control={form.control}
@@ -95,12 +95,12 @@ const UsersResendEmailValidationPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-neutral-tertiary"
+                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
                       placeholder={t("email:resend.email.placeholder")}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="relative left-2  mt-2 text-xs">
+                  <FormDescription className="relative left-2 mt-2 text-xs">
                     {t("email:resend.email.description")}
                   </FormDescription>
                   <FormMessage
@@ -116,13 +116,13 @@ const UsersResendEmailValidationPage = () => {
             />
             <Button
               disabled={!form.formState.isValid}
-              className={`border-2 border-black px-5 py-2 w-[60%] ${!form.formState.isValid ? "cursor-not-allowed" : ""}`}
+              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : ""}`}
               type="submit"
             >
               {t("email:resend.email.submit")}
             </Button>
             {success ? (
-              <p className="text-sm text-center text-black">{success}</p>
+              <p className="text-sm text-center text-accent-600">{success}</p>
             ) : null}
             {error ? (
               <p className="text-md text-center text-error-primary">
