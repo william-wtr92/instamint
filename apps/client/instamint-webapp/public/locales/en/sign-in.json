@@ -1,0 +1,18 @@
+{
+  "email": {
+    "label": "Email",
+    "placeholder": "Please enter your email address",
+    "error": "Please enter a valid email address."
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Please enter your password",
+    "error": "Please enter a valid password."
+  },
+  "submit": "Sign In",
+  "success": "You have successfully signed in. You will be redirected!",
+  "redirect": {
+    "description": "You don't have an account?",
+    "link": "Create one here."
+  }
+}

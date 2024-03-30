@@ -1,0 +1,40 @@
+{
+  "username": {
+    "label": "Nom d'utilisateur",
+    "placeholder": "Entrez votre nom d'utilisateur",
+    "description": "Ceci sera votre nom d'utilisateur unique.",
+    "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
+  },
+  "email": {
+    "label": "Email",
+    "placeholder": "Entrez votre adresse email",
+    "error": "Veuillez entrer une adresse email valide."
+  },
+  "password": {
+    "label": "Mot de passe",
+    "placeholder": "Entrez votre mot de passe",
+    "criteria": {
+      "uppercase": "Une lettre majuscule",
+      "lowercase": "Une lettre minuscule",
+      "number": "Un chiffre",
+      "specialCharacter": "Un caractère spécial",
+      "length": "Au moins 8 caractères"
+    }
+  },
+  "confirmPassword": {
+    "label": "Confirmer le mot de passe",
+    "placeholder": "Confirmez votre mot de passe",
+    "error": "Les mots de passe ne correspondent pas."
+  },
+  "terms": {
+    "label": "Conditions d'utilisation",
+    "description": "J'accepte les conditions d'utilisation",
+    "error": "Vous devez accepter les conditions d'utilisation."
+  },
+  "submit": "Créer un compte",
+  "success": "Votre compte a été créé avec succès. Regardez votre boite mail pour activer votre compte.",
+  "redirect": {
+    "description": "Vous avez déjà un compte ?",
+    "link": "Connectez-vous"
+  }
+}

@@ -1,2 +1,4 @@
-export * from "./types/users/signUp.types"
-export * from "./types/users/emailValidation.types"
+/* Auth Schemas & Types */
+export * from "./types/auth/signUp.types"
+export * from "./types/auth/emailValidation.types"
+export * from "./types/auth/signIn.types"

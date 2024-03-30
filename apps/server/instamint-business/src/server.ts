@@ -24,7 +24,10 @@ const server = async (appConfig: AppConfig) => {
   const app = new Hono()
   app.use(
     "*",
-    cors(),
+    cors({
+      origin: appConfig.security.cors.origin,
+      credentials: appConfig.security.cors.credentials,
+    }),
     secureHeaders(),
     sentry({ dsn: appConfig.sentry.dsn }),
     etag(),

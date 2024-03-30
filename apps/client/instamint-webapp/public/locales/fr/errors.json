@@ -1,5 +1,5 @@
 {
-  "users": {
+  "auth": {
     "userNotFound": "Ce compte n'existe pas.",
     "emailOrUsernameAlreadyExist": "L'email ou le nom d'utilisateur existe déjà.",
     "gdprValidationIsRequired": "Vous devez accepter les conditions d'utilisation.",
@@ -10,6 +10,7 @@
     "unspecifiedErrorOccurred": "Une erreur inconnue est survenue. Réessayez plus tard.",
     "userEmailAlreadyValidated": "Votre email a déjà été validé.",
     "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
-    "emailNotExists": "Cet email n'existe pas."
+    "emailNotExists": "Cet email n'existe pas.",
+    "invalidPassword": "Mot de passe invalide."
   }
 }

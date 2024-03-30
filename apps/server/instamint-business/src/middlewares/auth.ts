@@ -1,28 +1,30 @@
 import { createFactory, type Factory } from "hono/factory"
 import type { Context, MiddlewareHandler, Next } from "hono"
-import { verify } from "hono/jwt"
+import { getSignedCookie } from "hono/cookie"
 
 import appConfig from "@/db/config/config"
+import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
 import UserModel from "@/db/models/UserModel"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { usersMessages, globalsMessages } from "@/def"
+import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
+import { decodeJwt } from "@/utils/helpers/jwtActions"
 
 const factory: Factory = createFactory()
 
 export const auth: MiddlewareHandler = factory.createMiddleware(
   async (c: Context, next: Next) => {
-    const jwt = c.req.header("Authorization")?.slice(7)
+    const authToken = await getSignedCookie(
+      c,
+      appConfig.security.cookie.secret,
+      cookiesKeys.auth.signIn
+    )
 
-    if (!jwt) {
+    if (!authToken) {
       return c.json(globalsMessages.tokenNotProvided, 401)
     }
 
     try {
-      const decodedToken = await verify(
-        jwt,
-        appConfig.security.jwt.secret,
-        appConfig.security.jwt.algorithm
-      )
+      const decodedToken = await decodeJwt(authToken)
 
       if (
         typeof decodedToken === "object" &&
@@ -32,15 +34,15 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
       ) {
         const userId: number = decodedToken.payload.user.id
 
-        const user: UserModel | undefined = await UserModel.query()
+        const user = await UserModel.query()
           .withGraphFetched("roleData")
           .findById(userId)
 
         if (!user) {
-          return c.json(usersMessages.userNotFound, 404)
+          return c.json(authMessages.userNotFound, 404)
         }
 
-        c.set("user", user)
+        c.set(contextsKeys.user, sanitizeUser(user, ["roleData"]))
 
         await next()
       }

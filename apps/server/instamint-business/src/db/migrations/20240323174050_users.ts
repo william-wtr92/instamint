@@ -19,7 +19,7 @@ export const up = async (knex: Knex): Promise<void> => {
     table.timestamps(true, true, true)
     table.boolean("emailValidation").notNullable().defaultTo(false)
     table.boolean("gdprValidation").notNullable().defaultTo(false)
-    table.integer("roleId").references("id").inTable("roles").defaultTo(1)
+    table.integer("roleId").references("id").inTable("roles").defaultTo(2)
   })
 }
 

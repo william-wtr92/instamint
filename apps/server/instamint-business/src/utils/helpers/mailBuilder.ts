@@ -1,24 +1,18 @@
-import { sign } from "hono/jwt"
 import sgMail from "@sendgrid/mail"
 
 import appConfig from "@/db/config/config"
-import { now, oneHour } from "@/utils/helpers/times"
+import { oneHour } from "@/utils/helpers/times"
 import type { MailBuild, MailData } from "@/types"
+import { signJwt } from "@/utils/helpers/jwtActions"
 
 export const mailBuilder = async (data: MailData, expiration?: number) => {
-  const mailToken = await sign(
+  const mailToken = await signJwt(
     {
-      payload: {
-        user: {
-          email: data.email,
-        },
+      user: {
+        email: data.email,
       },
-      exp: expiration ? expiration : oneHour,
-      nbf: now,
-      iat: now,
     },
-    appConfig.security.jwt.secret,
-    appConfig.security.jwt.algorithm
+    expiration ? expiration : oneHour
   )
 
   sgMail.setApiKey(appConfig.sendgrid.apiKey)

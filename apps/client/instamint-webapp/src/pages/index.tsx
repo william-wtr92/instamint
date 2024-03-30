@@ -2,6 +2,9 @@ import Head from "next/head"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
+import { Avatar, AvatarFallback } from "@instamint/ui-kit"
+
+import { useUser } from "@/web/hooks/auth/useUser"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -15,6 +18,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Home = () => {
   const { t } = useTranslation("common")
+  const { data, error, isLoading } = useUser()
+
+  const usernameFirstLetter = data?.user.username.charAt(0).toUpperCase()
 
   return (
     <>
@@ -24,8 +30,23 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex justify-center items-center h-screen">
-        <h1 className="font-bold text-6xl">{t("title")}</h1>
+      <main className="relative flex flex-col gap-4 justify-center items-center h-screen">
+        <h1 className="font-bold text-3xl xl:text-6xl">{t("title")}</h1>
+        <div className="xl:absolute xl:top-10 xl:right-10 xl:hover:cursor-pointer xl:hover:scale-[101%]">
+          {data && (
+            <div className="flex items-center justify-center gap-7 outline-dashed outline-2 outline-offset-2 outline-neutral-400 rounded-md p-3">
+              <Avatar className="size-4 p-4 rounded-2xl outline-dotted outline-2 outline-offset-2 outline-neutral-400">
+                <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col text-medium font-semibold w-52">
+                <span>{data?.user.username}</span>
+                <span className="truncate">{data?.user.email}</span>
+              </div>
+            </div>
+          )}
+          {isLoading && <p>Loading...</p>}
+          {error && <p>Error !</p>}
+        </div>
       </main>
     </>
   )

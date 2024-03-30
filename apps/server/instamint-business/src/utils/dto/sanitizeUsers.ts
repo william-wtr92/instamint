@@ -1,7 +1,9 @@
 import type { BaseSignUp } from "@instamint/shared-types"
-import type UserModel from "@/db/models/UserModel"
 
-export const sanitizeUser = (
+import type UserModel from "@/db/models/UserModel"
+import type { AdditionalUserFields } from "@/types"
+
+export const sanitizeCreatedUser = (
   user: BaseSignUp
 ): Omit<BaseSignUp, "password" | "gdprValidation"> => {
   const { username, email }: BaseSignUp = user
@@ -17,4 +19,20 @@ export const sanitizeUsers = (
 
     return { username, email, roleData }
   })
+}
+
+export const sanitizeUser = <T extends keyof AdditionalUserFields>(
+  user: UserModel,
+  additionalFields: T[] = []
+) => {
+  const additionalData: Pick<UserModel, T> = additionalFields.reduce(
+    (acc, field) => {
+      acc[field] = user[field]
+
+      return acc
+    },
+    {} as Pick<UserModel, T>
+  )
+
+  return { username: user.username, email: user.email, ...additionalData }
 }
