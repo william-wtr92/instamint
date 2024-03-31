@@ -9,39 +9,30 @@ type Props = React.HTMLAttributes<HTMLParagraphElement> & {
   variant: TextVariant
 }
 
-const text = cva(
-  "",
-  {
-    variants: {
-      variant: {
-        accent: "text-accent-500	",
-        neutral: "text-neutral-500",
-        success: "text-success-primary",
-        error: "text-error-primary"
-      },
-      type: {
-        title: "text-title",
-        heading: "text-heading",
-        subheading: "text-subheading",
-        body: "text-body",
-        medium: "text-medium",
-        small: "text-small",
-      },
-    }
-  }
-)
+const text = cva("", {
+  variants: {
+    variant: {
+      accent: "text-accent-500	",
+      neutral: "text-neutral-500",
+      success: "text-success-primary",
+      error: "text-error-primary",
+    },
+    type: {
+      title: "text-title",
+      heading: "text-heading",
+      subheading: "text-subheading",
+      body: "text-body",
+      medium: "text-medium",
+      small: "text-small",
+    },
+  },
+})
 
 const Text = forwardRef<HTMLParagraphElement, Props>((props, ref) => {
   const { className, type, variant, children } = props
 
   return (
-    <p
-      role="Text"
-      ref={ref}
-      className={cx(
-        text({ variant, type, className }),
-      )}
-    >
+    <p role="Text" ref={ref} className={cx(text({ variant, type, className }))}>
       {children}
     </p>
   )

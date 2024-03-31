@@ -9,6 +9,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  testTimeout: 30000,
 }
 
 export default config

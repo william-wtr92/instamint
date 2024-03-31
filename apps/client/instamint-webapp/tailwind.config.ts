@@ -2,10 +2,7 @@
 import colors from "tailwindcss/colors"
 
 module.exports = {
-  content: [
-    "./src/**/*.{ts,tsx}",
-    "../../../packages/ui/**/*.{ts,tsx}"
-  ],
+  content: ["./src/**/*.{ts,tsx}", "../../../packages/ui/**/*.{ts,tsx}"],
   theme: {
     screens: {
       xs: "375px",
