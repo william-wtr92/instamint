@@ -1,7 +1,7 @@
 import { type Context, Hono } from "hono"
 import { setSignedCookie } from "hono/cookie"
 import { zValidator } from "@hono/zod-validator"
-import type { ApiRoutes } from "@instamint/server-types"
+import { type ApiRoutes, SC } from "@instamint/server-types"
 import { type SignIn, signInSchema } from "@instamint/shared-types"
 
 import UserModel from "@/db/models/UserModel"
@@ -25,11 +25,17 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signIn = new Hono()
 
   if (!db) {
-    throw createErrorResponse(globalsMessages.databaseNotAvailable, 500)
+    throw createErrorResponse(
+      globalsMessages.databaseNotAvailable,
+      SC.serverErrors.INTERNAL_SERVER_ERROR
+    )
   }
 
   if (!redis) {
-    throw createErrorResponse(globalsMessages.redisNotAvailable, 500)
+    throw createErrorResponse(
+      globalsMessages.redisNotAvailable,
+      SC.serverErrors.INTERNAL_SERVER_ERROR
+    )
   }
 
   signIn.post(
@@ -46,13 +52,13 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         .withGraphFetched("roleData")
 
       if (!user) {
-        return c.json(authMessages.emailNotExists, 400)
+        return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
       }
 
       const validity = await user?.checkPassword(password)
 
       if (!validity) {
-        return c.json(authMessages.invalidPassword, 400)
+        return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
       }
 
       const jwtTokenKey = redisKeys.auth.authSession(email, "")
@@ -80,7 +86,10 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         }
       )
 
-      return c.json({ message: authMessages.signInSuccess.message }, 200)
+      return c.json(
+        { message: authMessages.signInSuccess.message },
+        SC.success.OK
+      )
     }
   )
 
@@ -88,7 +97,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
     const contextUser: UserModel = c.get(contextsKeys.user)
 
     if (!contextUser) {
-      return c.json(authMessages.userNotFound, 404)
+      return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
     }
 
     return c.json(
@@ -96,7 +105,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         message: authMessages.signedInUser.message,
         result: sanitizeUser(contextUser),
       },
-      200
+      SC.success.OK
     )
   })
 
@@ -105,9 +114,12 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
     auth,
     isAdmin,
     async (c: Context): Promise<Response> => {
-      return c.json({
-        message: "You are an admin!",
-      })
+      return c.json(
+        {
+          message: "You are an admin!",
+        },
+        SC.success.OK
+      )
     }
   )
 

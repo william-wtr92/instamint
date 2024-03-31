@@ -10,3 +10,5 @@ export type RouteParams = {
 
 export type ApiRoutes = (params: RouteParams) => void
 export type PrepareRoutes = (ctx: RouteParams) => void
+
+export type SimpleHeaders = { [key: string]: string }

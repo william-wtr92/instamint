@@ -1,6 +1,6 @@
 import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
-import type { ApiRoutes } from "@instamint/server-types"
+import { type ApiRoutes, SC } from "@instamint/server-types"
 import sgMail from "@sendgrid/mail"
 import {
   baseSignupSchema,
@@ -32,11 +32,17 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signUp = new Hono()
 
   if (!db) {
-    throw createErrorResponse(globalsMessages.databaseNotAvailable, 500)
+    throw createErrorResponse(
+      globalsMessages.databaseNotAvailable,
+      SC.serverErrors.INTERNAL_SERVER_ERROR
+    )
   }
 
   if (!redis) {
-    throw createErrorResponse(globalsMessages.redisNotAvailable, 500)
+    throw createErrorResponse(
+      globalsMessages.redisNotAvailable,
+      SC.serverErrors.INTERNAL_SERVER_ERROR
+    )
   }
 
   signUp.post(
@@ -50,11 +56,17 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
       const userExistByUsername = await UserModel.query().findOne({ username })
 
       if (userExistByEmail || userExistByUsername) {
-        return c.json(authMessages.emailOrUsernameAlreadyExist, 400)
+        return c.json(
+          authMessages.emailOrUsernameAlreadyExist,
+          SC.errors.BAD_REQUEST
+        )
       }
 
       if (!gdprValidation) {
-        return c.json(authMessages.gdprValidationIsRequired, 400)
+        return c.json(
+          authMessages.gdprValidationIsRequired,
+          SC.errors.BAD_REQUEST
+        )
       }
 
       const [passwordHash, passwordSalt]: string[] =
@@ -85,10 +97,13 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
             message: authMessages.userCreated.message,
             result: sanitizeCreatedUser(requestBody),
           },
-          201
+          SC.success.CREATED
         )
       } catch (error) {
-        throw createErrorResponse(authMessages.errorDuringUserRegistration, 500)
+        throw createErrorResponse(
+          authMessages.errorDuringUserRegistration,
+          SC.serverErrors.SERVICE_UNAVAILABLE
+        )
       }
     }
   )
@@ -100,14 +115,14 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { validation }: UserEmailToken = await c.req.json()
 
       if (validation == null) {
-        return c.json(globalsMessages.tokenNotProvided, 400)
+        return c.json(globalsMessages.tokenNotProvided, SC.errors.BAD_REQUEST)
       }
 
       const emailTokenKey = redisKeys.auth.emailToken(validation)
       const emailToken = await redis.get(emailTokenKey)
 
       if (!emailToken) {
-        return c.json(globalsMessages.tokenExpired, 400)
+        return c.json(globalsMessages.tokenExpired, SC.errors.BAD_REQUEST)
       }
 
       try {
@@ -118,18 +133,24 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         const user = await UserModel.query().findOne({ email })
 
         if (!user) {
-          return c.json(authMessages.userNotFound, 404)
+          return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
         }
 
         if (user.emailValidation) {
-          return c.json(authMessages.userEmailAlreadyValidated, 400)
+          return c.json(
+            authMessages.userEmailAlreadyValidated,
+            SC.errors.BAD_REQUEST
+          )
         }
 
         await db("users").where({ email }).update({ emailValidation: true })
 
         await redis.del(emailTokenKey)
 
-        return c.json({ message: authMessages.userEmailValidated.message }, 200)
+        return c.json(
+          { message: authMessages.userEmailValidated.message },
+          SC.success.OK
+        )
       } catch (err) {
         throw jwtTokenErrors(err)
       }
@@ -146,17 +167,23 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
       const lastEmailValidation = await redis.get(cacheEmailValidationKey)
 
       if (lastEmailValidation) {
-        return c.json(emailsMessages.userMustWaitBeforeSendingAnotherMail, 429)
+        return c.json(
+          emailsMessages.userMustWaitBeforeSendingAnotherMail,
+          SC.errors.TOO_MANY_REQUESTS
+        )
       }
 
       const user = await UserModel.query().findOne({ email })
 
       if (!user) {
-        return c.json(authMessages.emailNotExists, 400)
+        return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
       }
 
       if (user.emailValidation) {
-        return c.json(authMessages.userEmailAlreadyValidated, 400)
+        return c.json(
+          authMessages.userEmailAlreadyValidated,
+          SC.errors.BAD_REQUEST
+        )
       }
 
       const sendGridMail = await mailBuilder(
@@ -178,7 +205,10 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         .set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
         .exec()
 
-      return c.json({ message: emailsMessages.emailSent.message }, 200)
+      return c.json(
+        { message: emailsMessages.emailSent.message },
+        SC.success.OK
+      )
     }
   )
 

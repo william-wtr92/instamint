@@ -1,0 +1,8 @@
+{
+  "extends": "@instamint/tsconfig-server/tsconfig.server.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

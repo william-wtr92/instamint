@@ -1,6 +1,7 @@
 import { createFactory, type Factory } from "hono/factory"
 import type { Context, MiddlewareHandler, Next } from "hono"
 import { getSignedCookie } from "hono/cookie"
+import { SC } from "@instamint/server-types"
 
 import appConfig from "@/db/config/config"
 import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
@@ -20,7 +21,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
     )
 
     if (!authToken) {
-      return c.json(globalsMessages.tokenNotProvided, 401)
+      return c.json(globalsMessages.tokenNotProvided, SC.errors.UNAUTHORIZED)
     }
 
     try {
@@ -39,7 +40,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
           .findById(userId)
 
         if (!user) {
-          return c.json(authMessages.userNotFound, 404)
+          return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
         }
 
         c.set(contextsKeys.user, sanitizeUser(user, ["roleData"]))
@@ -47,7 +48,10 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
         await next()
       }
 
-      return c.json(globalsMessages.tokenInvalidStructure, 401)
+      return c.json(
+        globalsMessages.tokenInvalidStructure,
+        SC.errors.UNAUTHORIZED
+      )
     } catch (err) {
       throw jwtTokenErrors(err)
     }

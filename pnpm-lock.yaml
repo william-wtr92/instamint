@@ -264,6 +264,10 @@ importers:
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.11.3)
+    devDependencies:
+      '@instamint/tsconfig-server':
+        specifier: workspace:^
+        version: link:../../tsconfig/server
 
   packages/types/shared:
     dependencies:
@@ -271,6 +275,9 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@instamint/tsconfig-server':
+        specifier: workspace:^
+        version: link:../../tsconfig/server
       typescript:
         specifier: ^5.4.2
         version: 5.4.2

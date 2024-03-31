@@ -1,5 +1,6 @@
 import knex from "knex"
 import { describe, test, expect, beforeAll, afterAll } from "@jest/globals"
+import { SC } from "@instamint/server-types"
 
 import server from "@/server"
 import appConfig from "@/db/config/config"
@@ -37,7 +38,7 @@ describe("/auth/sign-up endpoint", () => {
     })
 
     const data = await response.json()
-    expect(response.status).toBe(201)
+    expect(response.status).toBe(SC.success.CREATED)
     expect(data).toHaveProperty("message", authMessages.userCreated.message)
   })
 })
