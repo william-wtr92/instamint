@@ -3,8 +3,8 @@ import colors from "tailwindcss/colors"
 
 module.exports = {
   content: [
-    "./src/web/components/**/*.{js,jsx,ts,tsx}",
-    "./src/pages/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "../../../packages/ui/**/*.{ts,tsx}"
   ],
   theme: {
     screens: {

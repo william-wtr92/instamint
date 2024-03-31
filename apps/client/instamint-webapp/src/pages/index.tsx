@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Home = () => {
   const { t } = useTranslation("common")
 
+
   return (
     <>
       <Head>
