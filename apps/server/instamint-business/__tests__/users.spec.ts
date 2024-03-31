@@ -5,13 +5,13 @@ import server from "@/server"
 import appConfig from "@/db/config/config"
 import { usersMessages } from "@/def"
 
+const db = knex(appConfig.db)
+
 beforeAll(async () => {
-  const db = knex(appConfig.db)
   await db.migrate.latest()
 })
 
 afterAll(async () => {
-  const db = knex(appConfig.db)
   await db.migrate.rollback()
   await db.destroy()
 })
@@ -37,6 +37,7 @@ describe("/users endpoint", () => {
     })
 
     const data = await response.json()
+
     expect(response.status).toBe(201)
     expect(data).toHaveProperty("message", usersMessages.userCreated.message)
   })
