@@ -93,7 +93,7 @@ const ResendEmailValidationPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       placeholder={t("email:resend.email.placeholder")}
                       {...field}
                     />

@@ -104,7 +104,7 @@ const SignInPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       type="email"
                       placeholder={t("sign-in:email.placeholder")}
                       {...field}
@@ -132,7 +132,7 @@ const SignInPage = () => {
                   <FormControl>
                     <div className="relative">
                       <Input
-                        className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                        className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                         type={showPassword ? "text" : "password"}
                         placeholder={t("sign-in:password.placeholder")}
                         {...field}

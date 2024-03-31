@@ -131,7 +131,7 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       placeholder={t("sign-up:username.placeholder")}
                       onFocus={() => setIsFocused(false)}
                       {...field}
@@ -161,7 +161,7 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       type="email"
                       placeholder={t("sign-up:email.placeholder")}
                       onFocus={() => setIsFocused(false)}
@@ -190,7 +190,7 @@ const SignUpPage = () => {
                   <FormControl>
                     <div className="relative">
                       <Input
-                        className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                        className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                         type={showPassword ? "text" : "password"}
                         placeholder={t("sign-up:password.placeholder")}
                         {...field}
@@ -246,7 +246,7 @@ const SignUpPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:outline-accent-500"
+                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       type="password"
                       placeholder={t("sign-up:confirmPassword.placeholder")}
                       onFocus={() => setIsFocused(false)}

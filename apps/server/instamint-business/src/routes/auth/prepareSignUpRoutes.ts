@@ -93,7 +93,7 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
-  signUp.post(
+  signUp.put(
     "/email-validation",
     zValidator("json", userEmailValidationSchema),
     async (c: Context): Promise<Response> => {

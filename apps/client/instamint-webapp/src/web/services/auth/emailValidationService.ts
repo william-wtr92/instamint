@@ -12,7 +12,7 @@ const emailValidationService: Services<UserEmailToken> =
         validation: data.validation,
       }
 
-      const { data: responseData } = await api.post(
+      const { data: responseData } = await api.put(
         routes.auth.emailValidation,
         body
       )

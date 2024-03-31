@@ -73,6 +73,31 @@ export const useUser = () => {
 }
 ```
 
+- You can add optimizations to the `useSWR` hook:
+
+```tsx
+export const useUser = () => {
+  const config: SWRConfiguration = {
+    revalidateOnFocus: false, // revalidate when the window gets focused
+    refreshInterval: 60000, // revalidate every minute
+    revalidateOnReconnect: true, // revalidate when reconnecting to the network
+    /* Some other good options */
+    // dedupingInterval: 2000, // dedupe requests with the same key in this time span
+    // focusThrottleInterval: 5000, // only revalidate once during a time span
+    // loadingTimeout: 3000, // throw an error if the data is not updated after this time
+  }
+
+  const { ...query } = useSWR<User, Error>(path, config) // You need to pass the config object as the second argument ans third if you don't have global fetcher setup as above
+
+  return {
+    ...query,
+  }
+}
+```
+
+> ⚠️ These configurations can be added independently, as I'm doing here, or directly from the global fetcher in the
+> SWRConfig context.
+
 - Use the `useUser` hook in your component:
 
 ```tsx
