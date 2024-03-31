@@ -31,12 +31,20 @@ const securityConfigSchema = z.object({
     expiresIn: z.number(),
     algorithm: z.literal("HS512"),
   }),
+  cookie: z.object({
+    secret: z.string(),
+    maxAge: z.number(),
+  }),
   password: z.object({
     saltlen: z.number(),
     keylen: z.number(),
     iterations: z.number(),
     digest: z.string(),
     pepper: z.string(),
+  }),
+  cors: z.object({
+    origin: z.string(),
+    credentials: z.boolean(),
   }),
 })
 

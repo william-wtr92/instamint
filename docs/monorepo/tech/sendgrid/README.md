@@ -31,7 +31,7 @@ SENDGRID_SENDER=your_sendgrid_sender_email
 ```ts
 import sgMail from "@sendgrid/mail"
 
-users.post("/", async (c: Context): Promise<Response> => {
+routes.post("/", async (c: Context): Promise<Response> => {
   sgMail.setApiKey(yourSendGridAPIkey) // Set the SendGrid API Key
 
   const sendGridMail: MailBuild<{ username: string; token: string }> = {

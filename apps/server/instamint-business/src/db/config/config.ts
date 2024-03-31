@@ -42,12 +42,20 @@ const appConfig = baseConfig.parse({
       expiresIn: oneDay,
       algorithm: "HS512",
     },
+    cookie: {
+      secret: process.env.SECURITY_COOKIE_SECRET!,
+      maxAge: 86400,
+    },
     password: {
       saltlen: 512,
       keylen: 512,
       iterations: 10000,
       digest: "sha512",
       pepper: process.env.SECURITY_PASSWORD_PEPPER!,
+    },
+    cors: {
+      origin: process.env.CORS_ORIGIN!,
+      credentials: true,
     },
   },
   sentry: {

@@ -1,0 +1,20 @@
+meta {
+  name: SignUp - auth
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/auth/sign-up
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "instamint01",  
+    "email": "test@gmail.com", 
+    "password": "Password123+",
+    "gdprValidation": true
+  }
+}

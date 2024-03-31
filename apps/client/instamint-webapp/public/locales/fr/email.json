@@ -1,7 +1,9 @@
 {
   "validation": {
     "title": "Validez votre email pour avoir accès à Instamint",
-    "button": "Valider mon email",
+    "cta": {
+      "button": "Valider mon email"
+    },
     "success": "L'e-mail a été validé avec succès. Vous serez redirigé sous peu !",
     "errorNoToken": "Veuillez vérifier votre courrier et cliquer sur 'Vérifier l'adresse email', vous serez redirigé dans les plus brefs délais !"
   },
@@ -12,7 +14,9 @@
       "placeholder": "Entrez votre email ici",
       "description": "Saisissez votre adresse mail pour recevoir un email de validation.",
       "error": "Veuillez entrer une adresse email valide.",
-      "submit": "Envoyer"
+      "cta": {
+        "submit": "Envoyer"
+      }
     }
   }
 }

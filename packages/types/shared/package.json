@@ -10,6 +10,7 @@
   "author": "William - @william-wtr92",
   "license": "ISC",
   "devDependencies": {
+    "@instamint/tsconfig-server": "workspace:^",
     "typescript": "^5.4.2"
   },
   "dependencies": {

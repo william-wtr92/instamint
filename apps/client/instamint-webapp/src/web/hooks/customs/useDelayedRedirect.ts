@@ -1,20 +1,19 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 
-export const useDelayedRedirect = (
-  path: string,
-  duration: number,
-  trigger: boolean
-) => {
+import useActionsContext from "@/web/contexts/useActionsContext"
+
+export const useDelayedRedirect = () => {
   const router = useRouter()
+  const { redirectDelay, redirectLink, triggerRedirect } = useActionsContext()
 
   useEffect(() => {
-    if (trigger) {
+    if (triggerRedirect) {
       const timeout = setTimeout(async () => {
-        await router.push(path)
-      }, duration)
+        await router.push(redirectLink)
+      }, redirectDelay)
 
       return () => clearTimeout(timeout)
     }
-  }, [path, duration, router, trigger])
+  }, [router, redirectLink, redirectDelay, triggerRedirect])
 }

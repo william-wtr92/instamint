@@ -1,5 +1,6 @@
 import { createFactory, type Factory } from "hono/factory"
 import type { Context, MiddlewareHandler, Next } from "hono"
+import { SC } from "@instamint/server-types"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import type UserModel from "@/db/models/UserModel"
@@ -12,7 +13,10 @@ export const isAdmin: MiddlewareHandler = factory.createMiddleware(
     const user: UserModel = c.get("user")
 
     if (!user || user.roleData.right !== "admin") {
-      throw createErrorResponse(authMessages.notHavePermission, 403)
+      throw createErrorResponse(
+        authMessages.notHavePermission,
+        SC.errors.FORBIDDEN
+      )
     }
 
     await next()
