@@ -7,4 +7,4 @@ export * from "./contexts.types"
 export * from "./services/authServices.types"
 
 /* HOOKS */
-export * from "./hooks/users/connectedUsers.types"
+export * from "./hooks/users/connectedUser.types"

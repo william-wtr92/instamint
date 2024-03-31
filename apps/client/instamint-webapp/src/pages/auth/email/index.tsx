@@ -1,5 +1,5 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
@@ -8,8 +8,8 @@ import type { UserEmailToken } from "@instamint/shared-types"
 
 import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import useActionsContext from "@/web/contexts/useActionsContext"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -40,14 +40,19 @@ const EmailValidationPage = (
     },
   } = useAppContext()
 
+  const {
+    setTriggerRedirect,
+    setRedirectLink,
+    setRedirectDelay,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useActionsContext()
+
   const { t } = useTranslation(["errors", "email"])
 
-  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
-  const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
-
-  useDelayedRedirect("/", redirectDelay, triggerRedirect)
+  useDelayedRedirect()
 
   const onSubmit = useCallback(async () => {
     if (validation != null) {
@@ -61,12 +66,24 @@ const EmailValidationPage = (
 
       setSuccess(t("email:validation.success"))
       setRedirectDelay(3000)
+      setRedirectLink("/")
     } else {
       setError(t("email:validation.errorNoToken"))
     }
 
     setTriggerRedirect(true)
-  }, [setError, setSuccess, setTriggerRedirect, emailValidation, validation, t])
+    setRedirectDelay(6000)
+    setRedirectLink("/")
+  }, [
+    setError,
+    setSuccess,
+    setRedirectLink,
+    setRedirectDelay,
+    setTriggerRedirect,
+    emailValidation,
+    validation,
+    t,
+  ])
 
   return (
     <>
@@ -80,7 +97,7 @@ const EmailValidationPage = (
             onClick={onSubmit}
           >
             <EnvelopeIcon className="w-5 h-5" />
-            <span>{t("email:validation.button")}</span>
+            <span>{t("email:validation.cta.button")}</span>
           </Button>
           {success ? (
             <p className="text-sm text-center text-accent-600">{success}</p>

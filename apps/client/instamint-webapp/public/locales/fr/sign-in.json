@@ -9,10 +9,12 @@
     "placeholder": "Entrez votre mot de passe",
     "error": "Veuillez entrer un mot de passe valide."
   },
-  "submit": "Se connecter",
   "success": "Connexion réussie. Vous allez être redirigé !",
-  "redirect": {
-    "description": "Vous n'avez pas de compte ?",
-    "link": "Créez-en un ici."
+  "cta": {
+    "submit": "Se connecter",
+    "redirect": {
+      "description": "Vous n'avez pas de compte ?",
+      "link": "Créez-en un ici."
+    }
   }
 }

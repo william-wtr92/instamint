@@ -5,12 +5,15 @@ import { SWRConfig } from "swr"
 
 import { AppContextProvider } from "@/web/contexts/useAppContext"
 import { globalFetcher } from "@/web/utils/api/globalFetcher"
+import { ActionsProvider } from "@/web/contexts/useActionsContext"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <SWRConfig value={{ fetcher: globalFetcher }}>
       <AppContextProvider>
-        <Component {...pageProps} />
+        <ActionsProvider>
+          <Component {...pageProps} />
+        </ActionsProvider>
       </AppContextProvider>
     </SWRConfig>
   )

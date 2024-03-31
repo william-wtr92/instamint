@@ -2,8 +2,7 @@
 
 > SWR is a React Hooks library for remote data fetching.
 
-> On Instamint we use SWR to fetch data from the server and cache it locally, revalidating the data when the page is
-> focused.
+> On Instamint we use SWR to fetch data from the server and cache it locally to improve the user experience.
 
 ## 📚 Resources
 

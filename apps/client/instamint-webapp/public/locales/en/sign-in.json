@@ -9,10 +9,12 @@
     "placeholder": "Please enter your password",
     "error": "Please enter a valid password."
   },
-  "submit": "Sign In",
   "success": "You have successfully signed in. You will be redirected!",
-  "redirect": {
-    "description": "You don't have an account?",
-    "link": "Create one here."
+  "cta": {
+    "submit": "Sign In",
+    "redirect": {
+      "description": "You don't have an account?",
+      "link": "Create one here."
+    }
   }
 }

@@ -31,10 +31,12 @@
     "description": "I agree to the terms and conditions.",
     "error": "You must agree to the terms and conditions."
   },
-  "submit": "Create Account",
   "success": "User created successfully. Look out for an email to verify your account.",
-  "redirect": {
-    "description": "Already have an account?",
-    "link": "Login"
+  "cta": {
+    "submit": "Create Account",
+    "redirect": {
+      "description": "Already have an account?",
+      "link": "Login"
+    }
   }
 }

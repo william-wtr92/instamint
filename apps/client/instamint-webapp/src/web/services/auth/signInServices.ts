@@ -13,9 +13,15 @@ const signInService: Services<SignIn> =
         password: data.password,
       }
 
-      const { data: responseData } = await api.post(routes.auth.signIn, body, {
+      const config = {
         withCredentials: true,
-      })
+      }
+
+      const { data: responseData } = await api.post(
+        routes.auth.signIn,
+        body,
+        config
+      )
 
       return [null, responseData]
     } catch (err) {

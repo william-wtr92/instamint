@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -21,8 +21,8 @@ import {
 } from "@instamint/shared-types"
 
 import useAppContext from "@/web/contexts/useAppContext"
-import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import useActionsContext from "@/web/contexts/useActionsContext"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -41,14 +41,19 @@ const ResendEmailValidationPage = () => {
     },
   } = useAppContext()
 
+  const {
+    setTriggerRedirect,
+    setRedirectLink,
+    setRedirectDelay,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useActionsContext()
+
   const { t } = useTranslation(["errors", "email"])
 
-  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
-  const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
-
-  useDelayedRedirect("/", redirectDelay, triggerRedirect)
+  useDelayedRedirect()
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
@@ -70,9 +75,18 @@ const ResendEmailValidationPage = () => {
 
       setSuccess(t("email:resend.successfully"))
       setRedirectDelay(3000)
+      setRedirectLink("/")
       setTriggerRedirect(true)
     },
-    [setError, setSuccess, setTriggerRedirect, resendEmailValidation, t]
+    [
+      setError,
+      setSuccess,
+      setRedirectLink,
+      setRedirectDelay,
+      setTriggerRedirect,
+      resendEmailValidation,
+      t,
+    ]
   )
 
   return (
@@ -117,7 +131,7 @@ const ResendEmailValidationPage = () => {
               className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
-              {t("email:resend.email.submit")}
+              {t("email:resend.email.cta.submit")}
             </Button>
             {success ? (
               <p className="text-sm text-center text-accent-600">{success}</p>

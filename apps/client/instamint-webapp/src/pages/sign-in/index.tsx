@@ -18,8 +18,8 @@ import { type SignIn, signInSchema } from "@instamint/shared-types"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 import useAppContext from "@/web/contexts/useAppContext"
-import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import useActionsContext from "@/web/contexts/useActionsContext"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -38,16 +38,21 @@ const SignInPage = () => {
     },
   } = useAppContext()
 
+  const {
+    setTriggerRedirect,
+    setRedirectLink,
+    setRedirectDelay,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useActionsContext()
+
   const { t } = useTranslation(["errors", "sign-in"])
 
-  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
-  const [redirectLink, setRedirectLink] = useState<string>("")
-  const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  useDelayedRedirect()
 
-  useDelayedRedirect(redirectLink, redirectDelay, triggerRedirect)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const form = useForm<SignIn>({
     resolver: zodResolver(signInSchema),
@@ -77,7 +82,15 @@ const SignInPage = () => {
       setRedirectDelay(3000)
       setTriggerRedirect(true)
     },
-    [setError, setSuccess, setTriggerRedirect, signIn, t]
+    [
+      setError,
+      setSuccess,
+      setRedirectLink,
+      setRedirectDelay,
+      setTriggerRedirect,
+      signIn,
+      t,
+    ]
   )
 
   const handleRedirect = useCallback(() => {
@@ -166,17 +179,17 @@ const SignInPage = () => {
               className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
-              {t("sign-in:submit")}
+              {t("sign-in:cta.submit")}
             </Button>
             <div className="flex items-center gap-1.5 text-medium">
               <p className="font-semibold">
-                {t("sign-in:redirect.description")}
+                {t("sign-in:cta.redirect.description")}
               </p>
               <p
                 className="font-bold text-accent-600 hover:cursor-pointer hover:scale-105"
                 onClick={handleRedirect}
               >
-                {t("sign-in:redirect.link")}
+                {t("sign-in:cta.redirect.link")}
               </p>
             </div>
             {success ? (

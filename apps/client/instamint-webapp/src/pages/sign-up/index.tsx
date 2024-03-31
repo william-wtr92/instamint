@@ -21,8 +21,8 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 import useAppContext from "@/web/contexts/useAppContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
-import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import useActionsContext from "@/web/contexts/useActionsContext"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -41,13 +41,20 @@ const SignUpPage = () => {
     },
   } = useAppContext()
 
+  const {
+    setTriggerRedirect,
+    setRedirectLink,
+    setRedirectDelay,
+    error,
+    setError,
+    success,
+    setSuccess,
+  } = useActionsContext()
+
   const { t } = useTranslation(["errors", "sign-up"])
 
-  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false)
-  const [redirectLink, setRedirectLink] = useState<string>("")
-  const [redirectDelay, setRedirectDelay] = useState<number>(0)
-  const [error, setError] = useShowTemp<Error | string | null>(null, 8000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
+  useDelayedRedirect()
+
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
   >({
@@ -59,8 +66,6 @@ const SignUpPage = () => {
   })
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
-
-  useDelayedRedirect(redirectLink, redirectDelay, triggerRedirect)
 
   const form = useForm<SignUp>({
     resolver: zodResolver(signUpSchema),
@@ -101,7 +106,15 @@ const SignUpPage = () => {
       setRedirectDelay(3000)
       setTriggerRedirect(true)
     },
-    [setError, setSuccess, setTriggerRedirect, signUp, t]
+    [
+      setError,
+      setSuccess,
+      setRedirectLink,
+      setRedirectDelay,
+      setTriggerRedirect,
+      signUp,
+      t,
+    ]
   )
 
   const handleRedirect = useCallback(() => {
@@ -292,17 +305,17 @@ const SignUpPage = () => {
               className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!disabled ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
-              {t("sign-up:submit")}
+              {t("sign-up:cta.submit")}
             </Button>
             <div className="flex items-center gap-1.5 text-medium">
               <p className="font-semibold">
-                {t("sign-up:redirect.description")}
+                {t("sign-up:cta.redirect.description")}
               </p>
               <p
                 className="font-bold text-accent-600 hover:cursor-pointer hover:scale-105"
                 onClick={handleRedirect}
               >
-                {t("sign-up:redirect.link")}
+                {t("sign-up:cta.redirect.link")}
               </p>
             </div>
             {success ? (

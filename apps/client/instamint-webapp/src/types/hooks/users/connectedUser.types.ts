@@ -1,5 +1,5 @@
-export type ConnectedUsers = {
-  user: {
+export type ConnectedUser = {
+  result: {
     email: string
     username: string
   }

@@ -83,7 +83,7 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(
           {
             message: authMessages.userCreated.message,
-            user: sanitizeCreatedUser(requestBody),
+            result: sanitizeCreatedUser(requestBody),
           },
           201
         )

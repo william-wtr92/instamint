@@ -1,7 +1,7 @@
 import useSWR, { type SWRConfiguration } from "swr"
 
 import { routes } from "@/web/routes"
-import type { ConnectedUsers } from "@/types"
+import type { ConnectedUser } from "@/types"
 
 export const useUser = () => {
   const config: SWRConfiguration = {
@@ -10,9 +10,13 @@ export const useUser = () => {
     revalidateOnReconnect: true,
   }
 
-  const { ...query } = useSWR<ConnectedUsers, Error>(routes.auth.me, config)
+  const { data, ...query } = useSWR<ConnectedUser, Error>(
+    routes.auth.me,
+    config
+  )
 
   return {
+    data: data?.result,
     ...query,
   }
 }

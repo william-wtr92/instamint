@@ -31,10 +31,12 @@
     "description": "J'accepte les conditions d'utilisation",
     "error": "Vous devez accepter les conditions d'utilisation."
   },
-  "submit": "Créer un compte",
   "success": "Votre compte a été créé avec succès. Regardez votre boite mail pour activer votre compte.",
-  "redirect": {
-    "description": "Vous avez déjà un compte ?",
-    "link": "Connectez-vous"
+  "cta": {
+    "submit": "Créer un compte",
+    "redirect": {
+      "description": "Vous avez déjà un compte ?",
+      "link": "Connectez-vous"
+    }
   }
 }
