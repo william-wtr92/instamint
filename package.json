@@ -27,7 +27,8 @@
     "test:business": "dotenv -e .env.test -- pnpm --filter @instamint/business-server test",
     "kn:latest": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:latest",
     "kn:rollback": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:rollback",
-    "kn:make": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:make -- $1"
+    "kn:make": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:make -- $1",
+    "kn:seed": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:seed"
   },
   "workspaces": [
     "packages/**",

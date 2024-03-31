@@ -1,6 +1,5 @@
 export const emailSent = {
-  errorCode: "emailSent",
-  message: "Email sent",
+  message: "Email sent.",
 } as const
 
 export const userMustWaitBeforeSendingAnotherMail = {

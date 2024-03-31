@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const passwordErrorMessages = {
+export const passwordErrorMessages = {
   uppercase: "One uppercase character",
   lowercase: "One lowercase character",
   number: "One number",

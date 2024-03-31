@@ -62,8 +62,15 @@ const appConfig = baseConfig.parse({
     dsn: process.env.SENTRY_DSN!,
   },
   sendgrid: {
+    baseUrl: process.env.SENDGRID_BASE_URL!,
     apiKey: process.env.SENDGRID_API_KEY!,
     sender: process.env.SENDGRID_SENDER!,
+    templates: {
+      emailValidation: process.env.SENDGRID_TEMPLATE_EMAIL_VALIDATION!,
+      resetPassword: process.env.SENDGRID_TEMPLATE_RESET_PASSWORD!,
+      confirmResetPassword:
+        process.env.SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD!,
+    },
   },
   microservices: {
     files: process.env.FILES_SERVICE_URL!,

@@ -53,8 +53,14 @@ const sentryConfigSchema = z.object({
 })
 
 const sendgridConfigSchema = z.object({
+  baseUrl: z.string(),
   apiKey: z.string(),
   sender: z.string(),
+  templates: z.object({
+    emailValidation: z.string(),
+    resetPassword: z.string(),
+    confirmResetPassword: z.string(),
+  }),
 })
 
 const microservicesConfigSchema = z.object({

@@ -16,7 +16,13 @@ import { hashPassword } from "@/utils/helpers/hashPassword"
 import { sanitizeCreatedUser } from "@/utils/dto/sanitizeUsers"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { handleError } from "@/middlewares/handleError"
-import { authMessages, globalsMessages, emailsMessages, redisKeys } from "@/def"
+import {
+  authMessages,
+  globalsMessages,
+  emailsMessages,
+  redisKeys,
+  sgKeys,
+} from "@/def"
 import {
   now,
   oneHour,
@@ -80,15 +86,21 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         gdprValidation,
       }
 
-      const sendGridMail = await mailBuilder({ username, email }, oneHour)
+      const validationMail = await mailBuilder(
+        { username, email },
+        sgKeys.auth.emailValidation,
+        oneHour,
+        true
+      )
+
       const emailTokenKey = redisKeys.auth.emailToken(
-        sendGridMail.dynamic_template_data.token
+        validationMail.dynamic_template_data.token as string
       )
 
       try {
         await db("users").insert(newUser)
 
-        await sgMail.send(sendGridMail)
+        await sgMail.send(validationMail)
 
         await redis.set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
 
@@ -186,18 +198,20 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      const sendGridMail = await mailBuilder(
+      const resendValidationMail = await mailBuilder(
         {
           username: user.username,
           email: user.email,
         },
-        oneHour
+        sgKeys.auth.emailValidation,
+        oneHour,
+        true
       )
       const emailTokenKey = redisKeys.auth.emailToken(
-        sendGridMail.dynamic_template_data.token
+        resendValidationMail.dynamic_template_data.token as string
       )
 
-      await sgMail.send(sendGridMail)
+      await sgMail.send(resendValidationMail)
 
       await redis
         .multi()
