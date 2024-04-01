@@ -22,6 +22,7 @@ import {
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
+import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -54,6 +55,8 @@ const RequestResetPasswordPage = () => {
   } = useActionsContext()
 
   const { t } = useTranslation(["errors", "reset-password"])
+
+  useDelayedRedirect()
 
   const form = useForm<RequestResetPassword>({
     resolver: zodResolver(requestResetPasswordSchema),

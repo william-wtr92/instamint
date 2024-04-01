@@ -58,3 +58,8 @@ export const signInSuccess = {
 export const signedInUser = {
   message: "User signed in.",
 } as const
+
+/* SignOut Messages  */
+export const signOutSuccess = {
+  message: "Sign out success.",
+} as const

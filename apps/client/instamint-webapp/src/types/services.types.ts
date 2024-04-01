@@ -4,7 +4,6 @@ import type { AppContextType } from "@/types"
 
 type ArgsPrepareServices = {
   api: AxiosInstance
-  jwt?: string
 }
 
 export type PrepareServicesContext = (

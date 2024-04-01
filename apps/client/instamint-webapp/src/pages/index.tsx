@@ -2,9 +2,25 @@ import Head from "next/head"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
-import { Avatar, AvatarFallback } from "@instamint/ui-kit"
+import { useCallback, useState } from "react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  Avatar,
+  AvatarFallback,
+  Button,
+} from "@instamint/ui-kit"
 
 import { useUser } from "@/web/hooks/auth/useUser"
+import useAppContext from "@/web/contexts/useAppContext"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -17,12 +33,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home = () => {
+  const {
+    services: {
+      auth: { signOut },
+    },
+  } = useAppContext()
+
+  const { setTriggerRedirect, setRedirectLink, setRedirectDelay } =
+    useActionsContext()
+
   const { t } = useTranslation("common")
+
+  useDelayedRedirect()
 
   const { data, error, isLoading } = useUser()
   const user = isLoading ? null : data
-
   const usernameFirstLetter = user?.username.charAt(0).toUpperCase()
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+  const handleSignOut = useCallback(async () => {
+    await signOut(null)
+
+    setRedirectDelay(1000)
+    setRedirectLink("/sign-in")
+    setTriggerRedirect(true)
+  }, [signOut, setTriggerRedirect, setRedirectLink, setRedirectDelay])
 
   return (
     <>
@@ -36,19 +72,53 @@ const Home = () => {
         <h1 className="font-bold text-3xl xl:text-6xl">{t("title")}</h1>
         <div className="xl:absolute xl:top-10 xl:right-10 xl:hover:cursor-pointer xl:hover:scale-[101%]">
           {user && (
-            <div className="flex items-center justify-center gap-7 outline-dashed outline-2 outline-offset-2 outline-neutral-400 rounded-md p-3">
-              <Avatar className="size-4 p-4 rounded-2xl outline-dotted outline-2 outline-offset-2 outline-neutral-400">
-                <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col text-medium font-semibold w-52">
-                <span>{user.username}</span>
-                <span className="truncate">{user.email}</span>
+            <div className="flex flex-col  items-center justify-center  outline-dashed outline-2 outline-offset-2 outline-neutral-400 rounded-md p-3">
+              <div className="flex gap-7 items-center">
+                <Avatar className="size-4 p-4 rounded-2xl outline-dotted outline-2 outline-offset-2 outline-neutral-400">
+                  <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col text-medium font-semibold ">
+                  <span>{user.username}</span>
+                  <span className="truncate">{user.email}</span>
+                </div>
               </div>
+              <Button
+                onClick={() => setModalOpen(true)}
+                className="w-full mt-4 p-2 bg-accent-500 text-white font-semibold rounded-md"
+              >
+                {t("cta.button-sign-out")}
+              </Button>
             </div>
           )}
           {isLoading && <p>Loading...</p>}
           {error && <p>Error !</p>}
         </div>
+        {modalOpen && (
+          <AlertDialog open={modalOpen}>
+            <AlertDialogContent className="bg-white">
+              <AlertDialogHeader>
+                <AlertDialogTitle>{t("cta.label-sign-out")}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t("cta.description-sign-out")}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel
+                  onClick={() => setModalOpen(false)}
+                  className="outline outline-black"
+                >
+                  {t("cta.cancel-sign-out")}
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleSignOut}
+                  className="bg-accent-500 text-white font-semibold"
+                >
+                  {t("cta.confirm-sign-out")}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </main>
     </>
   )

@@ -6,6 +6,7 @@ export const routes = defineRoutes({
     emailValidation: "/auth/email-validation",
     resendEmailValidation: "/auth/resend-email-validation",
     signIn: "/auth/sign-in",
+    signOut: "/auth/sign-out",
     me: "/auth/me",
   },
   users: {
