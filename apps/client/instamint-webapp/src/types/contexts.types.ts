@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import type { AuthServices } from "@/types"
+import type { AuthServices, UsersServices } from "@/types"
 
 export type AppContextProviderProps = {
   children: ReactNode
@@ -17,6 +17,7 @@ type ServicesActionsMappings<Actions extends Record<string, unknown>> = {
 export type AppContextType = {
   services: {
     auth: ServicesActionsMappings<AuthServices>
+    users: ServicesActionsMappings<UsersServices>
   }
 }
 

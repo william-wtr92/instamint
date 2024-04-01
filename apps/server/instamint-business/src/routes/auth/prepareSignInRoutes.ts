@@ -13,7 +13,7 @@ import {
   contextsKeys,
 } from "@/def"
 import appConfig from "@/db/config/config"
-import { oneDayNotBasedOnNow } from "@/utils/helpers/times"
+import { oneDayTTL } from "@/utils/helpers/times"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { handleError } from "@/middlewares/handleError"
 import { auth } from "@/middlewares/auth"
@@ -71,7 +71,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         },
       })
 
-      await redis.set(jwtTokenKey, jwt, "EX", oneDayNotBasedOnNow)
+      await redis.set(jwtTokenKey, jwt, "EX", oneDayTTL)
 
       await setSignedCookie(
         c,

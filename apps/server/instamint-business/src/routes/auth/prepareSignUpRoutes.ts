@@ -16,13 +16,14 @@ import { hashPassword } from "@/utils/helpers/hashPassword"
 import { sanitizeCreatedUser } from "@/utils/dto/sanitizeUsers"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { handleError } from "@/middlewares/handleError"
-import { authMessages, globalsMessages, emailsMessages, redisKeys } from "@/def"
 import {
-  now,
-  oneHour,
-  oneHourNotBasedOnNow,
-  tenMinutesNotBasedOnNow,
-} from "@/utils/helpers/times"
+  authMessages,
+  globalsMessages,
+  emailsMessages,
+  redisKeys,
+  sgKeys,
+} from "@/def"
+import { now, oneHour, oneHourTTL, tenMinutesTTL } from "@/utils/helpers/times"
 import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -80,17 +81,23 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         gdprValidation,
       }
 
-      const sendGridMail = await mailBuilder({ username, email }, oneHour)
+      const validationMail = await mailBuilder(
+        { username, email },
+        sgKeys.auth.emailValidation,
+        oneHour,
+        true
+      )
+
       const emailTokenKey = redisKeys.auth.emailToken(
-        sendGridMail.dynamic_template_data.token
+        validationMail.dynamic_template_data.token as string
       )
 
       try {
         await db("users").insert(newUser)
 
-        await sgMail.send(sendGridMail)
+        await sgMail.send(validationMail)
 
-        await redis.set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
+        await redis.set(emailTokenKey, now, "EX", oneHourTTL)
 
         return c.json(
           {
@@ -186,23 +193,25 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      const sendGridMail = await mailBuilder(
+      const resendValidationMail = await mailBuilder(
         {
           username: user.username,
           email: user.email,
         },
-        oneHour
+        sgKeys.auth.emailValidation,
+        oneHour,
+        true
       )
       const emailTokenKey = redisKeys.auth.emailToken(
-        sendGridMail.dynamic_template_data.token
+        resendValidationMail.dynamic_template_data.token as string
       )
 
-      await sgMail.send(sendGridMail)
+      await sgMail.send(resendValidationMail)
 
       await redis
         .multi()
-        .set(cacheEmailValidationKey, now, "EX", tenMinutesNotBasedOnNow)
-        .set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
+        .set(cacheEmailValidationKey, now, "EX", tenMinutesTTL)
+        .set(emailTokenKey, now, "EX", oneHourTTL)
         .exec()
 
       return c.json(

@@ -8,4 +8,8 @@ export const routes = defineRoutes({
     signIn: "/auth/sign-in",
     me: "/auth/me",
   },
+  users: {
+    requestResetPassword: "/users/reset-password/request",
+    confirmResetPassword: "/users/reset-password/confirm",
+  },
 })

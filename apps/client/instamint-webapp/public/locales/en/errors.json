@@ -12,5 +12,18 @@
     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
     "emailNotExists": "This email does not exist.",
     "invalidPassword": "Invalid password."
+  },
+  "users": {
+   "reset": {
+     "userNotFound": "This account does not exist.",
+     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
+     "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+     "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
+     "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
+     "tokenExpired": "Your link is expired. Please request a new one.",
+     "passwordsMustMatch": "Passwords must match.",
+     "newPasswordMustBeDifferentFromOldOne": "New password must be different from the old one.",
+     "userMustWaitBeforeResettingPassword": "You can reset your password once every 2 days maximum."
+   }
   }
 }
