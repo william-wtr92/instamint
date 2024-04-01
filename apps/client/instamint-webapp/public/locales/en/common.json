@@ -1,5 +1,12 @@
 {
   "title": "👀 Instamint England WIP!",
+  "select-lang": {
+    "label": "Select language",
+    "options": {
+      "en": "English",
+      "fr": "French"
+    }
+  },
   "cta": {
     "button-sign-out": "Sign out",
     "label-sign-out": "Are you sure?",

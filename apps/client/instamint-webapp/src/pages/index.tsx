@@ -21,6 +21,7 @@ import { useUser } from "@/web/hooks/auth/useUser"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -70,7 +71,7 @@ const Home = () => {
       </Head>
       <main className="relative flex flex-col gap-4 justify-center items-center h-screen">
         <h1 className="font-bold text-3xl xl:text-6xl">{t("title")}</h1>
-        <div className="xl:absolute xl:top-10 xl:right-10 xl:hover:cursor-pointer xl:hover:scale-[101%]">
+        <div className="xl:absolute xl:top-10 xl:right-10 xl:hover:cursor-pointer">
           {user && (
             <div className="flex flex-col  items-center justify-center  outline-dashed outline-2 outline-offset-2 outline-neutral-400 rounded-md p-3">
               <div className="flex gap-7 items-center">
@@ -90,6 +91,9 @@ const Home = () => {
               </Button>
             </div>
           )}
+          <div className="mt-5 flex justify-center">
+            <ChangeLanguage />
+          </div>
           {isLoading && <p>Loading...</p>}
           {error && <p>Error !</p>}
         </div>
