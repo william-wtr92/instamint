@@ -24,9 +24,9 @@ import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import {
   now,
   oneHour,
-  oneHourNotBasedOnNow,
-  tenMinutesNotBasedOnNow,
-  twoDaysNotBasedOnNow,
+  oneHourTTL,
+  tenMinutesTTL,
+  twoDaysTTL,
 } from "@/utils/helpers/times"
 import { decodeJwt } from "@/utils/helpers/jwtActions"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
@@ -89,8 +89,8 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       await redis
         .multi()
-        .set(resetPasswordKey, now, "EX", tenMinutesNotBasedOnNow)
-        .set(resetPasswordTokenKey, now, "EX", oneHourNotBasedOnNow)
+        .set(resetPasswordKey, now, "EX", tenMinutesTTL)
+        .set(resetPasswordTokenKey, now, "EX", oneHourTTL)
         .exec()
 
       return c.json(
@@ -163,7 +163,7 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await redis
           .multi()
-          .set(lastResetPasswordKey, now, "EX", twoDaysNotBasedOnNow)
+          .set(lastResetPasswordKey, now, "EX", twoDaysTTL)
           .del(resetPasswordTokenKey)
           .exec()
 

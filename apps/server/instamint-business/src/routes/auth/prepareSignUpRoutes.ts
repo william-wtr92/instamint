@@ -23,12 +23,7 @@ import {
   redisKeys,
   sgKeys,
 } from "@/def"
-import {
-  now,
-  oneHour,
-  oneHourNotBasedOnNow,
-  tenMinutesNotBasedOnNow,
-} from "@/utils/helpers/times"
+import { now, oneHour, oneHourTTL, tenMinutesTTL } from "@/utils/helpers/times"
 import type { InsertedUser } from "@/types"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -102,7 +97,7 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await sgMail.send(validationMail)
 
-        await redis.set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
+        await redis.set(emailTokenKey, now, "EX", oneHourTTL)
 
         return c.json(
           {
@@ -215,8 +210,8 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       await redis
         .multi()
-        .set(cacheEmailValidationKey, now, "EX", tenMinutesNotBasedOnNow)
-        .set(emailTokenKey, now, "EX", oneHourNotBasedOnNow)
+        .set(cacheEmailValidationKey, now, "EX", tenMinutesTTL)
+        .set(emailTokenKey, now, "EX", oneHourTTL)
         .exec()
 
       return c.json(

@@ -14,7 +14,7 @@
     "submit": "Sign In",
     "sign-in": {
       "description": "You don't have an account?",
-      "link": "Create one here."
+      "link": "Register here."
     },
     "reset": {
       "description": "Forgot your password?",
