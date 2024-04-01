@@ -2,7 +2,11 @@
 import colors from "tailwindcss/colors"
 
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}", "../../../packages/ui/**/*.{ts,tsx}"],
+  content: [
+    "./src/**/*.{ts,tsx}",
+    "../../../packages/ui/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+  ],
   theme: {
     screens: {
       xs: "375px",
@@ -57,6 +61,28 @@ module.exports = {
       },
       textUnderlineOffset: {
         default: "2px",
+      },
+      keyframes: {
+        shake: {
+          "20%": {
+            transform: "rotate(-20deg)",
+          },
+          "40%": {
+            transform: "rotate(20deg)",
+          },
+          "60%": {
+            transform: "rotate(-20deg)",
+          },
+          "80%": {
+            transform: "rotate(20deg)",
+          },
+          "100%": {
+            transform: "rotate(0deg)",
+          },
+        },
+      },
+      animation: {
+        shake: "shake 0.5s ease-in-out",
       },
     },
     colors: {

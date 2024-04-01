@@ -2,19 +2,20 @@ import Head from "next/head"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
+import { Text } from "@instamint/ui-kit"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+      ...(await serverSideTranslations(locale ?? "en", ["common", "navbar"])),
     },
   }
 }
 
 const Home = () => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common", "navbar"])
 
   return (
     <>
@@ -24,8 +25,11 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex justify-center items-center h-screen">
-        <h1 className="font-bold text-6xl">{t("title")}</h1>
+
+      <main className="flex items-center justify-center">
+        <Text type="heading" variant="accent">
+          {t("common:title")}
+        </Text>
       </main>
     </>
   )
