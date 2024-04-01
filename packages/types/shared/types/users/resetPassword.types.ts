@@ -1,13 +1,13 @@
 import { z } from "zod"
 import { passwordErrorMessages, passwordRegex } from "../auth/signUp.types"
 
-export const requestResetPassword = z.object({
+export const requestResetPasswordSchema = z.object({
   email: z.string().email({
     message: "Invalid email address",
   }),
 })
 
-export const confirmResetPassword = z
+export const confirmResetPasswordSchema = z
   .object({
     password: z
       .string()
@@ -25,14 +25,19 @@ export const confirmResetPassword = z
         passwordErrorMessages.specialCharacter
       )
       .min(8, passwordErrorMessages.length),
-    confirmPassword: z.string().min(8),
-    validation: z.string().nullable(),
+    confirmPassword: z.string(),
+    validation: z.string().nullable().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
     path: ["confirmPassword"],
   })
 
-export type RequestResetPassword = z.infer<typeof requestResetPassword>
+export type RequestResetPassword = z.infer<typeof requestResetPasswordSchema>
 
-export type ConfirmResetPassword = z.infer<typeof confirmResetPassword>
+export type ConfirmResetPassword = z.infer<typeof confirmResetPasswordSchema>
+
+export type ConfirmResetPasswordValidation = Pick<
+  ConfirmResetPassword,
+  "validation"
+>

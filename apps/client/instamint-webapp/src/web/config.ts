@@ -1,5 +1,7 @@
+import { env } from "@/env"
+
 export const config = {
   api: {
-    baseUrl: "http://localhost:3001",
+    baseUrl: env.server.NEXT_PUBLIC_BASE_URL,
   },
 }

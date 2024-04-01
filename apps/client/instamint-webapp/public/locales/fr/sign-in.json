@@ -12,9 +12,13 @@
   "success": "Connexion réussie. Vous allez être redirigé !",
   "cta": {
     "submit": "Se connecter",
-    "redirect": {
+    "sign-in": {
       "description": "Vous n'avez pas de compte ?",
       "link": "Créez-en un ici."
+    },
+    "reset": {
+      "description": "Mot de passe oublié ?",
+      "link": "Réinitialisez-le ici."
     }
   }
 }

@@ -28,6 +28,10 @@ CMD ["pnpm", "run", "dev"]
 
 FROM base AS prod
 
+ARG NEXT_PUBLIC_BASE_URL
+
+ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+
 WORKDIR /usr/src/app
 
 COPY scripts/postinstall.sh ./scripts/postinstall.sh

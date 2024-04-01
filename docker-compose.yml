@@ -9,6 +9,8 @@ services:
     image: docker.pkg.github.com/william-wtr92/instamint/instamint-client-webapp:dev
     ports:
       - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
     networks:
       - instamint_network
 

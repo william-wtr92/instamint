@@ -4,9 +4,9 @@ import sgMail from "@sendgrid/mail"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import {
   type ConfirmResetPassword,
-  confirmResetPassword,
+  confirmResetPasswordSchema,
   type RequestResetPassword,
-  requestResetPassword,
+  requestResetPasswordSchema,
 } from "@instamint/shared-types"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
@@ -50,8 +50,8 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
   }
 
   reset.post(
-    "/password-reset/request",
-    zValidator("json", requestResetPassword),
+    "/reset-password/request",
+    zValidator("json", requestResetPasswordSchema),
     async (c: Context): Promise<Response> => {
       const requestBody = await c.req.json()
       const { email }: RequestResetPassword = requestBody
@@ -101,8 +101,8 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
   )
 
   reset.put(
-    "/password-reset/confirm",
-    zValidator("json", confirmResetPassword),
+    "/reset-password/confirm",
+    zValidator("json", confirmResetPasswordSchema),
     async (c: Context): Promise<Response> => {
       const requestBody = await c.req.json()
       const { password, confirmPassword, validation }: ConfirmResetPassword =

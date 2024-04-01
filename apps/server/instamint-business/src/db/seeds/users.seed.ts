@@ -1,11 +1,11 @@
-import knex, { type Knex } from "knex"
+import knex from "knex"
 
 import appConfig from "../config/config"
 import { hashPassword } from "../../utils/helpers/hashPassword"
 import type UserModel from "../models/UserModel"
 
-const seed = async (): Promise<void> => {
-  const db: Knex = knex(appConfig.db)
+const seed = async () => {
+  const db = knex(appConfig.db)
 
   await db("users").del()
 

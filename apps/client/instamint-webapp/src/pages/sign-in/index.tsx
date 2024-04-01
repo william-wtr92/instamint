@@ -93,11 +93,14 @@ const SignInPage = () => {
     ]
   )
 
-  const handleRedirect = useCallback(() => {
-    setRedirectLink("/sign-up")
-    setRedirectDelay(0)
-    setTriggerRedirect(true)
-  }, [setRedirectLink, setRedirectDelay, setTriggerRedirect])
+  const handleRedirect = useCallback(
+    (path: string) => {
+      setRedirectLink(path)
+      setRedirectDelay(0)
+      setTriggerRedirect(true)
+    },
+    [setRedirectLink, setRedirectDelay, setTriggerRedirect]
+  )
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
@@ -181,16 +184,29 @@ const SignInPage = () => {
             >
               {t("sign-in:cta.submit")}
             </Button>
-            <div className="flex items-center gap-1.5 text-medium">
-              <p className="font-semibold">
-                {t("sign-in:cta.redirect.description")}
-              </p>
-              <p
-                className="font-bold text-accent-600 hover:cursor-pointer hover:scale-105"
-                onClick={handleRedirect}
-              >
-                {t("sign-in:cta.redirect.link")}
-              </p>
+            <div className="flex justify-center items-center gap-32 text-medium w-full">
+              <div className="flex flex-col text-center">
+                <p className="font-semibold">
+                  {t("sign-in:cta.reset.description")}
+                </p>
+                <p
+                  className="font-bold text-accent-600 hover:cursor-pointer hover:scale-105"
+                  onClick={() => handleRedirect("/users/reset-password")}
+                >
+                  {t("sign-in:cta.reset.link")}
+                </p>
+              </div>
+              <div className="flex flex-col text-center">
+                <p className="font-semibold">
+                  {t("sign-in:cta.sign-in.description")}
+                </p>
+                <p
+                  className="font-bold text-accent-600 hover:cursor-pointer hover:scale-105"
+                  onClick={() => handleRedirect("/sign-up")}
+                >
+                  {t("sign-in:cta.sign-in.link")}
+                </p>
+              </div>
             </div>
             {success ? (
               <p className="text-sm text-center text-accent-600">{success}</p>

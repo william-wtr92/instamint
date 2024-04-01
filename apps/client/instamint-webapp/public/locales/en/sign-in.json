@@ -12,9 +12,13 @@
   "success": "You have successfully signed in. You will be redirected!",
   "cta": {
     "submit": "Sign In",
-    "redirect": {
+    "sign-in": {
       "description": "You don't have an account?",
       "link": "Create one here."
+    },
+    "reset": {
+      "description": "Forgot your password?",
+      "link": "Reset it here."
     }
   }
 }
