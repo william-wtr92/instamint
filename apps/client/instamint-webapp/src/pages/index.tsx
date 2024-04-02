@@ -3,25 +3,14 @@ import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  Avatar,
-  AvatarFallback,
-  Button,
-} from "@instamint/ui-kit"
+import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 
 import { useUser } from "@/web/hooks/auth/useUser"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
+import { TranslateAlertDialog } from "@/web/components/utils/TranslateAlertDialog"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -98,30 +87,15 @@ const Home = () => {
           {error && <p>Error !</p>}
         </div>
         {modalOpen && (
-          <AlertDialog open={modalOpen}>
-            <AlertDialogContent className="bg-white">
-              <AlertDialogHeader>
-                <AlertDialogTitle>{t("cta.label-sign-out")}</AlertDialogTitle>
-                <AlertDialogDescription>
-                  {t("cta.description-sign-out")}
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel
-                  onClick={() => setModalOpen(false)}
-                  className="outline outline-black"
-                >
-                  {t("cta.cancel-sign-out")}
-                </AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handleSignOut}
-                  className="bg-accent-500 text-white font-semibold"
-                >
-                  {t("cta.confirm-sign-out")}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <TranslateAlertDialog
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onConfirm={handleSignOut}
+            titleKey={"cta.label-sign-out"}
+            descriptionKey={"cta.description-sign-out"}
+            cancelKey={"cta.cancel-sign-out"}
+            confirmKey={"cta.confirm-sign-out"}
+          />
         )}
       </main>
     </>

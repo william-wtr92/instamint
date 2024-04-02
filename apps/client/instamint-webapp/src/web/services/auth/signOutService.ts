@@ -10,13 +10,9 @@ const signOutService: Services<null> =
         withCredentials: true,
       }
 
-      const { data: responseData } = await api.post(
-        routes.auth.signOut,
-        null,
-        config
-      )
+      await api.post(routes.auth.signOut, null, config)
 
-      return [null, responseData]
+      return [null, null]
     } catch (err) {
       return [handleApiErrors(err)]
     }
