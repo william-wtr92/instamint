@@ -68,7 +68,7 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const user = await UserModel.query().findOne({ email })
 
-      if (!user) {
+      if (!user || !user.active) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
@@ -131,7 +131,7 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         const user = await UserModel.query().findOne({ email })
 
-        if (!user) {
+        if (!user || !user.active) {
           return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
         }
 

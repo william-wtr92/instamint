@@ -43,3 +43,8 @@ export const tokenSignatureMismatched = {
   errorCode: "tokenSignatureMismatched",
   message: "Token has invalid - signature mismatched.",
 } as const
+
+export const tokenInvalidScope = {
+  errorCode: "tokenInvalidScope",
+  message: "Token has invalid scope.",
+} as const
