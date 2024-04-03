@@ -8,6 +8,7 @@ import type { ReactElement, ReactNode } from "react"
 import type { NextPage } from "next"
 import { Poppins, Montserrat } from "@next/font/google"
 import Head from "next/head"
+import { Toaster } from "@instamint/ui-kit"
 
 export const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -46,6 +47,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <link rel="icon" href="/favicon.ico" />
         <title>{Component.title}</title>
       </Head>
+      <Toaster />
 
       <Component {...pageProps} />
     </AppContextProvider>
