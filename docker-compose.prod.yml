@@ -6,9 +6,13 @@ services:
       context: .
       dockerfile: docker/Dockerfile-instamint-webapp
       target: prod
+      args:
+        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
     image: docker.pkg.github.com/william-wtr92/instamint/instamint-client-webapp:latest
     ports:
       - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
     networks:
       - instamint_network
 
@@ -28,11 +32,17 @@ services:
       - REDIS_HOST=${REDIS_HOST_DOCKER}
       - REDIS_PORT=${REDIS_PORT_DOCKER}
       - REDIS_PASSWORD=${REDIS_PASSWORD_DOCKER}
+      - CORS_ORIGIN=${CORS_ORIGIN_DOCKER}
+      - SECURITY_COOKIE_SECRET=${SECURITY_COOKIE_SECRET}
       - SECURITY_JWT_SECRET=${SECURITY_JWT_SECRET}
       - SECURITY_PASSWORD_PEPPER=${SECURITY_PASSWORD_PEPPER}
       - SENTRY_DSN=${SENTRY_DSN}
+      - SENDGRID_BASE_URL=${SENDGRID_BASE_URL}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - SENDGRID_SENDER=${SENDGRID_SENDER}
+      - SENDGRID_TEMPLATE_EMAIL_VALIDATION=${SENDGRID_TEMPLATE_EMAIL_VALIDATION}
+      - SENDGRID_TEMPLATE_RESET_PASSWORD=${SENDGRID_TEMPLATE_RESET_PASSWORD}
+      - SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD=${SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD}
       - FILES_SERVICE_URL=${FILES_SERVICE_URL_DOCKER}
     depends_on:
       - db

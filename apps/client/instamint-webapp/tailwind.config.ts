@@ -120,6 +120,12 @@ module.exports = {
       variant: {
         accent: {},
       },
+      danger: {
+        primary: "#ff0707",
+      },
+      warning: {
+        primary: "#ffcc00",
+      },
       error: {
         primary: "#FF0000",
       },

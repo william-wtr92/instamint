@@ -1,0 +1,24 @@
+{
+  "email": {
+    "label": "Email",
+    "placeholder": "Please enter your email address",
+    "error": "Please enter a valid email address."
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Please enter your password",
+    "error": "Please enter a valid password."
+  },
+  "success": "You have successfully signed in. You will be redirected!",
+  "cta": {
+    "submit": "Sign In",
+    "sign-in": {
+      "description": "You don't have an account?",
+      "link": "Register here."
+    },
+    "reset": {
+      "description": "Forgot your password?",
+      "link": "Reset it here."
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "users": {
+  "auth": {
     "userNotFound": "Ce compte n'existe pas.",
     "emailOrUsernameAlreadyExist": "L'email ou le nom d'utilisateur existe déjà.",
     "gdprValidationIsRequired": "Vous devez accepter les conditions d'utilisation.",
@@ -10,6 +10,20 @@
     "unspecifiedErrorOccurred": "Une erreur inconnue est survenue. Réessayez plus tard.",
     "userEmailAlreadyValidated": "Votre email a déjà été validé.",
     "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
-    "emailNotExists": "Cet email n'existe pas."
+    "emailNotExists": "Cet email n'existe pas.",
+    "invalidPassword": "Mot de passe invalide."
+  },
+  "users": {
+    "reset": {
+      "userNotFound": "Ce compte n'existe pas.",
+      "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
+      "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenInvalidStructure": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
+      "tokenSignatureMismatched": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
+      "tokenExpired": "Votre lien est expiré. Demandez en un à nouveau.",
+      "passwordsMustMatch": "Les mots de passe doivent correspondre.",
+      "newPasswordMustBeDifferentFromOldOne": "Le nouveau mot de passe doit être différent de l'ancien.",
+      "userMustWaitBeforeResettingPassword": "Vous pouvez réinitialiser votre mot de passe une fois tous les 2 jours maximum."
+    }
   }
 }

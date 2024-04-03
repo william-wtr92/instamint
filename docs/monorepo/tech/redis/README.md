@@ -65,7 +65,7 @@ const value = await redis.get("key")
 ### 👀 Example in Instamint
 
 ```ts
-users.post("/resendEmailValidation", async (c: Context): Promise<Response> => {
+routes.post("/resendEmailValidation", async (c: Context): Promise<Response> => {
   const { email } = await c.req.json() // Get email from request body
 
   const cacheEmailValidationKey = `email_validation:${email}` // Cache key for email validation

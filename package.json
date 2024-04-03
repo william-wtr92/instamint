@@ -13,9 +13,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier -c \"**/*.{ts,tsx,md}\"",
 
-    "build:webapp": "pnpm --filter @instamint/webapp-client build",
+    "build:webapp": "dotenv -e .env -- pnpm pnpm --filter @instamint/webapp-client build",
     "lint:webapp": "pnpm --filter @instamint/webapp-client lint",
-    "dev:webapp": "pnpm --filter @instamint/webapp-client dev",
+    "dev:webapp": "dotenv -e .env -- pnpm --filter @instamint/webapp-client dev",
 
     "build:files": "pnpm --filter @instamint/files-server build",
     "lint:files": "pnpm --filter @instamint/files-server lint",
@@ -27,7 +27,8 @@
     "test:business": "dotenv -e .env.test -- pnpm --filter @instamint/business-server test",
     "kn:latest": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:latest",
     "kn:rollback": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:rollback",
-    "kn:make": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:make -- $1"
+    "kn:make": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:make -- $1",
+    "kn:seed": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:seed"
   },
   "workspaces": [
     "packages/**",

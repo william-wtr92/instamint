@@ -2,7 +2,6 @@ import type { AxiosInstance } from "axios"
 
 type ApiClientArgs = {
   baseURL: string
-  jwt?: string
 }
 
 export type CreateApiClient = (args: ApiClientArgs) => AxiosInstance

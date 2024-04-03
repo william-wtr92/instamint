@@ -1,39 +1,20 @@
-export const emailOrUsernameAlreadyExist = {
-  errorCode: "emailOrUsernameAlreadyExist",
-  message: "Email or Username already exist",
+/* Reset Passwords */
+export const passwordsMustMatch = {
+  errorCode: "passwordsMustMatch",
+  message: "Passwords must match.",
 } as const
 
-export const emailNotExists = {
-  errorCode: "emailNotExists",
-  message: "Email not exists",
+export const passwordUpdated = {
+  message: "Password updated.",
 } as const
 
-export const gdprValidationIsRequired = {
-  errorCode: "gdprValidationIsRequired",
-  message: "RGPD validation is required",
+export const userMustWaitBeforeResettingPassword = {
+  errorCode: "userMustWaitBeforeResettingPassword",
+  message:
+    "You have reset your password less than 2 days ago. Try again later.",
 } as const
 
-export const userCreated = {
-  errorCode: "userCreated",
-  message: "User created",
-} as const
-
-export const errorDuringUserRegistration = {
-  errorCode: "errorDuringUserRegistration",
-  message: "Error during user registration",
-} as const
-
-export const userNotFound = {
-  errorCode: "userNotFound",
-  message: "User not found",
-} as const
-
-export const userEmailValidated = {
-  errorCode: "userEmailValidated",
-  message: "Email validated",
-} as const
-
-export const userEmailAlreadyValidated = {
-  errorCode: "userEmailAlreadyValidated",
-  message: "Email already validated",
+export const newPasswordMustBeDifferentFromOldOne = {
+  errorCode: "newPasswordMustBeDifferentFromOldOne",
+  message: "The new password must be different from the old one.",
 } as const

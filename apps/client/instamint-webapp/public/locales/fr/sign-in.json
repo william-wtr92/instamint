@@ -1,0 +1,24 @@
+{
+  "email": {
+    "label": "Email",
+    "placeholder": "Entrez votre adresse email",
+    "error": "Veuillez entrer une adresse email valide."
+  },
+  "password": {
+    "label": "Mot de passe",
+    "placeholder": "Entrez votre mot de passe",
+    "error": "Veuillez entrer un mot de passe valide."
+  },
+  "success": "Connexion réussie. Vous allez être redirigé !",
+  "cta": {
+    "submit": "Se connecter",
+    "sign-in": {
+      "description": "Vous n'avez pas de compte ?",
+      "link": "Inscrivez vous ici."
+    },
+    "reset": {
+      "description": "Mot de passe oublié ?",
+      "link": "Réinitialisez-le ici."
+    }
+  }
+}

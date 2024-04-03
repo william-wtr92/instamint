@@ -42,6 +42,10 @@ const appConfig = baseConfig.parse({
       expiresIn: oneDay,
       algorithm: "HS512",
     },
+    cookie: {
+      secret: process.env.SECURITY_COOKIE_SECRET!,
+      maxAge: 86400,
+    },
     password: {
       saltlen: 512,
       keylen: 512,
@@ -49,13 +53,24 @@ const appConfig = baseConfig.parse({
       digest: "sha512",
       pepper: process.env.SECURITY_PASSWORD_PEPPER!,
     },
+    cors: {
+      origin: process.env.CORS_ORIGIN!,
+      credentials: true,
+    },
   },
   sentry: {
     dsn: process.env.SENTRY_DSN!,
   },
   sendgrid: {
+    baseUrl: process.env.SENDGRID_BASE_URL!,
     apiKey: process.env.SENDGRID_API_KEY!,
     sender: process.env.SENDGRID_SENDER!,
+    templates: {
+      emailValidation: process.env.SENDGRID_TEMPLATE_EMAIL_VALIDATION!,
+      resetPassword: process.env.SENDGRID_TEMPLATE_RESET_PASSWORD!,
+      confirmResetPassword:
+        process.env.SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD!,
+    },
   },
   microservices: {
     files: process.env.FILES_SERVICE_URL!,
