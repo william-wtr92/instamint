@@ -14,3 +14,6 @@ export * from "./services/usersServices.types"
 
 /* HOOKS */
 export * from "./hooks/users/connectedUser.types"
+
+/* COMPONENTS */
+export * from "./components/utils/translateAlertDialog.types"

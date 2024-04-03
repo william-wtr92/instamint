@@ -1,24 +1,19 @@
 import { createFactory, type Factory } from "hono/factory"
 import type { Context, MiddlewareHandler, Next } from "hono"
-import { getSignedCookie } from "hono/cookie"
 import { SC } from "@instamint/server-types"
 
-import appConfig from "@/db/config/config"
 import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
 import UserModel from "@/db/models/UserModel"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { decodeJwt } from "@/utils/helpers/jwtActions"
+import { getCookie } from "@/utils/helpers/cookiesActions"
 
 const factory: Factory = createFactory()
 
 export const auth: MiddlewareHandler = factory.createMiddleware(
   async (c: Context, next: Next) => {
-    const authToken = await getSignedCookie(
-      c,
-      appConfig.security.cookie.secret,
-      cookiesKeys.auth.signIn
-    )
+    const authToken = await getCookie(c, cookiesKeys.auth.session)
 
     if (!authToken) {
       return c.json(globalsMessages.tokenNotProvided, SC.errors.UNAUTHORIZED)

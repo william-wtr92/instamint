@@ -1,5 +1,5 @@
 export const cookiesKeys = {
   auth: {
-    signIn: "auth-token",
+    session: "auth-token",
   },
 } as const

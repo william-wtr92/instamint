@@ -1,5 +1,4 @@
 import { type Context, Hono } from "hono"
-import { setSignedCookie } from "hono/cookie"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import { type SignIn, signInSchema } from "@instamint/shared-types"
@@ -12,7 +11,6 @@ import {
   cookiesKeys,
   contextsKeys,
 } from "@/def"
-import appConfig from "@/db/config/config"
 import { oneDayTTL } from "@/utils/helpers/times"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { handleError } from "@/middlewares/handleError"
@@ -20,6 +18,7 @@ import { auth } from "@/middlewares/auth"
 import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { signJwt } from "@/utils/helpers/jwtActions"
+import { setCookie } from "@/utils/helpers/cookiesActions"
 
 const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signIn = new Hono()
@@ -61,7 +60,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
       }
 
-      const jwtTokenKey = redisKeys.auth.authSession(email, "")
+      const sessionKey = redisKeys.auth.authSession(email)
 
       const jwt = await signJwt({
         user: {
@@ -71,20 +70,9 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         },
       })
 
-      await redis.set(jwtTokenKey, jwt, "EX", oneDayTTL)
+      await redis.set(sessionKey, jwt, "EX", oneDayTTL)
 
-      await setSignedCookie(
-        c,
-        cookiesKeys.auth.signIn,
-        jwt,
-        appConfig.security.cookie.secret,
-        {
-          maxAge: appConfig.security.cookie.maxAge,
-          sameSite: "Strict",
-          path: "/",
-          httpOnly: true,
-        }
-      )
+      await setCookie(c, cookiesKeys.auth.session, jwt)
 
       return c.json(
         { message: authMessages.signInSuccess.message },

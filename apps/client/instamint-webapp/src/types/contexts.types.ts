@@ -24,6 +24,8 @@ export type AppContextType = {
 /* Actions Context */
 
 export type ActionsContextType = {
+  language: string
+  changeLanguage: (newLanguage: string) => Promise<void>
   triggerRedirect: boolean
   setTriggerRedirect: React.Dispatch<React.SetStateAction<boolean>>
   redirectLink: string

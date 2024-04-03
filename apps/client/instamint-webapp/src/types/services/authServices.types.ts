@@ -10,4 +10,5 @@ export type AuthServices = {
   emailValidation: UserEmailToken
   resendEmailValidation: UserResendEmail
   signIn: SignIn
+  signOut: null
 }
