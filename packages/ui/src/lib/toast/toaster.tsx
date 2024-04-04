@@ -1,4 +1,10 @@
 import {
+  CheckBadgeIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
+
+import {
   Toast,
   ToastClose,
   ToastDescription,
@@ -7,13 +13,8 @@ import {
   ToastViewport,
 } from "../../.."
 import { useToast } from "./useToast"
-import {
-  CheckBadgeIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline"
 
-export function Toaster() {
+export const Toaster = () => {
   const { toasts } = useToast()
 
   return (

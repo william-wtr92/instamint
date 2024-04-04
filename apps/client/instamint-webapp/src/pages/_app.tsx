@@ -1,15 +1,15 @@
+import Head from "next/head"
+import "@/styles/globals.css"
+import { appWithTranslation } from "next-i18next"
+import { SWRConfig } from "swr"
+import type { ReactNode } from "react"
+
 import { AppContextProvider } from "@/web/contexts/useAppContext"
 import { globalFetcher } from "@/web/utils/api/globalFetcher"
 import { ActionsProvider } from "@/web/contexts/useActionsContext"
 import BaseLayout from "@/web/components/layout/BaseLayout"
-import Head from "next/head"
 import { Toaster } from "@instamint/ui-kit"
-
-import "@/styles/globals.css"
-import { appWithTranslation } from "next-i18next"
-import { SWRConfig } from "swr"
 import type { AppPropsWithLayout } from "@/types/app.types"
-import type { ReactNode } from "react"
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const renderWithLayout =

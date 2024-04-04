@@ -1,15 +1,7 @@
 import React, { forwardRef } from "react"
 import { cva, cx } from "class-variance-authority"
 import { montserrat, poppins } from "../lib/fonts"
-
-type TextType = "title" | "heading" | "subheading" | "body" | "medium" | "small"
-type TextVariant =
-  | "accent"
-  | "neutral"
-  | "success"
-  | "error"
-  | "transparent"
-  | "none"
+import type { TextType, TextVariant } from "../types/Text.types"
 
 type Props = React.HTMLAttributes<HTMLParagraphElement> & {
   type: TextType
