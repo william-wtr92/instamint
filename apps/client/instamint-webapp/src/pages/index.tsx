@@ -10,7 +10,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
-import { TranslateAlertDialog } from "@/web/components/utils/TranslateAlertDialog"
+import { AlertPopup } from "@/web/components/utils/AlertPopup"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -87,7 +87,7 @@ const Home = () => {
           {error && <p>Error !</p>}
         </div>
         {modalOpen && (
-          <TranslateAlertDialog
+          <AlertPopup
             open={modalOpen}
             onClose={() => setModalOpen(false)}
             onConfirm={handleSignOut}

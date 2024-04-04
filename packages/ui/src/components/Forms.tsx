@@ -12,10 +12,17 @@ import {
 
 import { cn } from "../lib/utils"
 import { Label } from "./Label"
-import type {
-  FormFieldContextValue,
-  FormItemContextValue,
-} from "../types/Forms.types"
+
+type FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = {
+  name: TName
+}
+
+type FormItemContextValue = {
+  id: string
+}
 
 const Form = FormProvider
 

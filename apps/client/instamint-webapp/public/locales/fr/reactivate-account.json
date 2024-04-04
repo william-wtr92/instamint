@@ -1,0 +1,17 @@
+{
+  "email": {
+    "label": "Email",
+    "placeholder": "Entrez une adresse email valide",
+    "error": "Veuillez entrer une adresse email valide"
+  },
+  "password": {
+    "label": "Mot de passe",
+    "placeholder": "Entrez votre mot de passe",
+    "error": "Veuillez entrer un mot de passe valide"
+  },
+  "cta": {
+    "submit": "Réactiver mon compte"
+  },
+  "success": "Votre compte a été réactivé avec succès.",
+  "errorNoToken": "Le lien de réactivation est invalide ou expiré."
+}

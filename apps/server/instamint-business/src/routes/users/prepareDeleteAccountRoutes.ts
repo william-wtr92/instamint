@@ -13,6 +13,7 @@ import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import {
   authMessages,
   contextsKeys,
+  cookiesKeys,
   globalsMessages,
   redisKeys,
   usersMessages,
@@ -32,6 +33,7 @@ import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import appConfig from "@/db/config/config"
 import { decodeJwt } from "@/utils/helpers/jwtActions"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { delCookie } from "@/utils/helpers/cookiesActions"
 
 const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
   const deleteAccount = new Hono()
@@ -97,8 +99,15 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
       await sgMail.send(deleteAccountMail)
 
       const reactivateAccountKey = redisKeys.users.reactivateAccount(user.email)
+      const sessionKey = redisKeys.auth.authSession(user.email)
 
-      await redis.set(reactivateAccountKey, now, "EX", oneMonthTTL)
+      await redis
+        .multi()
+        .set(reactivateAccountKey, now, "EX", oneMonthTTL)
+        .del(sessionKey)
+        .exec()
+
+      await delCookie(c, cookiesKeys.auth.session)
 
       return c.json(
         { message: usersMessages.deletedAccount.message },
@@ -155,6 +164,25 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(globalsMessages.tokenNotProvided, SC.errors.BAD_REQUEST)
       }
 
+      const user = await UserModel.query().findOne({ email })
+
+      if (!user) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const validity = await user.checkPassword(password)
+
+      if (!validity) {
+        return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
+      }
+
+      if (user.active) {
+        return c.json(
+          usersMessages.accountAlreadyActivated,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
       try {
         const decodedToken = await decodeJwt(validation)
         const decodedUserEmail = decodedToken.payload.user.email
@@ -174,25 +202,6 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
             usersMessages.reactivateAccountEmailMismatch,
             SC.errors.BAD_REQUEST
           )
-        }
-
-        const user = await UserModel.query().findOne({ email })
-
-        if (!user) {
-          return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
-        }
-
-        if (user.active) {
-          return c.json(
-            usersMessages.accountAlreadyActivated,
-            SC.errors.BAD_REQUEST
-          )
-        }
-
-        const validity = await user.checkPassword(password)
-
-        if (!validity) {
-          return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
         }
 
         await db("users").where({ email: user.email }).update({

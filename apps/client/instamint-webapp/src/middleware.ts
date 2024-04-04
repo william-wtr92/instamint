@@ -12,5 +12,5 @@ export const middleware = (request: NextRequest) => {
 }
 
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", "/profile/:path*"],
 }
