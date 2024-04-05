@@ -70,3 +70,7 @@ pnpm add ts-node nodemon
   }
 }
 ```
+
+## 🎨 Schema of Delete Accounts Job
+
+![img.png](img.png)
