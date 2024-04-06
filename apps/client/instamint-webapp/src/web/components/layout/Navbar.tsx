@@ -1,5 +1,6 @@
 import { HomeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { Button, Text } from "@instamint/ui-kit"
+import { useTranslation } from "next-i18next"
 import Image from "next/image"
 import React from "react"
 
@@ -41,7 +42,7 @@ const buttons = [
 ]
 
 const Navbar = () => {
-  // const { t } = useTranslation(["navbar"])
+  const { t } = useTranslation(["navbar"])
 
   return (
     <div className="xs:h-full xs:min-w-[3.125rem] xs:w-fit xs:flex xs:flex-col xs:justify-start xs:px-2 xs:pt-10 xs:shadow-[0_0.125rem_5px_0_#00000040] xs:gap-8 w-full bg-neutral-50 lg:w-1/5 lg:min-w-[175px]">
@@ -73,8 +74,8 @@ const Navbar = () => {
               variant="accent"
               className="hidden font-normal lg:block"
             >
-              {button.label}
-              {/* {t(`navbar:${button.label}`)} */}
+              {/* {button.label} */}
+              {t(`navbar:${button.label}`)}
             </Text>
           </Button>
         ))}

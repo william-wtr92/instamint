@@ -1,4 +1,5 @@
 import type { Toast } from "@radix-ui/react-toast"
+
 import type { ToastActionElement, ToastProps } from "../.."
 
 export type ToasterToast = ToastProps & {
@@ -14,7 +15,7 @@ export type State = {
 
 export type Toast = Omit<ToasterToast, "id">
 
-const actionTypes = {
+export const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",

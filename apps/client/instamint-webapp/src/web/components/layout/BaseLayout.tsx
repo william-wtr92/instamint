@@ -11,7 +11,9 @@ const BaseLayout = (props: Props) => {
 
   return (
     <div
-      className={`xs:flex-row flex h-screen w-screen flex-col-reverse duration-300`}
+      className={
+        "xs:flex-row flex h-screen w-screen flex-col-reverse duration-300"
+      }
     >
       <Navbar />
 
