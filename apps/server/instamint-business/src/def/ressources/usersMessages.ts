@@ -52,3 +52,10 @@ export const reactivateAccountEmailMismatch = {
   errorCode: "reactivateAccountEmailMismatch",
   message: "Email does not match the reactivation email.",
 } as const
+
+export const deleteAccountJob = (email: string) => {
+  return {
+    errorCode: "deleteAccountJob",
+    message: `Error deleting account for: ${email}.`,
+  } as const
+}

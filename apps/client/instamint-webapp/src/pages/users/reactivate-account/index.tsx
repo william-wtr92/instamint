@@ -58,15 +58,7 @@ const ReactivateAccountPage = (
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectDelay,
-    setRedirectLink,
-    success,
-    setSuccess,
-    error,
-    setError,
-  } = useActionsContext()
+  const { redirect, success, setSuccess, error, setError } = useActionsContext()
 
   const { t } = useTranslation(["errors", "reactivate-account"])
 
@@ -104,27 +96,14 @@ const ReactivateAccountPage = (
         }
 
         setSuccess(t("reactivate-account:success"))
-        setRedirectLink("/")
-        setRedirectDelay(3000)
-        setTriggerRedirect(true)
+        redirect("/", 3000)
       } else {
         setError(t("errors:users.reactivate-account.errorNoToken"))
       }
 
-      setTriggerRedirect(true)
-      setRedirectDelay(6000)
-      setRedirectLink("/sign-in")
+      redirect("/sign-in", 6000)
     },
-    [
-      validation,
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      reactivateAccount,
-      t,
-    ]
+    [validation, redirect, setError, setSuccess, reactivateAccount, t]
   )
 
   return (

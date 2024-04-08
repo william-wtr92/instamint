@@ -5,15 +5,15 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 
 export const useDelayedRedirect = () => {
   const router = useRouter()
-  const { redirectDelay, redirectLink, triggerRedirect } = useActionsContext()
+  const { redirectDelay, redirectLink, redirectTrigger } = useActionsContext()
 
   useEffect(() => {
-    if (triggerRedirect) {
+    if (redirectTrigger) {
       const timeout = setTimeout(async () => {
         await router.push(redirectLink)
       }, redirectDelay)
 
       return () => clearTimeout(timeout)
     }
-  }, [router, redirectLink, redirectDelay, triggerRedirect])
+  }, [router, redirectLink, redirectDelay, redirectTrigger])
 }

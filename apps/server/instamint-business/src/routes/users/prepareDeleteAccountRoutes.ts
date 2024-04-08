@@ -129,17 +129,24 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
       if (users.length) {
         users.map(async (user) => {
           if (user.deletionDate && nowDate > user.deletionDate) {
-            await db("users").where({ email: user.email }).delete()
+            try {
+              await db("users").where({ email: user.email }).delete()
 
-            const confirmDeleteAccountMail = await mailBuilder(
-              {
-                username: user.username,
-                email: user.email,
-              },
-              appConfig.sendgrid.templates.confirmDeleteAccount
-            )
+              const confirmDeleteAccountMail = await mailBuilder(
+                {
+                  username: user.username,
+                  email: user.email,
+                },
+                appConfig.sendgrid.templates.confirmDeleteAccount
+              )
 
-            await sgMail.send(confirmDeleteAccountMail)
+              await sgMail.send(confirmDeleteAccountMail)
+            } catch (err) {
+              throw createErrorResponse(
+                usersMessages.deleteAccountJob(user.email),
+                SC.serverErrors.INTERNAL_SERVER_ERROR
+              )
+            }
           }
         })
       }

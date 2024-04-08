@@ -26,21 +26,25 @@ export const ActionsProvider: FC<
     [i18n]
   )
 
-  const [triggerRedirect, setTriggerRedirect] = useState(false)
+  const [redirectTrigger, setRedirectTrigger] = useState(false)
   const [redirectLink, setRedirectLink] = useState("")
   const [redirectDelay, setRedirectDelay] = useState(0)
   const [error, setError] = useShowTemp<Error | string | null>(null, 6000)
   const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
+  const redirect = useCallback((link: string, delay = 3000) => {
+    setRedirectLink(link)
+    setRedirectDelay(delay)
+    setRedirectTrigger(true)
+  }, [])
+
   const value = {
     language,
     changeLanguage,
-    triggerRedirect,
-    setTriggerRedirect,
+    redirectTrigger,
     redirectLink,
-    setRedirectLink,
     redirectDelay,
-    setRedirectDelay,
+    redirect,
     error,
     setError,
     success,

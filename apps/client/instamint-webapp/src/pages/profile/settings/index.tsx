@@ -29,15 +29,7 @@ const SettingsPage = () => {
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "profile-settings"])
 
@@ -56,19 +48,9 @@ const SettingsPage = () => {
       }
 
       setSuccess(t("profile-settings:delete-account.success"))
-      setRedirectLink("/")
-      setRedirectDelay(3000)
-      setTriggerRedirect(true)
+      redirect("/", 3000)
     },
-    [
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      deleteAccount,
-      t,
-    ]
+    [redirect, setError, setSuccess, deleteAccount, t]
   )
 
   return (
