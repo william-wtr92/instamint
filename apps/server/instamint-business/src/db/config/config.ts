@@ -41,6 +41,12 @@ const appConfig = baseConfig.parse({
       secret: process.env.SECURITY_JWT_SECRET!,
       expiresIn: oneDay,
       algorithm: "HS512",
+      cron: {
+        secret: process.env.SECURITY_CRON_JWT_SECRET!,
+        scopes: {
+          deleteAccount: process.env.SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT!,
+        },
+      },
     },
     cookie: {
       secret: process.env.SECURITY_COOKIE_SECRET!,
@@ -70,6 +76,11 @@ const appConfig = baseConfig.parse({
       resetPassword: process.env.SENDGRID_TEMPLATE_RESET_PASSWORD!,
       confirmResetPassword:
         process.env.SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD!,
+      confirmDeleteAccount:
+        process.env.SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION!,
+      reactivateAccount: process.env.SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION!,
+      confirmReactivateAccount:
+        process.env.SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION!,
     },
   },
   microservices: {

@@ -12,5 +12,7 @@ export const routes = defineRoutes({
   users: {
     requestResetPassword: "/users/reset-password/request",
     confirmResetPassword: "/users/reset-password/confirm",
+    deleteAccount: "/users/delete-account",
+    reactivateAccount: "/users/reactivate-account",
   },
 })

@@ -8,6 +8,7 @@
   - [🧠 Monorepo](./monorepo/README.md)
     - [🧩 Stack](./monorepo/stack/README.md)
     - [👨🏻‍🔬 Immersed in the technical](./monorepo/tech/README.md)
+      - [⚡️Cron Jobs](./monorepo/tech/cron/README.md)
       - [💾 Database](./monorepo/tech/db/README.md)
         - [🔍 Migrations](./monorepo/tech/db/migrations/README.md)
         - [🔍 Seeds](./monorepo/tech/db/seeds/README.md)

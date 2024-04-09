@@ -19,10 +19,10 @@ export const signJwt = async <T extends object>(
   )
 }
 
-export const decodeJwt = async (jwt: string) => {
+export const decodeJwt = async (jwt: string, secret?: string) => {
   return await verify(
     jwt,
-    appConfig.security.jwt.secret,
+    secret ? secret : appConfig.security.jwt.secret,
     appConfig.security.jwt.algorithm
   )
 }

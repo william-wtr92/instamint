@@ -14,6 +14,9 @@ class UserModel extends BaseModel {
   updatedAt!: Date
   emailValidation!: boolean
   gdprValidation!: boolean
+  active!: boolean
+  deactivationDate!: Date
+  deletionDate!: Date
   roleId!: number
   roleData!: RoleModel
 

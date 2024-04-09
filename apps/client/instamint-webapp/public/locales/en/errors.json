@@ -14,16 +14,34 @@
     "invalidPassword": "Invalid password."
   },
   "users": {
-   "reset": {
-     "userNotFound": "This account does not exist.",
-     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
-     "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
-     "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
-     "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
-     "tokenExpired": "Your link is expired. Please request a new one.",
-     "passwordsMustMatch": "Passwords must match.",
-     "newPasswordMustBeDifferentFromOldOne": "New password must be different from the old one.",
-     "userMustWaitBeforeResettingPassword": "You can reset your password once every 2 days maximum."
-   }
+    "reset": {
+      "userNotFound": "This account does not exist.",
+      "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
+      "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenExpired": "Your link is expired. Please request a new one.",
+      "passwordsMustMatch": "Passwords must match.",
+      "newPasswordMustBeDifferentFromOldOne": "New password must be different from the old one.",
+      "userMustWaitBeforeResettingPassword": "You can reset your password once every 2 days maximum."
+    },
+    "profile-settings": {
+      "delete-account": {
+        "userNotFound": "Session expired. Please log in again.",
+        "accountAlreadyDeactivated": "Account already deactivated.",
+        "invalidPassword": "Invalid password."
+      }
+    },
+    "reactivate-account": {
+      "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenExpired": "Your link is expired. Please request a new one.",
+      "reactivateAccountDateExpired": "Your account has been deactivated for more than 30 days. Please create a new account.",
+      "reactivateAccountEmailMismatch": "Email does not match the account.",
+      "userNotFound": "This account does not exist.",
+      "accountAlreadyActivated": "Account already activated.",
+      "invalidPassword": "Invalid password."
+    }
   }
 }

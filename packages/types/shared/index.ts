@@ -5,3 +5,4 @@ export * from "./types/auth/signIn.types"
 
 /* Users Schemas & Types */
 export * from "./types/users/resetPassword.types"
+export * from "./types/users/deleteAccount.types"

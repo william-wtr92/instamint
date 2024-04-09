@@ -8,7 +8,7 @@
     "changelog": "chmod +x ./scripts/changelog.sh && bash ./scripts/changelog.sh -- $1",
     "release": "chmod +x ./scripts/release.sh && bash ./scripts/release.sh",
 
-    "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files",
+    "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files && pnpm lint:cron",
     "build": "pnpm build:webapp && pnpm build:business && pnpm build:files",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier -c \"**/*.{ts,tsx,md}\"",
@@ -28,7 +28,11 @@
     "kn:latest": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:latest",
     "kn:rollback": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:rollback",
     "kn:make": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:make -- $1",
-    "kn:seed": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:seed"
+    "kn:seed": "dotenv -e .env -- pnpm --filter @instamint/business-server kn:seed",
+
+    "lint:cron": "pnpm --filter @instamint/cron-server lint",
+    "dev:cron": "dotenv -e .env -- pnpm --filter @instamint/cron-server dev",
+    "start:cron": "dotenv -e .env -- pnpm --filter @instamint/cron-server start"
   },
   "workspaces": [
     "packages/**",
