@@ -14,7 +14,7 @@ import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import { now, oneHour, oneHourTTL } from "@/utils/helpers/times"
 import sgMail from "@sendgrid/mail"
 
-const prepareUserActionRoute: ApiRoutes = ({ app, db, redis }) => {
+const prepareActionUserRoutes: ApiRoutes = ({ app, db, redis }) => {
   const userAction = new Hono()
 
   if (!db) {
@@ -112,4 +112,4 @@ const prepareUserActionRoute: ApiRoutes = ({ app, db, redis }) => {
   app.route("/users", userAction)
 }
 
-export default prepareUserActionRoute
+export default prepareActionUserRoutes
