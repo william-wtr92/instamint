@@ -44,15 +44,7 @@ const RequestResetPasswordPage = () => {
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "reset-password"])
 
@@ -77,19 +69,9 @@ const RequestResetPasswordPage = () => {
       }
 
       setSuccess(t("reset-password:request.success"))
-      setRedirectDelay(3000)
-      setRedirectLink("/")
-      setTriggerRedirect(true)
+      redirect("/", 3000)
     },
-    [
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      requestResetPassword,
-      t,
-    ]
+    [redirect, setError, setSuccess, requestResetPassword, t]
   )
 
   return (

@@ -35,6 +35,12 @@ const securityConfigSchema = z
       secret: z.string(),
       expiresIn: z.number(),
       algorithm: z.literal("HS512"),
+      cron: z.object({
+        secret: z.string(),
+        scopes: z.object({
+          deleteAccount: z.string(),
+        }),
+      }),
     }),
     cookie: z.object({
       secret: z.string(),
@@ -69,6 +75,9 @@ const sendgridConfigSchema = z
       emailValidation: z.string(),
       resetPassword: z.string(),
       confirmResetPassword: z.string(),
+      confirmDeleteAccount: z.string(),
+      reactivateAccount: z.string(),
+      confirmReactivateAccount: z.string(),
     }),
   })
   .strict()

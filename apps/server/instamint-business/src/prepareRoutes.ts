@@ -6,6 +6,7 @@ import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareUserActionRoute from "./routes/users/[id]"
+import prepareDeleteAccountRoutes from "@/routes/users/prepareDeleteAccountRoutes"
 
 const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignUpRoutes(ctx)
@@ -14,6 +15,7 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
 
   prepareResetRoutes(ctx)
   prepareUserActionRoute(ctx)
+  prepareDeleteAccountRoutes(ctx)
 }
 
 export default prepareRoutes

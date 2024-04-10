@@ -10,6 +10,8 @@ import requestResetPasswordService from "@/web/services/users/reset/requestReset
 import confirmResetPasswordService from "@/web/services/users/reset/confirmResetPasswordService"
 import userGetInformationService from "@/web/services/users/getUserInformation"
 import updateUserInformationService from "@/web/services/users/updateUserInformation"
+import deleteAccountService from "@/web/services/users/account/deleteAccountService"
+import reactivateAccountService from "@/web/services/users/account/reactivateAccountService"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -26,6 +28,8 @@ export const prepareServices: PrepareServicesContext = (context) => {
         confirmResetPassword: confirmResetPasswordService(context),
         userGetInformation: userGetInformationService(context),
         userUpdateInformation: updateUserInformationService(context),
+        deleteAccount: deleteAccountService(context),
+        reactivateAccount: reactivateAccountService(context),
       },
     },
   }

@@ -16,5 +16,7 @@ export const routes = defineRoutes({
   },
   profil: {
     settings: "/profil/settings",
+    deleteAccount: "/users/delete-account",
+    reactivateAccount: "/users/reactivate-account",
   },
 })

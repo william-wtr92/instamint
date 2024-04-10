@@ -50,7 +50,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         })
         .withGraphFetched("roleData")
 
-      if (!user) {
+      if (!user || !user.active) {
         return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
       }
 

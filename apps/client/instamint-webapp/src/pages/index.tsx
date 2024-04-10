@@ -13,6 +13,7 @@ import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
 import { TranslateAlertDialog } from "@/web/components/utils/TranslateAlertDialog"
 import { useRouter } from "next/router"
 import { routes } from "@/web/routes"
+import { AlertPopup } from "@/web/components/utils/AlertPopup"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -31,8 +32,7 @@ const Home = () => {
     },
   } = useAppContext()
 
-  const { setTriggerRedirect, setRedirectLink, setRedirectDelay } =
-    useActionsContext()
+  const { redirect } = useActionsContext()
 
   const { t } = useTranslation("common")
 
@@ -48,10 +48,8 @@ const Home = () => {
   const handleSignOut = useCallback(async () => {
     await signOut(null)
 
-    setRedirectDelay(1000)
-    setRedirectLink("/sign-in")
-    setTriggerRedirect(true)
-  }, [signOut, setTriggerRedirect, setRedirectLink, setRedirectDelay])
+    redirect("/sign-in", 1000)
+  }, [redirect, signOut])
 
   return (
     <>
@@ -93,7 +91,7 @@ const Home = () => {
           {error && <p>Error !</p>}
         </div>
         {modalOpen && (
-          <TranslateAlertDialog
+          <AlertPopup
             open={modalOpen}
             onClose={() => setModalOpen(false)}
             onConfirm={handleSignOut}

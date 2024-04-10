@@ -8,3 +8,4 @@ export * from "./types/users/resetPassword.types"
 
 /* Profil Users Schemas & Types */
 export * from "./types/users/user.types"
+export * from "./types/users/deleteAccount.types"

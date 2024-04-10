@@ -1,0 +1,25 @@
+{
+  "title": "⚙️ Account settings",
+  "delete-account": {
+    "triggerLabel": "Delete my account",
+    "title": "Are you sure you want to delete your account?",
+    "description": {
+      "p1": "Initially, the account will be deactivated and you will be able to reactivate it within 30 days.",
+      "p2": "After this period, the account will be permanently deleted."
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "error": "Enter a valid password"
+    },
+    "confirmPassword": {
+      "label": "Confirm password",
+      "placeholder": "Confirm your password",
+      "error": "Passwords do not match"
+    },
+    "cta": {
+      "submit": "Delete my account"
+    },
+    "success": "Your account has been deactivated."
+  }
+}

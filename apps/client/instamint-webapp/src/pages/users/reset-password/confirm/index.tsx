@@ -59,15 +59,7 @@ const ConfirmResetPasswordPage = (
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "reset-password"])
 
@@ -123,27 +115,14 @@ const ConfirmResetPasswordPage = (
         }
 
         setSuccess(t("reset-password:confirm.success"))
-        setRedirectLink("/sign-in")
-        setRedirectDelay(3000)
-        setTriggerRedirect(true)
+        redirect("/sign-in", 3000)
       } else {
         setError(t(`reset-password:confirm.errorNoToken`))
       }
 
-      setTriggerRedirect(true)
-      setRedirectDelay(6000)
-      setRedirectLink("/sign-in")
+      redirect("/sign-in", 6000)
     },
-    [
-      validation,
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      confirmResetPassword,
-      t,
-    ]
+    [validation, redirect, setError, setSuccess, confirmResetPassword, t]
   )
 
   const disabled = form.formState.isValid && checkPassword
