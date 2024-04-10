@@ -37,7 +37,7 @@ const SettingsPage = () => {
       users: { userGetInformation, userUpdateInformation },
     },
   } = useAppContext()
-  const { setTriggerRedirect, setRedirectLink, setError, setSuccess } =
+  const { redirect, setError, setSuccess } =
     useActionsContext()
 
   const fetchData = useCallback(async () => {
@@ -52,16 +52,14 @@ const SettingsPage = () => {
 
       setUser(data)
     } else {
-      setRedirectLink("/sign-in")
-      setTriggerRedirect(true)
+      redirect("/sign-in", 1000)
     }
   }, [
     userConnect,
     userGetInformation,
     setError,
     t,
-    setRedirectLink,
-    setTriggerRedirect,
+    redirect
   ])
 
   useEffect(() => {
