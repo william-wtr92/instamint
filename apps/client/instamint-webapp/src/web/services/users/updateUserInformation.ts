@@ -11,7 +11,7 @@ const updateUserInformationService: Services<UsernameEmailSettingsSchema> =
       const body = {
         id: data.id,
         username: data.username,
-        email: data.email
+        email: data.email,
       }
 
       const { data: responseData } = await api.put(

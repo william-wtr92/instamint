@@ -1,15 +1,8 @@
-import {type UsernameEmailSettingsSchema } from "@instamint/shared-types"
-
-// @/types
-export type User = {
-  id: number
-  username: string;
-  email: string;
-} 
+import { type UsernameEmailSettingsSchema } from "@instamint/shared-types"
 
 export type ChangeSettingsFormProps = {
-    settingsRequired: string,
-    translation: (arg1: string) => string,
-    user: User | undefined, 
-    onSubmit: (values: UsernameEmailSettingsSchema) => Promise<void>
-  }
+  settingsRequired: string
+  translation: (arg1: string) => string
+  user: UsernameEmailSettingsSchema | undefined
+  onSubmit: (values: UsernameEmailSettingsSchema) => Promise<void>
+}

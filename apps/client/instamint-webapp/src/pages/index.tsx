@@ -74,7 +74,9 @@ const Home = () => {
                   <span>{user.username}</span>
                   <span className="truncate">{user.email}</span>
                 </div>
-                <Button onClick={() => router.push(routes.profil.settings)}><Cog6ToothIcon className="w-6" /></Button>
+                <Button onClick={() => router.push(routes.profil.settings)}>
+                  <Cog6ToothIcon className="w-6" />
+                </Button>
               </div>
               <Button
                 onClick={() => setModalOpen(true)}

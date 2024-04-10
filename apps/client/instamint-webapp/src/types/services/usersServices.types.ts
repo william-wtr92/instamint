@@ -1,7 +1,7 @@
 import type {
   ConfirmResetPassword,
   RequestResetPassword,
-  UsernameEmailSettingsSchema
+  UsernameEmailSettingsSchema,
 } from "@instamint/shared-types"
 
 export type UsersServices = {

@@ -12,9 +12,9 @@ export const routes = defineRoutes({
   users: {
     requestResetPassword: "/users/reset-password/request",
     confirmResetPassword: "/users/reset-password/confirm",
-    actionUser: (id)  => `/users/${id}`
+    actionUser: (id) => `/users/${id}`,
   },
   profil: {
-    settings: "/profil/settings"
-  }
+    settings: "/profil/settings",
+  },
 })

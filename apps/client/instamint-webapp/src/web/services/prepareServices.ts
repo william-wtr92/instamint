@@ -25,7 +25,7 @@ export const prepareServices: PrepareServicesContext = (context) => {
         requestResetPassword: requestResetPasswordService(context),
         confirmResetPassword: confirmResetPasswordService(context),
         userGetInformation: userGetInformationService(context),
-        userUpdateInformation: updateUserInformationService(context)
+        userUpdateInformation: updateUserInformationService(context),
       },
     },
   }

@@ -9,14 +9,17 @@ import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { type UsernameEmailSettingsSchema } from "@instamint/shared-types"
 
-
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["errors", "sign-up", "common", "settings"])),
+      ...(await serverSideTranslations(locale ?? "en", [
+        "errors",
+        "sign-up",
+        "common",
+        "settings",
+      ])),
     },
   }
 }
@@ -25,50 +28,58 @@ const SettingsPage = () => {
   const { data, error, isLoading } = useUser()
   const userConnect = isLoading ? null : data
   const [viewSettings, setViewSettings] = useState("username")
-  const [user, setUser] = useState<UsernameEmailSettingsSchema | undefined>(undefined)
+  const [user, setUser] = useState<UsernameEmailSettingsSchema | undefined>(
+    undefined
+  )
   const { t } = useTranslation(["errors", "sign-up"])
   const {
     services: {
       users: { userGetInformation, userUpdateInformation },
     },
   } = useAppContext()
-  const { setTriggerRedirect, setRedirectLink, setError, setSuccess} =
+  const { setTriggerRedirect, setRedirectLink, setError, setSuccess } =
     useActionsContext()
 
-    const fetchData = useCallback(async () => {
-      if(userConnect) {
-        const [err, data] = await userGetInformation(userConnect)
+  const fetchData = useCallback(async () => {
+    if (userConnect) {
+      const [err, data] = await userGetInformation(userConnect)
 
-        if (err) {
-          setError(t(`errors:auth.${err.message}`))
-  
-          return
-        }
+      if (err) {
+        setError(t(`errors:auth.${err.message}`))
 
-        setUser(data)
-      } else {
-        setRedirectLink("/sign-in")
-        setTriggerRedirect(true)
+        return
       }
-    }, [userConnect, userGetInformation, setError, t, setRedirectLink, setTriggerRedirect])
 
-    useEffect(() => {
-      fetchData()
-    }, [fetchData])
+      setUser(data)
+    } else {
+      setRedirectLink("/sign-in")
+      setTriggerRedirect(true)
+    }
+  }, [
+    userConnect,
+    userGetInformation,
+    setError,
+    t,
+    setRedirectLink,
+    setTriggerRedirect,
+  ])
 
-    const onSubmit = useCallback(
-      async (values: UsernameEmailSettingsSchema) => {
-          const [err] = await userUpdateInformation(values)
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
-          if (err) {
-              setError(t(`errors:auth.${err.message}`))
-          }
+  const onSubmit = useCallback(
+    async (values: UsernameEmailSettingsSchema) => {
+      const [err] = await userUpdateInformation(values)
 
-          setSuccess(t("sign-up:success"))
-      },
-      [setError, setSuccess, userUpdateInformation, t]
+      if (err) {
+        setError(t(`errors:auth.${err.message}`))
+      }
+
+      setSuccess(t("sign-up:success"))
+    },
+    [setError, setSuccess, userUpdateInformation, t]
   )
-  
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
@@ -76,22 +87,34 @@ const SettingsPage = () => {
         <div className="grid grid-cols-3 p-4 h-full w-full border-solid border-2 border-black shadow-xl rounded-lg">
           <div className="grid grid-rows-4 border-r-4 border-solid col-span-1">
             <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
-              <Link href="#" onClick={() => setViewSettings("username")}>{t("settings:libelle-username-email")}</Link>
+              <Link href="#" onClick={() => setViewSettings("username")}>
+                {t("settings:libelle-username-email")}
+              </Link>
             </div>
             <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
-              <Link href="#"  onClick={() => setViewSettings("bio")}>{t("settings:libelle-bio")}</Link>
+              <Link href="#" onClick={() => setViewSettings("bio")}>
+                {t("settings:libelle-bio")}
+              </Link>
             </div>
             <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
-              <Link href="#"  onClick={() => setViewSettings("link")}>{t("settings:libelle-link")}</Link>
+              <Link href="#" onClick={() => setViewSettings("link")}>
+                {t("settings:libelle-link")}
+              </Link>
             </div>
             <div className="xl:p-5 p-3">
-              <Link href="#"  onClick={() => setViewSettings("picture")}>{t("settings:libelle-picture")}</Link>
+              <Link href="#" onClick={() => setViewSettings("picture")}>
+                {t("settings:libelle-picture")}
+              </Link>
             </div>
           </div>
           <div className="flex items-center pr-5 justify-center col-span-2 w-full">
-            <ChangeSettingsForm settingsRequired={viewSettings} translation={t} user={user} onSubmit={onSubmit}></ChangeSettingsForm>
+            <ChangeSettingsForm
+              settingsRequired={viewSettings}
+              translation={t}
+              user={user}
+              onSubmit={onSubmit}
+            ></ChangeSettingsForm>
           </div>
-
         </div>
         {isLoading && <p>Loading...</p>}
         {error && <p>Error !</p>}

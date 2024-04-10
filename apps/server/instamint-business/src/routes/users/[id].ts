@@ -1,16 +1,14 @@
 import { type Context, Hono } from "hono"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import {
-  authMessages,
-  globalsMessages,
-  redisKeys,
-  sgKeys,
-} from "@/def"
+import { authMessages, globalsMessages, redisKeys, sgKeys } from "@/def"
 import { handleError } from "@/middlewares/handleError"
 import UserModel from "@/db/models/UserModel"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
-import { type UsernameEmailSettingsSchema, usernameEmailSettingsSchema } from "@instamint/shared-types"
+import {
+  type UsernameEmailSettingsSchema,
+  usernameEmailSettingsSchema,
+} from "@instamint/shared-types"
 import { zValidator } from "@hono/zod-validator"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import { now, oneHour, oneHourTTL } from "@/utils/helpers/times"
@@ -33,83 +31,79 @@ const prepareUserActionRoute: ApiRoutes = ({ app, db, redis }) => {
     )
   }
 
-  userAction.get(
-    "/:id",
-    async (c: Context): Promise<Response> => {
-        const id = c.req.param("id")
+  userAction.get("/:id", async (c: Context): Promise<Response> => {
+    const id = c.req.param("id")
 
-      const user = await UserModel.query().findOne({ id })
+    const user = await UserModel.query().findOne({ id })
 
-      if (!user) {
-        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
-      }
-
-      return c.json(
-        { user: sanitizeUser(user) },
-        SC.success.OK
-      )
+    if (!user) {
+      return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
     }
-  )
+
+    return c.json({ user: sanitizeUser(user) }, SC.success.OK)
+  })
 
   userAction.put(
     "/:id",
     zValidator("json", usernameEmailSettingsSchema),
     async (c: Context): Promise<Response> => {
-        const id = c.req.param("id")
-        const requestBody = await c.req.json()
-        const { username, email }: UsernameEmailSettingsSchema =
-        requestBody
-        const query = UserModel.query()
-        const user = await query.findOne({ id })
+      const id = c.req.param("id")
+      const requestBody = await c.req.json()
+      const { username, email }: UsernameEmailSettingsSchema = requestBody
+      const query = UserModel.query()
+      const user = await query.findOne({ id })
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      if(user.username !== username ) {
+      if (user.username !== username) {
         const existUsername = await query.findOne({ username })
 
-        if(existUsername) {
-            return c.json(authMessages.emailOrUsernameAlreadyExist, SC.errors.BAD_REQUEST)
-          }
-      } else if(user.email !== email) {
+        if (existUsername) {
+          return c.json(
+            authMessages.emailOrUsernameAlreadyExist,
+            SC.errors.BAD_REQUEST
+          )
+        }
+      } else if (user.email !== email) {
         const existEmail = await query.findOne({ email })
 
-        if(existEmail) {
-            return c.json(authMessages.emailOrUsernameAlreadyExist, SC.errors.BAD_REQUEST)
-          } else {
-            const validationMail = await mailBuilder(
-                { username, email },
-                sgKeys.auth.emailValidation,
-                oneHour,
-                true
-              )
-        
-              const emailTokenKey = redisKeys.auth.emailToken(
-                validationMail.dynamic_template_data.token as string
-              )
+        if (existEmail) {
+          return c.json(
+            authMessages.emailOrUsernameAlreadyExist,
+            SC.errors.BAD_REQUEST
+          )
+        } else {
+          const validationMail = await mailBuilder(
+            { username, email },
+            sgKeys.auth.emailValidation,
+            oneHour,
+            true
+          )
 
-            await sgMail.send(validationMail)
+          const emailTokenKey = redisKeys.auth.emailToken(
+            validationMail.dynamic_template_data.token as string
+          )
 
-            await redis.set(emailTokenKey, now, "EX", oneHourTTL)
+          await sgMail.send(validationMail)
 
-            await db("users").where({ id }).update({ emailValidation: false })
-          }
+          await redis.set(emailTokenKey, now, "EX", oneHourTTL)
+
+          await db("users").where({ id }).update({ emailValidation: false })
+        }
       }
 
-      const update = await UserModel.query().updateAndFetchById(id,{
-        ...(username ? {username} : {}),
-        ...(email ? {email} : {})
+      const update = await UserModel.query().updateAndFetchById(id, {
+        ...(username ? { username } : {}),
+        ...(email ? { email } : {}),
       })
 
       if (!update) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      return c.json(
-        { user: sanitizeUser(update) },
-        SC.success.OK
-      )
+      return c.json({ user: sanitizeUser(update) }, SC.success.OK)
     }
   )
 

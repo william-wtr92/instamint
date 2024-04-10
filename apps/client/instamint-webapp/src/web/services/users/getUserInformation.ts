@@ -6,10 +6,10 @@ import { routes } from "@/web/routes"
 
 const userGetInformationService: Services<UsernameEmailSettingsSchema> =
   ({ api }) =>
-  async (data) => {    
+  async (data) => {
     try {
       const { data: responseData } = await api.get(
-        routes.users.actionUser(data.id),
+        routes.users.actionUser(data.id)
       )
 
       return [null, responseData.user]
