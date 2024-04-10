@@ -9,7 +9,7 @@
     "dev": "tsx watch ./src/index.ts",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts",
-    "test": "NODE_ENV=test jest --forceExit --verbose --maxWorkers=1",
+    "test": "cross-env NODE_ENV=test jest --forceExit --verbose --maxWorkers=1",
     "test:ci": "NODE_ENV=test jest --forceExit --maxWorkers=3 --ci",
     "test:watch": "NODE_ENV=test jest --watch",
     "kn:latest": "knex migrate:latest",
@@ -43,6 +43,7 @@
     "@instamint/tsconfig-server": "workspace:^",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
+    "cross-env": "^7.0.3",
     "esbuild-jest": "^0.5.0",
     "tsx": "^3.14.0",
     "typescript": "^5.4.2"
