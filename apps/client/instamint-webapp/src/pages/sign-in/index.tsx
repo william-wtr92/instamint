@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { ReactElement } from "react"
 import { useCallback, useState } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
@@ -20,6 +21,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
+import AuthLayout from "@/web/components/layout/AuthLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -221,6 +223,11 @@ const SignInPage = () => {
       </div>
     </div>
   )
+}
+SignInPage.title = "Sign In"
+
+SignInPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default SignInPage

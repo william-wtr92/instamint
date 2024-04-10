@@ -43,10 +43,10 @@ const Text = forwardRef<HTMLParagraphElement, Props>((props, ref) => {
 
   return (
     <p
-      role="Text"
+      // role="Text"
       ref={ref}
       className={cx(text({ variant, type, className }))}
-      style={{ color: variant === "transparent" ? "transparent" : undefined }}
+      // style={{ color: variant === "transparent" ? "transparent" : undefined }}
     >
       {children}
     </p>
