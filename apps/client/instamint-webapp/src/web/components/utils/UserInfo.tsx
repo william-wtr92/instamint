@@ -19,7 +19,7 @@ const UserInfo = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
-  const { data, error, isLoading } = useUser()
+  const { data, isLoading } = useUser()
   const user = isLoading ? null : data
   const usernameFirstLetter = user?.username.charAt(0).toUpperCase()
 

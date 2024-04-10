@@ -1,6 +1,5 @@
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useTranslation } from "next-i18next"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -13,8 +12,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home = () => {
-  const { t } = useTranslation(["common", "navbar"])
-
   return <div>test</div>
 }
 Home.title = "Instamint"
