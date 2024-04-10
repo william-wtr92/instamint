@@ -47,9 +47,7 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
   if (settingsRequired === "username") {
     return (
       <div>
-        <p className="p-4">
-          {t("profile-settings:username-email.p1")}
-        </p>
+        <p className="p-4">{t("profile-settings:username-email.p1")}</p>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
