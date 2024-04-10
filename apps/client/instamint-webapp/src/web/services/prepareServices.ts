@@ -8,6 +8,8 @@ import signOutService from "@/web/services/auth/signOutService"
 
 import requestResetPasswordService from "@/web/services/users/reset/requestResetPasswordService"
 import confirmResetPasswordService from "@/web/services/users/reset/confirmResetPasswordService"
+import userGetInformationService from "@/web/services/users/getUserInformation"
+import updateUserInformationService from "@/web/services/users/updateUserInformation"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -22,6 +24,8 @@ export const prepareServices: PrepareServicesContext = (context) => {
       users: {
         requestResetPassword: requestResetPasswordService(context),
         confirmResetPassword: confirmResetPasswordService(context),
+        userGetInformation: userGetInformationService(context),
+        userUpdateInformation: updateUserInformationService(context)
       },
     },
   }

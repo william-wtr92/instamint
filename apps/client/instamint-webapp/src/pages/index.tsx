@@ -4,13 +4,15 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
 import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
-
+import { Cog6ToothIcon } from "@heroicons/react/24/outline"
 import { useUser } from "@/web/hooks/auth/useUser"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
 import { TranslateAlertDialog } from "@/web/components/utils/TranslateAlertDialog"
+import { useRouter } from "next/router"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -39,6 +41,7 @@ const Home = () => {
   const { data, error, isLoading } = useUser()
   const user = isLoading ? null : data
   const usernameFirstLetter = user?.username.charAt(0).toUpperCase()
+  const router = useRouter()
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
@@ -71,6 +74,7 @@ const Home = () => {
                   <span>{user.username}</span>
                   <span className="truncate">{user.email}</span>
                 </div>
+                <Button onClick={() => router.push(routes.profil.settings)}><Cog6ToothIcon className="w-6" /></Button>
               </div>
               <Button
                 onClick={() => setModalOpen(true)}

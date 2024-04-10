@@ -17,3 +17,4 @@ export * from "./hooks/users/connectedUser.types"
 
 /* COMPONENTS */
 export * from "./components/utils/translateAlertDialog.types"
+export * from "./components/settings/changeSettingsForm.types"

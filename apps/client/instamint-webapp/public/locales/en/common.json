@@ -12,6 +12,7 @@
     "label-sign-out": "Are you sure?",
     "description-sign-out": "You will be signed out of your Instamint account.",
     "confirm-sign-out": "Confirm",
-    "cancel-sign-out": "Cancel"
+    "cancel-sign-out": "Cancel",
+    "save": "Save"
   }
 }
