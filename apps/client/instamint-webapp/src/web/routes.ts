@@ -14,9 +14,9 @@ export const routes = defineRoutes({
     confirmResetPassword: "/users/reset-password/confirm",
     actionUser: (id) => `/users/${id}`,
     deleteAccount: "/users/delete-account",
-  },
-  profil: {
-    settings: "/profil/settings",
     reactivateAccount: "/users/reactivate-account",
+  },
+  profile: {
+    settings: "/profile/settings",
   },
 })

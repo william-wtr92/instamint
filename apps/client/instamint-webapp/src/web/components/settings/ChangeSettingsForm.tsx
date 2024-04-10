@@ -16,9 +16,11 @@ import {
   type UsernameEmailSettingsSchema,
 } from "@instamint/shared-types"
 import { useEffect } from "react"
+import { useTranslation } from "next-i18next"
 
 export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
-  const { settingsRequired, translation, user, onSubmit } = props
+  const { settingsRequired, user, onSubmit } = props
+  const { t } = useTranslation()
 
   const form = useForm<UsernameEmailSettingsSchema>({
     resolver: zodResolver(usernameEmailSettingsSchema),
@@ -46,7 +48,7 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
     return (
       <div>
         <p className="p-4">
-          {translation("settings:label-set-username-email")}
+          {t("profile-settings:username-email.p1")}
         </p>
         <Form {...form}>
           <form
@@ -59,12 +61,12 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {translation("sign-up:username.label")}
+                    {t("sign-up:username.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
-                      placeholder={translation("sign-up:username.placeholder")}
+                      placeholder={t("sign-up:username.placeholder")}
                       {...field}
                     />
                   </FormControl>
@@ -73,7 +75,7 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
                     useCustomError={true}
                   >
                     {errors.username ? (
-                      <span>{translation("sign-up:username.error")}</span>
+                      <span>{t("sign-up:username.error")}</span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -85,13 +87,13 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {translation("sign-up:email.label")}
+                    {t("sign-up:email.label")}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       type="email"
-                      placeholder={translation("sign-up:email.placeholder")}
+                      placeholder={t("sign-up:email.placeholder")}
                       {...field}
                     />
                   </FormControl>
@@ -100,7 +102,7 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
                     useCustomError={true}
                   >
                     {errors.email ? (
-                      <span>{translation("sign-up:email.error")}</span>
+                      <span>{t("sign-up:email.error")}</span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -110,7 +112,7 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2`}
               type="submit"
             >
-              {translation("common:cta.save")}
+              {t("common:cta.save")}
             </Button>
           </form>
         </Form>

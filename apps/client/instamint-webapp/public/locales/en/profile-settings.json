@@ -21,5 +21,18 @@
       "submit": "Delete my account"
     },
     "success": "Your account has been deactivated."
+  },
+  "username-email": {
+    "p1" : "If you want to change your email address and username, you can do so here!",
+    "libelle" : "Username / E-mail"
+  },
+  "bio": {
+    "libelle" : "Bio"
+  },
+  "link": {
+    "libelle": "Link"
+  },
+  "picture": {
+    "libelle": "Profile picture"
   }
 }

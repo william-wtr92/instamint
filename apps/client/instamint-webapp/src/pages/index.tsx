@@ -71,7 +71,7 @@ const Home = () => {
                   <span>{user.username}</span>
                   <span className="truncate">{user.email}</span>
                 </div>
-                <Button onClick={() => router.push(routes.profil.settings)}>
+                <Button onClick={() => router.push(routes.profile.settings)}>
                   <Cog6ToothIcon className="w-6" />
                 </Button>
               </div>
