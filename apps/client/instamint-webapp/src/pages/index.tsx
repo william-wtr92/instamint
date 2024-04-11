@@ -10,7 +10,6 @@ import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
-import { useRouter } from "next/router"
 import { routes } from "@/web/routes"
 import { AlertPopup } from "@/web/components/utils/AlertPopup"
 
@@ -40,7 +39,6 @@ const Home = () => {
   const { data, error, isLoading } = useUser()
   const user = isLoading ? null : data
   const usernameFirstLetter = user?.username.charAt(0).toUpperCase()
-  const router = useRouter()
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
@@ -71,7 +69,7 @@ const Home = () => {
                   <span>{user.username}</span>
                   <span className="truncate">{user.email}</span>
                 </div>
-                <Button onClick={() => router.push(routes.profile.settings)}>
+                <Button onClick={() => redirect(routes.profile.settings)}>
                   <Cog6ToothIcon className="w-6" />
                 </Button>
               </div>

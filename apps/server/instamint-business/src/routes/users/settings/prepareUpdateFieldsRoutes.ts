@@ -1,7 +1,13 @@
 import { type Context, Hono } from "hono"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { authMessages, globalsMessages, redisKeys, sgKeys } from "@/def"
+import {
+  authMessages,
+  globalsMessages,
+  redisKeys,
+  sgKeys,
+  usersMessages,
+} from "@/def"
 import { handleError } from "@/middlewares/handleError"
 import UserModel from "@/db/models/UserModel"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
@@ -31,20 +37,8 @@ const prepareUpdateFieldsRoutes: ApiRoutes = ({ app, db, redis }) => {
     )
   }
 
-  userAction.get("/:id", async (c: Context): Promise<Response> => {
-    const id = c.req.param("id")
-
-    const user = await UserModel.query().findOne({ id })
-
-    if (!user) {
-      return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
-    }
-
-    return c.json({ user: sanitizeUser(user) }, SC.success.OK)
-  })
-
   userAction.put(
-    "/:id",
+    "/:id/update-account",
     zValidator("json", usernameEmailSettingsSchema),
     async (c: Context): Promise<Response> => {
       const id = c.req.param("id")
@@ -100,7 +94,7 @@ const prepareUpdateFieldsRoutes: ApiRoutes = ({ app, db, redis }) => {
       })
 
       if (!update) {
-        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.userNotModified, SC.errors.NOT_FOUND)
       }
 
       return c.json({ user: sanitizeUser(update) }, SC.success.OK)

@@ -59,3 +59,9 @@ export const deleteAccountJob = (email: string) => {
     message: `Error deleting account for: ${email}.`,
   } as const
 }
+
+/* Update Account */
+export const userNotModified = {
+  errorCode: "updateFieldsAccount",
+  message: `Error update account.`,
+} as const

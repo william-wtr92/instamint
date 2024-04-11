@@ -15,7 +15,7 @@ const updateUserInformationService: Services<UsernameEmailSettingsSchema> =
       }
 
       const { data: responseData } = await api.put(
-        routes.users.actionUser(data.id),
+        routes.users.updateFieldsAccount(data.id),
         body
       )
 

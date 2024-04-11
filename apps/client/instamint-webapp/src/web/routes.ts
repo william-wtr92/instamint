@@ -12,7 +12,7 @@ export const routes = defineRoutes({
   users: {
     requestResetPassword: "/users/reset-password/request",
     confirmResetPassword: "/users/reset-password/confirm",
-    actionUser: (id) => `/users/${id}`,
+    updateFieldsAccount: (id) => `/users/${id}/update-account`,
     deleteAccount: "/users/delete-account",
     reactivateAccount: "/users/reactivate-account",
   },

@@ -30,6 +30,9 @@
         "userNotFound": "Session expired. Please log in again.",
         "accountAlreadyDeactivated": "Account already deactivated.",
         "invalidPassword": "Invalid password."
+      },
+      "updateAccount": {
+        "userNotModified": "An error has occurred while modifying your information"
       }
     },
     "reactivate-account": {

@@ -1,4 +1,4 @@
-import type { ChangeSettingsFormProps } from "@/types"
+import type { UpdateFieldsAccountProps } from "@/types"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -18,8 +18,8 @@ import {
 import { useEffect } from "react"
 import { useTranslation } from "next-i18next"
 
-export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
-  const { settingsRequired, user, onSubmit } = props
+export const UpdateFieldsAccount = (props: UpdateFieldsAccountProps) => {
+  const { settingsRequired, user, onSubmit, error, success } = props
   const { t } = useTranslation()
 
   const form = useForm<UsernameEmailSettingsSchema>({
@@ -44,10 +44,12 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
     formState: { errors },
   } = form
 
-  if (settingsRequired === "username") {
+  if (settingsRequired === "username-email-settings") {
     return (
       <div>
-        <p className="p-4">{t("profile-settings:username-email.p1")}</p>
+        <p className="p-4">
+          {t("profile-settings:update-account.username-email.p1")}
+        </p>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -59,12 +61,16 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("sign-up:username.label")}
+                    {t(
+                      "profile-settings:update-account.username-email.username.label"
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
-                      placeholder={t("sign-up:username.placeholder")}
+                      placeholder={t(
+                        "profile-settings:update-account.username-email.username.placeholder"
+                      )}
                       {...field}
                     />
                   </FormControl>
@@ -73,7 +79,11 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
                     useCustomError={true}
                   >
                     {errors.username ? (
-                      <span>{t("sign-up:username.error")}</span>
+                      <span>
+                        {t(
+                          "profile-settings:update-account.username-email.username.error"
+                        )}
+                      </span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -85,13 +95,17 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel className="relative left-1 font-bold">
-                    {t("sign-up:email.label")}
+                    {t(
+                      "profile-settings:update-account.username-email.email.label"
+                    )}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
                       type="email"
-                      placeholder={t("sign-up:email.placeholder")}
+                      placeholder={t(
+                        "profile-settings:update-account.username-email.email.placeholder"
+                      )}
                       {...field}
                     />
                   </FormControl>
@@ -100,7 +114,11 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
                     useCustomError={true}
                   >
                     {errors.email ? (
-                      <span>{t("sign-up:email.error")}</span>
+                      <span>
+                        {t(
+                          "profile-settings:update-account.username-email.email.error"
+                        )}
+                      </span>
                     ) : null}
                   </FormMessage>
                 </FormItem>
@@ -110,17 +128,27 @@ export const ChangeSettingsForm = (props: ChangeSettingsFormProps) => {
               className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2`}
               type="submit"
             >
-              {t("common:cta.save")}
+              {t("profile-settings:update-account.save")}
             </Button>
+            {success ? (
+              <p className="mt-4 text-sm text-center text-accent-600">
+                {success}
+              </p>
+            ) : null}
+            {error ? (
+              <p className="mt-4 text-md text-center text-error-primary">
+                {error instanceof Error ? error.message : error}
+              </p>
+            ) : null}
           </form>
         </Form>
       </div>
     )
-  } else if (settingsRequired === "bio") {
+  } else if (settingsRequired === "bio-settings") {
     return <div>TO DO FOR TICKET 27</div>
-  } else if (settingsRequired === "link") {
+  } else if (settingsRequired === "link-settings") {
     return <div>TO DO FOR TICKET 28</div>
-  } else if (settingsRequired === "picture") {
+  } else if (settingsRequired === "picture-settings") {
     return <div>TO DO FOR TICKET 26</div>
   }
 }

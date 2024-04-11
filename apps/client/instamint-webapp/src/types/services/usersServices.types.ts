@@ -9,7 +9,6 @@ import type {
 export type UsersServices = {
   requestResetPassword: RequestResetPassword
   confirmResetPassword: ConfirmResetPassword
-  userGetInformation: UsernameEmailSettingsSchema
   userUpdateInformation: UsernameEmailSettingsSchema
   deleteAccount: DeleteAccount
   reactivateAccount: ReactivateAccount
