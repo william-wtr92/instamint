@@ -4,7 +4,7 @@ import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
-const updateUserInformationService: Services<UsernameEmailSettingsSchema> =
+const updateFieldsAccountService: Services<UsernameEmailSettingsSchema> =
   ({ api }) =>
   async (data) => {
     try {
@@ -25,4 +25,4 @@ const updateUserInformationService: Services<UsernameEmailSettingsSchema> =
     }
   }
 
-export default updateUserInformationService
+export default updateFieldsAccountService

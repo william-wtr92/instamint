@@ -35,14 +35,14 @@ const SettingsPage = () => {
   const { t } = useTranslation(["errors", "profile-settings"])
   const {
     services: {
-      users: { userUpdateInformation, deleteAccount },
+      users: { updateFieldsAccount, deleteAccount },
     },
   } = useAppContext()
   const { redirect, setError, setSuccess, error, success } = useActionsContext()
 
   const onSubmit = useCallback(
     async (values: UsernameEmailSettingsSchema) => {
-      const [err] = await userUpdateInformation(values)
+      const [err] = await updateFieldsAccount(values)
 
       if (err) {
         setError(
@@ -52,7 +52,7 @@ const SettingsPage = () => {
 
       setSuccess(t("profile-settings:update-account.success"))
     },
-    [setError, setSuccess, userUpdateInformation, t]
+    [setError, setSuccess, updateFieldsAccount, t]
   )
 
   const handleDeleteAccountSubmit = useCallback(
