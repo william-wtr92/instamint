@@ -24,29 +24,29 @@
   },
   "update-account": {
     "username-email": {
-    "p1" : "Si vous souhaitez modifier votre mail et votre nom d'utilisateur vous pouvez le faire ici !",
-    "label" : "Nom d'utilisateur / E-mail",
-    "username": {
-      "label": "Nom d'utilisateur",
-      "placeholder": "Entrez votre nom d'utilisateur",
-      "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
-    }, 
-    "email": {
-      "label": "Email",
-      "placeholder": "Entrez votre adresse email",
-      "error": "Veuillez entrer une adresse email valide."
-    }
-  },
-  "bio": {
-    "label" : "Bio"
-  },
-  "link": {
-    "label": "Lien"
-  },
-  "picture": {
-    "label": "Photo de profil"
-  },
-  "success" :  "Votre compte a bien été modifier !",
-  "save" : "Enregistrer"
-}
+      "p1" : "Si vous souhaitez modifier votre mail et votre nom d'utilisateur vous pouvez le faire ici !",
+      "label" : "Nom d'utilisateur / E-mail",
+      "username": {
+        "label": "Nom d'utilisateur",
+        "placeholder": "Entrez votre nom d'utilisateur",
+        "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
+      }, 
+      "email": {
+        "label": "Email",
+        "placeholder": "Entrez votre adresse email",
+        "error": "Veuillez entrer une adresse email valide."
+      }
+    },
+    "bio": {
+      "label" : "Bio"
+    },
+    "link": {
+      "label": "Lien"
+    },
+    "picture": {
+      "label": "Photo de profil"
+    },
+    "success" :  "Votre compte a bien été modifier !",
+    "save" : "Enregistrer"
+  }
 }
