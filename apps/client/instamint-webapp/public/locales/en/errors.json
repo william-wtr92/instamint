@@ -31,8 +31,9 @@
         "accountAlreadyDeactivated": "Account already deactivated.",
         "invalidPassword": "Invalid password."
       },
-      "updateAccount": {
-        "userNotModified": "An error has occurred while modifying your information"
+      "update-account": {
+        "userNotModified": "An error has occurred while modifying your information",
+        "usernameAlreadyExist": "This username already exist"
       }
     },
     "reactivate-account": {

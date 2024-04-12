@@ -2,13 +2,14 @@ import { useCallback, useState } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+
 import { useUser } from "@/web/hooks/auth/useUser"
-import { UpdateFieldsAccount } from "@/web/components/settings/ChangeSettingsForm"
+import { UpdateUserInfos } from "@/web/components/settings/UpdateUserInfos"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import {
   type DeleteAccount,
-  type UsernameEmailSettingsSchema,
+  type UserInfosSchema,
 } from "@instamint/shared-types"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 
@@ -28,31 +29,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const SettingsPage = () => {
   const { data, isLoading } = useUser()
   const user = isLoading ? null : data
-  const [viewSettings, setViewSettings] = useState<string>(
-    "username-email-settings"
-  )
+  const [viewSettings, setViewSettings] = useState<string>("username-settings")
 
   const { t } = useTranslation(["errors", "profile-settings"])
   const {
     services: {
-      users: { updateFieldsAccount, deleteAccount },
+      users: { updateUserInfos, deleteAccount },
     },
   } = useAppContext()
   const { redirect, setError, setSuccess, error, success } = useActionsContext()
 
   const onSubmit = useCallback(
-    async (values: UsernameEmailSettingsSchema) => {
-      const [err] = await updateFieldsAccount(values)
+    async (values: UserInfosSchema) => {
+      const [err] = await updateUserInfos(values)
 
       if (err) {
         setError(
           t(`errors:users.profile-settings.update-account.${err.message}`)
         )
+
+        return
       }
 
       setSuccess(t("profile-settings:update-account.success"))
     },
-    [setError, setSuccess, updateFieldsAccount, t]
+    [updateUserInfos, setSuccess, t, setError]
   )
 
   const handleDeleteAccountSubmit = useCallback(
@@ -76,24 +77,24 @@ const SettingsPage = () => {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <div className="w-[95%] sm:w-[70%] xl:w-[60%] xl:h-[70%]">
-        <div className="grid grid-cols-3 p-4 h-full w-full border-solid border-2 border-black shadow-xl rounded-lg">
-          <div className="grid grid-rows-4 border-r-4 border-solid col-span-1">
-            <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
-              <p onClick={() => setViewSettings("username-email-settings")}>
-                {t("profile-settings:update-account.username-email.label")}
+        <div className="grid grid-cols-3 p-4 h-full w-full border-solid border-2 shadow-xl rounded-lg">
+          <div className="grid grid-rows-5 border-accent-200 border-r-4 border-solid col-span-1">
+            <div className="p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
+              <p onClick={() => setViewSettings("username-settings")}>
+                {t("profile-settings:update-account.username.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
+            <div className="xl:p-5 p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
               <p onClick={() => setViewSettings("bio-settings")}>
                 {t("profile-settings:update-account.bio.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3 mr-4 border-b-4 border-solid">
+            <div className="xl:p-5 p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
               <p onClick={() => setViewSettings("link-settings")}>
                 {t("profile-settings:update-account.link.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3  mr-4 border-b-4 border-solid">
+            <div className="xl:p-5 p-3  mr-4 border-accent-200 border-b-4 border-solid font-semibold">
               <p onClick={() => setViewSettings("picture-settings")}>
                 {t("profile-settings:update-account.picture.label")}
               </p>
@@ -106,14 +107,14 @@ const SettingsPage = () => {
               />
             </div>
           </div>
-          <div className="flex items-center pr-5 justify-center col-span-2 w-full">
-            <UpdateFieldsAccount
+          <div className="flex items-center p-5 justify-center col-span-2 w-full">
+            <UpdateUserInfos
               settingsRequired={viewSettings}
               user={user}
               success={success}
               error={error}
               onSubmit={onSubmit}
-            ></UpdateFieldsAccount>
+            />
           </div>
         </div>
       </div>

@@ -3,14 +3,15 @@ import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import { Cog6ToothIcon } from "@heroicons/react/24/outline"
+import Link from "next/link"
+
+import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import { useUser } from "@/web/hooks/auth/useUser"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
-import { routes } from "@/web/routes"
 import { AlertPopup } from "@/web/components/utils/AlertPopup"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -69,9 +70,9 @@ const Home = () => {
                   <span>{user.username}</span>
                   <span className="truncate">{user.email}</span>
                 </div>
-                <Button onClick={() => redirect(routes.profile.settings)}>
+                <Link href="/profile/settings">
                   <Cog6ToothIcon className="w-6" />
-                </Button>
+                </Link>
               </div>
               <Button
                 onClick={() => setModalOpen(true)}

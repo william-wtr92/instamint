@@ -1,21 +1,19 @@
-import type { UsernameEmailSettingsSchema } from "@instamint/shared-types"
-
+import type { UserInfosSchema } from "@instamint/shared-types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
-const updateFieldsAccountService: Services<UsernameEmailSettingsSchema> =
+const updateUserInfoService: Services<UserInfosSchema> =
   ({ api }) =>
   async (data) => {
     try {
       const body = {
-        id: data.id,
-        username: data.username,
+        username: data?.username,
         email: data.email,
       }
 
       const { data: responseData } = await api.put(
-        routes.users.updateFieldsAccount(data.id),
+        routes.users.updateUserInfos,
         body
       )
 
@@ -25,4 +23,4 @@ const updateFieldsAccountService: Services<UsernameEmailSettingsSchema> =
     }
   }
 
-export default updateFieldsAccountService
+export default updateUserInfoService
