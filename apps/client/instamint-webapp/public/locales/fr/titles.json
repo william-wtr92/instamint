@@ -1,0 +1,20 @@
+{
+  "home": "Instamint - Accueil",
+  "auth": {
+    "login": "Instamint - Connexion",
+    "register": "Instamint - Inscription",
+     "email": {
+      "confirmation": "Instamint - Confirmation de l'adresse e-mail"
+    }
+  },
+  "profile": {
+    "settings": {
+      "general": "Instamint - Paramètres"
+    }
+  },
+  "users": {
+    "reactivate-account": "Instamint - Réactivation de compte",
+    "reset-password": "Instamint - Réinitialisation de mot de passe",
+    "reset-password-confirm": "Instamint - Confirmation de réinitialisation de mot de passe"
+  }
+}

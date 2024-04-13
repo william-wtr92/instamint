@@ -1,5 +1,5 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { useCallback } from "react"
+import { type ReactElement, useCallback } from "react"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
@@ -10,6 +10,7 @@ import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
+import AuthLayout from "@/web/components/layout/AuthLayout"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -90,6 +91,11 @@ const EmailValidationPage = (
       </div>
     </>
   )
+}
+EmailValidationPage.title = "auth.email.confirmation"
+
+EmailValidationPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default EmailValidationPage

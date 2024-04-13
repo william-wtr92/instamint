@@ -1,6 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import type { ReactElement } from "react"
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -26,6 +27,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import AuthLayout from "@/web/components/layout/AuthLayout"
 
 export const getServerSideProps: GetServerSideProps<
   ConfirmResetPasswordValidation
@@ -249,6 +251,11 @@ const ConfirmResetPasswordPage = (
       </div>
     </div>
   )
+}
+ConfirmResetPasswordPage.title = "users.reset-password-confirm"
+
+ConfirmResetPasswordPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default ConfirmResetPasswordPage

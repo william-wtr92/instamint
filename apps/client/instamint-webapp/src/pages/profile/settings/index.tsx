@@ -66,5 +66,6 @@ const SettingsPage = () => {
     </div>
   )
 }
+SettingsPage.title = "profile.settings.general"
 
 export default SettingsPage

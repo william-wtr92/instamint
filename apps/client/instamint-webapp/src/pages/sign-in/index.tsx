@@ -203,7 +203,7 @@ const SignInPage = () => {
     </div>
   )
 }
-SignInPage.title = "Sign In"
+SignInPage.title = "auth.login"
 
 SignInPage.getLayout = (page: ReactElement) => {
   return <AuthLayout>{page}</AuthLayout>

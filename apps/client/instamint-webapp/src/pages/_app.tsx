@@ -1,6 +1,6 @@
 import Head from "next/head"
 import "@/styles/globals.css"
-import { appWithTranslation } from "next-i18next"
+import { appWithTranslation, useTranslation } from "next-i18next"
 import { SWRConfig } from "swr"
 import type { ReactNode } from "react"
 import { Toaster } from "@instamint/ui-kit"
@@ -10,8 +10,22 @@ import { AppContextProvider } from "@/web/contexts/useAppContext"
 import { globalFetcher } from "@/web/utils/api/globalFetcher"
 import { ActionsProvider } from "@/web/contexts/useActionsContext"
 import type { AppPropsWithLayout } from "@/types"
+import type { GetServerSideProps } from "next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", "titles")),
+    },
+  }
+}
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const { t } = useTranslation("titles")
+
   const renderWithLayout =
     Component.getLayout ||
     ((page: ReactNode) => {
@@ -32,7 +46,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
               content="width=device-width, initial-scale=1"
             />
             <link rel="icon" href="/favicon.ico" />
-            <title>{Component.title}</title>
+            <title>{t(Component.title)}</title>
           </Head>
           <Toaster />
 

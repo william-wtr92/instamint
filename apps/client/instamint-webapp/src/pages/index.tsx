@@ -6,7 +6,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common", "navbar"])),
+      ...(await serverSideTranslations(locale ?? "en", [
+        "titles",
+        "common",
+        "navbar",
+      ])),
     },
   }
 }
@@ -14,6 +18,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Home = () => {
   return <div></div>
 }
-Home.title = "Instamint"
+Home.title = "home"
 
 export default Home

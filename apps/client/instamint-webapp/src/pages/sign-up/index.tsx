@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useEffect, useState } from "react"
+import { type ReactElement, useCallback, useEffect, useState } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
@@ -23,6 +23,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
+import AuthLayout from "@/web/components/layout/AuthLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -311,6 +312,11 @@ const SignUpPage = () => {
       </div>
     </div>
   )
+}
+SignUpPage.title = "auth.register"
+
+SignUpPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default SignUpPage

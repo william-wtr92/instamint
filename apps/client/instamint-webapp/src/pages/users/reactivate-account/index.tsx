@@ -1,7 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useCallback, useState } from "react"
+import { type ReactElement, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -25,6 +25,7 @@ import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import AuthLayout from "@/web/components/layout/AuthLayout"
 
 export const getServerSideProps: GetServerSideProps<
   ReactivateAccountValidation
@@ -202,6 +203,11 @@ const ReactivateAccountPage = (
       </div>
     </div>
   )
+}
+ReactivateAccountPage.title = "users.reactivate-account"
+
+ReactivateAccountPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default ReactivateAccountPage
