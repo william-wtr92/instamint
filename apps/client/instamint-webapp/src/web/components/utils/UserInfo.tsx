@@ -2,10 +2,10 @@ import { useUser } from "@/web/hooks/auth/useUser"
 import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import React, { useCallback, useState } from "react"
 import { ChangeLanguage } from "./ChangeLanguage"
-import { TranslateAlertDialog } from "./TranslateAlertDialog"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useTranslation } from "next-i18next"
+import { AlertPopup } from "./AlertPopup"
 
 const UserInfo = () => {
   const { t } = useTranslation(["navbar", "common"])
@@ -14,8 +14,7 @@ const UserInfo = () => {
       auth: { signOut },
     },
   } = useAppContext()
-  const { setTriggerRedirect, setRedirectLink, setRedirectDelay } =
-    useActionsContext()
+  const { redirect } = useActionsContext()
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
@@ -26,10 +25,8 @@ const UserInfo = () => {
   const handleSignOut = useCallback(async () => {
     await signOut(null)
 
-    setRedirectDelay(1000)
-    setRedirectLink("/sign-in")
-    setTriggerRedirect(true)
-  }, [signOut, setTriggerRedirect, setRedirectLink, setRedirectDelay])
+    redirect("/sign-in", 3000)
+  }, [signOut, redirect])
 
   return (
     <>
@@ -60,7 +57,7 @@ const UserInfo = () => {
       )}
 
       {modalOpen && (
-        <TranslateAlertDialog
+        <AlertPopup
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           onConfirm={handleSignOut}
