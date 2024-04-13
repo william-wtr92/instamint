@@ -8,7 +8,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import { useTranslation } from "next-i18next"
 
 const UserInfo = () => {
-  const { t } = useTranslation(["navbar"])
+  const { t } = useTranslation(["navbar", "common"])
   const {
     services: {
       auth: { signOut },
@@ -49,7 +49,7 @@ const UserInfo = () => {
               onClick={() => setModalOpen(true)}
               className="bg-accent-500 mt-4 w-full rounded-md p-2 font-semibold text-white"
             >
-              {t("cta.button-sign-out")}
+              {t("common:cta.button-sign-out")}
             </Button>
           </div>
 
@@ -64,10 +64,10 @@ const UserInfo = () => {
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           onConfirm={handleSignOut}
-          titleKey={"cta.label-sign-out"}
-          descriptionKey={"cta.description-sign-out"}
-          cancelKey={"cta.cancel-sign-out"}
-          confirmKey={"cta.confirm-sign-out"}
+          titleKey={"common:cta.label-sign-out"}
+          descriptionKey={"common:cta.description-sign-out"}
+          cancelKey={"common:cta.cancel-sign-out"}
+          confirmKey={"common:cta.confirm-sign-out"}
         />
       )}
     </>
