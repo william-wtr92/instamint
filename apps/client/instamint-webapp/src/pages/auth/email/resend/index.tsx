@@ -35,6 +35,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const ResendEmailValidationPage = () => {
+  const { t } = useTranslation(["errors", "email"])
+
   const {
     services: {
       auth: { resendEmailValidation },
@@ -42,8 +44,6 @@ const ResendEmailValidationPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "email"])
 
   useDelayedRedirect()
 

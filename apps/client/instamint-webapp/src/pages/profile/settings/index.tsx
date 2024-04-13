@@ -23,6 +23,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const SettingsPage = () => {
+  const { t } = useTranslation(["errors", "profile-settings"])
+
   const {
     services: {
       users: { deleteAccount },
@@ -30,8 +32,6 @@ const SettingsPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "profile-settings"])
 
   useDelayedRedirect()
 

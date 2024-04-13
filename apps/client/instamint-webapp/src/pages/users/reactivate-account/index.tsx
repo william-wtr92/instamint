@@ -51,6 +51,7 @@ const ReactivateAccountPage = (
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const { validation } = _props
+  const { t } = useTranslation(["errors", "reactivate-account"])
 
   const {
     services: {
@@ -59,8 +60,6 @@ const ReactivateAccountPage = (
   } = useAppContext()
 
   const { redirect, success, setSuccess, error, setError } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "reactivate-account"])
 
   useDelayedRedirect()
 

@@ -52,6 +52,7 @@ const ConfirmResetPasswordPage = (
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const { validation } = _props
+  const { t } = useTranslation(["errors", "reset-password"])
 
   const {
     services: {
@@ -60,8 +61,6 @@ const ConfirmResetPasswordPage = (
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "reset-password"])
 
   useDelayedRedirect()
 

@@ -33,6 +33,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const SignInPage = () => {
+  const { t } = useTranslation(["errors", "sign-in"])
+
   const {
     services: {
       auth: { signIn },
@@ -40,8 +42,6 @@ const SignInPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "sign-in"])
 
   useDelayedRedirect()
 

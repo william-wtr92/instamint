@@ -33,6 +33,7 @@ const EmailValidationPage = (
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const { validation } = _props
+  const { t } = useTranslation(["errors", "email"])
 
   const {
     services: {
@@ -41,8 +42,6 @@ const EmailValidationPage = (
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "email"])
 
   useDelayedRedirect()
 

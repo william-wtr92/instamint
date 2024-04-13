@@ -38,6 +38,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const RequestResetPasswordPage = () => {
+  const { t } = useTranslation(["errors", "reset-password"])
+
   const {
     services: {
       users: { requestResetPassword },
@@ -45,8 +47,6 @@ const RequestResetPasswordPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "reset-password"])
 
   useDelayedRedirect()
 
