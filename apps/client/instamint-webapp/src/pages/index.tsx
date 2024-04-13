@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home = () => {
-  return <div>test</div>
+  return <div></div>
 }
 Home.title = "Instamint"
 

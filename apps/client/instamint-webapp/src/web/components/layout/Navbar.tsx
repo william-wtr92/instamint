@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React from "react"
 import { HomeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
-
 import { Text } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import Link from "next/link"

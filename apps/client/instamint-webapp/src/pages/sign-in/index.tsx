@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { ReactElement } from "react"
-import { useCallback, useState } from "react"
+import { type ReactElement, useCallback, useState } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"

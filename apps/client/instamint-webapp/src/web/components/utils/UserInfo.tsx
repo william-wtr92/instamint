@@ -1,11 +1,12 @@
-import { useUser } from "@/web/hooks/auth/useUser"
 import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import React, { useCallback, useState } from "react"
+import { useTranslation } from "next-i18next"
+
 import { ChangeLanguage } from "./ChangeLanguage"
+import { AlertPopup } from "./AlertPopup"
+import { useUser } from "@/web/hooks/auth/useUser"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useTranslation } from "next-i18next"
-import { AlertPopup } from "./AlertPopup"
 
 const UserInfo = () => {
   const { t } = useTranslation(["navbar", "common"])
