@@ -26,12 +26,10 @@ export type AppContextType = {
 export type ActionsContextType = {
   language: string
   changeLanguage: (newLanguage: string) => Promise<void>
-  triggerRedirect: boolean
-  setTriggerRedirect: React.Dispatch<React.SetStateAction<boolean>>
+  redirectTrigger: boolean
   redirectLink: string
-  setRedirectLink: React.Dispatch<React.SetStateAction<string>>
   redirectDelay: number
-  setRedirectDelay: React.Dispatch<React.SetStateAction<number>>
+  redirect: (link: string, delay?: number) => void
   error: Error | string | null
   setError: (error: Error | string | null, duration?: number) => void
   success: string | null

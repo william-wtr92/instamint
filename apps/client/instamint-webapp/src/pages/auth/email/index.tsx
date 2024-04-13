@@ -40,15 +40,7 @@ const EmailValidationPage = (
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "email"])
 
@@ -65,25 +57,13 @@ const EmailValidationPage = (
       }
 
       setSuccess(t("email:validation.success"))
-      setRedirectDelay(3000)
-      setRedirectLink("/")
+      redirect("/", 3000)
     } else {
       setError(t("email:validation.errorNoToken"))
     }
 
-    setTriggerRedirect(true)
-    setRedirectDelay(6000)
-    setRedirectLink("/")
-  }, [
-    setError,
-    setSuccess,
-    setRedirectLink,
-    setRedirectDelay,
-    setTriggerRedirect,
-    emailValidation,
-    validation,
-    t,
-  ])
+    redirect("/", 6000)
+  }, [redirect, setError, setSuccess, emailValidation, validation, t])
 
   return (
     <>

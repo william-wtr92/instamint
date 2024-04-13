@@ -41,15 +41,7 @@ const SignUpPage = () => {
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "sign-up"])
 
@@ -102,26 +94,14 @@ const SignUpPage = () => {
       }
 
       setSuccess(t("sign-up:success"))
-      setRedirectLink("/sign-in")
-      setRedirectDelay(3000)
-      setTriggerRedirect(true)
+      redirect("/sign-in", 3000)
     },
-    [
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      signUp,
-      t,
-    ]
+    [redirect, setError, setSuccess, signUp, t]
   )
 
   const handleRedirect = useCallback(() => {
-    setRedirectLink("/sign-in")
-    setRedirectDelay(0)
-    setTriggerRedirect(true)
-  }, [setRedirectLink, setRedirectDelay, setTriggerRedirect])
+    redirect("/sign-in", 0)
+  }, [redirect])
 
   const disabled =
     form.formState.isValid && form.watch("gdprValidation") && checkPassword

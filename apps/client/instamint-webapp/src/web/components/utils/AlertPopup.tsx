@@ -1,3 +1,5 @@
+import { useTranslation } from "next-i18next"
+import { cx } from "class-variance-authority"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,12 +10,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@instamint/ui-kit"
-import { useTranslation } from "next-i18next"
-import { cx } from "class-variance-authority"
 
-import type { TranslateAlertDialogProps } from "@/types"
+type Props = {
+  open: boolean
+  onClose: () => void
+  onConfirm: () => void
+  titleKey: string
+  descriptionKey: string
+  cancelKey: string
+  confirmKey: string
+  type?: "danger" | "warning" | "informative"
+}
 
-export const TranslateAlertDialog = (props: TranslateAlertDialogProps) => {
+export const AlertPopup = (props: Props) => {
   const {
     open,
     onClose,

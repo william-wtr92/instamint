@@ -40,15 +40,7 @@ const SignInPage = () => {
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "sign-in"])
 
@@ -80,28 +72,16 @@ const SignInPage = () => {
       }
 
       setSuccess(t("sign-in:success"))
-      setRedirectLink("/")
-      setRedirectDelay(3000)
-      setTriggerRedirect(true)
+      redirect("/", 3000)
     },
-    [
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      signIn,
-      t,
-    ]
+    [redirect, setError, setSuccess, signIn, t]
   )
 
   const handleRedirect = useCallback(
     (path: string) => {
-      setRedirectLink(path)
-      setRedirectDelay(0)
-      setTriggerRedirect(true)
+      redirect(path, 0)
     },
-    [setRedirectLink, setRedirectDelay, setTriggerRedirect]
+    [redirect]
   )
 
   return (

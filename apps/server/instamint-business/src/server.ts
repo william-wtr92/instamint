@@ -6,20 +6,15 @@ import { etag } from "hono/etag"
 import { secureHeaders } from "hono/secure-headers"
 import { sentry } from "@hono/sentry"
 import knex from "knex"
-import Redis from "ioredis"
 
 import type { AppConfig } from "./db/config/configTypes"
 import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
+import { redis } from "./utils/redis/instance"
 
 const server = async (appConfig: AppConfig) => {
   const db = knex(appConfig.db)
   BaseModel.knex(db)
-
-  const redis = new Redis({
-    port: parseInt(appConfig.redis.port),
-    host: appConfig.redis.host,
-  })
 
   const app = new Hono()
   app.use(

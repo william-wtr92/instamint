@@ -41,15 +41,7 @@ const ResendEmailValidationPage = () => {
     },
   } = useAppContext()
 
-  const {
-    setTriggerRedirect,
-    setRedirectLink,
-    setRedirectDelay,
-    error,
-    setError,
-    success,
-    setSuccess,
-  } = useActionsContext()
+  const { redirect, error, setError, success, setSuccess } = useActionsContext()
 
   const { t } = useTranslation(["errors", "email"])
 
@@ -74,19 +66,9 @@ const ResendEmailValidationPage = () => {
       }
 
       setSuccess(t("email:resend.successfully"))
-      setRedirectDelay(3000)
-      setRedirectLink("/")
-      setTriggerRedirect(true)
+      redirect("/", 3000)
     },
-    [
-      setError,
-      setSuccess,
-      setRedirectLink,
-      setRedirectDelay,
-      setTriggerRedirect,
-      resendEmailValidation,
-      t,
-    ]
+    [redirect, setError, setSuccess, resendEmailValidation, t]
   )
 
   return (
