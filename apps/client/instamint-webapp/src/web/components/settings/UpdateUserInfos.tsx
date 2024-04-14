@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
 import { useTranslation } from "next-i18next"
 
 import {
@@ -15,6 +14,14 @@ import {
 } from "@instamint/ui-kit"
 import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
 
+type UpdateUserInfosProps = {
+  settingsRequired: string
+  user: UserInfosSchema | undefined | null
+  onSubmit: (values: UserInfosSchema) => Promise<void>
+  error: string | Error | null
+  success: string | null
+}
+
 export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
   const { settingsRequired, user, onSubmit, error, success } = props
   const { t } = useTranslation()
@@ -23,17 +30,10 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
     resolver: zodResolver(userInfosSchema),
     mode: "onBlur",
     defaultValues: {
-      username: "",
-      email: "",
+      username: user?.username,
+      email: user?.email,
     },
   })
-
-  useEffect(() => {
-    if (user) {
-      form.setValue("username", user?.username)
-      form.setValue("email", user.email)
-    }
-  }, [form, user])
 
   const {
     formState: { errors },
@@ -103,12 +103,4 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
       )}
     </>
   )
-}
-
-export type UpdateUserInfosProps = {
-  settingsRequired: string
-  user: UserInfosSchema | undefined | null
-  onSubmit: (values: UserInfosSchema) => Promise<void>
-  error: string | Error | null
-  success: string | null
 }
