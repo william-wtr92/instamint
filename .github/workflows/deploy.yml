@@ -33,9 +33,3 @@ jobs:
         run: |
           docker-compose -f docker-compose.prod.yml build
           docker-compose -f docker-compose.prod.yml push
-
-      - name: Logout of Azure Container Registry
-        run: az acr logout --name instamintACR
-
-      - name: Logout of Azure CLI
-        run: az logout
