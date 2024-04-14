@@ -6,6 +6,7 @@ export const configSchema = z
     redis: z.object({
       host: z.string(),
       port: z.string(),
+      password: z.string(),
     }),
     jwt: z.object({
       secret: z.string(),

@@ -2,6 +2,10 @@
 .idea/
 .DS_Store
 
+# terraform
+**/terraform/**
+!**/*.tf
+
 # node_modules
 node_modules/
 */**/node_modules
