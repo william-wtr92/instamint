@@ -3,7 +3,7 @@ name: Azure CD Pipeline
 on:
   push:
     branches:
-      - *
+      - ITM-*
 
 jobs:
   build_and_push:
