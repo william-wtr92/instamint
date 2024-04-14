@@ -26,6 +26,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import AuthLayout from "@/web/components/layout/AuthLayout"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps<
   ReactivateAccountValidation
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       validation: validationValue,
       ...(await serverSideTranslations(locale ?? "en", [
-        "errors",
+        ...getTranslationBaseImports(),
         "reactivate-account",
       ])),
     },

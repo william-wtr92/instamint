@@ -24,13 +24,17 @@ import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["errors", "sign-up"])),
+      ...(await serverSideTranslations(locale ?? "en", [
+        ...getTranslationBaseImports(),
+        "sign-up",
+      ])),
     },
   }
 }

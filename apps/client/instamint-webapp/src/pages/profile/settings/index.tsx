@@ -8,6 +8,7 @@ import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -15,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
-        "errors",
+        ...getTranslationBaseImports(),
         "profile-settings",
       ])),
     },

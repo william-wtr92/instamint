@@ -11,6 +11,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -25,7 +26,10 @@ export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   return {
     props: {
       validation: validationValue,
-      ...(await serverSideTranslations(locale ?? "en", ["errors", "email"])),
+      ...(await serverSideTranslations(locale ?? "en", [
+        ...getTranslationBaseImports(),
+        "email",
+      ])),
     },
   }
 }

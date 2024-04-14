@@ -1,3 +1,4 @@
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
@@ -7,9 +8,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
-        "titles",
+        ...getTranslationBaseImports(),
         "common",
-        "navbar",
       ])),
     },
   }
