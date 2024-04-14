@@ -23,8 +23,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Login to Azure Container Registry
-        run: az acr login --name instamintACR
+      - uses: azure/docker-login@v1
+        with:
+          login-server: "instamintACR.azurecr.io"
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Build and push
         run: |
