@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
-import { routes } from "./web/routes"
+
+import { routes } from "@/web/routes"
 
 export const middleware = (request: NextRequest) => {
   const authToken = request.cookies.get("auth-token")
