@@ -1,6 +1,13 @@
 {
   "home": "Accueil",
   "search": "Recherche",
+    "select-lang": {
+    "label": "Changez la langue",
+    "options": {
+      "en": "Anglais",
+      "fr": "Français"
+    }
+  },
   "cta": {
     "button-sign-out": "Déconnexion",
     "label-sign-out": "Êtes-vous sûr ?",
