@@ -3,6 +3,8 @@ import "@/styles/globals.css"
 import { appWithTranslation, useTranslation } from "next-i18next"
 import { SWRConfig } from "swr"
 import type { ReactNode } from "react"
+import type { GetServerSideProps } from "next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { Toaster } from "@instamint/ui-kit"
 
 import BaseLayout from "@/web/components/layout/BaseLayout"
@@ -10,8 +12,6 @@ import { AppContextProvider } from "@/web/contexts/useAppContext"
 import { globalFetcher } from "@/web/utils/api/globalFetcher"
 import { ActionsProvider } from "@/web/contexts/useActionsContext"
 import type { AppPropsWithLayout } from "@/types"
-import type { GetServerSideProps } from "next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
