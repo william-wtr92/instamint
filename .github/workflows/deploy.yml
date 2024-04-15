@@ -1,4 +1,4 @@
-name: Azure CD Pipeline
+name: Instamint Monorepo - Azure CI/CD
 
 on:
   push:
