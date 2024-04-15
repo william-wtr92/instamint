@@ -5,7 +5,8 @@
 # terraform
 **/terraform/**
 !**/*.tf
-!**/terraform/vm
+!**/terraform/modules
+!**/terraform/modules/**
 
 # node_modules
 node_modules/

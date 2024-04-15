@@ -1,13 +1,11 @@
-## VM Configuration
-
-variable "admin_username" {
+variable "resource_group_name" {
     type        = string
-    description = "Admin username for VMs"
+    description = "Name of the resource group"
 }
 
-variable "admin_password" {
+variable "location" {
     type        = string
-    description = "Admin password for VMs"
+    description = "Location of the virtual machine"
 }
 
 ## PostgreSQL
