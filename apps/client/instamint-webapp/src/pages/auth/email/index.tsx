@@ -8,7 +8,6 @@ import type { UserEmailToken } from "@instamint/shared-types"
 
 import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
@@ -47,8 +46,6 @@ const EmailValidationPage = (
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const onSubmit = useCallback(async () => {
     if (validation != null) {
