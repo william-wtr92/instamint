@@ -4,11 +4,19 @@ const clientRoutes = {
   home: "/",
   signUp: "/sign-up",
   signIn: "/sign-in",
-  authEmailConfirmation: "/auth/email",
-  authEmailResend: "/auth/email/resend",
-  profileSettings: "/profile/settings",
-  resetPasswordRequest: "/reset-password/request",
-  resetPasswordConfirm: "/reset-password/confirm",
+  auth: {
+    email: {
+      confirmation: "/auth/email",
+      resend: "/auth/email/resend",
+    },
+  },
+  profile: {
+    settings: "/profile/settings",
+  },
+  users: {
+    resetPasswordRequest: "/users/reset-password",
+    resetPasswordConfirm: "/users/reset-password/confirm",
+  },
 } as const
 
 const apiRoutes = {
@@ -32,5 +40,3 @@ export const routes = defineRoutes({
   client: clientRoutes,
   api: apiRoutes,
 })
-
-export type ClientRoutes = (typeof clientRoutes)[keyof typeof clientRoutes]

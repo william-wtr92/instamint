@@ -11,7 +11,6 @@ import { useTranslation } from "next-i18next"
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
 import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
 import { useRouter } from "next/router"
-import type { ClientRoutes } from "@/web/routes"
 
 const ActionsContext = createContext<ActionsContextType | undefined>(undefined)
 
@@ -33,7 +32,7 @@ export const ActionsProvider: FC<
   const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
   const redirect = useCallback(
-    (link: ClientRoutes, delay = 3000) => {
+    (link: string, delay = 3000) => {
       const timeoutId = setTimeout(() => {
         router.push(link)
       }, delay)

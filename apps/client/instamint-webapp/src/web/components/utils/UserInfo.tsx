@@ -7,6 +7,7 @@ import { AlertPopup } from "./AlertPopup"
 import { useUser } from "@/web/hooks/auth/useUser"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
+import { routes } from "@/web/routes"
 
 const UserInfo = () => {
   const { t } = useTranslation(["navbar", "common"])
@@ -26,7 +27,7 @@ const UserInfo = () => {
   const handleSignOut = useCallback(async () => {
     await signOut(null)
 
-    redirect("/sign-in", 3000)
+    redirect(routes.client.signIn, 3000)
   }, [signOut, redirect])
 
   return (

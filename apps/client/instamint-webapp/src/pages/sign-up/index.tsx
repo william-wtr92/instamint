@@ -24,6 +24,7 @@ import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -96,13 +97,13 @@ const SignUpPage = () => {
       }
 
       setSuccess(t("sign-up:success"))
-      redirect("/sign-in", 3000)
+      redirect(routes.client.signIn, 3000)
     },
     [redirect, setError, setSuccess, signUp, t]
   )
 
   const handleRedirect = useCallback(() => {
-    redirect("/sign-in", 0)
+    redirect(routes.client.signIn, 0)
   }, [redirect])
 
   const disabled =

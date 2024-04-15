@@ -8,6 +8,7 @@ import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -46,7 +47,7 @@ const SettingsPage = () => {
       }
 
       setSuccess(t("profile-settings:delete-account.success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, deleteAccount, t]
   )

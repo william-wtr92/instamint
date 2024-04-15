@@ -11,7 +11,7 @@ export const useUser = () => {
   }
 
   const { data, ...query } = useSWR<ConnectedUser, Error>(
-    routes.auth.me,
+    routes.api.auth.me,
     config
   )
 

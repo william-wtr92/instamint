@@ -26,6 +26,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps<
   ReactivateAccountValidation
@@ -94,12 +95,12 @@ const ReactivateAccountPage = (
         }
 
         setSuccess(t("reactivate-account:success"))
-        redirect("/", 3000)
+        redirect(routes.client.home, 3000)
       } else {
         setError(t("errors:users.reactivate-account.errorNoToken"))
       }
 
-      redirect("/sign-in", 6000)
+      redirect(routes.client.signIn, 6000)
     },
     [validation, redirect, setError, setSuccess, reactivateAccount, t]
   )

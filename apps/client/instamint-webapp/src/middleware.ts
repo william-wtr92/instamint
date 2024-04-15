@@ -5,7 +5,7 @@ export const middleware = (request: NextRequest) => {
   const authToken = request.cookies.get("auth-token")
 
   if (!authToken) {
-    return NextResponse.redirect(new URL("/sign-in", request.nextUrl))
+    return NextResponse.redirect(new URL(request.nextUrl))
   }
 
   return NextResponse.next()

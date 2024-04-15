@@ -21,6 +21,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -72,7 +73,7 @@ const SignInPage = () => {
       }
 
       setSuccess(t("sign-in:success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, signIn, t]
   )
@@ -173,7 +174,9 @@ const SignInPage = () => {
                 </p>
                 <p
                   className="text-accent-600 font-bold hover:scale-105 hover:cursor-pointer"
-                  onClick={() => handleRedirect("/users/reset-password")}
+                  onClick={() =>
+                    handleRedirect(routes.client.users.resetPasswordRequest)
+                  }
                 >
                   {t("sign-in:cta.reset.link")}
                 </p>
@@ -184,7 +187,7 @@ const SignInPage = () => {
                 </p>
                 <p
                   className="text-accent-600 font-bold hover:scale-105 hover:cursor-pointer"
-                  onClick={() => handleRedirect("/sign-up")}
+                  onClick={() => handleRedirect(routes.client.signUp)}
                 >
                   {t("sign-in:cta.sign-in.link")}
                 </p>

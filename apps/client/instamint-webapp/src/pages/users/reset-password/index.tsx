@@ -25,6 +25,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -69,7 +70,7 @@ const RequestResetPasswordPage = () => {
       }
 
       setSuccess(t("reset-password:request.success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, requestResetPassword, t]
   )
