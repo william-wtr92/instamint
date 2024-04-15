@@ -13,7 +13,7 @@ const resendEmailValidationService: Services<UserResendEmail> =
       }
 
       const { data: responseData } = await api.post(
-        routes.auth.resendEmailValidation,
+        routes.api.auth.resendEmailValidation,
         body
       )
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 
 import type { AuthServices, UsersServices } from "@/types"
+import type { ClientRoutes } from "@/web/routes"
 
 export type AppContextProviderProps = {
   children: ReactNode
@@ -26,7 +27,7 @@ export type AppContextType = {
 export type ActionsContextType = {
   language: string
   changeLanguage: (newLanguage: string) => Promise<void>
-  redirect: (link: string, delay?: number) => void
+  redirect: (link: ClientRoutes, delay?: number) => void
   error: Error | string | null
   setError: (error: Error | string | null, duration?: number) => void
   success: string | null
