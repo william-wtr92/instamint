@@ -23,7 +23,6 @@ import {
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
@@ -50,8 +49,6 @@ const RequestResetPasswordPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const form = useForm<RequestResetPassword>({
     resolver: zodResolver(requestResetPasswordSchema),

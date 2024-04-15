@@ -21,7 +21,6 @@ import {
 } from "@instamint/shared-types"
 
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
@@ -49,8 +48,6 @@ const ResendEmailValidationPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),

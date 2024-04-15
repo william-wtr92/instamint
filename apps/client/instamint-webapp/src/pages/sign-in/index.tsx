@@ -18,7 +18,6 @@ import { type SignIn, signInSchema } from "@instamint/shared-types"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
@@ -46,8 +45,6 @@ const SignInPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 

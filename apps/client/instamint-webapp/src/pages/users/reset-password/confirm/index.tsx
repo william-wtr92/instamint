@@ -26,7 +26,6 @@ import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
@@ -64,8 +63,6 @@ const ConfirmResetPasswordPage = (
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>

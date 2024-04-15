@@ -21,7 +21,6 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 
 import useAppContext from "@/web/contexts/useAppContext"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
@@ -49,8 +48,6 @@ const SignUpPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  useDelayedRedirect()
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
