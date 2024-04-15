@@ -10,7 +10,7 @@ import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
 
 const UserInfo = () => {
-  const { t } = useTranslation(["navbar", "common"])
+  const { t } = useTranslation("navbar")
   const {
     services: {
       auth: { signOut },
@@ -48,7 +48,7 @@ const UserInfo = () => {
               onClick={() => setModalOpen(true)}
               className="bg-accent-500 mt-4 w-full rounded-md p-2 font-semibold text-white"
             >
-              {t("common:cta.button-sign-out")}
+              {t("cta.button-sign-out")}
             </Button>
           </div>
 
@@ -63,10 +63,10 @@ const UserInfo = () => {
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           onConfirm={handleSignOut}
-          titleKey={"common:cta.label-sign-out"}
-          descriptionKey={"common:cta.description-sign-out"}
-          cancelKey={"common:cta.cancel-sign-out"}
-          confirmKey={"common:cta.confirm-sign-out"}
+          titleKey={"navbar:cta.label-sign-out"}
+          descriptionKey={"navbar:cta.description-sign-out"}
+          cancelKey={"navbar:cta.cancel-sign-out"}
+          confirmKey={"navbar:cta.confirm-sign-out"}
         />
       )}
     </>

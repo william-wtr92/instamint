@@ -6,12 +6,5 @@
       "en": "Anglais",
       "fr": "Français"
     }
-  },
-  "cta": {
-    "button-sign-out": "Déconnexion",
-    "label-sign-out": "Êtes-vous sûr ?",
-    "description-sign-out": "Vous serez déconnecté de votre compte Instamint.",
-    "confirm-sign-out": "Confirmer",
-    "cancel-sign-out": "Annuler"
   }
 }
