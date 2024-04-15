@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { ReactElement } from "react"
 import { useCallback } from "react"
 import { useTranslation } from "next-i18next"
 import type { GetServerSideProps } from "next"
@@ -22,7 +23,9 @@ import {
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import AuthLayout from "@/web/components/layout/AuthLayout"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -30,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
-        "errors",
+        ...getTranslationBaseImports(),
         "reset-password",
       ])),
     },
@@ -38,6 +41,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const RequestResetPasswordPage = () => {
+  const { t } = useTranslation(["errors", "reset-password"])
+
   const {
     services: {
       users: { requestResetPassword },
@@ -45,10 +50,6 @@ const RequestResetPasswordPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "reset-password"])
-
-  useDelayedRedirect()
 
   const form = useForm<RequestResetPassword>({
     resolver: zodResolver(requestResetPasswordSchema),
@@ -69,18 +70,18 @@ const RequestResetPasswordPage = () => {
       }
 
       setSuccess(t("reset-password:request.success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, requestResetPassword, t]
   )
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       <div className="w-[95%] sm:w-[70%] xl:w-[40%]">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full flex items-center flex-col p-text-large-screen space-y-8 bg-white rounded-md shadow-xl"
+            className="p-text-large-screen flex w-full flex-col items-center space-y-8 rounded-md bg-white shadow-xl"
           >
             <FormField
               control={form.control}
@@ -92,7 +93,7 @@ const RequestResetPasswordPage = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
+                      className="focus-visible:outline-accent-500 mt-2 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                       placeholder={t(
                         "reset-password:request.email.placeholder"
                       )}
@@ -103,7 +104,7 @@ const RequestResetPasswordPage = () => {
                     {t("reset-password:request.email.description")}
                   </FormDescription>
                   <FormMessage
-                    className="relative left-2 text-error-primary"
+                    className="text-error-primary relative left-2"
                     useCustomError={true}
                   >
                     {form.formState.errors.email ? (
@@ -115,16 +116,16 @@ const RequestResetPasswordPage = () => {
             />
             <Button
               disabled={!form.formState.isValid}
-              className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2 ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
+              className={`bg-accent-500 w-1/2 py-2.5 font-semibold text-white ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
               type="submit"
             >
               {t("reset-password:request.email.cta.submit")}
             </Button>
             {success ? (
-              <p className="text-sm text-center text-accent-600">{success}</p>
+              <p className="text-accent-600 text-center text-sm">{success}</p>
             ) : null}
             {error ? (
-              <p className="text-md text-center text-error-primary">
+              <p className="text-md text-error-primary text-center">
                 {error instanceof Error ? error.message : error}
               </p>
             ) : null}
@@ -133,6 +134,11 @@ const RequestResetPasswordPage = () => {
       </div>
     </div>
   )
+}
+RequestResetPasswordPage.title = "users.reset-password"
+
+RequestResetPasswordPage.getLayout = (page: ReactElement) => {
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export default RequestResetPasswordPage

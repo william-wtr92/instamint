@@ -15,7 +15,10 @@ const signUpService: Services<SignUp> =
         gdprValidation: data.gdprValidation,
       }
 
-      const { data: responseData } = await api.post(routes.auth.signUp, body)
+      const { data: responseData } = await api.post(
+        routes.api.auth.signUp,
+        body
+      )
 
       return [null, responseData]
     } catch (err) {

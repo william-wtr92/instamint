@@ -3,7 +3,22 @@
 module.exports = {
   content: ["src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        slideIn: {
+          "0%": "translateX(-100%)",
+          "100%": "translateX(0)",
+        },
+        slideOut: {
+          "0%": "translateX(0)",
+          "100%": "translateX(-100%)",
+        },
+      },
+      animation: {
+        slideIn: "slideIn 0.5s ease-in-out",
+        slideOut: "slideOut 0.5s ease-in-out",
+      },
+    },
     colors: {
       accent: {
         "50": "#f0fdf4",
@@ -35,9 +50,9 @@ module.exports = {
         primary: "#FF0000",
       },
       success: {
-        primary: "#00FF00",
+        primary: "#16502d",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 }

@@ -3,6 +3,9 @@ export * from "./api.types"
 export * from "./services.types"
 export * from "./contexts.types"
 
+/* APP */
+export * from "./app.types"
+
 /* ENV */
 export * from "./env.types"
 
