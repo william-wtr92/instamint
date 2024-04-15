@@ -10,6 +10,7 @@ class UserModel extends BaseModel {
   email!: string
   bio!: string
   link!: string
+  location!: string
   passwordHash!: string
   passwordSalt!: string
   createdAt!: Date

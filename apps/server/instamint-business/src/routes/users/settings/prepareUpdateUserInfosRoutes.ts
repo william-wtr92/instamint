@@ -9,7 +9,7 @@ import { handleError } from "@/middlewares/handleError"
 import UserModel from "@/db/models/UserModel"
 
 const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
-  const userAction = new Hono()
+  const updateUserInfos = new Hono()
 
   if (!db) {
     throw createErrorResponse(
@@ -25,7 +25,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
     )
   }
 
-  userAction.put(
+  updateUserInfos.put(
     "/update-account",
     zValidator("json", userInfosSchema),
     async (c: Context): Promise<Response> => {
@@ -58,13 +58,13 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         }
       }
 
-      const update = await UserModel.query()
+      const updatedUser = await UserModel.query()
         .where({ email })
         .update({
           ...(username ? { username } : {}),
         })
 
-      if (!update) {
+      if (!updatedUser) {
         return c.json(usersMessages.userNotModified, SC.errors.NOT_FOUND)
       }
 
@@ -72,9 +72,9 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
-  userAction.onError((e: Error, c: Context) => handleError(e, c))
+  updateUserInfos.onError((e: Error, c: Context) => handleError(e, c))
 
-  app.route("/users", userAction)
+  app.route("/users", updateUserInfos)
 }
 
 export default prepareUpdateUserInfosRoutes
