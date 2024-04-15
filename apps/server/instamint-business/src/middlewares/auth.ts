@@ -38,10 +38,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
           return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
         }
 
-        c.set(
-          contextsKeys.user,
-          sanitizeUser(user, ["roleData", "bio", "link"])
-        )
+        c.set(contextsKeys.user, sanitizeUser(user, ["roleData"]))
 
         await next()
       }

@@ -88,10 +88,16 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
       return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
     }
 
+    const user = await UserModel.query().findOne({ email: contextUser.email })
+
+    if (!user) {
+      return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+    }
+
     return c.json(
       {
         message: authMessages.signedInUser.message,
-        result: sanitizeUser(contextUser, ["bio", "link"]),
+        result: sanitizeUser(user, ["bio", "link"]),
       },
       SC.success.OK
     )

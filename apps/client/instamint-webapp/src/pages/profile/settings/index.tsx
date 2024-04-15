@@ -2,15 +2,15 @@ import { useCallback, useState } from "react"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import {
+  type DeleteAccount,
+  type UserInfosSchema,
+} from "@instamint/shared-types"
 
 import { useUser } from "@/web/hooks/auth/useUser"
 import { UpdateUserInfos } from "@/web/components/settings/UpdateUserInfos"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
-import {
-  type DeleteAccount,
-  type UserInfosSchema,
-} from "@instamint/shared-types"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

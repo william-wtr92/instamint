@@ -32,8 +32,9 @@
         "invalidPassword": "Invalid password."
       },
       "update-account": {
-        "userNotModified": "An error has occurred while modifying your information",
-        "usernameAlreadyExist": "This username already exist"
+        "userNotModified": "An error has occurred while modifying your information.",
+        "usernameAlreadyExist": "This username already exist.",
+        "sameUsername": "You have not changed your username."
       }
     },
     "reactivate-account": {

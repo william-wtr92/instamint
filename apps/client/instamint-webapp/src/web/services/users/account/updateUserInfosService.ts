@@ -1,4 +1,5 @@
 import type { UserInfosSchema } from "@instamint/shared-types"
+
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"

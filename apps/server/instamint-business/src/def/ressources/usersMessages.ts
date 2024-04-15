@@ -70,3 +70,8 @@ export const usernameAlreadyExist = {
   errorCode: "usernameAlreadyExist",
   message: `Error this username already exist.`,
 } as const
+
+export const sameUsername = {
+  errorCode: "sameUsername",
+  message: `You have not changed your username.`,
+} as const

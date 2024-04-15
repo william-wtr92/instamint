@@ -1,12 +1,12 @@
 import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
-
 import { type ApiRoutes, SC } from "@instamint/server-types"
+import { type UserInfosSchema, userInfosSchema } from "@instamint/shared-types"
+
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { authMessages, globalsMessages, usersMessages } from "@/def"
 import { handleError } from "@/middlewares/handleError"
 import UserModel from "@/db/models/UserModel"
-import { type UserInfosSchema, userInfosSchema } from "@instamint/shared-types"
 
 const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
   const userAction = new Hono()
@@ -35,6 +35,16 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      if (username && user.username == username) {
+        return c.json(usersMessages.usernameAlreadyExist, SC.errors.BAD_REQUEST)
+      }
+
+      const existingUsername = await UserModel.query().findOne({ username })
+
+      if (existingUsername) {
+        return c.json(usersMessages.sameUsername, SC.errors.BAD_REQUEST)
       }
 
       if (user.username !== username) {

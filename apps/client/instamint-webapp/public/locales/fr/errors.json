@@ -32,8 +32,9 @@
         "invalidPassword": "Mot de passe invalide."
       },
       "update-account": {
-        "userNotModified": "Une erreur est survenu lors de la modification de vos informations",
-        "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà"
+        "userNotModified": "Une erreur est survenu lors de la modification de vos informations.",
+        "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
+        "sameUsername": "Vous n'avez pas modifier votre nom d'utilisateur."
       }
     },
     "reactivate-account": {
