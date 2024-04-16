@@ -42,7 +42,7 @@ const Navbar = () => {
   const { t } = useTranslation("navbar")
 
   return (
-    <div className="xs:h-full xs:min-w-[3.125rem] xs:w-fit xs:flex xs:flex-col xs:justify-start xs:px-2 xs:pt-10 xs:shadow-[0_0.125rem_5px_0_#00000040] xs:gap-8 w-full bg-neutral-50 lg:w-1/5 lg:min-w-[175px]">
+    <div className="xs:h-full xs:min-w-[3.125rem] xs:w-fit xs:flex xs:flex-col xs:justify-start xs:px-2 xs:pt-10 xs:shadow-[0_0.125rem_5px_0_#00000040] xs:gap-8 h-[6%] w-full bg-neutral-50 lg:w-1/5 lg:min-w-[175px]">
       <Image
         alt="Instamint logo"
         src={"/favicon.ico"}
@@ -59,15 +59,15 @@ const Navbar = () => {
         Instamint
       </Text>
 
-      <div className="xs:flex xs:flex-col xs:gap-2 xs:mt-4 grow gap-4">
+      <div className="xs:flex-col xs:gap-2 xs:mt-4 flex h-full">
         {buttons.map((button, index) => (
           <Link
             key={index}
             href="/"
-            className="xs:w-full xs:h-fit xs:flex xs:justify-start xs:items-center xs:gap-4 md:hover:bg-accent-200 xs:p-4 xs:rounded-md h-[100%] w-1/5 duration-200"
+            className="xs:w-full xs:h-fit xs:justify-start xs:items-center xs:gap-4 md:hover:bg-accent-200 xs:p-4 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200"
           >
             {button.icon}
-            <Text type="body" variant="accent">
+            <Text type="body" variant="accent" className="hidden md:block">
               {t(button.label)}
             </Text>
           </Link>
