@@ -58,6 +58,13 @@ const SettingsPage = () => {
     [updateUserInfos, setSuccess, t, setError]
   )
 
+  const handleChangeViewSettings = useCallback(
+    (setting: string) => async () => {
+      setViewSettings(setting)
+    },
+    [setViewSettings]
+  )
+
   const handleDeleteAccountSubmit = useCallback(
     async (values: DeleteAccount) => {
       const [err] = await deleteAccount(values)
@@ -82,22 +89,22 @@ const SettingsPage = () => {
         <div className="grid h-full w-full grid-cols-3 rounded-lg border-2 border-solid p-4 shadow-xl">
           <div className="border-accent-200 col-span-1 grid grid-rows-5 border-r-4 border-solid">
             <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold">
-              <p onClick={() => setViewSettings("username-settings")}>
+              <p onClick={handleChangeViewSettings("username-settings")}>
                 {t("profile-settings:update-account.username.label")}
               </p>
             </div>
             <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold xl:p-5">
-              <p onClick={() => setViewSettings("bio-settings")}>
+              <p onClick={handleChangeViewSettings("bio-settings")}>
                 {t("profile-settings:update-account.bio.label")}
               </p>
             </div>
             <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold xl:p-5">
-              <p onClick={() => setViewSettings("link-settings")}>
+              <p onClick={handleChangeViewSettings("link-settings")}>
                 {t("profile-settings:update-account.link.label")}
               </p>
             </div>
             <div className="border-accent-200 mr-4  border-b-4 border-solid p-3 font-semibold xl:p-5">
-              <p onClick={() => setViewSettings("picture-settings")}>
+              <p onClick={handleChangeViewSettings("picture-settings")}>
                 {t("profile-settings:update-account.picture.label")}
               </p>
             </div>

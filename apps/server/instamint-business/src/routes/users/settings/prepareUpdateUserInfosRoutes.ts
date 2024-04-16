@@ -47,17 +47,6 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.sameUsername, SC.errors.BAD_REQUEST)
       }
 
-      if (user.username !== username) {
-        const existUsername = await UserModel.query().findOne({ username })
-
-        if (existUsername) {
-          return c.json(
-            usersMessages.usernameAlreadyExist,
-            SC.errors.BAD_REQUEST
-          )
-        }
-      }
-
       const updatedUser = await UserModel.query()
         .where({ email })
         .update({
