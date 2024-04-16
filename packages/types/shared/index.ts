@@ -7,5 +7,5 @@ export * from "./types/auth/signIn.types"
 export * from "./types/users/resetPassword.types"
 
 /* Users Profile Schemas & Types */
-export * from "./types/users/updateUserProfile.types"
+export * from "./types/users/updateUserInfos.types"
 export * from "./types/users/deleteAccount.types"

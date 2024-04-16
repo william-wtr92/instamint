@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslation } from "next-i18next"
 import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
-import { useEffect } from "react"
 
 import {
   Form,
@@ -35,13 +34,6 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
       email: user?.email,
     },
   })
-
-  useEffect(() => {
-    if (user) {
-      form.setValue("username", user.username)
-      form.setValue("email", user.email)
-    }
-  }, [form, user])
 
   const {
     formState: { errors },

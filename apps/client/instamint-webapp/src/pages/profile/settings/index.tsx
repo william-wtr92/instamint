@@ -59,7 +59,7 @@ const SettingsPage = () => {
   )
 
   const handleChangeViewSettings = useCallback(
-    (setting: string) => async () => {
+    (setting: string) => () => {
       setViewSettings(setting)
     },
     [setViewSettings]
@@ -117,13 +117,15 @@ const SettingsPage = () => {
             </div>
           </div>
           <div className="flex w-full items-center justify-center p-5 lg:col-span-2">
-            <UpdateUserInfos
-              settingsRequired={viewSettings}
-              user={user}
-              success={success}
-              error={error}
-              onSubmit={onSubmit}
-            />
+            {user && (
+              <UpdateUserInfos
+                settingsRequired={viewSettings}
+                user={user}
+                success={success}
+                error={error}
+                onSubmit={onSubmit}
+              />
+            )}
           </div>
         </div>
       </div>
