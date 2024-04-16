@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslation } from "next-i18next"
+import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
+import { useEffect } from "react"
 
 import {
   Form,
@@ -12,7 +14,6 @@ import {
   Input,
   Button,
 } from "@instamint/ui-kit"
-import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
 
 type UpdateUserInfosProps = {
   settingsRequired: string
@@ -35,6 +36,13 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
     },
   })
 
+  useEffect(() => {
+    if (user) {
+      form.setValue("username", user.username)
+      form.setValue("email", user.email)
+    }
+  }, [form, user])
+
   const {
     formState: { errors },
   } = form
@@ -42,14 +50,14 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
   return (
     <>
       {settingsRequired === "username-settings" && (
-        <div className="grid grow w-60 h-60">
+        <div className="grid h-60 w-60 grow">
           <p className="p-4">
             {t("profile-settings:update-account.username.p1")}
           </p>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full flex items-center flex-col p-text-large-screen space-y-8"
+              className="p-text-large-screen flex w-full flex-col items-center space-y-8"
             >
               <FormField
                 control={form.control}
@@ -61,7 +69,7 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="mt-2 py-2 px-4 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-accent-500"
+                        className="focus-visible:outline-accent-500 mt-2 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                         placeholder={t(
                           "profile-settings:update-account.username.placeholder"
                         )}
@@ -69,7 +77,7 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
                       />
                     </FormControl>
                     <FormMessage
-                      className="relative left-2 text-error-primary"
+                      className="text-error-primary relative left-2"
                       useCustomError={true}
                     >
                       {errors.username ? (
@@ -82,18 +90,18 @@ export const UpdateUserInfos = (props: UpdateUserInfosProps) => {
                 )}
               />
               <Button
-                className={`bg-accent-500 text-white font-semibold py-2.5 w-1/2`}
+                className={`bg-accent-500 w-1/2 py-2.5 font-semibold text-white`}
                 type="submit"
               >
                 {t("profile-settings:update-account.save")}
               </Button>
               {success ? (
-                <p className="mt-4 text-sm text-center text-accent-600">
+                <p className="text-accent-600 mt-4 text-center text-sm">
                   {success}
                 </p>
               ) : null}
               {error ? (
-                <p className="mt-4 text-md text-center text-error-primary">
+                <p className="text-md text-error-primary mt-4 text-center">
                   {error instanceof Error ? error.message : error}
                 </p>
               ) : null}

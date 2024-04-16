@@ -109,8 +109,8 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex justify-center items-center h-screen">
-        <h1 className="font-bold text-6xl">{t("title")}</h1>
+      <main className="flex h-screen items-center justify-center">
+        <h1 className="text-6xl font-bold">{t("title")}</h1>
       </main>
     </>
   )

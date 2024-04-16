@@ -1,0 +1,20 @@
+{
+  "home": "Instamint - Home",
+  "auth": {
+    "login": "Instamint - Sign in",
+    "register": "Instamint - Sign up",
+    "email": {
+      "confirmation": "Instamint - Email confirmation"
+    }
+  },
+  "profile": {
+    "settings": {
+      "general": "Instamint - Settings "
+    }
+  },
+  "users": {
+    "reactivate-account": "Instamint - Reactivate account",
+    "reset-password": "Instamint - Reset password",
+    "reset-password-confirm": "Instamint - Reset password confirmation"
+  }
+}

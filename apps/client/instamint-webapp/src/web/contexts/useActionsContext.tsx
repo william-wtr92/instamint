@@ -10,12 +10,14 @@ import { useTranslation } from "next-i18next"
 
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
 import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
+import { useRouter } from "next/router"
 
 const ActionsContext = createContext<ActionsContextType | undefined>(undefined)
 
 export const ActionsProvider: FC<
   PropsWithChildren<AppContextProviderProps>
 > = ({ children }) => {
+  const router = useRouter()
   const { i18n } = useTranslation()
   const [language, setLanguage] = useState<string>("en")
   const changeLanguage = useCallback(
@@ -26,24 +28,23 @@ export const ActionsProvider: FC<
     [i18n]
   )
 
-  const [redirectTrigger, setRedirectTrigger] = useState(false)
-  const [redirectLink, setRedirectLink] = useState("")
-  const [redirectDelay, setRedirectDelay] = useState(0)
   const [error, setError] = useShowTemp<Error | string | null>(null, 6000)
   const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
-  const redirect = useCallback((link: string, delay = 3000) => {
-    setRedirectLink(link)
-    setRedirectDelay(delay)
-    setRedirectTrigger(true)
-  }, [])
+  const redirect = useCallback(
+    (link: string, delay = 3000) => {
+      const timeoutId = setTimeout(() => {
+        router.push(link)
+      }, delay)
+
+      return () => clearTimeout(timeoutId)
+    },
+    [router]
+  )
 
   const value = {
     language,
     changeLanguage,
-    redirectTrigger,
-    redirectLink,
-    redirectDelay,
     redirect,
     error,
     setError,

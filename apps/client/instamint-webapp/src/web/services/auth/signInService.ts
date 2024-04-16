@@ -18,7 +18,7 @@ const signInService: Services<SignIn> =
       }
 
       const { data: responseData } = await api.post(
-        routes.auth.signIn,
+        routes.api.auth.signIn,
         body,
         config
       )

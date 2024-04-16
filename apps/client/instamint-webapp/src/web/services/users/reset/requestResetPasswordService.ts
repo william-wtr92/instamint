@@ -13,7 +13,7 @@ const requestResetPasswordService: Services<RequestResetPassword> =
       }
 
       const { data: responseData } = await api.post(
-        routes.users.requestResetPassword,
+        routes.api.users.requestResetPassword,
         body
       )
 

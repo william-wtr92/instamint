@@ -14,7 +14,7 @@ const updateUserInfoService: Services<UserInfosSchema> =
       }
 
       const { data: responseData } = await api.put(
-        routes.users.updateUserInfos,
+        routes.api.users.updateUserInfos,
         body
       )
 

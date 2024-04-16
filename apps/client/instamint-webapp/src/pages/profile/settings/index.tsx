@@ -12,6 +12,8 @@ import { UpdateUserInfos } from "@/web/components/settings/UpdateUserInfos"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -19,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
-        "errors",
+        ...getTranslationBaseImports(),
         "profile-settings",
       ])),
     },
@@ -69,37 +71,37 @@ const SettingsPage = () => {
       }
 
       setSuccess(t("profile-settings:delete-account.success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, deleteAccount, t]
   )
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
-      <div className="w-[95%] sm:w-[70%] xl:w-[60%] xl:h-[70%]">
-        <div className="grid grid-cols-3 p-4 h-full w-full border-solid border-2 shadow-xl rounded-lg">
-          <div className="grid grid-rows-5 border-accent-200 border-r-4 border-solid col-span-1">
-            <div className="p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
+    <div className="flex h-screen flex-col items-center justify-center">
+      <div className="w-[95%] sm:w-[70%] xl:h-[70%] xl:w-[80%]">
+        <div className="grid h-full w-full grid-cols-3 rounded-lg border-2 border-solid p-4 shadow-xl">
+          <div className="border-accent-200 col-span-1 grid grid-rows-5 border-r-4 border-solid">
+            <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold">
               <p onClick={() => setViewSettings("username-settings")}>
                 {t("profile-settings:update-account.username.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
+            <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold xl:p-5">
               <p onClick={() => setViewSettings("bio-settings")}>
                 {t("profile-settings:update-account.bio.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3 mr-4 border-accent-200 border-b-4 border-solid font-semibold">
+            <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold xl:p-5">
               <p onClick={() => setViewSettings("link-settings")}>
                 {t("profile-settings:update-account.link.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3  mr-4 border-accent-200 border-b-4 border-solid font-semibold">
+            <div className="border-accent-200 mr-4  border-b-4 border-solid p-3 font-semibold xl:p-5">
               <p onClick={() => setViewSettings("picture-settings")}>
                 {t("profile-settings:update-account.picture.label")}
               </p>
             </div>
-            <div className="xl:p-5 p-3">
+            <div className="p-3 xl:p-5">
               <DeleteAccountForm
                 onSubmit={handleDeleteAccountSubmit}
                 success={success}
@@ -107,7 +109,7 @@ const SettingsPage = () => {
               />
             </div>
           </div>
-          <div className="flex items-center p-5 justify-center col-span-2 w-full">
+          <div className="col-span-2 flex w-full items-center justify-center p-5">
             <UpdateUserInfos
               settingsRequired={viewSettings}
               user={user}
@@ -121,5 +123,6 @@ const SettingsPage = () => {
     </div>
   )
 }
+SettingsPage.title = "profile.settings.general"
 
 export default SettingsPage

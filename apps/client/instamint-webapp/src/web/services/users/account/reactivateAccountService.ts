@@ -15,7 +15,7 @@ const reactivateAccountService: Services<ReactivateAccount> =
       }
 
       const { data: responseData } = await api.put(
-        routes.users.reactivateAccount,
+        routes.api.users.reactivateAccount,
         body
       )
 

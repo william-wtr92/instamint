@@ -10,7 +10,7 @@ const signOutService: Services<null> =
         withCredentials: true,
       }
 
-      await api.post(routes.auth.signOut, null, config)
+      await api.post(routes.api.auth.signOut, null, config)
 
       return [null, null]
     } catch (err) {

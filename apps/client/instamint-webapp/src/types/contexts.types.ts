@@ -26,9 +26,6 @@ export type AppContextType = {
 export type ActionsContextType = {
   language: string
   changeLanguage: (newLanguage: string) => Promise<void>
-  redirectTrigger: boolean
-  redirectLink: string
-  redirectDelay: number
   redirect: (link: string, delay?: number) => void
   error: Error | string | null
   setError: (error: Error | string | null, duration?: number) => void
