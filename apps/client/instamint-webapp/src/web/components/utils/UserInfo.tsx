@@ -36,8 +36,8 @@ const UserInfo = () => {
     <>
       {user && (
         <>
-          <div className="flex flex-col  items-center justify-center  rounded-md p-3 outline-dashed outline-2 outline-offset-2 outline-neutral-400">
-            <div className="flex items-center gap-7">
+          <div className="flex flex-col  items-center justify-center rounded-md p-3 outline-dashed outline-2 outline-offset-2 outline-neutral-400">
+            <div className="flex flex-col items-center gap-3 sm:flex-row xl:gap-7">
               <Avatar className="size-4 rounded-2xl p-4 outline-dotted outline-2 outline-offset-2 outline-neutral-400">
                 <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
               </Avatar>

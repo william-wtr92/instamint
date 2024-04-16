@@ -85,9 +85,9 @@ const SettingsPage = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      <div className="w-[95%] sm:w-[70%] xl:h-[70%] xl:w-[80%]">
-        <div className="grid h-full w-full grid-cols-3 rounded-lg border-2 border-solid p-4 shadow-xl">
-          <div className="border-accent-200 col-span-1 grid grid-rows-5 border-r-4 border-solid">
+      <div className="w-[85%] sm:w-[70%] lg:w-[80%] xl:h-[70%]">
+        <div className="h-full w-full rounded-lg border-2 border-solid p-4 shadow-xl lg:grid lg:grid-cols-3">
+          <div className=" lg:border-accent-200 col-span-1 grid grid-rows-5 lg:border-r-4 lg:border-solid">
             <div className="border-accent-200 mr-4 border-b-4 border-solid p-3 font-semibold">
               <p onClick={handleChangeViewSettings("username-settings")}>
                 {t("profile-settings:update-account.username.label")}
@@ -116,7 +116,7 @@ const SettingsPage = () => {
               />
             </div>
           </div>
-          <div className="col-span-2 flex w-full items-center justify-center p-5">
+          <div className="flex w-full items-center justify-center p-5 lg:col-span-2">
             <UpdateUserInfos
               settingsRequired={viewSettings}
               user={user}
