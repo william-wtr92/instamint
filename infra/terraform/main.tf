@@ -1,12 +1,29 @@
+terraform {
+  required_providers {
+    grafana = {
+      source = "grafana/grafana"
+      version = "2.17.0"
+    }
+  }
+}
+
 provider "azurerm" {
   features {}
 }
+
+provider "grafana" {}
 
 ## Resource Group ##
 
 resource "azurerm_resource_group" "rg" {
   name     = "instamint"
   location = "France Central"
+}
+
+## Random ID ##
+
+module "random_id" {
+  source = "./modules/utils"
 }
 
 ## Network ##
@@ -107,6 +124,10 @@ module "webapp_vm" {
   admin_password        = var.admin_password
   subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
+
+  depends_on = [
+    module.blob_storage
+  ]
 }
 
 ## Business Server ##
@@ -124,7 +145,7 @@ module "business_vm" {
 
   depends_on = [
     module.db.redis_id,
-    module.db.postgres_id,
+    module.db.postgres_id
   ]
 }
 
@@ -140,6 +161,10 @@ module "files_vm" {
   admin_password        = var.admin_password
   subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
+
+  depends_on = [
+    module.blob_storage
+  ]
 }
 
 ## Cron Server ##
@@ -160,3 +185,39 @@ module "cron_vm" {
   ]
 }
 
+## Grafana ##
+
+module "analytics" {
+  source              = "./modules/analytics"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  client_object_id    = var.client_object_id
+}
+
+module "grafana" {
+  source              = "./modules/grafana"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  admin_password      = var.grafana_password
+}
+
+## Blob Storage ##
+
+module "blob_storage" {
+  source               = "./modules/blob"
+  location             = azurerm_resource_group.rg.location
+  resource_group_name  = azurerm_resource_group.rg.name
+  storage_account_name = "instamintstorage${module.random_id.unique_id}"
+  container_name       = "instamint-container"
+}
+
+## Key Vault ##
+
+module "key_vault" {
+  source              = "./modules/kv"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  key_vault_name      = "instamint-kv-${module.random_id.unique_id}"
+  tenant_id           = var.tenant_id
+  client_object_id    = var.client_object_id
+}

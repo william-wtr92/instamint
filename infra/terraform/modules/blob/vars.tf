@@ -8,7 +8,12 @@ variable "location" {
     description = "Location of the virtual machine."
 }
 
-variable "vnet_name" {
+variable "storage_account_name" {
     type        = string
-    description = "Name of the virtual network."
+    description = "Specifies the name of the storage account."
+}
+
+variable "container_name" {
+    type        = string
+    description = "Specifies the name of the storage container."
 }

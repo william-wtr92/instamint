@@ -27,10 +27,10 @@ resource "azurerm_redis_cache" "redis" {
 
 output "postgres_id" {
   value       = azurerm_postgresql_server.postgres.id
-  description = "The ID of the PostgreSQL server"
+  description = "The ID of the PostgreSQL server."
 }
 
 output "redis_id" {
   value       = azurerm_redis_cache.redis.id
-  description = "The ID of the Redis cache"
+  description = "The ID of the Redis cache."
 }
