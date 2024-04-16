@@ -7,7 +7,8 @@ import { type DeleteAccount } from "@instamint/shared-types"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
-import { useDelayedRedirect } from "@/web/hooks/customs/useDelayedRedirect"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { routes } from "@/web/routes"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -15,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
-        "errors",
+        ...getTranslationBaseImports(),
         "profile-settings",
       ])),
     },
@@ -23,6 +24,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const SettingsPage = () => {
+  const { t } = useTranslation(["errors", "profile-settings"])
+
   const {
     services: {
       users: { deleteAccount },
@@ -30,10 +33,6 @@ const SettingsPage = () => {
   } = useAppContext()
 
   const { redirect, error, setError, success, setSuccess } = useActionsContext()
-
-  const { t } = useTranslation(["errors", "profile-settings"])
-
-  useDelayedRedirect()
 
   const handleDeleteAccountSubmit = useCallback(
     async (values: DeleteAccount) => {
@@ -48,7 +47,7 @@ const SettingsPage = () => {
       }
 
       setSuccess(t("profile-settings:delete-account.success"))
-      redirect("/", 3000)
+      redirect(routes.client.home, 3000)
     },
     [redirect, setError, setSuccess, deleteAccount, t]
   )
@@ -56,7 +55,7 @@ const SettingsPage = () => {
   return (
     <div className="flex flex-col gap-5 p-5">
       <h1 className="relative left-1">{t("profile-settings:title")}</h1>
-      <div className="w-full xl:w-1/5 outline-dotted outline-2 p-4 rounded-md">
+      <div className="w-full rounded-md p-4 outline-dotted outline-2 xl:w-1/5">
         <DeleteAccountForm
           onSubmit={handleDeleteAccountSubmit}
           success={success}
@@ -66,5 +65,6 @@ const SettingsPage = () => {
     </div>
   )
 }
+SettingsPage.title = "profile.settings.general"
 
 export default SettingsPage

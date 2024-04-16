@@ -18,7 +18,7 @@ const deleteAccountService: Services<DeleteAccount> =
       }
 
       const { data: responseData } = await api.put(
-        routes.users.deleteAccount,
+        routes.api.users.deleteAccount,
         body,
         config
       )

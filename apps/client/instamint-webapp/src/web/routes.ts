@@ -1,6 +1,25 @@
 import { defineRoutes } from "@/types"
 
-export const routes = defineRoutes({
+const clientRoutes = {
+  home: "/",
+  signUp: "/sign-up",
+  signIn: "/sign-in",
+  auth: {
+    email: {
+      confirmation: "/auth/email",
+      resend: "/auth/email/resend",
+    },
+  },
+  profile: {
+    settings: "/profile/settings",
+  },
+  users: {
+    resetPasswordRequest: "/users/reset-password",
+    resetPasswordConfirm: "/users/reset-password/confirm",
+  },
+} as const
+
+const apiRoutes = {
   auth: {
     signUp: "/auth/sign-up",
     emailValidation: "/auth/email-validation",
@@ -15,4 +34,9 @@ export const routes = defineRoutes({
     deleteAccount: "/users/delete-account",
     reactivateAccount: "/users/reactivate-account",
   },
+} as const
+
+export const routes = defineRoutes({
+  client: clientRoutes,
+  api: apiRoutes,
 })

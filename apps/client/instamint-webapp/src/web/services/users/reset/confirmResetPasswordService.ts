@@ -15,7 +15,7 @@ const confirmResetPasswordService: Services<ConfirmResetPassword> =
       }
 
       const { data: responseData } = await api.put(
-        routes.users.confirmResetPassword,
+        routes.api.users.confirmResetPassword,
         body
       )
 

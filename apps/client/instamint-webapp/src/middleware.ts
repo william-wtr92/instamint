@@ -1,11 +1,13 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
+import { routes } from "@/web/routes"
+
 export const middleware = (request: NextRequest) => {
   const authToken = request.cookies.get("auth-token")
 
   if (!authToken) {
-    return NextResponse.redirect(new URL("/sign-in", request.nextUrl))
+    return NextResponse.redirect(new URL(routes.client.signIn, request.nextUrl))
   }
 
   return NextResponse.next()
