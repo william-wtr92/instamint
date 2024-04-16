@@ -116,7 +116,7 @@ const SettingsPage = () => {
               />
             </div>
           </div>
-          <div className="flex w-full items-center justify-center p-5 lg:col-span-2">
+          <div className="flex w-full items-center justify-center p-3 lg:col-span-2">
             {user && (
               <UpdateUserInfos
                 settingsRequired={viewSettings}
