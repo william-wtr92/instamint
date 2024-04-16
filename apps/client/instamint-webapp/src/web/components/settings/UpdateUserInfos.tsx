@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslation } from "next-i18next"
 import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
-
 import {
   Form,
   FormField,

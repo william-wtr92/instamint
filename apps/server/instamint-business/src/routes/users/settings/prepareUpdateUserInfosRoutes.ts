@@ -44,7 +44,10 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
       const existingUsername = await UserModel.query().findOne({ username })
 
       if (existingUsername) {
-        return c.json(usersMessages.sameUsername, SC.errors.BAD_REQUEST)
+        return c.json(
+          usersMessages.usernameSameAsPrevious,
+          SC.errors.BAD_REQUEST
+        )
       }
 
       const updatedUser = await UserModel.query()
