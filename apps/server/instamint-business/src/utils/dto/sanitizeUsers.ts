@@ -34,5 +34,9 @@ export const sanitizeUser = <T extends keyof AdditionalUserFields>(
     {} as Pick<UserModel, T>
   )
 
-  return { username: user.username, email: user.email, ...additionalData }
+  return {
+    username: user.username,
+    email: user.email,
+    ...additionalData,
+  }
 }

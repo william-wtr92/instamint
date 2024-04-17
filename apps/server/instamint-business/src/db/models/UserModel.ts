@@ -8,6 +8,9 @@ class UserModel extends BaseModel {
   id!: number
   username!: string
   email!: string
+  bio!: string
+  link!: string
+  location!: string
   passwordHash!: string
   passwordSalt!: string
   createdAt!: Date
