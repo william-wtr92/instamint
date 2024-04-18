@@ -21,5 +21,24 @@
       "submit": "Delete my account"
     },
     "success": "Your account has been deactivated."
+  },
+  "update-account": {
+    "username": {
+      "p1" : "If you want to change username, you can do so here!",
+      "label": "Username",
+      "placeholder": "Please enter your username",
+      "error": "The username must be: min 3 characters, max 20 characters and no special characters."
+    }, 
+    "bio": {
+      "label" : "Bio"
+    },
+    "link": {
+      "label": "Link"
+    },
+    "picture": {
+      "label": "Profile picture"
+    },
+    "success" :  "Your account has been modified !",
+    "save": "Save"
   }
 }

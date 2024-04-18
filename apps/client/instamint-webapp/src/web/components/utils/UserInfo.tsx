@@ -1,6 +1,8 @@
 import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import React, { useCallback, useState } from "react"
 import { useTranslation } from "next-i18next"
+import { Cog6ToothIcon } from "@heroicons/react/24/outline"
+import Link from "next/link"
 
 import { ChangeLanguage } from "./ChangeLanguage"
 import { AlertPopup } from "./AlertPopup"
@@ -34,8 +36,8 @@ const UserInfo = () => {
     <>
       {user && (
         <>
-          <div className="flex flex-col  items-center justify-center  rounded-md p-3 outline-dashed outline-2 outline-offset-2 outline-neutral-400">
-            <div className="flex items-center gap-7">
+          <div className="flex flex-col  items-center justify-center rounded-md p-3 outline-dashed outline-2 outline-offset-2 outline-neutral-400">
+            <div className="flex flex-col items-center gap-3 sm:flex-row xl:gap-7">
               <Avatar className="size-4 rounded-2xl p-4 outline-dotted outline-2 outline-offset-2 outline-neutral-400">
                 <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
               </Avatar>
@@ -43,6 +45,9 @@ const UserInfo = () => {
                 <span>{user.username}</span>
                 <span className="truncate">{user.email}</span>
               </div>
+              <Link href={routes.client.profile.settings}>
+                <Cog6ToothIcon className="w-6" />
+              </Link>
             </div>
             <Button
               onClick={() => setModalOpen(true)}

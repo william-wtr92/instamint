@@ -5,7 +5,8 @@ import prepareSignInRoutes from "@/routes/auth/prepareSignInRoutes"
 import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
-import prepareDeleteAccountRoutes from "@/routes/users/prepareDeleteAccountRoutes"
+import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
+import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAccountRoutes"
 
 const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignUpRoutes(ctx)
@@ -13,6 +14,7 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignOutRoutes(ctx)
 
   prepareResetRoutes(ctx)
+  prepareUpdateUserInfosRoutes(ctx)
   prepareDeleteAccountRoutes(ctx)
 }
 

@@ -31,6 +31,7 @@ const apiRoutes = {
   users: {
     requestResetPassword: "/users/reset-password/request",
     confirmResetPassword: "/users/reset-password/confirm",
+    updateUserInfos: "/users/update-account",
     deleteAccount: "/users/delete-account",
     reactivateAccount: "/users/reactivate-account",
   },
