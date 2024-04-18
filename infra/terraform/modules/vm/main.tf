@@ -2,7 +2,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                  = var.vm_name
   resource_group_name   = var.resource_group_name
   location              = var.location
-  size                  = "Standard_B1ls"
+  size                  = "Standard_B1ms"
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   network_interface_ids = var.network_interface_ids
@@ -20,5 +20,30 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  disable_password_authentication = false
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = file(var.ssh_public_key)
+  }
+
+  disable_password_authentication = true
+}
+
+output "acr_username" {
+  value = var.acr_username
+}
+
+output "acr_password" {
+  value = var.acr_password
+}
+
+output "container_image" {
+  value = var.container_image
+}
+
+output "container_name" {
+  value = var.container_name
+}
+
+output "container_port" {
+  value = var.container_port
 }

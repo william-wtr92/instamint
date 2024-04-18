@@ -12,3 +12,8 @@ variable "subnet_id" {
     type        = string
     description = "ID of the subnet."
 }
+
+variable "ssh_allowed_ip" {
+    type        = string
+    description = "IP address allowed to connect to the virtual machine."
+}

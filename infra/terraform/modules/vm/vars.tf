@@ -8,6 +8,16 @@ variable "admin_password" {
     description = "Admin password for VMs."
 }
 
+variable "ssh_public_key" {
+    type        = string
+    description = "SSH public key."
+}
+
+variable "ssh_private_key" {
+    type        = string
+    description = "SSH private key."
+}
+
 variable "vm_name" {
     type        = string
     description = "Name of the VM."
@@ -36,4 +46,33 @@ variable "availability_set_id" {
 variable "network_interface_ids" {
     type        = list(string)
     description = "List of network interface IDs."
+}
+
+## ACR ##
+
+variable "acr_username" {
+    type        = string
+    description = "Username for the Azure Container Registry."
+}
+
+variable "acr_password" {
+    type        = string
+    description = "Password for the Azure Container Registry."
+}
+
+## Docker ##
+
+variable "container_image" {
+    type        = string
+    description = "Image of the container."
+}
+
+variable "container_name" {
+    type        = string
+    description = "Name of the container."
+}
+
+variable "container_port" {
+    type        = string
+    description = "Port of the container."
 }

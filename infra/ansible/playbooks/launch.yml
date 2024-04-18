@@ -1,0 +1,73 @@
+- hosts: azure_vms
+  gather_facts: no
+  vars:
+    terraform_outputs: "{{ lookup('file', '../terraform_outputs.json') | from_json }}"
+
+  tasks:
+    - name: Transfer setup script to VM
+      copy:
+        src: ./scripts/docker.sh
+        dest: /home/{{ ansible_user }}/docker.sh
+        mode: 0755
+      when: inventory_hostname == 'instamint-webapp-vm'
+
+    - name: Launch Docker setup script for Webapp VM
+      command: >
+        bash /home/{{ ansible_user }}/docker.sh
+        "{{ terraform_outputs.webapp_config.value.username }}"
+        "{{ terraform_outputs.webapp_config.value.password }}"
+        "{{ terraform_outputs.webapp_config.value.image }}"
+        "{{ terraform_outputs.webapp_config.value.name }}"
+        "{{ terraform_outputs.webapp_config.value.port }}"
+      when: inventory_hostname == 'instamint-webapp-vm'
+
+    - name: Transfer setup script to VM
+      copy:
+        src: ./scripts/docker.sh
+        dest: /home/{{ ansible_user }}/docker.sh
+        mode: 0755
+      when: inventory_hostname == 'instamint-business-vm'
+
+    - name: Launch Docker setup script for Business VM
+      command: >
+        bash /home/{{ ansible_user }}/docker.sh
+        "{{ terraform_outputs.business_config.value.username }}"
+        "{{ terraform_outputs.business_config.value.password }}"
+        "{{ terraform_outputs.business_config.value.image }}"
+        "{{ terraform_outputs.business_config.value.name }}"
+        "{{ terraform_outputs.business_config.value.port }}"
+      when: inventory_hostname == 'instamint-business-vm'
+
+    - name: Transfer setup script to VM
+      copy:
+        src: ./scripts/docker.sh
+        dest: /home/{{ ansible_user }}/docker.sh
+        mode: 0755
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Launch Docker setup script for Files VM
+      command: >
+        bash /home/{{ ansible_user }}/docker.sh
+        "{{ terraform_outputs.files_config.value.username }}"
+        "{{ terraform_outputs.files_config.value.password }}"
+        "{{ terraform_outputs.files_config.value.image }}"
+        "{{ terraform_outputs.files_config.value.name }}"
+        "{{ terraform_outputs.files_config.value.port }}"
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Transfer setup script to VM
+      copy:
+        src: ./scripts/docker.sh
+        dest: /home/{{ ansible_user }}/docker.sh
+        mode: 0755
+      when: inventory_hostname == 'instamint-cron-vm'
+
+    - name: Launch Docker setup script for Cron VM
+      command: >
+        bash /home/{{ ansible_user }}/docker.sh
+        "{{ terraform_outputs.cron_config.value.username }}"
+        "{{ terraform_outputs.cron_config.value.password }}"
+        "{{ terraform_outputs.cron_config.value.image }}"
+        "{{ terraform_outputs.cron_config.value.name }}"
+        "{{ terraform_outputs.cron_config.value.port }}"
+      when: inventory_hostname == 'instamint-cron-vm'

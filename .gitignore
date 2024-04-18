@@ -4,7 +4,10 @@
 
 # terraform
 **/terraform/**
+**terraform_outputs.json**
+!**/terraform/README.md
 !**/*.tf
+!**/terraform/.terraform.lock.hcl
 !**/terraform/modules
 !**/terraform/modules/**
 
@@ -16,3 +19,4 @@ node_modules/
 # dotenv files
 .env
 .env.test
+*env.sh
