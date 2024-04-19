@@ -4,6 +4,7 @@ import Link from "next/link"
 import React, { useCallback } from "react"
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
 import { useRouter } from "next/router"
+
 import { routes } from "@/web/routes"
 
 const buttons = [

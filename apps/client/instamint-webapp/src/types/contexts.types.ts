@@ -1,10 +1,7 @@
 import type { ReactNode } from "react"
+import type { Toast, ToasterToast } from "@instamint/ui-kit"
 
 import type { AuthServices, UsersServices } from "@/types"
-import type {
-  Toast,
-  ToasterToast,
-} from "@instamint/ui-kit/src/types/Toast.types"
 
 export type AppContextProviderProps = {
   children: ReactNode

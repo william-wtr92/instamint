@@ -7,10 +7,10 @@ import {
   useCallback,
 } from "react"
 import { useTranslation } from "next-i18next"
+import { useToast } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
 
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
-import { useRouter } from "next/router"
-import { useToast } from "@instamint/ui-kit"
 
 const ActionsContext = createContext<ActionsContextType | undefined>(undefined)
 

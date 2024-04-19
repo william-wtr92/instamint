@@ -1,9 +1,10 @@
 import React, { useCallback } from "react"
-import Navbar from "./Navbar"
-import AccountSettingsNavbar from "./AccountSettingsNavbar"
 import { poppins } from "@instamint/ui-kit"
 import { useRouter } from "next/router"
+
 import { routes } from "@/web/routes"
+import Navbar from "./Navbar"
+import AccountSettingsNavbar from "./AccountSettingsNavbar"
 
 type Props = {
   children: React.ReactNode
