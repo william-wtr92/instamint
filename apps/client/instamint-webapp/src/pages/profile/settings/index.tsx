@@ -12,7 +12,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 // import { routes } from "@/web/routes"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
-import { Text } from "@instamint/ui-kit"
 // import { useUser } from "@/web/hooks/auth/useUser"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -97,9 +96,6 @@ const SettingsPage = () => {
     <div className="animate-slideInFromLeft z-10 flex justify-start gap-4 border border-red-500 p-4">
       <div className="flex flex-grow flex-col gap-5 border border-blue-500 p-5">
         <div className="w-full rounded-md p-4 outline-dotted outline-2 xl:w-1/5">
-          <Text type="subheading" variant="neutral">
-            La c'est la page
-          </Text>
           {/* <DeleteAccountForm
             onSubmit={handleDeleteAccountSubmit}
             success={success}

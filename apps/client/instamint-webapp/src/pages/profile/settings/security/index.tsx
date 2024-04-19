@@ -20,11 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const ProfileSettingsSecurityPage = () => {
-  return (
-    <div className="animate-slideInFromLeft z-10 p-8">
-      ProfileSettingsSecurityPage
-    </div>
-  )
+  return <div className="animate-slideInFromLeft z-10 p-8"></div>
 }
 ProfileSettingsSecurityPage.title = "profile.settings.security"
 

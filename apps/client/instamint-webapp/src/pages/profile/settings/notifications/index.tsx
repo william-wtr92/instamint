@@ -20,11 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const ProfileSettingsNotificationsPage = () => {
-  return (
-    <div className="animate-slideInFromLeft z-10 p-8">
-      ProfileSettingsNotificationsPage
-    </div>
-  )
+  return <div className="animate-slideInFromLeft z-10 p-8"></div>
 }
 ProfileSettingsNotificationsPage.title = "profile.settings.notifications"
 
