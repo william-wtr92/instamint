@@ -11,13 +11,19 @@ const clientRoutes = {
     },
   },
   profile: {
-    settings: "/profile/settings",
+    settings: {
+      base: "/profile/settings",
+      edit: "/profile/settings/edit",
+      security: "/profile/settings/security",
+      notifications: "/profile/settings/notifications",
+    },
   },
   users: {
     resetPasswordRequest: "/users/reset-password",
     resetPasswordConfirm: "/users/reset-password/confirm",
   },
-} as const
+  about: "/about",
+}
 
 const apiRoutes = {
   auth: {

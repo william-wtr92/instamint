@@ -93,7 +93,7 @@ module.exports = {
       },
       animation: {
         shake: "shake 0.5s ease-in-out",
-        slideInFromLeft: "slideInFromLeft 1s ease-in-out",
+        slideInFromLeft: "slideInFromLeft 0.6s ease-in-out",
       },
     },
     colors: {

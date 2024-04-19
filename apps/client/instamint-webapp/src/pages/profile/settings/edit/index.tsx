@@ -20,7 +20,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const ProfileSettingsEditPage = () => {
-  return <div className="p-8">ProfileSettingsEditPage</div>
+  return (
+    <div className="animate-slideInFromLeft z-10 bg-red-500 p-8">
+      ProfileSettingsEditPage
+    </div>
+  )
 }
 ProfileSettingsEditPage.title = "profile.settings.edit"
 

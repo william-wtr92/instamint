@@ -88,7 +88,7 @@ const SettingsPage = () => {
   )
 
   return (
-    <div className="flex justify-start gap-4 border border-red-500 p-4">
+    <div className="animate-slideInFromLeft z-10 flex justify-start gap-4 border border-red-500 p-4">
       <div className="flex flex-grow flex-col gap-5 border border-blue-500 p-5">
         <div className="w-full rounded-md p-4 outline-dotted outline-2 xl:w-1/5">
           <Text type="subheading" variant="neutral">
