@@ -1,17 +1,16 @@
-import { type ReactElement, useCallback } from "react"
+import { type ReactElement } from "react"
 import type { GetServerSideProps } from "next"
-import { useTranslation } from "next-i18next"
+// import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import {
-  type DeleteAccount,
-  // type UserInfosSchema,
-} from "@instamint/shared-types"
+// import {
+//   type DeleteAccount,
+//   // type UserInfosSchema,
+// } from "@instamint/shared-types"
 
-import useAppContext from "@/web/contexts/useAppContext"
-import useActionsContext from "@/web/contexts/useActionsContext"
-import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
+// import useAppContext from "@/web/contexts/useAppContext"
+// import useActionsContext from "@/web/contexts/useActionsContext"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import { routes } from "@/web/routes"
+// import { routes } from "@/web/routes"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import { Text } from "@instamint/ui-kit"
 // import { useUser } from "@/web/hooks/auth/useUser"
@@ -30,20 +29,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const SettingsPage = () => {
-  const { t } = useTranslation(["errors", "profile-settings"])
+  // const { t } = useTranslation(["errors", "profile-settings"])
 
   // const { data, isLoading } = useUser()
   // const user = isLoading ? null : data
 
   // const [viewSettings, setViewSettings] = useState<string>("username-settings")
 
-  const {
-    services: {
-      users: { deleteAccount },
-    },
-  } = useAppContext()
+  // const {
+  //   services: {
+  //     users: { deleteAccount },
+  //   },
+  // } = useAppContext()
 
-  const { redirect, setError, setSuccess, error, success } = useActionsContext()
+  // const { redirect, toast } = useActionsContext()
 
   // const onSubmit = useCallback(
   //   async (values: UserInfosSchema) => {
@@ -69,23 +68,30 @@ const SettingsPage = () => {
   //   [setViewSettings]
   // )
 
-  const handleDeleteAccountSubmit = useCallback(
-    async (values: DeleteAccount) => {
-      const [err] = await deleteAccount(values)
+  // const handleDeleteAccountSubmit = useCallback(
+  //   async (values: DeleteAccount) => {
+  //     const [err] = await deleteAccount(values)
 
-      if (err) {
-        setError(
-          t(`errors:users.profile-settings.delete-account.${err.message}`)
-        )
+  //     if (err) {
+  //       toast({
+  //         variant: "error",
+  //         description: t(
+  //           `errors:users.profile-settings.delete-account.${err.message}`
+  //         ),
+  //       })
 
-        return
-      }
+  //       return
+  //     }
 
-      setSuccess(t("profile-settings:delete-account.success"))
-      redirect(routes.client.home, 3000)
-    },
-    [redirect, setError, setSuccess, deleteAccount, t]
-  )
+  //     toast({
+  //       variant: "success",
+  //       description: t("profile-settings:delete-account.success"),
+  //     })
+
+  //     redirect(routes.client.home, 3000)
+  //   },
+  //   [redirect, deleteAccount, t, toast]
+  // )
 
   return (
     <div className="animate-slideInFromLeft z-10 flex justify-start gap-4 border border-red-500 p-4">
@@ -94,11 +100,11 @@ const SettingsPage = () => {
           <Text type="subheading" variant="neutral">
             La c'est la page
           </Text>
-          <DeleteAccountForm
+          {/* <DeleteAccountForm
             onSubmit={handleDeleteAccountSubmit}
             success={success}
             error={error}
-          />
+          /> */}
         </div>
       </div>
     </div>

@@ -49,7 +49,7 @@ const RequestResetPasswordPage = () => {
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const form = useForm<RequestResetPassword>({
     resolver: zodResolver(requestResetPasswordSchema),
@@ -64,15 +64,21 @@ const RequestResetPasswordPage = () => {
       const [err] = await requestResetPassword(values)
 
       if (err) {
-        setError(t(`errors:users.reset.${err.message}`))
+        toast({
+          variant: "error",
+          description: t(`errors:users.reset.${err.message}`),
+        })
 
         return
       }
 
-      setSuccess(t("reset-password:request.success"))
+      toast({
+        variant: "success",
+        description: t("reset-password:request.success"),
+      })
       redirect(routes.client.home, 3000)
     },
-    [redirect, setError, setSuccess, requestResetPassword, t]
+    [redirect, requestResetPassword, t, toast]
   )
 
   return (
@@ -121,14 +127,6 @@ const RequestResetPasswordPage = () => {
             >
               {t("reset-password:request.email.cta.submit")}
             </Button>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>

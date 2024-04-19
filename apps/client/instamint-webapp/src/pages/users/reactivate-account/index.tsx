@@ -61,7 +61,7 @@ const ReactivateAccountPage = (
     },
   } = useAppContext()
 
-  const { redirect, success, setSuccess, error, setError } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const form = useForm<ReactivateAccount>({
     resolver: zodResolver(reactivateAccountSchema),
@@ -89,20 +89,29 @@ const ReactivateAccountPage = (
         const [err] = await reactivateAccount(reactivateAccountValues)
 
         if (err) {
-          setError(t(`errors:users.reactivate-account.${err.message}`))
+          toast({
+            variant: "error",
+            description: t(`errors:users.reactivate-account.${err.message}`),
+          })
 
           return
         }
 
-        setSuccess(t("reactivate-account:success"))
+        toast({
+          variant: "success",
+          description: t("reactivate-account:success"),
+        })
         redirect(routes.client.home, 3000)
       } else {
-        setError(t("errors:users.reactivate-account.errorNoToken"))
+        toast({
+          variant: "error",
+          description: t("errors:users.reactivate-account.errorNoToken"),
+        })
       }
 
       redirect(routes.client.signIn, 6000)
     },
-    [validation, redirect, setError, setSuccess, reactivateAccount, t]
+    [validation, redirect, reactivateAccount, t, toast]
   )
 
   return (
@@ -189,14 +198,6 @@ const ReactivateAccountPage = (
             >
               {t("reactivate-account:cta.submit")}
             </Button>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>
