@@ -75,3 +75,15 @@ export const usernameSameAsPrevious = {
   errorCode: "usernameSameAsPrevious",
   message: `You have not changed your username.`,
 } as const
+
+/* modify password */
+
+export const passwordSameAsPrevious = {
+  errorCode: "passwordSameAsPrevious",
+  message: `You need a different password.`,
+} as const
+
+export const passwordAlreadyModify = {
+  errorCode: "passwordAlreadyModify",
+  message: `You have already changed your password within the last 24 hours.`,
+} as const

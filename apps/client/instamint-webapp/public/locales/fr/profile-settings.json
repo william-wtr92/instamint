@@ -40,5 +40,31 @@
     },
     "success" :  "Votre compte a bien été modifier !",
     "save" : "Enregistrer"
+  },
+    "modify-password" : {
+    "triggerLabel": "Change password",
+    "title": "Êtes-vous sûr de vouloir modifier votre mot de passe ?",
+    "oldPassword": {
+      "label": "Mot de passe actuel",
+      "placeholder": "Entrez votre mot de passe actuel"
+    },
+    "newPassword": {
+      "label": "Nouveau mot de passe",
+      "placeholder": "Entrez un nouveau mot de passe",
+      "error": "Le nouveau mot de passe doit être différent.",
+      "criteria": {
+        "uppercase": "Une lettre majuscule",
+        "lowercase": "Une lettre minuscule",
+        "number": "Un nombre",
+        "specialCharacter": "un character spécial",
+        "length": "8 characters de long"
+      }
+    },
+    "confirmNewPassword": {
+      "label": "Confirmez votre nouveau mot de passe",
+      "placeholder": "Confirmez votre nouveau mot de passe",
+      "error": "Les nouveaux mot de passe sont différents"
+    },
+    "success":"Votre mot passe a été modifié, vous allez être dectonnecter."
   }
 }

@@ -35,6 +35,14 @@
         "userNotModified": "Une erreur est survenu lors de la modification de vos informations.",
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
         "usernameSameAsPrevious": "Vous n'avez pas modifier votre nom d'utilisateur."
+      },
+      "modify-password":{
+        "userNotFound":"Session expiré, reconnectez-vous.",
+        "passwordAlreadyModify":"Vous avez déjà changé votre mot de passe dans les 24 dernières heures.",
+        "passwordSameAsPrevious":"Votre nouveau mot de passe doit être différent de l'ancien.",
+        "passwordsMustMatch":"Les mots de passe doivent correspondre.",
+        "userNotModified":"Une erreur est survenu lors de la modification de vos informations.",
+        "invalidPassword":"Ancien mot de passe incorect."
       }
     },
     "reactivate-account": {

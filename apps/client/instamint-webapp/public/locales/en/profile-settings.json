@@ -40,5 +40,31 @@
     },
     "success" :  "Your account has been modified !",
     "save": "Save"
+  },
+  "modify-password" : {
+    "triggerLabel": "Change password",
+    "title": "Are you sure you want to change your password ?",
+    "oldPassword": {
+      "label": "Current password",
+      "placeholder": "Enter your current password"
+    },
+    "newPassword": {
+      "label": "New password",
+      "placeholder": "Enter a new password",
+      "error": "New password must be different",
+      "criteria": {
+        "uppercase": "An uppercase letter",
+        "lowercase": "A lowercase letter",
+        "number": "A number",
+        "specialCharacter": "A special character",
+        "length": "8 characters long"
+      }
+    },
+    "confirmNewPassword": {
+      "label": "Confirm new password",
+      "placeholder": "Confirm your new password",
+      "error": "New passwords do not match"
+    },
+    "success":"Your password has been modified, you`ll be disconnected."
   }
 }

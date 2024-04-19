@@ -3,6 +3,7 @@ import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import {
+  type ConfirmModifyPassword,
   type DeleteAccount,
   type UserInfosSchema,
 } from "@instamint/shared-types"
@@ -14,6 +15,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import { routes } from "@/web/routes"
+import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -35,7 +37,8 @@ const SettingsPage = () => {
   const [viewSettings, setViewSettings] = useState<string>("username-settings")
   const {
     services: {
-      users: { updateUserInfos, deleteAccount },
+      users: { updateUserInfos, deleteAccount, modifyPassword },
+      auth: { signOut },
     },
   } = useAppContext()
   const { redirect, setError, setSuccess, error, success } = useActionsContext()
@@ -82,6 +85,26 @@ const SettingsPage = () => {
     [redirect, setError, setSuccess, deleteAccount, t]
   )
 
+  const handleModifyPasswordSubmit = useCallback(
+    async (values: ConfirmModifyPassword) => {
+      const [err] = await modifyPassword(values)
+
+      if (err) {
+        setError(
+          t(`errors:users.profile-settings.modify-password.${err.message}`)
+        )
+
+        return
+      }
+
+      setSuccess(t("profile-settings:modify-password.success"))
+      await signOut(null)
+
+      redirect(routes.client.signIn, 3000)
+    },
+    [redirect, setError, setSuccess, modifyPassword, signOut, t]
+  )
+
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="w-[85%] sm:w-[70%] lg:w-[80%] xl:h-[70%]">
@@ -110,6 +133,13 @@ const SettingsPage = () => {
             <div className="p-3 xl:p-5">
               <DeleteAccountForm
                 onSubmit={handleDeleteAccountSubmit}
+                success={success}
+                error={error}
+              />
+            </div>
+            <div className="p-3 xl:p-5">
+              <ModifyPasswordForm
+                onSubmit={handleModifyPasswordSubmit}
                 success={success}
                 error={error}
               />

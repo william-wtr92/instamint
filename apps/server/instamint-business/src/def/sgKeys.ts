@@ -7,5 +7,6 @@ export const sgKeys = {
   users: {
     resetPassword: appConfig.sendgrid.templates.resetPassword,
     confirmResetPassword: appConfig.sendgrid.templates.confirmResetPassword,
+    modifyPassword: appConfig.sendgrid.templates.modifyPassword,
   },
 } as const
