@@ -20,6 +20,10 @@ sleep 10
 
 echo "Starting Ansible playbooks..."
 ansible-playbook -i inventory/hosts.ini playbooks/launch.yml
+ansible-playbook -i inventory/hosts.ini playbooks/vms/webapp.yml
+ansible-playbook -i inventory/hosts.ini playbooks/vms/business.yml
+ansible-playbook -i inventory/hosts.ini playbooks/vms/files.yml
+ansible-playbook -i inventory/hosts.ini playbooks/vms/cron.yml
 
 echo "Destroying SSH tunnels..."
 kill $PID1 $PID2 $PID3 $PID4

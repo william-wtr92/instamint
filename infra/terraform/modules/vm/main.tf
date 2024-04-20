@@ -26,24 +26,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   disable_password_authentication = true
-}
 
-output "acr_username" {
-  value = var.acr_username
-}
-
-output "acr_password" {
-  value = var.acr_password
-}
-
-output "container_image" {
-  value = var.container_image
-}
-
-output "container_name" {
-  value = var.container_name
-}
-
-output "container_port" {
-  value = var.container_port
+  identity {
+    type = "SystemAssigned"
+  }
 }

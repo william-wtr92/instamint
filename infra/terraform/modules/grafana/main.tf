@@ -24,8 +24,3 @@ resource "azurerm_container_group" "grafana" {
   ip_address_type = "Public"
   dns_name_label  = "instamint-grafana-${var.location}"
 }
-
-output "grafana_url" {
-  value = "http://${azurerm_container_group.grafana.fqdn}:3000"
-  description = "URL to access Grafana."
-}

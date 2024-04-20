@@ -4,6 +4,7 @@
 cd terraform
 
 echo "Initializing Terraform..."
+terraform init
 terraform apply -var-file="secrets.tfvars"
 echo "Saving Terraform outputs..."
 terraform output -json > ../ansible/terraform_outputs.json

@@ -34,6 +34,11 @@ variable "psql_password" {
     description = "Password for the PostgreSQL server."
 }
 
+variable "database_name" {
+    type        = string
+    description = "Name of the PostgreSQL database."
+}
+
 ## Grafana ##
 
 variable "grafana_password" {
@@ -70,4 +75,80 @@ variable "acr_password" {
 variable "ssh_allowed_ip" {
     type        = string
     description = "IP address allowed to connect to the virtual machine."
+}
+
+## Secrets ##
+
+variable "security_cookie_secret" {
+    type        = string
+    description = "Security cookie secret."
+}
+
+variable "security_jwt_secret" {
+    type        = string
+    description = "Security JWT secret."
+}
+
+variable "security_password_pepper" {
+    type        = string
+    description = "Security password pepper."
+}
+
+variable "sentry_dsn" {
+    type        = string
+    description = "Sentry DSN."
+}
+
+variable "sendgrid_api_key" {
+    type        = string
+    description = "SendGrid API key."
+}
+
+variable "sendgrid_sender" {
+    type        = string
+    description = "SendGrid sender."
+}
+
+variable "sendgrid_template_email_validation" {
+    type        = string
+    description = "SendGrid template ID for email validation."
+}
+variable "sendgrid_template_reset_password" {
+    type        = string
+    description = "SendGrid template ID for reset password."
+}
+
+variable "sendgrid_template_confirm_reset_password" {
+    type        = string
+    description = "SendGrid template ID for confirm reset password."
+}
+
+variable "sendgrid_template_confirm_account_deletion" {
+    type        = string
+    description = "SendGrid template ID for confirm account deletion."
+}
+
+variable "sendgrid_template_account_reactivation" {
+    type        = string
+    description = "SendGrid template ID for account reactivation after deletion."
+}
+
+variable "sendgrid_template_account_confirm_reactivation" {
+    type        = string
+    description = "SendGrid template ID for confirm account reactivation."
+}
+
+variable "sendgrid_template_modify_password" {
+    type        = string
+    description = "SendGrid template ID for modify password."
+}
+
+variable "security_cron_jwt_secret" {
+    type        = string
+    description = "Cron job JWT secret for deleting accounts."
+}
+
+variable "security_cron_jwt_scope_delete_account" {
+    type        = string
+    description = "Cron job scope for deleting accounts."
 }

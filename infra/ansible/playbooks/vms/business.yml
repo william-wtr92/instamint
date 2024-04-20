@@ -1,0 +1,47 @@
+- name: Deploy Docker containers on Business VM
+  hosts: azure_vms
+  gather_facts: no
+  vars:
+    terraform_outputs: "{{ lookup('file', '../../terraform_outputs.json') | from_json }}"
+
+  tasks:
+    - name: Transfer setup script to VM
+      copy:
+        src: ./scripts/business.sh
+        dest: /home/{{ ansible_user }}/business.sh
+        mode: 0755
+      when: inventory_hostname == 'instamint-business-vm'
+
+    - name: Launch Docker setup script for Business VM
+      command: >
+        bash /home/{{ ansible_user }}/business.sh
+        '{{ terraform_outputs.business_config.value.username }}'
+        '{{ terraform_outputs.business_config.value.password }}'
+        '{{ terraform_outputs.business_config.value.image }}'
+        '{{ terraform_outputs.business_config.value.name }}'
+        '{{ terraform_outputs.business_config.value.port }}'
+        '{{ terraform_outputs['secrets']['value']['DB-CONNECTION-HOST'] }}'
+        '{{ terraform_outputs['secrets']['value']['DB-CONNECTION-USER'] }}'
+        '{{ terraform_outputs['secrets']['value']['DB-CONNECTION-PWD'] }}'
+        '{{ terraform_outputs['secrets']['value']['DB-CONNECTION-DB'] }}'
+        '{{ terraform_outputs['secrets']['value']['REDIS-HOST'] }}'
+        '{{ terraform_outputs['secrets']['value']['REDIS-PORT'] }}'
+        '{{ terraform_outputs['secrets']['value']['REDIS-PASSWORD'] }}'
+        '{{ terraform_outputs['secrets']['value']['CORS-ORIGIN'] }}'
+        '{{ terraform_outputs['secrets']['value']['SECURITY-COOKIE-SECRET'] }}'
+        '{{ terraform_outputs['secrets']['value']['SECURITY-JWT-SECRET'] }}'
+        '{{ terraform_outputs['secrets']['value']['SECURITY-PASSWORD-PEPPER'] }}'
+        '{{ terraform_outputs['secrets']['value']['SECURITY-CRON-JWT-SECRET'] }}'
+        '{{ terraform_outputs['secrets']['value']['SECURITY-CRON-JWT-SCOPE-DELETE-ACCOUNT'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENTRY-DSN'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-BASE-URL'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-API-KEY'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-SENDER'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-EMAIL-VALIDATION'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-RESET-PASSWORD'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-CONFIRM-RESET-PASSWORD'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-CONFIRM-ACCOUNT-DELETION'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-REACTIVATION'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-CONFIRM-REACTIVATION'] }}'
+        '{{ terraform_outputs['secrets']['value']['FILES-SERVICE-URL'] }}'
+      when: inventory_hostname == 'instamint-business-vm'

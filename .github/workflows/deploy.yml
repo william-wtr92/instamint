@@ -3,7 +3,7 @@ name: Instamint Monorepo - Azure CI/CD
 on:
   push:
     branches:
-      - ITM-*
+      - main
 
 jobs:
   build_and_push:

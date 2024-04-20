@@ -95,14 +95,23 @@ module "av_set" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
-## DB ##
+## PostgreSQL ##
 
-module "db" {
-  source              = "./modules/db"
+module "postgres" {
+  source              = "./modules/psql"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   psql_login          = var.psql_login
   psql_password       = var.psql_password
+  database_name       = var.database_name
+}
+
+## Redis ##
+
+module "redis" {
+  source              = "./modules/redis"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 ## Registry ##
@@ -140,16 +149,6 @@ module "webapp_vm" {
   ]
 }
 
-output "webapp_config" {
-  value = {
-    username = var.acr_username
-    password = var.acr_password
-    image    = module.webapp_vm.container_image
-    name     = module.webapp_vm.container_name
-    port     = module.webapp_vm.container_port
-  }
-}
-
 ## Business Server ##
 
 module "business_vm" {
@@ -173,19 +172,9 @@ module "business_vm" {
   container_port  = "3001"
 
   depends_on = [
-    module.db.redis_id,
-    module.db.postgres_id
+    module.redis.redis_id,
+    module.postgres.postgres_id
   ]
-}
-
-output "business_config" {
-  value = {
-    username = var.acr_username
-    password = var.acr_password
-    image    = module.business_vm.container_image
-    name     = module.business_vm.container_name
-    port     = module.business_vm.container_port
-  }
 }
 
 ## Files Server ##
@@ -215,16 +204,6 @@ module "files_vm" {
   ]
 }
 
-output "files_config" {
-  value = {
-    username = var.acr_username
-    password = var.acr_password
-    image    = module.files_vm.container_image
-    name     = module.files_vm.container_name
-    port     = module.files_vm.container_port
-  }
-}
-
 ## Cron Server ##
 
 module "cron_vm" {
@@ -248,18 +227,8 @@ module "cron_vm" {
   container_port  = "3003"
 
   depends_on = [
-    module.db.redis_id,
+    module.redis.redis_id,
   ]
-}
-
-output "cron_config" {
-  value = {
-    username = var.acr_username
-    password = var.acr_password
-    image    = module.cron_vm.container_image
-    name     = module.cron_vm.container_name
-    port     = module.cron_vm.container_port
-  }
 }
 
 ## Grafana ##
@@ -290,11 +259,42 @@ module "blob_storage" {
 
 ## Key Vault ##
 
+locals {
+  secrets = {
+    "DB-CONNECTION-HOST"                             = module.postgres.psql_server_name
+    "DB-CONNECTION-USER"                             = var.psql_login
+    "DB-CONNECTION-PWD"                              = var.psql_password
+    "DB-CONNECTION-DB"                               = var.database_name
+    "REDIS-HOST"                                     = module.redis.redis_host
+    "REDIS-PORT"                                     = module.redis.redis_ssl_port
+    "REDIS-PASSWORD"                                 = module.redis.redis_primary_access_key
+    "CORS-ORIGIN"                                    = module.webapp_vm.vm_ip_address // TODO: Change to Load Balancer IP on webapp VM
+    "SECURITY-COOKIE-SECRET"                         = var.security_cookie_secret
+    "SECURITY-JWT-SECRET"                            = var.security_jwt_secret
+    "SECURITY-PASSWORD-PEPPER"                       = var.security_password_pepper
+    "SENTRY-DSN"                                     = var.sentry_dsn
+    "SENDGRID-BASE-URL"                              = module.webapp_vm.vm_ip_address // TODO: Change to Load Balancer IP on webapp VM
+    "SENDGRID-API-KEY"                               = var.sendgrid_api_key
+    "SENDGRID-SENDER"                                = var.sendgrid_sender
+    "SENDGRID-TEMPLATE-EMAIL-VALIDATION"             = var.sendgrid_template_email_validation
+    "SENDGRID-TEMPLATE-RESET-PASSWORD"               = var.sendgrid_template_reset_password
+    "SENDGRID-TEMPLATE-CONFIRM-RESET-PASSWORD"       = var.sendgrid_template_confirm_reset_password
+    "SENDGRID-TEMPLATE-CONFIRM-ACCOUNT-DELETION"     = var.sendgrid_template_confirm_account_deletion
+    "SENDGRID-TEMPLATE-ACCOUNT-REACTIVATION"         = var.sendgrid_template_account_reactivation
+    "SENDGRID-TEMPLATE-ACCOUNT-CONFIRM-REACTIVATION" = var.sendgrid_template_account_confirm_reactivation
+    "SENDGRID-TEMPLATE-MODIFY-PASSWORD"              = var.sendgrid_template_modify_password
+    "SECURITY-CRON-JWT-SECRET"                       = var.security_cron_jwt_secret
+    "SECURITY-CRON-JWT-SCOPE-DELETE-ACCOUNT"         = var.security_cron_jwt_scope_delete_account
+    "BUSINESS-SERVICE-URL"                           = module.business_vm.vm_ip_address // TODO: Change to Load Balancer IP on business VM
+    "FILES-SERVICE-URL"                              = module.files_vm.vm_ip_address // TODO: Change to Load Balancer IP on files VM
+    "NEXT-PUBLIC-BASE-URL"                           = module.business_vm.vm_ip_address // TODO: Change to Load Balancer IP on business VM
+  }
+}
+
 module "key_vault" {
   source              = "./modules/kv"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   key_vault_name      = "instamint-kv-${module.random_id.unique_id}"
-  tenant_id           = var.tenant_id
-  client_object_id    = var.client_object_id
+  secrets             = local.secrets
 }

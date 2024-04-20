@@ -19,3 +19,8 @@ variable "psql_password" {
     type        = string
     description = "Password for the PostgreSQL server."
 }
+
+variable "database_name" {
+    type        = string
+    description = "Name of the PostgreSQL database."
+}
