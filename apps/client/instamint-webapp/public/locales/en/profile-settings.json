@@ -38,12 +38,12 @@
     "picture": {
       "label": "Profile picture"
     },
-    "success" :  "Your account has been modified !",
+    "success" :  "Your account has been modified!",
     "save": "Save"
   },
   "modify-password" : {
     "triggerLabel": "Change password",
-    "title": "Are you sure you want to change your password ?",
+    "title": "Are you sure you want to change your password?",
     "oldPassword": {
       "label": "Current password",
       "placeholder": "Enter your current password"
