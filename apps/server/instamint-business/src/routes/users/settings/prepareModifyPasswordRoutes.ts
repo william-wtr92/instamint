@@ -4,8 +4,8 @@ import { type ApiRoutes, SC } from "@instamint/server-types"
 import { auth } from "@/middlewares/auth"
 import sgMail from "@sendgrid/mail"
 import {
-  confirmModifyPasswordSchema,
-  type ConfirmModifyPassword,
+  modifyPasswordSchema,
+  type ModifyPassword,
 } from "@instamint/shared-types"
 
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
@@ -44,14 +44,11 @@ const prepareModifyPasswordRoutes: ApiRoutes = ({ app, db, redis }) => {
   modifyPassword.put(
     "/modify-password",
     auth,
-    zValidator("json", confirmModifyPasswordSchema),
+    zValidator("json", modifyPasswordSchema),
     async (c: Context): Promise<Response> => {
       const requestBody = await c.req.json()
-      const {
-        oldPassword,
-        newPassword,
-        confirmNewPassword,
-      }: ConfirmModifyPassword = requestBody
+      const { oldPassword, newPassword, confirmNewPassword }: ModifyPassword =
+        requestBody
 
       const contextUser: UserModel = c.get(contextsKeys.user)
 

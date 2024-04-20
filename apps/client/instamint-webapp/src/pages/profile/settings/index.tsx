@@ -3,7 +3,7 @@ import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import {
-  type ConfirmModifyPassword,
+  type ModifyPassword,
   type DeleteAccount,
   type UserInfosSchema,
 } from "@instamint/shared-types"
@@ -32,9 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const SettingsPage = () => {
   const { t } = useTranslation(["errors", "profile-settings"])
-  const { data, isLoading } = useUser()
-  const user = isLoading ? null : data
-  const [viewSettings, setViewSettings] = useState<string>("username-settings")
+
   const {
     services: {
       users: { updateUserInfos, deleteAccount, modifyPassword },
@@ -42,6 +40,11 @@ const SettingsPage = () => {
     },
   } = useAppContext()
   const { redirect, setError, setSuccess, error, success } = useActionsContext()
+
+  const { data, isLoading } = useUser()
+  const user = isLoading ? null : data
+
+  const [viewSettings, setViewSettings] = useState<string>("username-settings")
 
   const onSubmit = useCallback(
     async (values: UserInfosSchema) => {
@@ -86,7 +89,7 @@ const SettingsPage = () => {
   )
 
   const handleModifyPasswordSubmit = useCallback(
-    async (values: ConfirmModifyPassword) => {
+    async (values: ModifyPassword) => {
       const [err] = await modifyPassword(values)
 
       if (err) {

@@ -1,10 +1,10 @@
-import type { ConfirmModifyPassword } from "@instamint/shared-types"
+import type { ModifyPassword } from "@instamint/shared-types"
 
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
-const modifyPasswordService: Services<ConfirmModifyPassword> =
+const modifyPasswordService: Services<ModifyPassword> =
   ({ api }) =>
   async (data) => {
     try {

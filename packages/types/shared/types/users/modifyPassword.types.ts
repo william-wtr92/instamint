@@ -1,7 +1,8 @@
 import { z } from "zod"
+
 import { passwordErrorMessages, passwordRegex } from "../auth/signUp.types"
 
-export const confirmModifyPasswordSchema = z
+export const modifyPasswordSchema = z
   .object({
     oldPassword: z.string(),
     newPassword: z
@@ -31,4 +32,4 @@ export const confirmModifyPasswordSchema = z
     path: ["confirmNewPassword"],
   })
 
-export type ConfirmModifyPassword = z.infer<typeof confirmModifyPasswordSchema>
+export type ModifyPassword = z.infer<typeof modifyPasswordSchema>

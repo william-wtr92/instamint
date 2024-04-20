@@ -7,7 +7,7 @@ import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
 import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAccountRoutes"
-import prepareModifyPasswordRoutes from "./routes/users/settings/prepareModifyPasswordRoutes"
+import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
 
 const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignUpRoutes(ctx)

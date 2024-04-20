@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form"
 import { useTranslation } from "next-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
-  type ConfirmModifyPassword,
-  confirmModifyPasswordSchema,
+  type ModifyPassword,
+  modifyPasswordSchema,
 } from "@instamint/shared-types"
 import {
   Button,
@@ -28,7 +28,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 
 type Props = {
-  onSubmit: (values: ConfirmModifyPassword) => void
+  onSubmit: (values: ModifyPassword) => void
   success: string | null
   error: string | Error | null
 }
@@ -50,8 +50,8 @@ export const ModifyPasswordForm = (props: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
-  const form = useForm<ConfirmModifyPassword>({
-    resolver: zodResolver(confirmModifyPasswordSchema),
+  const form = useForm<ModifyPassword>({
+    resolver: zodResolver(modifyPasswordSchema),
     mode: "onBlur",
     defaultValues: {
       oldPassword: "",

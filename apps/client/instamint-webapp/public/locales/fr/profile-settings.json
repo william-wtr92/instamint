@@ -38,11 +38,11 @@
     "picture": {
       "label": "Photo de profil"
     },
-    "success" :  "Votre compte a bien été modifier !",
-    "save" : "Enregistrer"
+    "success":  "Votre compte a bien été modifier !",
+    "save": "Enregistrer"
   },
-    "modify-password" : {
-    "triggerLabel": "Change password",
+    "modify-password": {
+    "triggerLabel": "Modifier le mot de passe",
     "title": "Êtes-vous sûr de vouloir modifier votre mot de passe ?",
     "oldPassword": {
       "label": "Mot de passe actuel",
@@ -63,8 +63,8 @@
     "confirmNewPassword": {
       "label": "Confirmez votre nouveau mot de passe",
       "placeholder": "Confirmez votre nouveau mot de passe",
-      "error": "Les nouveaux mot de passe sont différents"
+      "error": "Les nouveaux mot de passe sont différents."
     },
-    "success":"Votre mot passe a été modifié, vous allez être dectonnecter."
+    "success": "Votre mot passe a été modifié, vous allez être dectonnecté."
   }
 }

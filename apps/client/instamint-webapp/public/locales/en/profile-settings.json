@@ -65,6 +65,6 @@
       "placeholder": "Confirm your new password",
       "error": "New passwords do not match"
     },
-    "success":"Your password has been modified, you`ll be disconnected."
+    "success": "Your password has been modified, you`ll be disconnected."
   }
 }
