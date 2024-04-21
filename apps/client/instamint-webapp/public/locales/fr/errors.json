@@ -32,9 +32,9 @@
         "invalidPassword": "Mot de passe invalide."
       },
       "update-account": {
-        "userNotModified": "Une erreur est survenu lors de la modification de vos informations.",
+        "userNotModified": "Une erreur est survenue lors de la modification de vos informations.",
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
-        "userInfosSameAsPrevious": "Vous n'avez modifier aucune informations.",
+        "userInfosSameAsPrevious": "Vous n'avez modifié aucune information.",
         "linkAlreadyExist": "Ce lien existe déjà."
       }
     },
