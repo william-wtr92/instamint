@@ -29,12 +29,10 @@ import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 
 type Props = {
   onSubmit: (values: ModifyPassword) => void
-  success: string | null
-  error: string | Error | null
 }
 
 export const ModifyPasswordForm = (props: Props) => {
-  const { onSubmit, success, error } = props
+  const { onSubmit } = props
 
   const { t } = useTranslation()
 
@@ -244,16 +242,6 @@ export const ModifyPasswordForm = (props: Props) => {
                     Submit
                   </Button>
                 </DialogFooter>
-                {success ? (
-                  <p className="text-accent-600 mt-4 text-center text-sm">
-                    {success}
-                  </p>
-                ) : null}
-                {error ? (
-                  <p className="text-md text-error-primary mt-4 text-center">
-                    {error instanceof Error ? error.message : error}
-                  </p>
-                ) : null}
               </form>
             </div>
           </DialogContent>

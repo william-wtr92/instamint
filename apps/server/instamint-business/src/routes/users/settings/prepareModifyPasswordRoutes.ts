@@ -61,8 +61,9 @@ const prepareModifyPasswordRoutes: ApiRoutes = ({ app, db, redis }) => {
       const modifyPasswordDelay = redisKeys.users.modifyPasswordDelay(
         contextUser.email
       )
+      const modifyPasswordDelayToken = await redis.get(modifyPasswordDelay)
 
-      if (modifyPasswordDelay) {
+      if (modifyPasswordDelayToken) {
         return c.json(
           usersMessages.passwordAlreadyModify,
           SC.errors.BAD_REQUEST

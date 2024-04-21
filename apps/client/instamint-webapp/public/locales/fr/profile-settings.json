@@ -64,6 +64,6 @@
       "placeholder": "Confirmez votre nouveau mot de passe",
       "error": "Les mots de passe ne sont pas identiques."
     },
-    "success": "Votre mot passe a été modifié, vous allez être dectonnecté."
+    "success": "Votre mot passe a été modifié, vous allez être deconnecté."
   }
 }
