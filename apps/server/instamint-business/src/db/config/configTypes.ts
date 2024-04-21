@@ -79,6 +79,7 @@ const sendgridConfigSchema = z
       reactivateAccount: z.string(),
       confirmReactivateAccount: z.string(),
       modifyPassword: z.string(),
+      modifyEmail: z.string(),
     }),
   })
   .strict()

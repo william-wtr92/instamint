@@ -11,6 +11,7 @@ export const redisKeys = {
     lastResetPassword: (email: string) => `users:last_reset_password:${email}`,
     reactivateAccount: (email: string) => `users:account_reactivation:${email}`,
     modifyPasswordDelay: (email: string) => `users:modify_password:${email}`,
+    modifyEmailDelay: (email: string) => `users:modify_email:${email}`,
   },
   cron: {
     deleteAccountToken: "cron:delete_account",
