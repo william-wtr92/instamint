@@ -82,6 +82,7 @@ const appConfig = baseConfig.parse({
       confirmReactivateAccount:
         process.env.SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION!,
       modifyPassword: process.env.SENDGRID_TEMPLATE_ACCOUNT_MODIFY_PASSWORD!,
+      modifyEmail: process.env.SENDGRID_TEMPLATE_ACCOUNT_MODIFY_EMAIL!,
     },
   },
   microservices: {

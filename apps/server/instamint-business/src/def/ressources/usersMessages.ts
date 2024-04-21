@@ -91,3 +91,25 @@ export const passwordAlreadyModify = {
   errorCode: "passwordAlreadyModify",
   message: "You have already changed your password within the last 24 hours.",
 } as const
+
+/* modify email */
+
+export const emailSameAsPrevious = {
+  errorCode: "emailSameAsPrevious",
+  message: "You need a different email.",
+} as const
+
+export const emailAlreadyModify = {
+  errorCode: "emailAlreadyModify",
+  message: "You have already changed your email within the last 24 hours.",
+} as const
+
+export const emailAlreadyUse = {
+  errorCode: "emailAlreadyUse",
+  message: "This email is already use for an account.",
+} as const
+
+export const invalidEmail = {
+  errorCode: "invalidEmail",
+  message: "Invalid email.",
+} as const
