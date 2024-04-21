@@ -66,5 +66,4 @@ reactivation and deletion after 6 months.
 - `Thomas De Oliveira`
 
 ## Burn-down chart
-
 ![burndown.png](burndown.png)
