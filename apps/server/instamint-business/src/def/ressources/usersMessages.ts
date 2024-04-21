@@ -71,13 +71,17 @@ export const usernameAlreadyExist = {
   message: "Error this username already exist.",
 } as const
 
-export const usernameSameAsPrevious = {
-  errorCode: "usernameSameAsPrevious",
-  message: "You have not changed your username.",
+export const userInfosSameAsPrevious = {
+  errorCode: "userInfosSameAsPrevious",
+  message: "You have not changed any information.",
+} as const
+
+export const linkAlreadyExist = {
+  errorCode: "linkAlreadyExist",
+  message: "Error this link already exist.",
 } as const
 
 /* modify password */
-
 export const passwordSameAsPrevious = {
   errorCode: "passwordSameAsPrevious",
   message: "You need a different password.",

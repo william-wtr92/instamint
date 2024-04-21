@@ -10,12 +10,18 @@ const updateUserInfoService: Services<UserInfosSchema> =
     try {
       const body = {
         username: data?.username,
-        email: data.email,
+        bio: data?.bio,
+        link: data?.link,
+      }
+
+      const config = {
+        withCredentials: true,
       }
 
       const { data: responseData } = await api.put(
         routes.api.users.updateUserInfos,
-        body
+        body,
+        config
       )
 
       return [null, responseData]
