@@ -1,19 +1,19 @@
 - name: Deploy Docker containers on Cron VM
   hosts: azure_vms
-  gather_facts: no
+  gather_facts: false
   vars:
     terraform_outputs: "{{ lookup('file', '../../terraform_outputs.json') | from_json }}"
 
   tasks:
     - name: Transfer setup script to VM
-      copy:
+      ansible.builtin.copy:
         src: ./scripts/cron.sh
         dest: /home/{{ ansible_user }}/cron.sh
-        mode: 0755
+        mode: '0755'
       when: inventory_hostname == 'instamint-cron-vm'
 
     - name: Launch Docker setup script for Cron VM
-      command: >
+      ansible.builtin.command: >
         bash /home/{{ ansible_user }}/cron.sh
         '{{ terraform_outputs.cron_config.value.username }}'
         '{{ terraform_outputs.cron_config.value.password }}'
@@ -26,4 +26,6 @@
         '{{ terraform_outputs['secrets']['value']['REDIS-PASSWORD'] }}'
         '{{ terraform_outputs['secrets']['value']['SECURITY-CRON-JWT-SECRET'] }}'
         '{{ terraform_outputs['secrets']['value']['SECURITY-CRON-JWT-SCOPE-DELETE-ACCOUNT'] }}'
+      register: script_output
+      changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"
       when: inventory_hostname == 'instamint-cron-vm'

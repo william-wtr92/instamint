@@ -13,11 +13,6 @@ variable "ssh_public_key" {
     description = "SSH public key."
 }
 
-variable "ssh_private_key" {
-    type        = string
-    description = "SSH private key."
-}
-
 variable "vm_name" {
     type        = string
     description = "Name of the VM."
@@ -31,11 +26,6 @@ variable "resource_group_name" {
 variable "location" {
     type        = string
     description = "Location of the virtual machine."
-}
-
-variable "subnet_id" {
-    type        = string
-    description = "ID of the subnet."
 }
 
 variable "availability_set_id" {

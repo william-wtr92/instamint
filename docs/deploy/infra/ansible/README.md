@@ -9,10 +9,14 @@
 
 ## 🚀 Installation
 
-### 🍏 MacOS
+- Install [Ansible](https://docs.ansible.com/ansible) 🧰
+- Install [Ansible-Lint](https://ansible.readthedocs.io/projects/lint/installing/) **⚠️ Windows not supported ⚠️**
+
+### 🍏 For MacOS
 
 ```bash
 brew install ansible
+brew install ansible-lint
 ```
 
 ⚠️ For other OS please refer to
@@ -26,3 +30,11 @@ the [official documentation](https://docs.ansible.com/ansible/latest/installatio
   - `inventory`: Inventory file to define the hosts.
   - `playbooks`: Playbooks directory to define the tasks.
     - `scripts`: Scripts directory to define the scripts used in playbooks.
+
+## ⚙️ Linter
+
+To lint the ansible code, run the following command:
+
+```bash
+ansible-lint -c .ansible-lint.yml
+```

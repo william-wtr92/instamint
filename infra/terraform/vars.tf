@@ -17,11 +17,6 @@ variable "ssh_public_key" {
     description = "SSH public key."
 }
 
-variable "ssh_private_key" {
-    type        = string
-    description = "SSH private key."
-}
-
 ## PostgreSQL
 
 variable "psql_login" {
@@ -47,11 +42,6 @@ variable "grafana_password" {
 }
 
 ## Azure Identity ##
-
-variable "tenant_id" {
-    type        = string
-    description = "Tenant ID."
-}
 
 variable "client_object_id" {
     type        = string

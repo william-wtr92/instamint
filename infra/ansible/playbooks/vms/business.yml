@@ -1,19 +1,19 @@
 - name: Deploy Docker containers on Business VM
   hosts: azure_vms
-  gather_facts: no
+  gather_facts: false
   vars:
     terraform_outputs: "{{ lookup('file', '../../terraform_outputs.json') | from_json }}"
 
   tasks:
     - name: Transfer setup script to VM
-      copy:
+      ansible.builtin.copy:
         src: ./scripts/business.sh
         dest: /home/{{ ansible_user }}/business.sh
-        mode: 0755
+        mode: '0755'
       when: inventory_hostname == 'instamint-business-vm'
 
     - name: Launch Docker setup script for Business VM
-      command: >
+      ansible.builtin.command: >
         bash /home/{{ ansible_user }}/business.sh
         '{{ terraform_outputs.business_config.value.username }}'
         '{{ terraform_outputs.business_config.value.password }}'
@@ -44,4 +44,6 @@
         '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-REACTIVATION'] }}'
         '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-CONFIRM-REACTIVATION'] }}'
         '{{ terraform_outputs['secrets']['value']['FILES-SERVICE-URL'] }}'
+      register: script_output
+      changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"
       when: inventory_hostname == 'instamint-business-vm'

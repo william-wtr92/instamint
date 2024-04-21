@@ -4,8 +4,15 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
 }
 
+resource "azurerm_subnet_network_security_group_association" "nsg_association" {
+  subnet_id                 = var.subnet_id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
+## Inbound Rules ##
+
 resource "azurerm_network_security_rule" "ssh" {
-  name                        = "ssh"
+  name                        = "AllowInboundSSH"
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
@@ -18,9 +25,62 @@ resource "azurerm_network_security_rule" "ssh" {
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
-resource "azurerm_subnet_network_security_group_association" "nsg_association" {
-  subnet_id                 = var.subnet_id
-  network_security_group_id = azurerm_network_security_group.nsg.id
+resource "azurerm_network_security_rule" "http" {
+  name                        = "AllowInboundHTTP"
+  priority                    = 110
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+resource "azurerm_network_security_rule" "https" {
+  name                        = "AllowInboundHTTPS"
+  priority                    = 120
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+## Outbound Rules ##
+
+resource "azurerm_network_security_rule" "outbound_http" {
+  name                        = "AllowOutboundHTTP"
+  priority                    = 100
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "Internet"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+resource "azurerm_network_security_rule" "outbound_https" {
+  name                        = "AllowOutboundHTTPS"
+  priority                    = 110
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "Internet"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
 ## Ddos Protection Plan ##

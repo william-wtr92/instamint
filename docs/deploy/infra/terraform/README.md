@@ -12,6 +12,8 @@
 
 ## ⚠️ Requirements
 
+- Install [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) | [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) | [TFLint](https://github.com/terraform-linters/tflint)
+  🚀
 - Create a service principal with `Contributor`:
   - `az ad sp create-for-rbac --name instamint-prod-sp --role Contributor --scopes /subscriptions/{subscription_id}`
 - Create a service principal with `AcrPush`:
@@ -21,19 +23,56 @@
 - Create ssh key pair:
   - `ssh-keygen -t rsa -b 2048 -f ~/.ssh/azure`
 - Setup `secrets.tfvars` with the following content:
+
   ```hcl
-    admin_username      = "" # Azure admin username
-    admin_password      = "" # Azure admin password
-    psql_login          = "" # Postgres login
-    psql_password       = "" # Postgres password
-    grafana_password    = "" # Grafana password
-    tenant_id           = "" # Azure tenant id > az account show --query tenantId
-    client_object_id    = "" # Azure client object id > az ad sp show --id <appId> --query objectId
-    acr_username        = "" # Azure Container Registry username
-    acr_password        = "" # Azure Container Registry password
-    ssh_public_key      = "~/.ssh/azure.pub" # Azure ssh public key
-    ssh_private_key     = "~/.ssh/azure" # Azure ssh private key
-    ssh_allowed_ip      = "" # Azure ssh allowed ip(s) ! If you want to switch to an array change the variable type in the vars.tf file at root level
+  # VM
+  admin_username      = "" # Azure admin username
+  admin_password      = "" # Azure admin password
+
+  # PostgreSQL
+  psql_login          = "" # Postgres login
+  psql_password       = "" # Postgres password
+  database_name       = "" # Postgres database name
+
+  # Grafana
+  grafana_password    = "" # Grafana password
+
+  # Azure
+  client_object_id    = "" # Azure client object id > az ad sp show --id <appId> --query objectId
+
+  # ACR
+  acr_username        = "" # Azure Container Registry username
+  acr_password        = "" # Azure Container Registry password
+
+  # SSH Keys
+  ssh_public_key      = "~/.ssh/azure.pub" # Azure ssh public key
+
+  # Network
+  ssh_allowed_ip      = "" # Azure ssh allowed ip(s) ! If you want to switch to an array change the variable type in the vars.tf file at root level
+
+  ### ENVIRONMENT VARIABLES ###
+
+  security_cookie_secret=""
+  security_jwt_secret=""
+  security_password_pepper= ""
+
+  ## Sentry
+  sentry_dsn=""
+
+  ## SendGrid
+  sendgrid_api_key="SG."
+  sendgrid_sender=""
+  sendgrid_template_email_validation="d-"
+  sendgrid_template_reset_password="d-"
+  sendgrid_template_confirm_reset_password="d-"
+  sendgrid_template_confirm_account_deletion="d-"
+  sendgrid_template_account_reactivation="d-"
+  sendgrid_template_account_confirm_reactivation="d-"
+  sendgrid_template_modify_password="d-"
+
+  ## Cron Jobs
+  security_cron_jwt_secret=""
+  security_cron_jwt_scope_delete_account=""
   ```
 
 ## 🧩 Commands
@@ -102,8 +141,18 @@
   ssh -p {localPort} {vmUsername}@localhost
   ```
 
+## ⚙️ Linter
+
+- To lint the terraform code, run the following command:
+
+```sh
+tflint --recursive --config "$(pwd)/.tflint.hcl"
+```
+
 #### 📚 Tunelling Doc
 
 - [📖 Terraform x Azure Bastion x Tunneling Setup](https://dev.to/holger/test-azure-bastion-deployment-via-terraform-18o8)
 
-## 📸 Infra Schema
+### 📸 Infra Schema
+
+![infra.png](infra.png)

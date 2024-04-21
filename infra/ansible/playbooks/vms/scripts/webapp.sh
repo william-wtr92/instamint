@@ -17,14 +17,18 @@ LOG_FILE="$HOME/docker-deployment.log"
     echo "$PASSWORD" | sudo docker login instamintACR.azurecr.io --username "$USERNAME" --password-stdin
 
     echo "Pulling the Docker image..."
-    sudo docker pull instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest
+    if sudo docker pull instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
+        echo "Docker image pulled successfully."
+    fi
 
     echo "Running the Docker container..."
-    sudo docker run -d \
-     --name "${CONTAINER_NAME}" \
-     -p "${CONTAINER_PORT}":"${CONTAINER_PORT}" \
-      -e  NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
-      instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest
+    if sudo docker run -d \
+      --name "${CONTAINER_NAME}" \
+      -p "${CONTAINER_PORT}":3000 \
+      -e NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
+      instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
+        echo "Docker container started successfully."
+    fi
 
     echo "Setting up Watchtower..."
     sudo docker run -d \

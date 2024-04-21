@@ -1,11 +1,11 @@
 variable "resource_group_name" {
-  type        = string
-  description = "Name of the resource group."
+    type        = string
+    description = "Name of the resource group."
 }
 
 variable "location" {
-  type        = string
-  description = "Location of the virtual machine."
+    type        = string
+    description = "Location of the virtual machine."
 }
 
 variable "key_vault_name" {
@@ -16,6 +16,6 @@ variable "key_vault_name" {
 ## Secrets ##
 
 variable "secrets" {
-  type        = map(string)
-  description = "Environment variables."
+    type        = map(string)
+    description = "Environment variables."
 }

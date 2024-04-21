@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    grafana = {
-      source = "grafana/grafana"
-      version = "2.17.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {}
-}
-
-provider "grafana" {}
-
 ## Resource Group ##
 
 resource "azurerm_resource_group" "rg" {
@@ -51,6 +36,27 @@ module "security" {
   resource_group_name = azurerm_resource_group.rg.name
   subnet_id           = module.network.subnet_id
   ssh_allowed_ip      = var.ssh_allowed_ip
+}
+
+## Load Balancer ##
+
+module "loadbalancer" {
+  source                   = "./modules/lb"
+  location                 = azurerm_resource_group.rg.location
+  resource_group_name      = azurerm_resource_group.rg.name
+  /*probe_id                 = module.probe.http_probe_id*/
+
+  webapp_nic   =  module.webapp_network_interface.vm_nic_id
+  business_nic =  module.business_network_interface.vm_nic_id
+  files_nic    =  module.files_network_interface.vm_nic_id
+  cron_nic     =  module.cron_network_interface.vm_nic_id
+}
+
+## Probe ##
+
+module "probe" {
+  source              = "./modules/probe"
+  loadbalancer_id     = module.loadbalancer.lb_id
 }
 
 ## NIC ##
@@ -132,11 +138,9 @@ module "webapp_vm" {
   network_interface_ids = [module.webapp_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
-  subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
 
   ssh_public_key  = var.ssh_public_key
-  ssh_private_key = var.ssh_private_key
 
   acr_username    = var.acr_username
   acr_password    = var.acr_password
@@ -159,11 +163,9 @@ module "business_vm" {
   network_interface_ids = [module.business_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
-  subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
 
   ssh_public_key  = var.ssh_public_key
-  ssh_private_key = var.ssh_private_key
 
   acr_username    = var.acr_username
   acr_password    = var.acr_password
@@ -187,11 +189,9 @@ module "files_vm" {
   network_interface_ids = [module.files_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
-  subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
 
   ssh_public_key  = var.ssh_public_key
-  ssh_private_key = var.ssh_private_key
 
   acr_username    = var.acr_username
   acr_password    = var.acr_password
@@ -214,11 +214,9 @@ module "cron_vm" {
   network_interface_ids = [module.cron_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
-  subnet_id             = module.network.subnet_id
   availability_set_id   = module.av_set.availability_set_id
 
   ssh_public_key  = var.ssh_public_key
-  ssh_private_key = var.ssh_private_key
 
   acr_username    = var.acr_username
   acr_password    = var.acr_password
@@ -268,12 +266,12 @@ locals {
     "REDIS-HOST"                                     = module.redis.redis_host
     "REDIS-PORT"                                     = module.redis.redis_ssl_port
     "REDIS-PASSWORD"                                 = module.redis.redis_primary_access_key
-    "CORS-ORIGIN"                                    = module.webapp_vm.vm_ip_address // TODO: Change to Load Balancer IP on webapp VM
+    "CORS-ORIGIN"                                    = module.loadbalancer.webapp_ip // TODO: Change to Load Balancer IP on webapp VM
     "SECURITY-COOKIE-SECRET"                         = var.security_cookie_secret
     "SECURITY-JWT-SECRET"                            = var.security_jwt_secret
     "SECURITY-PASSWORD-PEPPER"                       = var.security_password_pepper
     "SENTRY-DSN"                                     = var.sentry_dsn
-    "SENDGRID-BASE-URL"                              = module.webapp_vm.vm_ip_address // TODO: Change to Load Balancer IP on webapp VM
+    "SENDGRID-BASE-URL"                              = module.loadbalancer.webapp_ip // TODO: Change to Load Balancer IP on webapp VM
     "SENDGRID-API-KEY"                               = var.sendgrid_api_key
     "SENDGRID-SENDER"                                = var.sendgrid_sender
     "SENDGRID-TEMPLATE-EMAIL-VALIDATION"             = var.sendgrid_template_email_validation
@@ -285,9 +283,9 @@ locals {
     "SENDGRID-TEMPLATE-MODIFY-PASSWORD"              = var.sendgrid_template_modify_password
     "SECURITY-CRON-JWT-SECRET"                       = var.security_cron_jwt_secret
     "SECURITY-CRON-JWT-SCOPE-DELETE-ACCOUNT"         = var.security_cron_jwt_scope_delete_account
-    "BUSINESS-SERVICE-URL"                           = module.business_vm.vm_ip_address // TODO: Change to Load Balancer IP on business VM
-    "FILES-SERVICE-URL"                              = module.files_vm.vm_ip_address // TODO: Change to Load Balancer IP on files VM
-    "NEXT-PUBLIC-BASE-URL"                           = module.business_vm.vm_ip_address // TODO: Change to Load Balancer IP on business VM
+    "BUSINESS-SERVICE-URL"                           = module.loadbalancer.business_ip // TODO: Change to Load Balancer IP on business VM
+    "FILES-SERVICE-URL"                              = module.loadbalancer.files_ip // TODO: Change to Load Balancer IP on files VM
+    "NEXT-PUBLIC-BASE-URL"                           = module.loadbalancer.business_ip // TODO: Change to Load Balancer IP on business VM
   }
 }
 
