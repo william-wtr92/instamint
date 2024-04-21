@@ -33,7 +33,7 @@ export const ModifyEmailForm = (props: Props) => {
     resolver: zodResolver(modifyEmailSchema),
     mode: "onBlur",
     defaultValues: {
-      mail: "",
+      email: "",
       password: "",
       newMail: "",
     },
@@ -62,7 +62,7 @@ export const ModifyEmailForm = (props: Props) => {
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                   control={form.control}
-                  name="mail"
+                  name="email"
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 flex items-center gap-2 font-bold">

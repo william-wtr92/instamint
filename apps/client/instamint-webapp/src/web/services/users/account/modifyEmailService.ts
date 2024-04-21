@@ -9,7 +9,7 @@ const modifyEmailService: Services<ModifyEmail> =
   async (data) => {
     try {
       const body = {
-        mail: data.mail,
+        email: data.email,
         password: data.password,
         newMail: data.newMail,
       }

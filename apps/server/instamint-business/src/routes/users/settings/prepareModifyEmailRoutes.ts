@@ -1,7 +1,6 @@
 import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import { auth } from "@/middlewares/auth"
 import sgMail from "@sendgrid/mail"
 import { modifyEmailSchema, type ModifyEmail } from "@instamint/shared-types"
 
@@ -14,6 +13,7 @@ import {
   sgKeys,
   usersMessages,
 } from "@/def"
+import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import UserModel from "@/db/models/UserModel"
 import { now, oneDayTTL, oneHour, oneHourTTL } from "@/utils/helpers/times"
@@ -43,7 +43,7 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
     zValidator("json", modifyEmailSchema),
     async (c: Context): Promise<Response> => {
       const requestBody = await c.req.json()
-      const { mail, password, newMail }: ModifyEmail = requestBody
+      const { email, password, newMail }: ModifyEmail = requestBody
 
       const contextUser: UserModel = c.get(contextsKeys.user)
 
@@ -62,7 +62,7 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.emailAlreadyModify, SC.errors.BAD_REQUEST)
       }
 
-      if (mail !== contextUser.email) {
+      if (email !== contextUser.email) {
         return c.json(usersMessages.invalidEmail, SC.errors.BAD_REQUEST)
       }
 
@@ -78,7 +78,7 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.emailAlreadyUse, SC.errors.BAD_REQUEST)
       }
 
-      if (mail === newMail) {
+      if (email === newMail) {
         return c.json(usersMessages.emailSameAsPrevious, SC.errors.BAD_REQUEST)
       }
 
@@ -115,13 +115,15 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
         validationMail.dynamic_template_data.token as string
       )
 
-      await redis.set(modifyNewEmailDelay, now, "EX", oneDayTTL)
-
       await sgMail.send(modifyEmailMail)
 
-      await redis.set(emailTokenKey, now, "EX", oneHourTTL)
-
       await sgMail.send(validationMail)
+
+      await redis
+        .multi()
+        .set(modifyNewEmailDelay, now, "EX", oneDayTTL)
+        .set(emailTokenKey, now, "EX", oneHourTTL)
+        .exec()
 
       return c.json(SC.success.OK)
     }

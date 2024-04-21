@@ -65,7 +65,7 @@
       "error": "New passwords do not match"
     },
     "success": "Your password has been modified, you`ll be disconnected.",
-    "submit": "confirm"
+    "submit": "Confirm"
   },
   "modify-email" : {
     "triggerLabel": "Change email",
@@ -84,6 +84,6 @@
       "error": "New email must be different."
     },
     "success": "Your email has been modified, Look out for an email to verify your it.",
-    "submit": "confirm"
+    "submit": "Confirm"
   }
 }

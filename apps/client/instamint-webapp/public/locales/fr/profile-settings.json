@@ -65,7 +65,7 @@
       "error": "Les mots de passe ne sont pas identiques."
     },
     "success": "Votre mot passe a été modifié, vous allez être deconnecté.",
-    "submit": "valider"
+    "submit": "Valider"
   },
   "modify-email" : {
     "triggerLabel": "Modifier l'email",
@@ -84,6 +84,6 @@
       "error": "Le nouveau email doit être différent."
     },
     "success": "Votre email a été modifié avec succès. Regardez votre boite mail pour réactiver votre compte.",
-    "submit": "valider"
+    "submit": "Valider"
   }
 }

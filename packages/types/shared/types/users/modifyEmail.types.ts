@@ -2,11 +2,11 @@ import { z } from "zod"
 
 export const modifyEmailSchema = z
   .object({
-    mail: z.string().email(),
+    email: z.string().email(),
     password: z.string(),
     newMail: z.string().email(),
   })
-  .refine((data) => data.mail != data.newMail, {
+  .refine((data) => data.email != data.newMail, {
     message: "Emails cant match",
     path: ["newMail"],
   })
