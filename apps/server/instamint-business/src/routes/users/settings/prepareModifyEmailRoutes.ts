@@ -43,7 +43,7 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
     zValidator("json", modifyEmailSchema),
     async (c: Context): Promise<Response> => {
       const requestBody = await c.req.json()
-      const { email, password, newMail }: ModifyEmail = requestBody
+      const { email, password, newEmail }: ModifyEmail = requestBody
 
       const contextUser: UserModel = c.get(contextsKeys.user)
 
@@ -72,20 +72,20 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
       }
 
-      const userNewMail = await UserModel.query().findOne({ email: newMail })
+      const userNewMail = await UserModel.query().findOne({ email: newEmail })
 
       if (userNewMail) {
         return c.json(usersMessages.emailAlreadyUse, SC.errors.BAD_REQUEST)
       }
 
-      if (email === newMail) {
+      if (email === newEmail) {
         return c.json(usersMessages.emailSameAsPrevious, SC.errors.BAD_REQUEST)
       }
 
       const updatedUser = await UserModel.query()
         .where({ email: contextUser.email })
         .update({
-          ...(newMail ? { email: newMail } : {}),
+          ...(newEmail ? { email: newEmail } : {}),
           emailValidation: false,
         })
 
@@ -102,10 +102,10 @@ const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
         sgKeys.users.modifyEmail
       )
 
-      const modifyNewEmailDelay = redisKeys.users.modifyEmailDelay(newMail)
+      const modifyNewEmailDelay = redisKeys.users.modifyEmailDelay(newEmail)
 
       const validationMail = await mailBuilder(
-        { username: contextUser.username, email: newMail },
+        { username: contextUser.username, email: newEmail },
         sgKeys.auth.emailValidation,
         oneHour,
         true

@@ -35,7 +35,7 @@ export const ModifyEmailForm = (props: Props) => {
     defaultValues: {
       email: "",
       password: "",
-      newMail: "",
+      newEmail: "",
     },
   })
 
@@ -112,7 +112,7 @@ export const ModifyEmailForm = (props: Props) => {
                 />
                 <FormField
                   control={form.control}
-                  name="newMail"
+                  name="newEmail"
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
@@ -136,7 +136,7 @@ export const ModifyEmailForm = (props: Props) => {
                         className="text-error-primary relative left-2"
                         useCustomError={true}
                       >
-                        {errors.newMail ? (
+                        {errors.newEmail ? (
                           <span>
                             {t(`profile-settings:modify-email.newMail.error`)}
                           </span>

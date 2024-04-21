@@ -4,9 +4,9 @@ export const modifyEmailSchema = z
   .object({
     email: z.string().email(),
     password: z.string(),
-    newMail: z.string().email(),
+    newEmail: z.string().email(),
   })
-  .refine((data) => data.email != data.newMail, {
+  .refine((data) => data.email != data.newEmail, {
     message: "Emails cant match",
     path: ["newMail"],
   })

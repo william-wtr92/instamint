@@ -11,7 +11,7 @@ const modifyEmailService: Services<ModifyEmail> =
       const body = {
         email: data.email,
         password: data.password,
-        newMail: data.newMail,
+        newEmail: data.newEmail,
       }
 
       const config = {
