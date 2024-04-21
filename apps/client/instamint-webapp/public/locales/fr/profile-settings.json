@@ -20,24 +20,5 @@
       "submit": "Supprimer mon compte"
     },
     "success": "Votre compte a bien été désactivé."
-  },
-  "update-account": {
-    "username": {
-      "p1" : "Si vous souhaitez modifier votre nom d'utilisateur vous pouvez le faire ici !",
-      "label" : "Nom d'utilisateur",
-      "placeholder": "Entrez votre nom d'utilisateur",
-      "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
-      },
-    "bio": {
-      "label" : "Bio"
-    },
-    "link": {
-      "label": "Lien"
-    },
-    "picture": {
-      "label": "Photo de profil"
-    },
-    "success" :  "Votre compte a bien été modifier !",
-    "save" : "Enregistrer"
   }
 }

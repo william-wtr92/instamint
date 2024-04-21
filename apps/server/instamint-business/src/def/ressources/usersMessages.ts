@@ -63,15 +63,20 @@ export const deleteAccountJob = (email: string) => {
 /* Update Account */
 export const userNotModified = {
   errorCode: "userNotModified",
-  message: `Error update account.`,
+  message: "Error update account.",
 } as const
 
 export const usernameAlreadyExist = {
   errorCode: "usernameAlreadyExist",
-  message: `Error this username already exist.`,
+  message: "Error this username already exist.",
 } as const
 
-export const usernameSameAsPrevious = {
-  errorCode: "usernameSameAsPrevious",
-  message: `You have not changed your username.`,
+export const userInfosSameAsPrevious = {
+  errorCode: "userInfosSameAsPrevious",
+  message: "You have not changed any information.",
+} as const
+
+export const linkAlreadyExist = {
+  errorCode: "linkAlreadyExist",
+  message: "Error this link already exist.",
 } as const

@@ -34,7 +34,8 @@
       "update-account": {
         "userNotModified": "Une erreur est survenu lors de la modification de vos informations.",
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
-        "usernameSameAsPrevious": "Vous n'avez pas modifier votre nom d'utilisateur."
+        "userInfosSameAsPrevious": "Vous n'avez modifier aucune informations.",
+        "linkAlreadyExist": "Ce lien existe déjà."
       }
     },
     "reactivate-account": {
