@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import type { Toast, ToasterToast } from "@instamint/ui-kit"
 
 import type { AuthServices, UsersServices } from "@/types"
 
@@ -27,8 +28,9 @@ export type ActionsContextType = {
   language: string
   changeLanguage: (newLanguage: string) => Promise<void>
   redirect: (link: string, delay?: number) => void
-  error: Error | string | null
-  setError: (error: Error | string | null, duration?: number) => void
-  success: string | null
-  setSuccess: (success: string | null, duration?: number) => void
+  toast: ({ ...props }: Toast) => {
+    id: string
+    dismiss: () => void
+    update: (props: ToasterToast) => void
+  }
 }

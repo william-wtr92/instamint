@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/24/outline"
 
 import {
-  Toast,
   ToastClose,
   ToastDescription,
   ToastProvider,
@@ -13,6 +12,7 @@ import {
   ToastViewport,
 } from "../../.."
 import { useToast } from "./useToast"
+import { Toast } from "../../components/Toast"
 
 export const Toaster = () => {
   const { toasts } = useToast()

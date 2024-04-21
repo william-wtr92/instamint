@@ -1,4 +1,6 @@
 import React from "react"
+import { poppins } from "@instamint/ui-kit"
+
 import Navbar from "./Navbar"
 import Header from "./Header"
 
@@ -11,9 +13,7 @@ const BaseLayout = (props: Props) => {
 
   return (
     <div
-      className={
-        "xs:flex-row flex h-screen w-screen flex-col-reverse duration-300"
-      }
+      className={`xs:flex-row flex h-screen w-screen flex-col-reverse duration-300 ${poppins.className}`}
     >
       <Navbar />
 

@@ -3,18 +3,22 @@
   "auth": {
     "login": "Instamint - Connexion",
     "register": "Instamint - Inscription",
-     "email": {
+    "email": {
       "confirmation": "Instamint - Confirmation de l'adresse e-mail"
     }
   },
   "profile": {
     "settings": {
-      "general": "Instamint - Paramètres"
+      "general": "Instamint - Paramètres du compte",
+      "edit": "Instamint - Modification du profil",
+      "security": "Instamint - Sécurité & confidentialité",
+      "notifications": "Instamint - Paramètres des notifications" 
     }
   },
   "users": {
     "reactivate-account": "Instamint - Réactivation de compte",
     "reset-password": "Instamint - Réinitialisation de mot de passe",
     "reset-password-confirm": "Instamint - Confirmation de réinitialisation de mot de passe"
-  }
+  },
+  "about": "Instamint - À propos d'Instamint"
 }
