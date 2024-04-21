@@ -64,6 +64,26 @@
       "placeholder": "Confirm your new password",
       "error": "New passwords do not match"
     },
-    "success": "Your password has been modified, you`ll be disconnected."
+    "success": "Your password has been modified, you`ll be disconnected.",
+    "submit": "confirm"
+  },
+  "modify-email" : {
+    "triggerLabel": "Change email",
+    "title": "Are you sure you want to change your email?",
+    "mail": {
+      "label": "Email",
+      "placeholder": "Enter your email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter a new password"
+    },
+    "newMail": {
+      "label": "New Email",
+      "placeholder": "Enter your new email",
+      "error": "New email must be different."
+    },
+    "success": "Your email has been modified, Look out for an email to verify your it.",
+    "submit": "confirm"
   }
 }

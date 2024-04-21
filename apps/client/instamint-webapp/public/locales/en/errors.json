@@ -39,10 +39,19 @@
       "modify-password": {
         "userNotFound": "Session expired. Please log in again.",
         "passwordAlreadyModify": "you have already changed your password in the last 24 hours.",
-        "passwordSameAsPrevious": "Your new passwords must be different from the old",
+        "passwordSameAsPrevious": "Your new passwords must be different from the old.",
         "passwordsMustMatch": "Passwords must match.",
         "userNotModified": "An error has occurred while modifying your information.",
         "invalidPassword": "Invalid old password."
+      },
+      "modify-email": {
+        "userNotFound": "Session expired. Please log in again.",
+        "emailAlreadyModify": "you have already changed your email in the last 24 hours.",
+        "invalidPassword" : "Invalid password.",
+        "invalidEmail": "Invalid email.",
+        "emailSameAsPrevious": "Your new email must be different from the old.",
+        "emailAlreadyUse": "This email is already use for an account.",
+        "userNotModified": "An error has occurred while modifying your information."
       }
     },
     "reactivate-account": {

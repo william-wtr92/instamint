@@ -43,6 +43,15 @@
         "passwordsMustMatch": "Les mots de passe doivent correspondre.",
         "userNotModified": "Une erreur est survenue lors de la modification de vos informations.",
         "invalidPassword": "Ancien mot de passe incorrect."
+      },
+      "modify-email": {
+        "userNotFound": "Session expirée, reconnectez-vous.",
+        "emailAlreadyModify": "Vous avez déjà changé votre mail dans les 24 dernières heures.",
+        "invalidPassword" :"Mot de passe incorrect.",
+        "invalidEmail": "Email incorrect.",
+        "emailSameAsPrevious": "Votre nouveau mail doit être différent de l'ancien.",
+        "emailAlreadyUse": "Cet email est déjà utilisé pour un compte.",
+        "userNotModified":"Une erreur est survenue lors de la modification de vos informations."
       }
     },
     "reactivate-account": {
