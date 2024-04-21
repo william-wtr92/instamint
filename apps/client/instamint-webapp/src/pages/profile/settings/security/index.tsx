@@ -8,6 +8,7 @@ import {
   type ModifyPassword,
   type DeleteAccount,
 } from "@instamint/shared-types"
+import { Button } from "@instamint/ui-kit"
 
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
@@ -16,7 +17,6 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
 import { routes } from "@/web/routes"
-import { Button } from "@instamint/ui-kit"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
