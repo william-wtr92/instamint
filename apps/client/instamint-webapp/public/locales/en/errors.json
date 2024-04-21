@@ -36,6 +36,14 @@
         "usernameAlreadyExist": "This username already exist.",
         "userInfosSameAsPrevious": "You have not changed any informations.",
         "linkAlreadyExist": "This link already exist."
+      },
+      "modify-password": {
+        "userNotFound": "Session expired. Please log in again.",
+        "passwordAlreadyModify": "you have already changed your password in the last 24 hours.",
+        "passwordSameAsPrevious": "Your new passwords must be different from the old",
+        "passwordsMustMatch": "Passwords must match.",
+        "userNotModified": "An error has occurred while modifying your information.",
+        "invalidPassword": "Invalid old password."
       }
     },
     "reactivate-account": {

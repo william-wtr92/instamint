@@ -11,6 +11,7 @@ import confirmResetPasswordService from "@/web/services/users/reset/confirmReset
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import deleteAccountService from "@/web/services/users/account/deleteAccountService"
 import reactivateAccountService from "@/web/services/users/account/reactivateAccountService"
+import modifyPasswordService from "@/web/services/users/account/modifyPasswordService"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -28,6 +29,7 @@ export const prepareServices: PrepareServicesContext = (context) => {
         updateUserInfos: updateUserInfosService(context),
         deleteAccount: deleteAccountService(context),
         reactivateAccount: reactivateAccountService(context),
+        modifyPassword: modifyPasswordService(context),
       },
     },
   }
