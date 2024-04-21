@@ -45,7 +45,7 @@ const UserInfo = () => {
                 <span>{user.username}</span>
                 <span className="truncate">{user.email}</span>
               </div>
-              <Link href={routes.client.profile.settings}>
+              <Link href={routes.client.profile.settings.base}>
                 <Cog6ToothIcon className="w-6" />
               </Link>
             </div>

@@ -1,6 +1,7 @@
 {
   "home": "Accueil",
   "search": "Recherche",
+  "profile": "Profil",
     "select-lang": {
     "label": "Changez la langue",
     "options": {
@@ -8,6 +9,11 @@
       "fr": "Français"
     }
   },
+  "settingsNavbarTitle": "Paramètres du compte",
+  "accountInformation": "Informations du compte",
+  "security": "Sécurité et confidentialité",
+  "notifications": "Notifications",
+  "about": "À propos d'Instamint",
   "cta": {
     "button-sign-out": "Déconnexion",
     "label-sign-out": "Êtes-vous sûr ?",

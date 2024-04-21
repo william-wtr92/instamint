@@ -80,9 +80,20 @@ module.exports = {
             transform: "rotate(0deg)",
           },
         },
+        slideInFromLeft: {
+          "0%": {
+            transform: "translateX(-100%)",
+            opacity: 0,
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: 1,
+          },
+        },
       },
       animation: {
         shake: "shake 0.5s ease-in-out",
+        slideInFromLeft: "slideInFromLeft 0.6s ease-in-out",
       },
     },
     colors: {

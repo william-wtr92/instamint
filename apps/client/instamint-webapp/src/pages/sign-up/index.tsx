@@ -48,7 +48,7 @@ const SignUpPage = () => {
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
@@ -91,15 +91,21 @@ const SignUpPage = () => {
       const [err] = await signUp(values)
 
       if (err) {
-        setError(t(`errors:auth.${err.message}`))
+        toast({
+          variant: "error",
+          description: t(`errors:auth.${err.message}`),
+        })
 
         return
       }
 
-      setSuccess(t("sign-up:success"))
+      toast({
+        variant: "success",
+        description: t("sign-up:success"),
+      })
       redirect(routes.client.signIn, 3000)
     },
-    [redirect, setError, setSuccess, signUp, t]
+    [redirect, signUp, t, toast]
   )
 
   const handleRedirect = useCallback(() => {
@@ -301,14 +307,6 @@ const SignUpPage = () => {
                 {t("sign-up:cta.redirect.link")}
               </p>
             </div>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>

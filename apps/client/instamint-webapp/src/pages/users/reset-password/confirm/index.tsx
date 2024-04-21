@@ -63,7 +63,7 @@ const ConfirmResetPasswordPage = (
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
@@ -109,20 +109,30 @@ const ConfirmResetPasswordPage = (
         const [err] = await confirmResetPassword(confirmResetPasswordValues)
 
         if (err) {
-          setError(t(`errors:users.reset.${err.message}`))
+          toast({
+            variant: "error",
+            description: t(`errors:users.reset.${err.message}`),
+          })
 
           return
         }
 
-        setSuccess(t("reset-password:confirm.success"))
+        toast({
+          variant: "success",
+          description: t("reset-password:confirm.success"),
+        })
+
         redirect(routes.client.signIn, 3000)
       } else {
-        setError(t(`reset-password:confirm.errorNoToken`))
+        toast({
+          variant: "error",
+          description: t("errors:users.reset.errorNoToken"),
+        })
       }
 
       redirect(routes.client.signIn, 6000)
     },
-    [validation, redirect, setError, setSuccess, confirmResetPassword, t]
+    [validation, redirect, confirmResetPassword, t, toast]
   )
 
   const disabled = form.formState.isValid && checkPassword
@@ -237,14 +247,6 @@ const ConfirmResetPasswordPage = (
             >
               {t("reset-password:confirm.cta.submit")}
             </Button>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>

@@ -7,10 +7,10 @@ import {
   useCallback,
 } from "react"
 import { useTranslation } from "next-i18next"
+import { useToast } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
 
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
-import { useShowTemp } from "@/web/hooks/customs/useShowTemp"
-import { useRouter } from "next/router"
 
 const ActionsContext = createContext<ActionsContextType | undefined>(undefined)
 
@@ -19,6 +19,8 @@ export const ActionsProvider: FC<
 > = ({ children }) => {
   const router = useRouter()
   const { i18n } = useTranslation()
+  const { toast } = useToast()
+
   const [language, setLanguage] = useState<string>("en")
   const changeLanguage = useCallback(
     async (newLanguage: string) => {
@@ -27,9 +29,6 @@ export const ActionsProvider: FC<
     },
     [i18n]
   )
-
-  const [error, setError] = useShowTemp<Error | string | null>(null, 6000)
-  const [success, setSuccess] = useShowTemp<string | null>(null, 3000)
 
   const redirect = useCallback(
     (link: string, delay = 3000) => {
@@ -46,10 +45,7 @@ export const ActionsProvider: FC<
     language,
     changeLanguage,
     redirect,
-    error,
-    setError,
-    success,
-    setSuccess,
+    toast,
   }
 
   return (

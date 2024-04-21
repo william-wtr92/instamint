@@ -9,12 +9,16 @@
   },
   "profile": {
     "settings": {
-      "general": "Instamint - Settings "
+      "general": "Instamint - Account settings",
+      "edit": "Instamint - Edit your profile",
+      "security": "Instamint - Security & privacy",
+      "notifications": "Instamint - Notifications settings"
     }
   },
   "users": {
     "reactivate-account": "Instamint - Reactivate account",
     "reset-password": "Instamint - Reset password",
     "reset-password-confirm": "Instamint - Reset password confirmation"
-  }
+  },
+  "about": "Instamint - About Instamint"
 }

@@ -45,7 +45,7 @@ const SignInPage = () => {
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -67,15 +67,21 @@ const SignInPage = () => {
       const [err] = await signIn(values)
 
       if (err) {
-        setError(t(`errors:auth.${err.message}`))
+        toast({
+          variant: "error",
+          description: t(`errors:auth.${err.message}`),
+        })
 
         return
       }
 
-      setSuccess(t("sign-in:success"))
+      toast({
+        variant: "success",
+        description: t("sign-in:success"),
+      })
       redirect(routes.client.home, 3000)
     },
-    [redirect, setError, setSuccess, signIn, t]
+    [redirect, signIn, t, toast]
   )
 
   const handleRedirect = useCallback(
@@ -193,14 +199,6 @@ const SignInPage = () => {
                 </p>
               </div>
             </div>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>

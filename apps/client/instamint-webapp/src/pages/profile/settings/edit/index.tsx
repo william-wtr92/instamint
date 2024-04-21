@@ -1,6 +1,7 @@
-import { type ReactElement } from "react"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import type { ReactElement } from "react"
+import React from "react"
 
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
@@ -12,23 +13,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
         ...getTranslationBaseImports(),
-        "profile-settings",
+        "profile-settings-edit",
       ])),
     },
   }
 }
 
-const SettingsPage = () => {
-  return (
-    <div className="animate-slideInFromLeft z-10 flex justify-start gap-4 border border-red-500 p-4">
-      <div className="flex flex-grow flex-col gap-5 border border-blue-500 p-5"></div>
-    </div>
-  )
+const ProfileSettingsEditPage = () => {
+  return <div className="animate-slideInFromLeft z-10 bg-red-500 p-8"></div>
 }
-SettingsPage.title = "profile.settings.general"
+ProfileSettingsEditPage.title = "profile.settings.edit"
 
-SettingsPage.getLayout = (page: ReactElement) => {
+ProfileSettingsEditPage.getLayout = (page: ReactElement) => {
   return <SettingsLayout>{page}</SettingsLayout>
 }
 
-export default SettingsPage
+export default ProfileSettingsEditPage
