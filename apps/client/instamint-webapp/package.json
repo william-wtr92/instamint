@@ -1,6 +1,6 @@
 {
   "name": "@instamint/webapp-client",
-  "version": "1.0.0",
+  "version": "24.04",
   "private": true,
   "scripts": {
     "dev": "next dev",
