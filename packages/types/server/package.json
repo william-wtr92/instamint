@@ -1,0 +1,19 @@
+{
+  "name": "@instamint/server-types",
+  "version": "1.0.0",
+  "description": "Typing for Instamint Server - HonoJS",
+  "main": "index.ts",
+  "keywords": [
+    "types"
+  ],
+  "author": "William - @william-wtr92",
+  "license": "ISC",
+  "peerDependencies": {
+    "hono": "^4.1.7",
+    "ioredis": "^5.3.2",
+    "knex": "^3.1.0"
+  },
+  "devDependencies": {
+    "@instamint/tsconfig-server": "workspace:^"
+  }
+}

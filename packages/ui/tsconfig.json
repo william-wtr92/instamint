@@ -1,0 +1,10 @@
+{
+  "extends": "@instamint/tsconfig-client/tsconfig.client.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["."],
+  "exclude": ["dist", "build","node_modules"]
+}

@@ -1,0 +1,42 @@
+{
+  "username": {
+    "label": "Username",
+    "placeholder": "Please enter your username",
+    "description": "This is your public display name.",
+    "error": "The username must be: min 3 characters, max 20 characters and no special characters."
+  },
+  "email": {
+    "label": "Email",
+    "placeholder": "Please enter your email address",
+    "error": "Please enter a valid email address."
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Please enter your password",
+    "criteria": {
+      "uppercase": "An uppercase letter",
+      "lowercase": "A lowercase letter",
+      "number": "A number",
+      "specialCharacter": "A special character",
+      "length": "8 characters long"
+    }
+  },
+  "confirmPassword": {
+    "label": "Confirm Password",
+    "placeholder": "Confirm your password",
+    "error": "Passwords do not match."
+  },
+  "terms": {
+    "label": "Terms & Conditions",
+    "description": "I agree to the terms and conditions.",
+    "error": "You must agree to the terms and conditions."
+  },
+  "success": "User created successfully. Look out for an email to verify your account.",
+  "cta": {
+    "submit": "Create Account",
+    "redirect": {
+      "description": "Already have an account?",
+      "link": "Login"
+    }
+  }
+}

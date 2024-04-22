@@ -1,0 +1,18 @@
+meta {
+  name: SignIn - auth
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3001/auth/sign-in
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "email": "user@gmail.com", 
+      "password": "Password1234!"
+  }
+}

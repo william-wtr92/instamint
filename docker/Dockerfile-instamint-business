@@ -1,0 +1,50 @@
+FROM node:20-slim AS base
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+ENV PNPM_POSTINSTALL_ENABLE=false
+
+RUN corepack enable
+
+
+FROM base AS dev
+
+WORKDIR /usr/src/app
+
+COPY scripts/postinstall.sh ./scripts/postinstall.sh
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/ ./packages/
+COPY apps/server/instamint-business/ ./apps/server/instamint-business/
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+WORKDIR /usr/src/app/apps/server/instamint-business
+RUN pnpm install --frozen-lockfile
+RUN chmod +x ./scripts/entrypoint.sh ./scripts/wait-for-it.sh
+
+EXPOSE 3001
+
+ENTRYPOINT ["./scripts/entrypoint.sh"]
+
+
+FROM base AS prod
+
+WORKDIR /usr/src/app
+
+COPY scripts/postinstall.sh ./scripts/postinstall.sh
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/eslint/server/ ./packages/eslint/server/
+COPY packages/tsconfig/server/ ./packages/tsconfig/server/
+COPY packages/types/server/ ./packages/types/server/
+COPY packages/types/shared/ ./packages/types/shared/
+COPY apps/server/instamint-business/ ./apps/server/instamint-business/
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+WORKDIR /usr/src/app/apps/server/instamint-business
+RUN pnpm install --prod
+RUN chmod +x ./scripts/entrypoint.sh ./scripts/wait-for-it.sh
+
+EXPOSE 3001
+
+ENTRYPOINT ["./scripts/entrypoint.sh"]

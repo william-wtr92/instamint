@@ -1,0 +1,26 @@
+{
+  "title": "",
+  "update-account": {
+    "p1": "If you'd like to change your details, such as your username, your bio or your link, this is the place to do it!",
+    "username": {
+      "label": "Username",
+      "placeholder": "Please enter your username",
+      "error": "The username must be: min 3 characters, max 20 characters and no special characters."
+    }, 
+    "bio": {
+      "label": "Bio",
+      "placeholder": "Please enter your bio",
+      "error": "The bio must be: max 150 characters."
+    },
+    "link": {
+      "label": "Link",
+      "placeholder": "Please enter your link",
+      "error": "The link must be: an url"
+    },
+    "picture": {
+      "label": "Profile picture"
+    },
+    "success":  "Your account has been modified!",
+    "save": "Save"
+  }
+}

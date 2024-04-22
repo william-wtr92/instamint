@@ -1,0 +1,17 @@
+meta {
+  name: Resend Email Validation - auth
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3001/auth/resend-email-validation
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "test@gmail.com"
+  }
+}

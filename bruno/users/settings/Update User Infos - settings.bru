@@ -1,0 +1,18 @@
+meta {
+  name: Update User Infos - settings
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3001/users/update-account
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "email": "user@gmail.com", 
+      "username": "users"
+  }
+}
