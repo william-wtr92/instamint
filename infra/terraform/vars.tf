@@ -128,14 +128,14 @@ variable "sendgrid_template_account_confirm_reactivation" {
     description = "SendGrid template ID for confirm account reactivation."
 }
 
-variable "sendgrid_template_modify_password" {
+variable "sendgrid_template_account_modify_password" {
     type        = string
-    description = "SendGrid template ID for modify password."
+    description = "SendGrid template ID for account modify password."
 }
 
-variable "sendgrid_template_modify_email" {
+variable "sendgrid_template_account_modify_email" {
     type        = string
-    description = "SendGrid template ID for modify email."
+    description = "SendGrid template ID for account modify email."
 }
 
 variable "security_cron_jwt_secret" {
