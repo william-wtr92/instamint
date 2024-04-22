@@ -14,12 +14,10 @@
 
 - Install [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) | [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) | [TFLint](https://github.com/terraform-linters/tflint)
   🚀
-- Create a service principal with `Contributor`:
-  - `az ad sp create-for-rbac --name instamint-prod-sp --role Contributor --scopes /subscriptions/{subscription_id}`
-- Create a service principal with `AcrPush`:
-  - `az ad sp create-for-rbac --name instamint-prod-acr-sp --scopes /subscriptions/{subscriptionId}/resourceGroups/{ressourceGroup}/providers/Microsoft.ContainerRegistry/registries/{acrName} --role acrpush`
-- Create a role assignment with `AcrPull`:
-  - `az role assignment create --assignee {appId} --scope /subscriptions/{subscriptionId}/resourceGroups/{ressourceGroup}/providers/Microsoft.ContainerRegistry/registries/{acrName} --role AcrPull`
+- Login to Azure CLI:
+  - `az login`
+  - `az account set --subscription {subscription_id}`
+  - `az account show`
 - Create ssh key pair:
   - `ssh-keygen -t rsa -b 2048 -f ~/.ssh/azure`
 - Setup `secrets.tfvars` with the following content:
@@ -38,7 +36,7 @@
   grafana_password    = "" # Grafana password
 
   # Azure
-  client_object_id    = "" # Azure client object id > az ad sp show --id <appId> --query objectId
+  client_object_id    = "" # Azure client object id > az ad sp list --display-name instamint-prod-sp
 
   # ACR
   acr_username        = "" # Azure Container Registry username
