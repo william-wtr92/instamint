@@ -14,6 +14,14 @@
 export AZURE_SUBSCRIPTION_ID="YOUR_AZURE_SUBSCRIPTION_ID"
 ```
 
+## 🧩 Dependencies
+
+- Install the required dependencies:
+
+```bash
+ansible-galaxy collection install community.docker --force
+```
+
 ## ⚙️ Linter
 
 - To lint the ansible code, run the following command:

@@ -43,6 +43,8 @@
         '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-CONFIRM-ACCOUNT-DELETION'] }}'
         '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-REACTIVATION'] }}'
         '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-ACCOUNT-CONFIRM-REACTIVATION'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-MODIFY-PASSWORD'] }}'
+        '{{ terraform_outputs['secrets']['value']['SENDGRID-TEMPLATE-MODIFY-EMAIL'] }}'
         '{{ terraform_outputs['secrets']['value']['FILES-SERVICE-URL'] }}'
       register: script_output
       changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"

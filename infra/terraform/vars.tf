@@ -133,6 +133,11 @@ variable "sendgrid_template_modify_password" {
     description = "SendGrid template ID for modify password."
 }
 
+variable "sendgrid_template_modify_email" {
+    type        = string
+    description = "SendGrid template ID for modify email."
+}
+
 variable "security_cron_jwt_secret" {
     type        = string
     description = "Cron job JWT secret for deleting accounts."

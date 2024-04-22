@@ -281,6 +281,7 @@ locals {
     "SENDGRID-TEMPLATE-ACCOUNT-REACTIVATION"         = var.sendgrid_template_account_reactivation
     "SENDGRID-TEMPLATE-ACCOUNT-CONFIRM-REACTIVATION" = var.sendgrid_template_account_confirm_reactivation
     "SENDGRID-TEMPLATE-MODIFY-PASSWORD"              = var.sendgrid_template_modify_password
+    "SENDGRID-TEMPLATE-MODIFY-EMAIL"                 = var.sendgrid_template_modify_email
     "SECURITY-CRON-JWT-SECRET"                       = var.security_cron_jwt_secret
     "SECURITY-CRON-JWT-SCOPE-DELETE-ACCOUNT"         = var.security_cron_jwt_scope_delete_account
     "BUSINESS-SERVICE-URL"                           = module.loadbalancer.business_ip // TODO: Change to Load Balancer IP on business VM

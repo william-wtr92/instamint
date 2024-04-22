@@ -1,14 +1,22 @@
 - name: Base Installation for VMs
   import_playbook: "./vms/launch.yml"
 
+- name: Traefik Setup on Webapp VM
+  import_playbook: "./vms/www/webapp.yml"
 - name: Deploy Docker containers on Webapp VM
   import_playbook: "./vms/webapp.yml"
 
-- name: Deploy Docker containers on Cron VM
+- name: Traefik Setup on Business VM
+  import_playbook: "./vms/www/business.yml"
+- name: Deploy Docker containers on Business VM
   import_playbook: "./vms/business.yml"
 
+- name: Traefik Setup on Files VM
+  import_playbook: "./vms/www/files.yml"
 - name: Deploy Docker containers on Files VM
   import_playbook: "./vms/files.yml"
 
+- name: Traefik Setup on Cron VM
+  import_playbook: "./vms/www/cron.yml"
 - name: Deploy Docker containers on Cron VM
   import_playbook: "./vms/cron.yml"

@@ -22,7 +22,11 @@ LOG_FILE="$HOME/docker-deployment.log"
     echo "Running the Docker container..."
     if sudo docker run -d \
       --name "${CONTAINER_NAME}" \
+      --network web \
       -p "${CONTAINER_PORT}":"${CONTAINER_PORT}" \
+      --label "traefik.enable=true" \
+      --label "traefik.http.routers.files.rule=HostRegexp(\`{host:.+}\`)" \
+      --label "traefik.http.services.files.loadbalancer.server.port=${CONTAINER_PORT}" \
       instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
         echo "Docker container started successfully."
     fi

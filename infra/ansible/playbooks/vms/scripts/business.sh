@@ -31,7 +31,9 @@ SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD=${25}
 SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION=${26}
 SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION=${27}
 SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION=${28}
-FILES_SERVICE_URL=${29}
+SENDGRID_TEMPLATE_MODIFY_PASSWORD=${29}
+SENDGRID_TEMPLATE_MODIFY_EMAIL=${30}
+FILES_SERVICE_URL=${31}
 
 LOG_FILE="$HOME/docker-deployment.log"
 
@@ -47,6 +49,7 @@ LOG_FILE="$HOME/docker-deployment.log"
     echo "Running the Docker container..."
     if sudo docker run -d \
       --name "${CONTAINER_NAME}" \
+      --network web \
       -p "${CONTAINER_PORT}":"${CONTAINER_PORT}" \
       -e DB_CONNECTION_HOST="${DB_CONNECTION_HOST}" \
       -e DB_CONNECTION_USER="${DB_CONNECTION_USER}" \
@@ -71,7 +74,12 @@ LOG_FILE="$HOME/docker-deployment.log"
       -e SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION="${SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION}" \
       -e SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION="${SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION}" \
       -e SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION="${SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION}" \
+      -e SENDGRID_TEMPLATE_MODIFY_PASSWORD="${SENDGRID_TEMPLATE_MODIFY_PASSWORD}" \
+      -e SENDGRID_TEMPLATE_MODIFY_EMAIL="${SENDGRID_TEMPLATE_MODIFY_EMAIL}" \
       -e FILES_SERVICE_URL="${FILES_SERVICE_URL}" \
+      --label "traefik.enable=true" \
+      --label "traefik.http.routers.business.rule=HostRegexp(\`{host:.+}\`)" \
+      --label "traefik.http.services.business.loadbalancer.server.port=${CONTAINER_PORT}" \
       instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
         echo "Docker container started successfully."
     fi

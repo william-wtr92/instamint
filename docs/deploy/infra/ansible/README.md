@@ -31,6 +31,14 @@ the [official documentation](https://docs.ansible.com/ansible/latest/installatio
   - `playbooks`: Playbooks directory to define the tasks.
     - `scripts`: Scripts directory to define the scripts used in playbooks.
 
+## 🧩 Dependencies
+
+- Install the required dependencies:
+
+```bash
+ansible-galaxy collection install community.docker --force
+```
+
 ## ⚙️ Linter
 
 To lint the ansible code, run the following command:

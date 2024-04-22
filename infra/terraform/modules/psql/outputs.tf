@@ -1,5 +1,5 @@
 output "psql_server_name" {
-    value       = azurerm_postgresql_server.postgres.name
+    value       = azurerm_postgresql_server.postgres.fqdn
     description = "The name of the PostgreSQL server."
 }
 
