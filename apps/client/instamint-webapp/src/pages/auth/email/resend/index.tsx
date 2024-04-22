@@ -48,7 +48,7 @@ const ResendEmailValidationPage = () => {
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const form = useForm<UserResendEmail>({
     resolver: zodResolver(userResendEmailValidationSchema),
@@ -63,15 +63,21 @@ const ResendEmailValidationPage = () => {
       const [err] = await resendEmailValidation(values)
 
       if (err) {
-        setError(t(`errors:auth.${err.message}`))
+        toast({
+          variant: "error",
+          description: t(`errors:auth.${err.message}`),
+        })
 
         return
       }
 
-      setSuccess(t("email:resend.successfully"))
+      toast({
+        variant: "success",
+        description: t("email:resend.successfully"),
+      })
       redirect(routes.client.home, 3000)
     },
-    [redirect, setError, setSuccess, resendEmailValidation, t]
+    [redirect, resendEmailValidation, t, toast]
   )
 
   return (
@@ -118,14 +124,6 @@ const ResendEmailValidationPage = () => {
             >
               {t("email:resend.email.cta.submit")}
             </Button>
-            {success ? (
-              <p className="text-accent-600 text-center text-sm">{success}</p>
-            ) : null}
-            {error ? (
-              <p className="text-md text-error-primary text-center">
-                {error instanceof Error ? error.message : error}
-              </p>
-            ) : null}
           </form>
         </Form>
       </div>

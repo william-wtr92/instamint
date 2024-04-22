@@ -46,26 +46,35 @@ const EmailValidationPage = (
     },
   } = useAppContext()
 
-  const { redirect, error, setError, success, setSuccess } = useActionsContext()
+  const { redirect, toast } = useActionsContext()
 
   const onSubmit = useCallback(async () => {
     if (validation != null) {
       const [err] = await emailValidation({ validation })
 
       if (err) {
-        setError(t(`errors:auth.${err.message}`))
+        toast({
+          variant: "error",
+          description: t(`errors:auth.${err.message}`),
+        })
 
         return
       }
 
-      setSuccess(t("email:validation.success"))
+      toast({
+        variant: "success",
+        description: t("email:validation.success"),
+      })
       redirect(routes.client.home, 3000)
     } else {
-      setError(t("email:validation.errorNoToken"))
+      toast({
+        variant: "error",
+        description: t("email:validation.errorNoToken"),
+      })
     }
 
     redirect(routes.client.home, 6000)
-  }, [redirect, setError, setSuccess, emailValidation, validation, t])
+  }, [redirect, emailValidation, validation, t, toast])
 
   return (
     <>
@@ -81,14 +90,6 @@ const EmailValidationPage = (
             <EnvelopeIcon className="h-5 w-5" />
             <span>{t("email:validation.cta.button")}</span>
           </Button>
-          {success ? (
-            <p className="text-accent-600 text-center text-sm">{success}</p>
-          ) : null}
-          {error ? (
-            <p className="text-md text-error-primary text-center">
-              {error instanceof Error ? error.message : error}
-            </p>
-          ) : null}
         </div>
       </div>
     </>

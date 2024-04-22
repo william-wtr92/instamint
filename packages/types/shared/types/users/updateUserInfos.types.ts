@@ -10,15 +10,11 @@ export const userInfosSchema = z.object({
     .min(3, "The user name must be at least 3 characters long !")
     .max(20, "The user name must be at most 20 characters long !")
     .optional(),
-  email: z.string().email({
-    message: "Invalid email address",
-  }),
   bio: z
     .string()
     .max(50, "The bio must be at most 50 characters long !")
-    .optional()
-    .nullable(),
-  link: z.string().url().optional().nullable(),
+    .optional(),
+  link: z.string().url().optional(),
 })
 
 export type UserInfosSchema = z.infer<typeof userInfosSchema>

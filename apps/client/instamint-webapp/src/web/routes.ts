@@ -11,13 +11,19 @@ const clientRoutes = {
     },
   },
   profile: {
-    settings: "/profile/settings",
+    settings: {
+      base: "/profile/settings",
+      edit: "/profile/settings/edit",
+      security: "/profile/settings/security",
+      notifications: "/profile/settings/notifications",
+    },
   },
   users: {
     resetPasswordRequest: "/users/reset-password",
     resetPasswordConfirm: "/users/reset-password/confirm",
   },
-} as const
+  about: "/about",
+}
 
 const apiRoutes = {
   auth: {
@@ -34,6 +40,8 @@ const apiRoutes = {
     updateUserInfos: "/users/update-account",
     deleteAccount: "/users/delete-account",
     reactivateAccount: "/users/reactivate-account",
+    modifyPassword: "/users/modify-password",
+    modifyEmail: "/users/modify-email",
   },
 } as const
 
