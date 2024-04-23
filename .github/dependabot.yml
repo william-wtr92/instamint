@@ -9,3 +9,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    target-branch: "staging"
+    open-pull-requests-limit: 5
+    assignees:
+      - "william-wtr92"
+    reviewers:
+      - "vaillanh"
+      - "Scalpal"
+      - "Thomas-De-Oliveira"

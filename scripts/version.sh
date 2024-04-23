@@ -4,6 +4,7 @@ BASE_VERSION=$(date "+%y.%m")
 
 checkIfExistVersion() {
     local version="$1"
+    # shellcheck disable=SC2044
     for file in $(find ./apps -name 'package.json' -not -path '*/.next/*'); do
         if grep -q "\"version\": \"$version\"" "$file"; then
             return 0 
@@ -14,13 +15,14 @@ checkIfExistVersion() {
 
 findHighestSuffix() {
     local highest=-1 
+    # shellcheck disable=SC2044
     for file in $(find ./apps -name 'package.json' -not -path '*/.next/*'); do
         while IFS= read -r line; do
             version=$(echo "$line" | grep -o "\"version\": \"$BASE_VERSION\([.][0-9]\+\)\?\"" | grep -o "$BASE_VERSION\([.][0-9]\+\)\?")
             if [[ $version =~ ^$BASE_VERSION\.([0-9]+)$ ]]; then
                 suffix=${BASH_REMATCH[1]}
                 ((suffix > highest)) && highest=$suffix
-            elif [[ $version == $BASE_VERSION ]]; then
+            elif [[ $version == "$BASE_VERSION" ]]; then
                 highest=0 
             fi
         done < "$file"
@@ -48,3 +50,5 @@ find ./apps -name 'package.json' -not -path '*/.next/*' | while read file; do
         echo "⚠️ File: $file does not exist !"
     fi
 done
+
+echo "🚀 New version: $NEXT_VERSION"
