@@ -1,13 +1,7 @@
 ## Resource Group ##
 
-resource "azurerm_resource_group" "rg" {
-  name     = "instamint"
-  location = "France Central"
-
-  tags = {
-    service     = "rg"
-    environment = "prod"
-  }
+module "resource_group" {
+  source = "./modules/rg"
 }
 
 ## Random ID ##
@@ -20,16 +14,16 @@ module "random_id" {
 
 module "network" {
   source              = "./modules/network"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
 }
 
 ## Bastion ##
 
 module "bastion" {
   source              = "./modules/bastion"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   vnet_name           = module.network.vnet_name
 }
 
@@ -37,8 +31,8 @@ module "bastion" {
 
 module "security" {
   source              = "./modules/security"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   subnet_id           = module.network.subnet_id
   ssh_allowed_ip      = var.ssh_allowed_ip
 }
@@ -47,8 +41,8 @@ module "security" {
 
 module "loadbalancer" {
   source                   = "./modules/lb"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = module.resource_group.location
+  resource_group_name      = module.resource_group.name
   /*probe_id                 = module.probe.http_probe_id*/
 
   webapp_nic   =  module.webapp_network_interface.vm_nic_id
@@ -69,32 +63,32 @@ module "probe" {
 module "webapp_network_interface" {
   source              = "./modules/nic"
   vm_name             = "instamint-webapp-vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   subnet_id           = module.network.subnet_id
 }
 
 module "business_network_interface" {
   source              = "./modules/nic"
   vm_name             = "instamint-business-vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   subnet_id           = module.network.subnet_id
 }
 
 module "files_network_interface" {
   source              = "./modules/nic"
   vm_name             = "instamint-files-vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   subnet_id           = module.network.subnet_id
 }
 
 module "cron_network_interface" {
   source              = "./modules/nic"
   vm_name             = "instamint-cron-vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   subnet_id           = module.network.subnet_id
 }
 
@@ -102,16 +96,16 @@ module "cron_network_interface" {
 
 module "av_set" {
   source              = "./modules/av"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
 }
 
 ## PostgreSQL ##
 
 module "postgres" {
   source              = "./modules/psql"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   psql_login          = var.psql_login
   psql_password       = var.psql_password
   database_name       = var.database_name
@@ -121,16 +115,16 @@ module "postgres" {
 
 module "redis" {
   source              = "./modules/redis"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
 }
 
 ## Registry ##
 
 module "registry" {
   source              = "./modules/registry"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
 }
 
 ## Webapp Client ##
@@ -138,8 +132,8 @@ module "registry" {
 module "webapp_vm" {
   source                = "./modules/vm"
   vm_name               = "instamint-webapp-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
+  resource_group_name   = module.resource_group.name
+  location              = module.resource_group.location
   network_interface_ids = [module.webapp_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
@@ -163,8 +157,8 @@ module "webapp_vm" {
 module "business_vm" {
   source                = "./modules/vm"
   vm_name               = "instamint-business-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
+  resource_group_name   = module.resource_group.name
+  location              = module.resource_group.location
   network_interface_ids = [module.business_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
@@ -189,8 +183,8 @@ module "business_vm" {
 module "files_vm" {
   source                = "./modules/vm"
   vm_name               = "instamint-files-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
+  resource_group_name   = module.resource_group.name
+  location              = module.resource_group.location
   network_interface_ids = [module.files_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
@@ -214,8 +208,8 @@ module "files_vm" {
 module "cron_vm" {
   source                = "./modules/vm"
   vm_name               = "instamint-cron-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
+  resource_group_name   = module.resource_group.name
+  location              = module.resource_group.location
   network_interface_ids = [module.cron_network_interface.vm_nic_id]
   admin_username        = var.admin_username
   admin_password        = var.admin_password
@@ -238,15 +232,15 @@ module "cron_vm" {
 
 module "analytics" {
   source              = "./modules/analytics"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   client_object_id    = var.client_object_id
 }
 
 module "grafana" {
   source              = "./modules/grafana"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   admin_password      = var.grafana_password
 }
 
@@ -254,8 +248,8 @@ module "grafana" {
 
 module "blob_storage" {
   source               = "./modules/blob"
-  location             = azurerm_resource_group.rg.location
-  resource_group_name  = azurerm_resource_group.rg.name
+  location             = module.resource_group.location
+  resource_group_name  = module.resource_group.name
   storage_account_name = "instamintstorage${module.random_id.unique_id}"
   container_name       = "instamint-container"
 }
@@ -297,8 +291,8 @@ locals {
 
 module "key_vault" {
   source              = "./modules/kv"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
   key_vault_name      = "instamint-kv-${module.random_id.unique_id}"
   secrets             = local.secrets
 }
