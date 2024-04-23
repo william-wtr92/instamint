@@ -108,12 +108,12 @@ jobs:
 
       - name: 📥 Install UI Kit dependencies
         run: |
-          cd apps/packages/ui
+          cd packages/ui
           pnpm install
 
       - name: ✏️ Lint UI Kit project
         run: |
-          cd apps/packages/ui
+          cd packages/ui
           pnpm run lint
 
   format:
