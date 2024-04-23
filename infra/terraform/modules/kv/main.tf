@@ -6,6 +6,11 @@ resource "azurerm_key_vault" "key_vault" {
   resource_group_name         = var.resource_group_name
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = "standard"
+
+  tags = {
+    Service     = "key-vault"
+    Environment = "Prod"
+  }
 }
 
 resource "azurerm_key_vault_access_policy" "key_vault_access_policy" {
@@ -68,7 +73,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret" {
   key_vault_id = azurerm_key_vault.key_vault.id
 
   tags = {
-    Service     = "key-vault"
+    Service     = "key-vault-secrets"
     Environment = "Prod"
   }
 }
