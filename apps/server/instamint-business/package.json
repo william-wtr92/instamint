@@ -45,6 +45,7 @@
     "@instamint/tsconfig-server": "workspace:^",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
+    "@types/qrcode": "^1.5.5",
     "cross-env": "^7.0.3",
     "esbuild-jest": "^0.5.0",
     "tsx": "^3.14.0",

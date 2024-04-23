@@ -69,3 +69,27 @@ export const twoFactorAuthAlreadyEnabled = {
   errorCode: "twoFactorAuthAlreadyEnabled",
   message: "Two factor authentication already enabled.",
 } as const
+
+export const twoFactorAuthActivated = {
+  message: "Two factor authentication successfully activated.",
+} as const
+
+export const errorDuringHotpGeneration = {
+  errorCode: "errorDuringHotpGeneration",
+  message: "Error during HOTP generation.",
+} as const
+
+export const errorSecretOrCodeNotProvided = {
+  errorCode: "errorSecretOrCodeNotProvided",
+  message: "Secret or code not provided.",
+} as const
+
+export const errorHotpCounterNotAvailable = {
+  errorCode: "errorHotpCounterNotAvailable",
+  message: "HOTP counter not available.",
+} as const
+
+export const errorTwoFactorAuthCodeNotValid = {
+  errorCode: "errorTwoFactorAuthCodeNotValid",
+  message: "Two factor authentication code not valid.",
+} as const

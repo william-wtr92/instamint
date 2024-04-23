@@ -25,6 +25,8 @@ export const up = async (knex: Knex): Promise<void> => {
     table.boolean("active").notNullable().defaultTo(true)
     table.timestamp("deactivationDate").defaultTo(null)
     table.timestamp("deletionDate").defaultTo(null)
+    table.boolean("twoFactorAuthentication").notNullable().defaultTo(false)
+    table.text("secret").nullable()
     table.integer("roleId").references("id").inTable("roles").defaultTo(2)
   })
 }

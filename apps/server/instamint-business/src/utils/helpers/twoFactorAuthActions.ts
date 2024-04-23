@@ -19,6 +19,14 @@ export const verifyTotpCode = (secret: string, code: string) => {
   return totp.verify({ secret, token: code })
 }
 
+export const generateTotpURI = (
+  secret: string,
+  email: string,
+  issuer: string
+) => {
+  return totp.keyuri(email, issuer, secret)
+}
+
 // For HOTP
 export const generateHotpCode = (secret: string, counter: number) => {
   return hotp.generate(secret, counter)
@@ -38,4 +46,13 @@ export const verifyHotpCode = (
   counter: number
 ) => {
   return hotp.verify({ token, secret, counter })
+}
+
+export const generateHotpURI = (
+  secret: string,
+  email: string,
+  issuer: string,
+  counter: number
+) => {
+  return hotp.keyuri(email, issuer, secret, counter)
 }

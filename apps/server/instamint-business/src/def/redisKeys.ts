@@ -3,6 +3,7 @@ export const redisKeys = {
     emailToken: (token: string) => `auth:email_token:${token}`,
     emailValidation: (email: string) => `auth:email_validation:${email}`,
     authSession: (email: string) => `auth:session:${email}`,
+    hotpCounter: "auth:hotp_counter",
   },
   users: {
     resetPassword: (email: string) => `users:reset_password:${email}`,
