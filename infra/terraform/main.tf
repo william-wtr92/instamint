@@ -3,6 +3,11 @@
 resource "azurerm_resource_group" "rg" {
   name     = "instamint"
   location = "France Central"
+
+  tags = {
+    service     = "rg"
+    environment = "prod"
+  }
 }
 
 ## Random ID ##

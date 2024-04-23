@@ -4,4 +4,9 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = var.resource_group_name
   sku                 = "Standard"
   admin_enabled       = false
+
+  tags = {
+    service     = "registry"
+    environment = "prod"
+  }
 }

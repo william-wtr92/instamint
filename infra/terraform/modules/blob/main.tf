@@ -8,6 +8,11 @@ resource "azurerm_storage_account" "storage_account" {
   blob_properties {
     last_access_time_enabled = true
   }
+
+  tags = {
+    service     = "blob"
+    environment = "prod"
+  }
 }
 
 resource "azurerm_storage_container" "storage_container" {

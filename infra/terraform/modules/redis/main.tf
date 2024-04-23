@@ -6,6 +6,11 @@ resource "azurerm_redis_cache" "redis" {
   family              = "C"
   sku_name            = "Basic"
   enable_non_ssl_port = false
+
+  tags = {
+    service     = "redis"
+    environment = "prod"
+  }
 }
 
 data "azurerm_redis_cache" "redis" {

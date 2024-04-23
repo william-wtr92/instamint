@@ -4,6 +4,11 @@ resource "azurerm_log_analytics_workspace" "instamint-log-analytics" {
   resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"
   retention_in_days   = 30
+
+  tags = {
+    service     = "analytics"
+    environment = "prod"
+  }
 }
 
 resource "azurerm_role_assignment" "instamint-log-analytics-reader" {

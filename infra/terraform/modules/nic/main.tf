@@ -8,4 +8,9 @@ resource "azurerm_network_interface" "vm_nic" {
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
+
+  tags = {
+    service     = "nic"
+    environment = "prod"
+  }
 }

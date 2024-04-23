@@ -23,4 +23,9 @@ resource "azurerm_container_group" "grafana" {
 
   ip_address_type = "Public"
   dns_name_label  = "instamint-grafana-${var.location}"
+
+  tags = {
+    service     = "grafana"
+    environment = "prod"
+  }
 }

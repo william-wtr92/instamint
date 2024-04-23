@@ -2,6 +2,11 @@ resource "azurerm_network_security_group" "nsg" {
   name                = "instamint-nsg"
   location            = var.location
   resource_group_name = var.resource_group_name
+
+  tags = {
+    service     = "nsg"
+    environment = "prod"
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_association" {
@@ -145,4 +150,9 @@ resource "azurerm_network_security_rule" "outbound_https" {
   name                = "instamint-ddos"
   location            = var.location
   resource_group_name = var.resource_group_name
+
+  tags = {
+    service     = "anti-ddos"
+    environment = "prod"
+  }
 }*/

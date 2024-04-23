@@ -30,4 +30,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   identity {
     type = "SystemAssigned"
   }
+
+  tags = {
+    service     = "vm"
+    environment = "prod"
+  }
 }
