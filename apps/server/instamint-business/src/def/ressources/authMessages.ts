@@ -63,3 +63,9 @@ export const signedInUser = {
 export const signOutSuccess = {
   message: "Sign out success.",
 } as const
+
+/* Two Factor Auth Messages  */
+export const twoFactorAuthAlreadyEnabled = {
+  errorCode: "twoFactorAuthAlreadyEnabled",
+  message: "Two factor authentication already enabled.",
+} as const

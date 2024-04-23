@@ -1,0 +1,22 @@
+{
+  "title": "Securité du compte",
+  "2fa-title": "Authentification à deux facteurs",
+  "2fa-description": "L'activation de l'authentification à deux facteurs renforce la sécurité en ajoutant une couche supplémentaire de protection, réduisant ainsi le risque d'accès non autorisé à vos comptes.",
+  "cta": {
+    "activate-2fa": "Activer l'authentification à deux facteurs"
+  },
+  "modal": {
+    "stepOne": {
+      "title": "Génération du code à usage unique",
+      "description": "Lors de cette étape, un code à usage unique est généré et sa valeur est dans le code QR. Ce code est utilisé en combinaison avec vos identifiants habituels pour accéder à votre compte, ajoutant ainsi une couche supplémentaire de sécurité."
+    },
+    "stepTwo": {
+      "title": "Utilisez le code généré sur l'application d'authentification",
+      "description": "Dans cette étape, saisissez ou scannez le code à usage unique généré dans l'application d'authentification que vous avez choisie. Ce code est temporaire et sera valide pour une seule utilisation."
+    },
+    "cta": {
+      "generate2faOtp": "Générer le code 2FA",
+      "activate-2fa": "Activer la double authentification"
+    }
+  }
+}

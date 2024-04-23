@@ -1,0 +1,22 @@
+{
+  "title": "Account security",
+  "2fa-title": "Two-factor authentication",
+  "2fa-description": "Enabling two-factor authentication enhances security by adding an extra layer of protection, reducing the risk of unauthorized access to your accounts.",
+  "cta": {
+    "activate-2fa": "Activate two-factor authentication"
+  },
+  "modal": {
+    "stepOne": {
+      "title": "Generating the one-time code",
+      "description": "At this stage, a one-time code is generated, the value of which is contained in the QR code. This code is used in combination with your usual login details to access your account, adding an extra layer of security."
+    },
+    "stepTwo": {
+      "title": "Use the code generated on the authentication application",
+      "description": "In this step, enter the single-use code generated in the authentication application you have chosen. This code is temporary and will be valid for one use only."
+    },
+    "cta": {
+      "generate2faOtp": "Generate 2FA code",
+      "activate-2fa": "Enable two-factor authentication"
+    }
+  }
+}

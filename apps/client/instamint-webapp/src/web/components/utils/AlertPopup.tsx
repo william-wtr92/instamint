@@ -51,6 +51,7 @@ export const AlertPopup = (props: Props) => {
           <AlertDialogTitle>{t(titleKey)}</AlertDialogTitle>
           <AlertDialogDescription>{t(descriptionKey)}</AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
           <AlertDialogCancel
             onClick={onClose}
@@ -58,6 +59,7 @@ export const AlertPopup = (props: Props) => {
           >
             {t(cancelKey)}
           </AlertDialogCancel>
+
           <AlertDialogAction onClick={onConfirm} className={buttonClass}>
             {t(confirmKey)}
           </AlertDialogAction>
