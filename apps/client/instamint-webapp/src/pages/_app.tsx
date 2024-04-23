@@ -1,17 +1,17 @@
+import { Toaster } from "@instamint/ui-kit"
+import type { GetServerSideProps } from "next"
 import Head from "next/head"
 import "@/styles/globals.css"
 import { appWithTranslation, useTranslation } from "next-i18next"
-import { SWRConfig } from "swr"
-import type { ReactNode } from "react"
-import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { Toaster } from "@instamint/ui-kit"
+import type { ReactNode } from "react"
+import { SWRConfig } from "swr"
 
+import type { AppPropsWithLayout } from "@/types"
 import BaseLayout from "@/web/components/layout/BaseLayout"
+import { ActionsProvider } from "@/web/contexts/useActionsContext"
 import { AppContextProvider } from "@/web/contexts/useAppContext"
 import { globalFetcher } from "@/web/utils/api/globalFetcher"
-import { ActionsProvider } from "@/web/contexts/useActionsContext"
-import type { AppPropsWithLayout } from "@/types"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context

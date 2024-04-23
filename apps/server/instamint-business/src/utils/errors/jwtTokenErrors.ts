@@ -1,7 +1,7 @@
 import { SC } from "@instamint/server-types"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { globalsMessages } from "@/def"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 
 export const jwtTokenErrors = <T>(err: T) => {
   if (err instanceof Error && err.name === "JwtTokenSignatureMismatched") {

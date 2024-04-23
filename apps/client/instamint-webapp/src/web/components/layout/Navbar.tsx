@@ -1,13 +1,13 @@
-import Image from "next/image"
-import React from "react"
 import {
   HomeIcon,
   MagnifyingGlassIcon,
   UserIcon,
 } from "@heroicons/react/24/outline"
 import { Text } from "@instamint/ui-kit"
-import { useTranslation } from "next-i18next"
+import Image from "next/image"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
+import React from "react"
 
 const buttons = [
   {

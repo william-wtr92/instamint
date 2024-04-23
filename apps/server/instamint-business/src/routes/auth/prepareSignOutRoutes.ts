@@ -1,6 +1,7 @@
-import { type Context, Hono } from "hono"
 import { type ApiRoutes, SC } from "@instamint/server-types"
+import { type Context, Hono } from "hono"
 
+import type UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   contextsKeys,
@@ -8,11 +9,10 @@ import {
   globalsMessages,
   redisKeys,
 } from "@/def"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import type UserModel from "@/db/models/UserModel"
-import { auth } from "@/middlewares/auth"
-import { delCookie } from "@/utils/helpers/cookiesActions"
 import { signOutSuccess } from "@/def/ressources/authMessages"
+import { auth } from "@/middlewares/auth"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { delCookie } from "@/utils/helpers/cookiesActions"
 
 const prepareSignOutRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signOut = new Hono()

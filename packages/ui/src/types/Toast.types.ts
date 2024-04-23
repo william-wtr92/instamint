@@ -13,7 +13,7 @@ export type State = {
   toasts: ToasterToast[]
 }
 
-//eslint-disable-next-line no-redeclare
+// eslint-disable-next-line no-redeclare
 export type Toast = Omit<ToasterToast, "id">
 
 export const actionTypes = {

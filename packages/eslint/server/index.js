@@ -1,8 +1,14 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "jest"],
-  extends: ["eslint:recommended", "prettier", "plugin:jest/recommended"],
+  plugins: ["@typescript-eslint", "jest", "import"],
+  extends: [
+    "eslint:recommended",
+    "prettier",
+    "plugin:jest/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+  ],
   env: {
     es2022: true,
     node: true,
@@ -12,6 +18,21 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "import/no-unresolved": "off",
+    "import/order": [
+      "error",
+      {
+        groups: [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"],
+        ],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+        "newlines-between": "always",
+      },
+    ],
     "@typescript-eslint/array-type": ["error", { default: "array" }],
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],

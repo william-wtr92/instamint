@@ -6,9 +6,11 @@ module.exports = {
     "next",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["react", "react-hooks", "@typescript-eslint"],
+  plugins: ["react", "react-hooks", "@typescript-eslint", "import"],
   env: {
     browser: true,
     es2022: true,
@@ -19,6 +21,21 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "import/no-unresolved": "error",
+    "import/order": [
+      "error",
+      {
+        groups: [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"],
+        ],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+        "newlines-between": "always",
+      },
+    ],
     "@typescript-eslint/array-type": ["error", { default: "array" }],
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],

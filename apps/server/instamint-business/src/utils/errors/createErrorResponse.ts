@@ -1,5 +1,5 @@
-import { HTTPException } from "hono/http-exception"
 import type { StatusCode, SimpleHeaders } from "@instamint/server-types"
+import { HTTPException } from "hono/http-exception"
 
 export const createErrorResponse = (
   error: object,
