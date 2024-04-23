@@ -11,6 +11,11 @@ resource "azurerm_public_ip" "bastion_ip" {
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
+
+  tags = {
+    Service     = "bastion-public-ip"
+    Environment = "Prod"
+  }
 }
 
 resource "azurerm_bastion_host" "bastion_host" {
