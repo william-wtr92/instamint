@@ -1,12 +1,10 @@
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import type { ReactElement } from "react"
-import React, { useEffect } from "react"
+import React, { type ReactElement, useEffect, useCallback } from "react"
 import { useTranslation } from "next-i18next"
 import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback } from "react"
 import {
   Form,
   FormField,

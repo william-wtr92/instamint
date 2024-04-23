@@ -10,7 +10,7 @@ export const createErrorResponse = (
 
   responseHeaders.set("Content-Type", "application/json")
 
-  let responseBody = JSON.stringify(error)
+  const responseBody = JSON.stringify(error)
 
   const errorResponse = new Response(responseBody, {
     status: statusCode,

@@ -1,7 +1,6 @@
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import type { ReactElement } from "react"
-import React from "react"
+import React, { type ReactElement } from "react"
 
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"

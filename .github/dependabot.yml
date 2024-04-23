@@ -17,3 +17,6 @@ updates:
       - "vaillanh"
       - "Scalpal"
       - "Thomas-De-Oliveira"
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-patch" ]

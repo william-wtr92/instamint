@@ -11,7 +11,7 @@ export const mailBuilder = async <T extends MailData>(
   expiration?: number,
   withToken?: boolean
 ) => {
-  let dynamicData: T & DynamicData = {
+  const dynamicData: T & DynamicData = {
     ...data,
     baseUrl: appConfig.sendgrid.baseUrl,
   }

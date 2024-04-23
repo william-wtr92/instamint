@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { ReactElement } from "react"
-import { useCallback } from "react"
+import { type ReactElement, useCallback } from "react"
 import { useTranslation } from "next-i18next"
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"

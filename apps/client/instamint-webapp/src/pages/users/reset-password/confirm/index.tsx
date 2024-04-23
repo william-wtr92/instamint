@@ -1,14 +1,13 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import type { ReactElement } from "react"
-import { useCallback, useEffect, useState } from "react"
+import { type ReactElement, useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { ConfirmResetPasswordValidation } from "@instamint/shared-types"
 import {
   confirmResetPasswordSchema,
   type ConfirmResetPassword,
+  type ConfirmResetPasswordValidation,
 } from "@instamint/shared-types"
 import {
   Button,
