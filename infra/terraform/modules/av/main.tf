@@ -6,6 +6,6 @@ resource "azurerm_availability_set" "instamint_av_set" {
 
   tags = {
     Service     = "av-set"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

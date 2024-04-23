@@ -4,6 +4,6 @@ resource "azurerm_resource_group" "rg" {
 
   tags = {
     Service     = "rg"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

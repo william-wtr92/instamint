@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "lb_public_ip" {
 
   tags = {
     Service     = "lb-public-ip"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 
@@ -26,7 +26,7 @@ resource "azurerm_lb" "lb_public" {
 
   tags = {
     Service     = "lb-public"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

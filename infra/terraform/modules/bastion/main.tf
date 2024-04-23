@@ -29,6 +29,6 @@ resource "azurerm_bastion_host" "bastion_host" {
 
   tags = {
     Service     = "bastion"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

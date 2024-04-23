@@ -7,7 +7,7 @@ resource "azurerm_log_analytics_workspace" "instamint-log-analytics" {
 
   tags = {
     Service     = "analytics"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

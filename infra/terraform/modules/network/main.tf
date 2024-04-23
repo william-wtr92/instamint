@@ -6,7 +6,7 @@ resource "azurerm_virtual_network" "vnet" {
 
   tags = {
     Service     = "vnet"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

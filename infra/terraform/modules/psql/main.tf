@@ -15,7 +15,7 @@ resource "azurerm_postgresql_server" "postgres" {
 
   tags = {
     Service     = "postgres"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

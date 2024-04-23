@@ -5,7 +5,7 @@ resource "azurerm_network_security_group" "nsg" {
 
   tags = {
     Service     = "nsg"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

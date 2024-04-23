@@ -7,6 +7,6 @@ resource "azurerm_container_registry" "acr" {
 
   tags = {
     Service     = "registry"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

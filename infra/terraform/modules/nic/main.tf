@@ -11,6 +11,6 @@ resource "azurerm_network_interface" "vm_nic" {
 
   tags = {
     Service     = "nic"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

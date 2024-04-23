@@ -9,7 +9,7 @@ resource "azurerm_redis_cache" "redis" {
 
   tags = {
     Service     = "redis"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 

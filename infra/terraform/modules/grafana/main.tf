@@ -26,6 +26,6 @@ resource "azurerm_container_group" "grafana" {
 
   tags = {
     Service     = "grafana"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }

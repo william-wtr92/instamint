@@ -11,7 +11,7 @@ resource "azurerm_storage_account" "storage_account" {
 
   tags = {
     Service     = "blob"
-    Environment = "prod"
+    Environment = "Prod"
   }
 }
 
