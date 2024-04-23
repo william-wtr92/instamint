@@ -8,8 +8,8 @@ resource "azurerm_redis_cache" "redis" {
   enable_non_ssl_port = false
 
   tags = {
-    service     = "redis"
-    environment = "prod"
+    Service     = "redis"
+    Environment = "prod"
   }
 }
 

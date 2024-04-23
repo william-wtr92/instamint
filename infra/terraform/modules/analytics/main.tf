@@ -6,8 +6,8 @@ resource "azurerm_log_analytics_workspace" "instamint-log-analytics" {
   retention_in_days   = 30
 
   tags = {
-    service     = "analytics"
-    environment = "prod"
+    Service     = "analytics"
+    Environment = "prod"
   }
 }
 

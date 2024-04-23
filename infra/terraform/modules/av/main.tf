@@ -5,7 +5,7 @@ resource "azurerm_availability_set" "instamint_av_set" {
   managed             = true
 
   tags = {
-    service     = "av-set"
-    environment = "prod"
+    Service     = "av-set"
+    Environment = "prod"
   }
 }

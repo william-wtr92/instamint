@@ -68,7 +68,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret" {
   key_vault_id = azurerm_key_vault.key_vault.id
 
   tags = {
-    service     = "key-vault"
-    environment = "prod"
+    Service     = "key-vault"
+    Environment = "prod"
   }
 }

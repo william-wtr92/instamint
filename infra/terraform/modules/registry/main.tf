@@ -6,7 +6,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = false
 
   tags = {
-    service     = "registry"
-    environment = "prod"
+    Service     = "registry"
+    Environment = "prod"
   }
 }

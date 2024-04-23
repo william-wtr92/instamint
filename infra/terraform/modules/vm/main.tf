@@ -32,7 +32,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   tags = {
-    service     = "vm"
-    environment = "prod"
+    Service     = "vm"
+    Environment = "prod"
   }
 }

@@ -10,8 +10,8 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   tags = {
-    service     = "blob"
-    environment = "prod"
+    Service     = "blob"
+    Environment = "prod"
   }
 }
 

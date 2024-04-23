@@ -4,8 +4,8 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
 
   tags = {
-    service     = "nsg"
-    environment = "prod"
+    Service     = "nsg"
+    Environment = "prod"
   }
 }
 
@@ -152,7 +152,7 @@ resource "azurerm_network_security_rule" "outbound_https" {
   resource_group_name = var.resource_group_name
 
   tags = {
-    service     = "anti-ddos"
-    environment = "prod"
+    Service     = "anti-ddos"
+    Environment = "prod"
   }
 }*/

@@ -14,8 +14,8 @@ resource "azurerm_postgresql_server" "postgres" {
   ssl_minimal_tls_version_enforced = "TLS1_2"
 
   tags = {
-    service     = "postgres"
-    environment = "prod"
+    Service     = "postgres"
+    Environment = "prod"
   }
 }
 
