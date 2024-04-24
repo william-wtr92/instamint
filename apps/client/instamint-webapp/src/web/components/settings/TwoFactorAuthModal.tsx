@@ -10,6 +10,9 @@ import {
 } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import Loader from "../utils/Loader"
+import Image from "next/image"
+import useAppContext from "@/web/contexts/useAppContext"
+import useActionsContext from "@/web/contexts/useActionsContext"
 
 type Props = {
   isOpen: boolean
@@ -19,17 +22,44 @@ const TwoFactorAuthModal = (props: Props) => {
   const { isOpen } = props
   const { t } = useTranslation("profile-settings-security")
 
+  const {
+    services: {
+      auth: { twoFactorCodeGeneration },
+    },
+  } = useAppContext()
+
+  const { toast } = useActionsContext()
+
   const [step, setStep] = useState<number>(1)
   const [showLoader, setShowLoader] = useState<boolean>(false)
+  const [qrCode, setQrCode] = useState<string>("")
+  const [twoFactorCode, setTwoFactorCode] = useState<string>("")
 
-  const handleNextStep = useCallback(() => {
+  const handleNextStep = useCallback(async () => {
+    setStep(step + 1)
+  }, [step])
+
+  const generateCode = useCallback(async () => {
     setShowLoader(true)
 
-    setTimeout(() => {
-      setShowLoader(false)
-      setStep(step + 1)
-    }, 3000)
-  }, [step])
+    const [err, data] = await twoFactorCodeGeneration()
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:auth.${err.message}`),
+      })
+    } else {
+      if (!data) {
+        return
+      }
+
+      setQrCode(data.qrCode)
+      handleNextStep()
+    }
+
+    setShowLoader(false)
+  }, [twoFactorCodeGeneration, toast, t, handleNextStep])
 
   return (
     <AlertDialog open={isOpen}>
@@ -49,7 +79,7 @@ const TwoFactorAuthModal = (props: Props) => {
               {showLoader ? (
                 <Loader />
               ) : (
-                <AlertDialogAction onClick={handleNextStep}>
+                <AlertDialogAction onClick={generateCode}>
                   {t("modal.cta.generate2faOtp")}
                 </AlertDialogAction>
               )}
@@ -60,10 +90,22 @@ const TwoFactorAuthModal = (props: Props) => {
         {step === 2 && (
           <>
             <AlertDialogHeader>
-              <AlertDialogTitle>{t("modal.stepTwo.title")}</AlertDialogTitle>
+              <AlertDialogTitle className="text-center">
+                {t("modal.stepTwo.title")}
+              </AlertDialogTitle>
             </AlertDialogHeader>
 
-            <AlertDialogFooter>
+            <AlertDialogFooter className="sm:justify-center">
+              {" "}
+              <Image
+                src={qrCode}
+                width={200}
+                height={200}
+                alt="Two-factor authentication QR code"
+              />
+            </AlertDialogFooter>
+
+            <AlertDialogFooter className="sm:justify-center">
               {showLoader ? (
                 <Loader />
               ) : (

@@ -33,6 +33,10 @@ const apiRoutes = {
     signIn: "/auth/sign-in",
     signOut: "/auth/sign-out",
     me: "/auth/me",
+    twoFactorAuth: {
+      generate: "auth/2fa/generate",
+      activate: "auth/2fa/activate",
+    },
   },
   users: {
     requestResetPassword: "/users/reset-password/request",

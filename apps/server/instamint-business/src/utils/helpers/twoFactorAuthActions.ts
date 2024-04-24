@@ -4,43 +4,64 @@ export const generateSecret = () => {
   return authenticator.generateSecret()
 }
 
+// For Authenticator
+export const generateAuthenticatorToken = (secret: string) => {
+  return authenticator.generate(secret)
+}
+
+export const checkAuthenticatorToken = (token: string, secret: string) => {
+  return authenticator.check(token, secret)
+}
+
+export const verifyAuthenticatorToken = (token: string, secret: string) => {
+  return authenticator.verify({ token, secret })
+}
+
+export const generateAuthenticatorURI = (
+  email: string,
+  issuer: string,
+  secret: string
+) => {
+  return authenticator.keyuri(email, issuer, secret)
+}
+
 // For TOTP
-export const generateTotpCode = (secret: string) => {
+export const generateTotpToken = (secret: string) => {
   return totp.generate(secret)
 }
 
 // This only checks if the code is valid
-export const checkTotpCode = (secret: string, code: string) => {
-  return totp.check(code, secret)
+export const checkTotpToken = (token: string, secret: string) => {
+  return totp.check(token, secret)
 }
 
 // This one's better, it checks if the code is valid and also checks if the code is within the time window (TOTP)
-export const verifyTotpCode = (secret: string, code: string) => {
-  return totp.verify({ secret, token: code })
+export const verifyTotpToken = (token: string, secret: string) => {
+  return totp.verify({ token, secret })
 }
 
 export const generateTotpURI = (
-  secret: string,
   email: string,
-  issuer: string
+  issuer: string,
+  secret: string
 ) => {
   return totp.keyuri(email, issuer, secret)
 }
 
 // For HOTP
-export const generateHotpCode = (secret: string, counter: number) => {
+export const generateHotpToken = (secret: string, counter: number) => {
   return hotp.generate(secret, counter)
 }
 
-export const checkHotpCode = (
+export const checkHotpToken = (
+  token: string,
   secret: string,
-  code: string,
   counter: number
 ) => {
-  return hotp.check(code, secret, counter)
+  return hotp.check(token, secret, counter)
 }
 
-export const verifyHotpCode = (
+export const verifyHotpToken = (
   token: string,
   secret: string,
   counter: number
@@ -49,9 +70,9 @@ export const verifyHotpCode = (
 }
 
 export const generateHotpURI = (
-  secret: string,
   email: string,
   issuer: string,
+  secret: string,
   counter: number
 ) => {
   return hotp.keyuri(email, issuer, secret, counter)

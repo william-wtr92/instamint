@@ -11,10 +11,10 @@ import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { auth } from "@/middlewares/auth"
 import UserModel from "@/db/models/UserModel"
 import {
-  generateHotpCode,
-  generateHotpURI,
+  generateAuthenticatorToken,
+  generateAuthenticatorURI,
   generateSecret,
-  verifyHotpCode,
+  verifyHotpToken,
 } from "@/utils/helpers/twoFactorAuthActions"
 import { generateQRCode } from "@/utils/helpers/qrCodeActions"
 import { zValidator } from "@hono/zod-validator"
@@ -75,13 +75,12 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
           })
           .where({ email: user.email })
 
-        const token = generateHotpCode(secret, hotpCounter)
+        const token = generateAuthenticatorToken(secret)
 
-        const hotpUri = generateHotpURI(
-          user.email,
-          "Instamint",
+        const hotpUri = generateAuthenticatorURI(
           secret,
-          hotpCounter
+          user.email,
+          "Instamint"
         )
         const qrCode = await generateQRCode(hotpUri)
 
@@ -147,7 +146,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const secret = user.secret
-      const verified = verifyHotpCode(secret, code, hotpCounter)
+      const verified = verifyHotpToken(secret, code, hotpCounter)
 
       if (!verified) {
         return c.json(

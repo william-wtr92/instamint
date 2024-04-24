@@ -6,11 +6,13 @@ import resendEmailValidationService from "@/web/services/auth/resendEmailValidat
 import signInService from "@/web/services/auth/signInService"
 import signOutService from "@/web/services/auth/signOutService"
 
-import requestResetPasswordService from "@/web/services/users/reset/requestResetPasswordService"
-import confirmResetPasswordService from "@/web/services/users/reset/confirmResetPasswordService"
+import requestResetPasswordService from "@/web/services/users/account/reset/requestResetPasswordService"
+import confirmResetPasswordService from "@/web/services/users/account/reset/confirmResetPasswordService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import deleteAccountService from "@/web/services/users/account/deleteAccountService"
 import reactivateAccountService from "@/web/services/users/account/reactivateAccountService"
+import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
+import twoFactorActivationService from "@/web/services/users/account/twoFactorActivationService"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -21,6 +23,8 @@ export const prepareServices: PrepareServicesContext = (context) => {
         resendEmailValidation: resendEmailValidationService(context),
         signIn: signInService(context),
         signOut: signOutService(context),
+        twoFactorCodeGeneration: twoFactorCodeGenerationService(context),
+        twoFactorActivation: twoFactorActivationService(context),
       },
       users: {
         requestResetPassword: requestResetPasswordService(context),
