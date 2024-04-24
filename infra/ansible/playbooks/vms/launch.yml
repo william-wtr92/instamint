@@ -1,0 +1,15 @@
+- name: Install Docker on all VMs
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Transfer Docker install script
+      ansible.builtin.copy:
+        src: ./scripts/install.sh
+        dest: /home/{{ ansible_user }}/install.sh
+        mode: '0755'
+
+    - name: Execute Docker install script
+      ansible.builtin.command: bash /home/{{ ansible_user }}/install.sh
+      register: install_result
+      changed_when: "'Docker was successfully installed.' in install_result.stdout"

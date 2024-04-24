@@ -1,5 +1,3 @@
-import { useTranslation } from "next-i18next"
-import { cx } from "class-variance-authority"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@instamint/ui-kit"
+import { cx } from "class-variance-authority"
+import { useTranslation } from "next-i18next"
 
 type Props = {
   open: boolean

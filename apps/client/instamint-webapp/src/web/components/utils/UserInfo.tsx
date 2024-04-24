@@ -1,14 +1,14 @@
-import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
-import React, { useCallback, useState } from "react"
-import { useTranslation } from "next-i18next"
 import { Cog6ToothIcon } from "@heroicons/react/24/outline"
+import { Avatar, AvatarFallback, Button } from "@instamint/ui-kit"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
+import React, { useCallback, useState } from "react"
 
-import { ChangeLanguage } from "./ChangeLanguage"
 import { AlertPopup } from "./AlertPopup"
-import { useUser } from "@/web/hooks/auth/useUser"
+import { ChangeLanguage } from "./ChangeLanguage"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
+import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
 
 const UserInfo = () => {

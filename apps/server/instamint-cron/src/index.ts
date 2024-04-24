@@ -1,5 +1,5 @@
-import { redis } from "@/utils/redis/instance"
 import { globalsMessages } from "@/def"
+import { redis } from "@/utils/redis/instance"
 
 if (!redis) {
   throw new Error(globalsMessages.redisInstanceNotConnected.message)

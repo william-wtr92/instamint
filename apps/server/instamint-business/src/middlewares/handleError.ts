@@ -1,9 +1,9 @@
+import { SC } from "@instamint/server-types"
 import type { Context } from "hono"
 import { HTTPException } from "hono/http-exception"
-import { SC } from "@instamint/server-types"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { globalsMessages } from "@/def"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 
 export const handleError = async (e: Error, c: Context): Promise<Response> => {
   let errorMessage = globalsMessages.unspecifiedErrorOccurred

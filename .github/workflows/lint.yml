@@ -106,6 +106,16 @@ jobs:
           cd apps/client/instamint-webapp
           pnpm run lint
 
+      - name: 📥 Install UI Kit dependencies
+        run: |
+          cd packages/ui
+          pnpm install
+
+      - name: ✏️ Lint UI Kit project
+        run: |
+          cd packages/ui
+          pnpm run lint
+
   format:
     name: 🖋️ Prettier Format
     runs-on: ubuntu-latest

@@ -1,8 +1,8 @@
 import type { RequestResetPassword } from "@instamint/shared-types"
 
 import type { Services } from "@/types"
-import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import { routes } from "@/web/routes"
+import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
 const requestResetPasswordService: Services<RequestResetPassword> =
   ({ api }) =>

@@ -12,8 +12,8 @@
 - **feat(register): 🚀 users registration ([#3](https://github.com/william-wtr92/instamint/pull/3))**,
   by [@william-wtr92](https://github.com/william-wtr92)
   in ([#9cbaace](https://github.com/william-wtr92/instamint/commit/9cbaace5505772290692184d7632f64f094f76ff))
-- **feat(login): 🚀 users login / cookies & session management ([#4](https://github.com/william-wtr92/instamint/pull/4))
-  **, by [@william-wtr92](https://github.com/william-wtr92)
+- **feat(login): 🚀 users login / cookies & session management ([#4](https://github.com/william-wtr92/instamint/pull/4)),
+  by** [@william-wtr92](https://github.com/william-wtr92)
   in ([#88e1f0f](https://github.com/william-wtr92/instamint/commit/88e1f0f8a750b178d3eaaeab612f842c86cf6fe6))
 - **chore(reset): 🚀 users reset password ([#5](https://github.com/william-wtr92/instamint/pull/5))**,
   by [@william-wtr92](https://github.com/william-wtr92)

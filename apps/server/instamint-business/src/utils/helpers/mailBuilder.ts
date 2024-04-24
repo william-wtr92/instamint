@@ -1,9 +1,9 @@
 import sgMail from "@sendgrid/mail"
 
 import appConfig from "@/db/config/config"
-import { oneHour } from "@/utils/helpers/times"
 import type { DynamicData, MailBuild, MailData } from "@/types"
 import { signJwt } from "@/utils/helpers/jwtActions"
+import { oneHour } from "@/utils/helpers/times"
 
 export const mailBuilder = async <T extends MailData>(
   data: T,
@@ -11,7 +11,7 @@ export const mailBuilder = async <T extends MailData>(
   expiration?: number,
   withToken?: boolean
 ) => {
-  let dynamicData: T & DynamicData = {
+  const dynamicData: T & DynamicData = {
     ...data,
     baseUrl: appConfig.sendgrid.baseUrl,
   }
