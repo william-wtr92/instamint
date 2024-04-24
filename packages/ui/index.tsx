@@ -17,4 +17,4 @@ export * from "./src/components/DropDown"
 export * from "./src/components/Dialog"
 export * from "./src/components/Textarea"
 
-export type { ToasterToast, Toast } from "./src/types/Toast.types"
+export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"

@@ -1,7 +1,5 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import sgMail from "@sendgrid/mail"
 import {
   baseSignupSchema,
   type SignUp,
@@ -10,12 +8,10 @@ import {
   userResendEmailValidationSchema,
   type UserResendEmail,
 } from "@instamint/shared-types"
+import sgMail from "@sendgrid/mail"
+import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
-import { hashPassword } from "@/utils/helpers/hashPassword"
-import { sanitizeCreatedUser } from "@/utils/dto/sanitizeUsers"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { handleError } from "@/middlewares/handleError"
 import {
   authMessages,
   globalsMessages,
@@ -23,11 +19,15 @@ import {
   redisKeys,
   sgKeys,
 } from "@/def"
-import { now, oneHour, oneHourTTL, tenMinutesTTL } from "@/utils/helpers/times"
+import { handleError } from "@/middlewares/handleError"
 import type { InsertedUser } from "@/types"
+import { sanitizeCreatedUser } from "@/utils/dto/sanitizeUsers"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { mailBuilder } from "@/utils/helpers/mailBuilder"
+import { hashPassword } from "@/utils/helpers/hashPassword"
 import { decodeJwt } from "@/utils/helpers/jwtActions"
+import { mailBuilder } from "@/utils/helpers/mailBuilder"
+import { now, oneHour, oneHourTTL, tenMinutesTTL } from "@/utils/helpers/times"
 
 const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signUp = new Hono()

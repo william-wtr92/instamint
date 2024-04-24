@@ -1,7 +1,7 @@
 import knex from "knex"
 
-import appConfig from "../config/config"
 import { hashPassword } from "../../utils/helpers/hashPassword"
+import appConfig from "../config/config"
 import type UserModel from "../models/UserModel"
 
 const seed = async () => {

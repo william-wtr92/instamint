@@ -1,5 +1,3 @@
-import { useRouter } from "next/router"
-import { useCallback } from "react"
 import {
   Button,
   DropdownMenu,
@@ -10,7 +8,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
+import { useCallback } from "react"
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 

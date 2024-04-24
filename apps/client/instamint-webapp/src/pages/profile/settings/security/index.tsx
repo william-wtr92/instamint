@@ -1,24 +1,22 @@
-import { useCallback } from "react"
-import type { GetServerSideProps } from "next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useTranslation } from "next-i18next"
-import type { ReactElement } from "react"
-import React from "react"
 import {
   type ModifyPassword,
   type DeleteAccount,
   type ModifyEmail,
 } from "@instamint/shared-types"
 import { Button } from "@instamint/ui-kit"
+import type { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import React, { type ReactElement, useCallback } from "react"
 
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import SettingsLayout from "@/web/components/layout/SettingsLayout"
-import useAppContext from "@/web/contexts/useAppContext"
-import useActionsContext from "@/web/contexts/useActionsContext"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
-import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
 import { ModifyEmailForm } from "@/web/components/forms/ModifyEmail"
+import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
+import SettingsLayout from "@/web/components/layout/SettingsLayout"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context

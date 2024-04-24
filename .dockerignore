@@ -33,3 +33,5 @@ scripts/pre-push.sh
 scripts/release.sh
 scripts/setup-hooks.sh
 scripts/version.sh
+
+infra
