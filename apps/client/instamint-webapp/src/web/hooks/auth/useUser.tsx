@@ -1,7 +1,7 @@
 import useSWR, { type SWRConfiguration } from "swr"
 
-import { routes } from "@/web/routes"
 import type { ConnectedUser } from "@/types"
+import { routes } from "@/web/routes"
 
 export const useUser = () => {
   const config: SWRConfiguration = {

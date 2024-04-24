@@ -1,8 +1,8 @@
-import React from "react"
 import { poppins } from "@instamint/ui-kit"
+import React from "react"
 
-import Navbar from "./Navbar"
 import Header from "./Header"
+import Navbar from "./Navbar"
 
 type Props = {
   children: React.ReactNode

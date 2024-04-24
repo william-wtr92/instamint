@@ -2,10 +2,10 @@ import { scheduleJob } from "node-schedule"
 import { request } from "undici"
 
 import config from "@/config"
-import { redis } from "@/utils/redis/instance"
-import { now, scheduledTimes, tenMinutesTTL } from "@/utils/helpers/times"
 import { routes, redisKeys, jwtKeys } from "@/def"
 import { signJwt } from "@/utils/helpers/jwtActions"
+import { now, scheduledTimes, tenMinutesTTL } from "@/utils/helpers/times"
+import { redis } from "@/utils/redis/instance"
 
 export const deleteAccountsJob = scheduleJob(
   scheduledTimes.deleteAccountJob,
