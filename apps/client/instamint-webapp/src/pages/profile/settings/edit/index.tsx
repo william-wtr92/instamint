@@ -17,6 +17,11 @@ import {
   Input,
   Button,
   Textarea,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@instamint/ui-kit"
 
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
@@ -24,6 +29,7 @@ import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import { useUser } from "@/web/hooks/auth/useUser"
+import countries from "@/countries.json"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -33,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ...(await serverSideTranslations(locale ?? "en", [
         ...getTranslationBaseImports(),
         "profile-settings-edit",
+        "countries",
       ])),
     },
   }
@@ -79,6 +86,7 @@ const ProfileSettingsEditPage = () => {
       username: "",
       bio: "",
       link: "",
+      location: "",
     },
   })
 
@@ -87,9 +95,10 @@ const ProfileSettingsEditPage = () => {
   } = form
 
   useEffect(() => {
-    form.setValue("username", user?.username)
-    form.setValue("bio", user?.bio)
-    form.setValue("link", user?.link)
+    form.setValue("username", user?.username || "")
+    form.setValue("bio", user?.bio || "")
+    form.setValue("link", user?.link || "")
+    form.setValue("location", user?.location || "")
   }, [form, user])
 
   return (
@@ -194,8 +203,49 @@ const ProfileSettingsEditPage = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel className="relative left-1 font-bold">
+                      {t("profile-settings-edit:update-account.location.label")}
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="w-[250px]">
+                          <SelectValue
+                            placeholder={t(
+                              "profile-settings-edit:update-account.location.placeholder"
+                            )}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {countries.map((country, index) => (
+                          <SelectItem key={index} value={country.name}>
+                            {t(`countries:${country.name}`)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage
+                      className="text-error-primary relative left-2"
+                      useCustomError={true}
+                    >
+                      {errors.username ? (
+                        <span>
+                          {t(
+                            "profile-settings-edit:update-account.location.error"
+                          )}
+                        </span>
+                      ) : null}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
               <Button
-                className={`bg-accent-500 w-1/2 py-2.5 font-semibold text-white`}
+                className={`bg-accent-500 w-1/4 py-2.5 font-semibold text-white`}
                 type="submit"
               >
                 {t("profile-settings-edit:update-account.save")}

@@ -12,6 +12,7 @@ const updateUserInfoService: Services<UserInfosSchema> =
         username: data?.username,
         bio: data?.bio,
         link: data?.link,
+        location: data?.location,
       }
 
       const config = {

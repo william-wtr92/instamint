@@ -38,7 +38,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const requestBody = await c.req.json()
-      const { username, bio, link }: UserInfosSchema = requestBody
+      const { username, bio, link, location }: UserInfosSchema = requestBody
 
       const user = await UserModel.query().findOne({ email: contextUser.email })
 
@@ -49,7 +49,8 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
       if (
         user.username === username &&
         user.bio === bio &&
-        user.link === link
+        user.link === link &&
+        user.location === location
       ) {
         return c.json(
           usersMessages.userInfosSameAsPrevious,
@@ -82,6 +83,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
           ...(username ? { username } : {}),
           ...(bio ? { bio } : {}),
           ...(link ? { link } : {}),
+          ...(location ? { location } : {}),
         })
 
       if (!updatedUser) {
