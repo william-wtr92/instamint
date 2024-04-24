@@ -1,5 +1,5 @@
-import * as emailsMessages from "./ressources/emailsMessages"
 import * as authMessages from "./ressources/authMessages"
+import * as emailsMessages from "./ressources/emailsMessages"
 import * as globalsMessages from "./ressources/globalsMessages"
 import * as usersMessages from "./ressources/usersMessages"
 

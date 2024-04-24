@@ -11,6 +11,7 @@
 !**/terraform/.terraform.lock.hcl
 !**/terraform/modules
 !**/terraform/modules/**
+!**/terraform/*.png
 
 # node_modules
 node_modules/

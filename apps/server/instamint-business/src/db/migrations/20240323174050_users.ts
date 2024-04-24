@@ -6,7 +6,7 @@ export const up = async (knex: Knex): Promise<void> => {
       table.increments("id")
       table.text("right").notNullable()
     })
-    .then(function () {
+    .then(() => {
       return knex("roles").insert([{ right: "admin" }, { right: "minter" }])
     })
 

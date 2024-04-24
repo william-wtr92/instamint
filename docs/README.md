@@ -25,6 +25,8 @@
   - [🚀 Deploy](./deploy/README.md)
     - [⚙️ Release process](./deploy/release/README.md)
     - [🤖 Github Actions](./deploy/workflows/README.md)
+    - [💠 Terraform](./deploy/infra/terraform/README.md)
+    - [🧰 Ansible](./deploy/infra/ansible/README.md)
   - [📦 Docker](./docker/README.md)
   - [📚 Security](./security/README.md)
   - [📝 Utils](./utils/README.md)

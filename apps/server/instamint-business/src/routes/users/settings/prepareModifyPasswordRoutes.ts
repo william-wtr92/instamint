@@ -1,14 +1,14 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import { auth } from "@/middlewares/auth"
-import sgMail from "@sendgrid/mail"
 import {
   modifyPasswordSchema,
   type ModifyPassword,
 } from "@instamint/shared-types"
+import sgMail from "@sendgrid/mail"
+import { type Context, Hono } from "hono"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import appConfig from "@/db/config/config"
+import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   contextsKeys,
@@ -17,12 +17,12 @@ import {
   sgKeys,
   usersMessages,
 } from "@/def"
+import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { hashPassword } from "@/utils/helpers/hashPassword"
-import UserModel from "@/db/models/UserModel"
-import { now, oneDayTTL } from "@/utils/helpers/times"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
-import appConfig from "@/db/config/config"
+import { now, oneDayTTL } from "@/utils/helpers/times"
 
 const prepareModifyPasswordRoutes: ApiRoutes = ({ app, db, redis }) => {
   const modifyPassword = new Hono()
