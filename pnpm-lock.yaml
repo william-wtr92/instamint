@@ -54,8 +54,8 @@ importers:
         specifier: 14.2.2
         version: 14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-i18next:
-        specifier: ^15.2.0
-        version: 15.2.0(i18next@23.10.1)(next@14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        specifier: ^15.3.0
+        version: 15.3.0(i18next@23.10.1)(next@14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -115,17 +115,17 @@ importers:
   apps/server/instamint-business:
     dependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20240329.0
-        version: 4.20240329.0
+        specifier: 4.20240423.0
+        version: 4.20240423.0
       '@hono/node-server':
-        specifier: ^1.9.1
-        version: 1.9.1
+        specifier: ^1.11.0
+        version: 1.11.0
       '@hono/sentry':
         specifier: ^1.0.1
-        version: 1.0.1(hono@4.1.7)
+        version: 1.0.1(hono@4.2.7)
       '@hono/zod-validator':
-        specifier: ^0.1.11
-        version: 0.1.11(hono@4.1.7)(zod@3.22.4)
+        specifier: ^0.2.1
+        version: 0.2.1(hono@4.2.7)(zod@3.22.4)
       '@instamint/shared-types':
         specifier: workspace:^
         version: link:../../../packages/types/shared
@@ -139,8 +139,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       hono:
-        specifier: ^4.1.7
-        version: 4.1.7
+        specifier: ^4.2.7
+        version: 4.2.7
       ioredis:
         specifier: ^5.3.2
         version: 5.3.2
@@ -252,11 +252,11 @@ importers:
   apps/server/instamint-files:
     dependencies:
       '@hono/node-server':
-        specifier: ^1.9.1
-        version: 1.9.1
+        specifier: ^1.11.0
+        version: 1.11.0
       hono:
-        specifier: ^4.1.7
-        version: 4.1.7
+        specifier: ^4.2.7
+        version: 4.2.7
     devDependencies:
       '@instamint/eslint-config-server':
         specifier: workspace:^
@@ -631,8 +631,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@cloudflare/workers-types@4.20240329.0':
-    resolution: {integrity: sha512-AbzgvSQjG8Nci4xxQEcjTTVjiWXgOQnFIbIHtEZXteHiMGDXMWGegjWBo5JHGsZCq+U5V/SD5EnlypQnUQEoig==}
+  '@cloudflare/workers-types@4.20240423.0':
+    resolution: {integrity: sha512-ssuccb3j+URp6mP2p0PcQE9vmS3YeKBQnALHF9P3yQfUAFozuhTsDTbqmL+zPrJvUcG7SL2xVQkNDF9QJeKDZw==}
 
   '@cnakazawa/watch@1.0.4':
     resolution: {integrity: sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ==}
@@ -1024,8 +1024,8 @@ packages:
     peerDependencies:
       react: '>= 16'
 
-  '@hono/node-server@1.9.1':
-    resolution: {integrity: sha512-XBru0xbtRlTZJyAiFJLn7XDKbCVXBaRhVQAQhB9TwND2gwj8jf9SDWIj/7VxVtNAjURJf7Ofcz58DRA6DPYiWA==}
+  '@hono/node-server@1.11.0':
+    resolution: {integrity: sha512-TLIJq9TMtD1NEG1mVoqNUn1Ita0qSaB5XboZErjFBcO/GJYXwWY4dVdTi9G0lbxtu0x+hJXDItcLaFHb7rlFTw==}
     engines: {node: '>=18.14.1'}
 
   '@hono/sentry@1.0.1':
@@ -1033,8 +1033,8 @@ packages:
     peerDependencies:
       hono: '>=3.*'
 
-  '@hono/zod-validator@0.1.11':
-    resolution: {integrity: sha512-PQXeHUP0+36qpRt8yfeD7N2jbK3ETlGvSN6dMof/HwUC/APRokQRjpXZm4rrlG71Ft0aWE01+Bm4XejqPie5Uw==}
+  '@hono/zod-validator@0.2.1':
+    resolution: {integrity: sha512-HFoxln7Q6JsE64qz2WBS28SD33UB2alp3aRKmcWnNLDzEL1BLsWfbdX6e1HIiUprHYTIXf5y7ax8eYidKUwyaA==}
     peerDependencies:
       hono: '>=3.9.0'
       zod: ^3.19.1
@@ -3038,6 +3038,10 @@ packages:
     resolution: {integrity: sha512-Qa9/OM64d3we/COpxpJNT8p2IEvXbvRzp2eX4wf48eDvqoU3pBrnbY6zAF2rK878GxkkfCo6yipZXNsPiTrBMQ==}
     engines: {node: '>=16.0.0'}
 
+  hono@4.2.7:
+    resolution: {integrity: sha512-k1xHi86tJnRIVvqhFMBDGFKJ8r5O+bEsT4P59ZK59r0F300Xd910/r237inVfuT/VmE86RQQffX4OYNda6dLXw==}
+    engines: {node: '>=16.0.0'}
+
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
 
@@ -3808,8 +3812,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-i18next@15.2.0:
-    resolution: {integrity: sha512-Rl5yZ4oGffsB0AjRykZ5PzNQ2M6am54MaMayldGmH/UKZisrIxk2SKEPJvaHhKlWe1qgdNi2FkodwK8sEjfEmg==}
+  next-i18next@15.3.0:
+    resolution: {integrity: sha512-bq7Cc9XJFcmGOCLnyEtHaeJ3+JJNsI/8Pkj9BaHAnhm4sZ9vNNC4ZsaqYnlRZ7VH5ypSo73fEqLK935jLsmCvQ==}
     engines: {node: '>=14'}
     peerDependencies:
       i18next: '>= 23.7.13'
@@ -5228,7 +5232,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@cloudflare/workers-types@4.20240329.0': {}
+  '@cloudflare/workers-types@4.20240423.0': {}
 
   '@cnakazawa/watch@1.0.4':
     dependencies:
@@ -5530,16 +5534,16 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  '@hono/node-server@1.9.1': {}
+  '@hono/node-server@1.11.0': {}
 
-  '@hono/sentry@1.0.1(hono@4.1.7)':
+  '@hono/sentry@1.0.1(hono@4.2.7)':
     dependencies:
-      hono: 4.1.7
+      hono: 4.2.7
       toucan-js: 3.3.1
 
-  '@hono/zod-validator@0.1.11(hono@4.1.7)(zod@3.22.4)':
+  '@hono/zod-validator@0.2.1(hono@4.2.7)(zod@3.22.4)':
     dependencies:
-      hono: 4.1.7
+      hono: 4.2.7
       zod: 3.22.4
 
   '@hookform/resolvers@3.3.4(react-hook-form@7.51.1(react@18.2.0))':
@@ -8041,6 +8045,8 @@ snapshots:
 
   hono@4.1.7: {}
 
+  hono@4.2.7: {}
+
   html-escaper@2.0.2: {}
 
   html-parse-stringify@3.0.1:
@@ -9048,7 +9054,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-i18next@15.2.0(i18next@23.10.1)(next@14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0):
+  next-i18next@15.3.0(i18next@23.10.1)(next@14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.0
       '@types/hoist-non-react-statics': 3.3.5
