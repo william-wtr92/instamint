@@ -52,7 +52,7 @@
   "packageManager": "pnpm@9.0.5",
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
-    "@commitlint/config-conventional": "^19.0.3",
+    "@commitlint/config-conventional": "^19.2.2",
     "dotenv-cli": "^7.3.0",
     "prettier": "^3.2.5"
   }
