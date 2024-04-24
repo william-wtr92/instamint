@@ -1,9 +1,8 @@
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { type ReactElement, useCallback } from "react"
-import type { GetServerSideProps } from "next"
-import { useTranslation } from "next-i18next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import {
+  type UserResendEmail,
+  userResendEmailValidationSchema,
+} from "@instamint/shared-types"
 import {
   Form,
   FormField,
@@ -15,16 +14,17 @@ import {
   Input,
   Button,
 } from "@instamint/ui-kit"
-import {
-  type UserResendEmail,
-  userResendEmailValidationSchema,
-} from "@instamint/shared-types"
+import type { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { type ReactElement, useCallback } from "react"
+import { useForm } from "react-hook-form"
 
-import useAppContext from "@/web/contexts/useAppContext"
-import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context

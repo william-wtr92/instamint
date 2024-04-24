@@ -1,0 +1,829 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Azure Redis",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 8,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "Percentage CPU",
+            "metricNamespace": "microsoft.compute/virtualmachines",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "microsoft.compute/virtualmachines",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-business-vm",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              },
+              {
+                "metricNamespace": "Microsoft.Compute/virtualMachines",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-cron-vm",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              },
+              {
+                "metricNamespace": "Microsoft.Compute/virtualMachines",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-files-vm",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              },
+              {
+                "metricNamespace": "Microsoft.Compute/virtualMachines",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-webapp-vm",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "VMs CPU ",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlBl"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#1c1c74",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "Transactions",
+            "metricNamespace": "microsoft.storage/storageaccounts",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.Storage/storageAccounts",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamintstoragef851907d",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "Blob Storage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "description": "Redis Operations",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 8,
+        "y": 8
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "totalcommandsprocessed",
+            "metricNamespace": "microsoft.cache/redis",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.Cache/Redis",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-redis",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        },
+        {
+          "azureMonitor": {
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "serverLoad",
+            "metricNamespace": "microsoft.cache/redis",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.Cache/Redis",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-redis",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "B",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "Redis",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Count",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "ServiceApiHit",
+            "metricNamespace": "microsoft.keyvault/vaults",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.KeyVault/vaults",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-kv-f851907d",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "Key Vault",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Average",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "storage_used",
+            "metricNamespace": "microsoft.dbforpostgresql/servers",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.DBforPostgreSQL/servers",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-postgres",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        },
+        {
+          "azureMonitor": {
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "memory_percent",
+            "metricNamespace": "microsoft.dbforpostgresql/servers",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.DBforPostgreSQL/servers",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamint-postgres",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "hide": false,
+          "queryType": "Azure Monitor",
+          "refId": "B",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "PostgreSQL",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-azure-monitor-datasource",
+        "uid": "ediw647mdhvr4a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.4.2",
+      "targets": [
+        {
+          "azureMonitor": {
+            "aggregation": "Total",
+            "allowedTimeGrainsMs": [
+              60000,
+              300000,
+              900000,
+              1800000,
+              3600000,
+              21600000,
+              43200000,
+              86400000
+            ],
+            "dimensionFilters": [],
+            "metricName": "SuccessfulPushCount",
+            "metricNamespace": "microsoft.containerregistry/registries",
+            "region": "francecentral",
+            "resources": [
+              {
+                "metricNamespace": "Microsoft.ContainerRegistry/registries",
+                "region": "francecentral",
+                "resourceGroup": "instamint",
+                "resourceName": "instamintACR",
+                "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+              }
+            ],
+            "timeGrain": "auto"
+          },
+          "datasource": {
+            "type": "grafana-azure-monitor-datasource",
+            "uid": "ediw647mdhvr4a"
+          },
+          "queryType": "Azure Monitor",
+          "refId": "A",
+          "subscription": "821952a0-1ce2-493d-83b6-5838b231e550"
+        }
+      ],
+      "title": "ACR",
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [
+    "azure"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Azure Infra",
+  "uid": "cdiwc0omv3apsd",
+  "version": 14,
+  "weekStart": ""
+}

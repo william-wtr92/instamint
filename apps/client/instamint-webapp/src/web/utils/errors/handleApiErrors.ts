@@ -23,7 +23,7 @@ export const handleApiErrors = (error: unknown): Error => {
     }
 
     return new Error(errorMessage)
-  } else {
-    return new Error("An unexpected error occurred")
   }
+
+  return new Error("An unexpected error occurred")
 }

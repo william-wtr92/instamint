@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "next-i18next"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   type ModifyPassword,
@@ -23,7 +21,9 @@ import {
   Input,
   Label,
 } from "@instamint/ui-kit"
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import { useTranslation } from "next-i18next"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 

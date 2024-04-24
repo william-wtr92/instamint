@@ -1,6 +1,4 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
-import sgMail from "@sendgrid/mail"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import {
   type ConfirmResetPassword,
@@ -8,8 +6,10 @@ import {
   type RequestResetPassword,
   requestResetPasswordSchema,
 } from "@instamint/shared-types"
+import sgMail from "@sendgrid/mail"
+import { type Context, Hono } from "hono"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   emailsMessages,
@@ -19,7 +19,10 @@ import {
   usersMessages,
 } from "@/def"
 import { handleError } from "@/middlewares/handleError"
-import UserModel from "@/db/models/UserModel"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { hashPassword } from "@/utils/helpers/hashPassword"
+import { decodeJwt } from "@/utils/helpers/jwtActions"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import {
   now,
@@ -28,9 +31,6 @@ import {
   tenMinutesTTL,
   twoDaysTTL,
 } from "@/utils/helpers/times"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
-import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { hashPassword } from "@/utils/helpers/hashPassword"
 
 const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
   const reset = new Hono()

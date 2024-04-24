@@ -1,12 +1,5 @@
-import type { GetServerSideProps } from "next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import type { ReactElement } from "react"
-import React, { useEffect } from "react"
-import { useTranslation } from "next-i18next"
-import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback } from "react"
+import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
 import {
   Form,
   FormField,
@@ -18,12 +11,17 @@ import {
   Button,
   Textarea,
 } from "@instamint/ui-kit"
+import type { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import React, { type ReactElement, useEffect, useCallback } from "react"
+import { useForm } from "react-hook-form"
 
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
-import useAppContext from "@/web/contexts/useAppContext"
 import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
