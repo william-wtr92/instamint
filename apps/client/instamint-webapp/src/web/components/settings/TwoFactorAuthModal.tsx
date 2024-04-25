@@ -24,7 +24,7 @@ const TwoFactorAuthModal = (props: Props) => {
 
   const {
     services: {
-      auth: { twoFactorCodeGeneration },
+      users: { twoFactorCodeGeneration },
     },
   } = useAppContext()
 

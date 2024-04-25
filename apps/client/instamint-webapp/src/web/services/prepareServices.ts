@@ -23,8 +23,6 @@ export const prepareServices: PrepareServicesContext = (context) => {
         resendEmailValidation: resendEmailValidationService(context),
         signIn: signInService(context),
         signOut: signOutService(context),
-        twoFactorCodeGeneration: twoFactorCodeGenerationService(context),
-        twoFactorActivation: twoFactorActivationService(context),
       },
       users: {
         requestResetPassword: requestResetPasswordService(context),
@@ -32,6 +30,8 @@ export const prepareServices: PrepareServicesContext = (context) => {
         updateUserInfos: updateUserInfosService(context),
         deleteAccount: deleteAccountService(context),
         reactivateAccount: reactivateAccountService(context),
+        twoFactorCodeGeneration: twoFactorCodeGenerationService(context),
+        twoFactorActivation: twoFactorActivationService(context),
       },
     },
   }

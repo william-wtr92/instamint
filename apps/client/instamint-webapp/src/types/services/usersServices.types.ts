@@ -4,6 +4,7 @@ import type {
   UserInfosSchema,
   DeleteAccount,
   ReactivateAccount,
+  TwoFactorGenerateResult,
 } from "@instamint/shared-types"
 
 export type UsersServices = {
@@ -12,4 +13,6 @@ export type UsersServices = {
   updateUserInfos: UserInfosSchema
   deleteAccount: DeleteAccount
   reactivateAccount: ReactivateAccount
+  twoFactorCodeGeneration: TwoFactorGenerateResult
+  twoFactorActivation: string
 }
