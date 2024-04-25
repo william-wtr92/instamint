@@ -1,0 +1,97 @@
+#!/bin/sh
+
+set -e
+
+USERNAME=$1
+PASSWORD=$2
+CONTAINER_IMAGE=$3
+CONTAINER_NAME=$4
+CONTAINER_PORT=$5
+
+DB_CONNECTION_HOST=$6
+DB_CONNECTION_USER=$7
+DB_CONNECTION_PWD=$8
+DB_CONNECTION_DB=$9
+REDIS_HOST=${10}
+REDIS_PORT=${11}
+REDIS_PASSWORD=${12}
+CORS_ORIGIN=${13}
+SECURITY_COOKIE_SECRET=${14}
+SECURITY_JWT_SECRET=${15}
+SECURITY_PASSWORD_PEPPER=${16}
+SECURITY_CRON_JWT_SECRET=${17}
+SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT=${18}
+SENTRY_DSN=${19}
+SENDGRID_BASE_URL=${20}
+SENDGRID_API_KEY=${21}
+SENDGRID_SENDER=${22}
+SENDGRID_TEMPLATE_EMAIL_VALIDATION=${23}
+SENDGRID_TEMPLATE_RESET_PASSWORD=${24}
+SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD=${25}
+SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION=${26}
+SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION=${27}
+SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION=${28}
+SENDGRID_TEMPLATE_ACCOUNT_MODIFY_PASSWORD=${29}
+SENDGRID_TEMPLATE_ACCOUNT_MODIFY_EMAIL=${30}
+FILES_SERVICE_URL=${31}
+
+LOG_FILE="$HOME/docker-deployment.log"
+
+{
+    echo "Logging into Docker registry..."
+    echo "$PASSWORD" | sudo docker login instamintACR.azurecr.io --username "$USERNAME" --password-stdin
+
+    echo "Pulling the Docker image..."
+    if sudo docker pull instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
+        echo "Docker image pulled successfully."
+    fi
+
+    echo "Running the Docker container..."
+    if sudo docker run -d \
+      --name "${CONTAINER_NAME}" \
+      --network web \
+      -p "${CONTAINER_PORT}":"${CONTAINER_PORT}" \
+      -e DB_CONNECTION_HOST="${DB_CONNECTION_HOST}" \
+      -e DB_CONNECTION_USER="${DB_CONNECTION_USER}" \
+      -e DB_CONNECTION_PWD="${DB_CONNECTION_PWD}" \
+      -e DB_CONNECTION_DB="${DB_CONNECTION_DB}" \
+      -e REDIS_HOST="${REDIS_HOST}" \
+      -e REDIS_PORT="${REDIS_PORT}" \
+      -e REDIS_PASSWORD="${REDIS_PASSWORD}" \
+      -e CORS_ORIGIN="${CORS_ORIGIN}" \
+      -e SECURITY_COOKIE_SECRET="${SECURITY_COOKIE_SECRET}" \
+      -e SECURITY_JWT_SECRET="${SECURITY_JWT_SECRET}" \
+      -e SECURITY_PASSWORD_PEPPER="${SECURITY_PASSWORD_PEPPER}" \
+      -e SECURITY_CRON_JWT_SECRET="${SECURITY_CRON_JWT_SECRET}" \
+      -e SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT="${SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT}" \
+      -e SENTRY_DSN="${SENTRY_DSN}" \
+      -e SENDGRID_BASE_URL="${SENDGRID_BASE_URL}" \
+      -e SENDGRID_API_KEY="${SENDGRID_API_KEY}" \
+      -e SENDGRID_SENDER="${SENDGRID_SENDER}" \
+      -e SENDGRID_TEMPLATE_EMAIL_VALIDATION="${SENDGRID_TEMPLATE_EMAIL_VALIDATION}" \
+      -e SENDGRID_TEMPLATE_RESET_PASSWORD="${SENDGRID_TEMPLATE_RESET_PASSWORD}" \
+      -e SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD="${SENDGRID_TEMPLATE_CONFIRM_RESET_PASSWORD}" \
+      -e SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION="${SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION}" \
+      -e SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION="${SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION}" \
+      -e SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION="${SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION}" \
+      -e SENDGRID_TEMPLATE_MODIFY_PASSWORD="${SENDGRID_TEMPLATE_ACCOUNT_MODIFY_PASSWORD}" \
+      -e SENDGRID_TEMPLATE_MODIFY_EMAIL="${SENDGRID_TEMPLATE_ACCOUNT_MODIFY_EMAIL}" \
+      -e FILES_SERVICE_URL="${FILES_SERVICE_URL}" \
+      --label "traefik.enable=true" \
+      --label "traefik.http.routers.business.rule=HostRegexp(\`{host:.+}\`)" \
+      --label "traefik.http.services.business.loadbalancer.server.port=${CONTAINER_PORT}" \
+      instamintACR.azurecr.io/instamint/"${CONTAINER_IMAGE}":latest; then
+        echo "Docker container started successfully."
+    fi
+
+    echo "Setting up Watchtower..."
+    sudo docker run -d \
+      --name watchtower \
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      containrrr/watchtower \
+      --interval 30 \
+      --cleanup \
+      --scope "${CONTAINER_NAME}"
+} >> "$LOG_FILE" 2>&1
+
+echo "Script execution completed."

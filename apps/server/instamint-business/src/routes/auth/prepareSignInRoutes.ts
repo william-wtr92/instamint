@@ -1,7 +1,7 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import { type SignIn, signInSchema } from "@instamint/shared-types"
+import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
 import {
@@ -11,14 +11,14 @@ import {
   cookiesKeys,
   contextsKeys,
 } from "@/def"
-import { oneDayTTL } from "@/utils/helpers/times"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { handleError } from "@/middlewares/handleError"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
-import { signJwt } from "@/utils/helpers/jwtActions"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { setCookie } from "@/utils/helpers/cookiesActions"
+import { signJwt } from "@/utils/helpers/jwtActions"
+import { oneDayTTL } from "@/utils/helpers/times"
 
 const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signIn = new Hono()

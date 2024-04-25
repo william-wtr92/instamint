@@ -1,18 +1,18 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import { type UserInfosSchema, userInfosSchema } from "@instamint/shared-types"
+import { type Context, Hono } from "hono"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   contextsKeys,
   globalsMessages,
   usersMessages,
 } from "@/def"
-import { handleError } from "@/middlewares/handleError"
-import UserModel from "@/db/models/UserModel"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
+import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 
 const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
   const updateUserInfos = new Hono()

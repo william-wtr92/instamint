@@ -1,5 +1,3 @@
-import { useForm } from "react-hook-form"
-import { useTranslation } from "next-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   type DeleteAccount,
@@ -23,6 +21,8 @@ import {
   Input,
   Label,
 } from "@instamint/ui-kit"
+import { useTranslation } from "next-i18next"
+import { useForm } from "react-hook-form"
 
 type Props = {
   onSubmit: (values: DeleteAccount) => void

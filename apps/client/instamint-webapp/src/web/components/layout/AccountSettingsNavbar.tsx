@@ -1,9 +1,9 @@
-import { Text } from "@instamint/ui-kit"
-import { useTranslation } from "next-i18next"
-import Link from "next/link"
-import React, { useCallback } from "react"
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
+import { Text } from "@instamint/ui-kit"
+import Link from "next/link"
 import { useRouter } from "next/router"
+import { useTranslation } from "next-i18next"
+import React, { useCallback } from "react"
 
 import { routes } from "@/web/routes"
 

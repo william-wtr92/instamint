@@ -1,15 +1,15 @@
-import { type Context, Hono } from "hono"
-import { logger } from "hono/logger"
-import { cors } from "hono/cors"
-import { prettyJSON } from "hono/pretty-json"
-import { etag } from "hono/etag"
-import { secureHeaders } from "hono/secure-headers"
 import { sentry } from "@hono/sentry"
+import { type Context, Hono } from "hono"
+import { cors } from "hono/cors"
+import { etag } from "hono/etag"
+import { logger } from "hono/logger"
+import { prettyJSON } from "hono/pretty-json"
+import { secureHeaders } from "hono/secure-headers"
 import knex from "knex"
 
 import type { AppConfig } from "./db/config/configTypes"
-import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
+import prepareRoutes from "./prepareRoutes"
 import { redis } from "./utils/redis/instance"
 
 const server = async (appConfig: AppConfig) => {

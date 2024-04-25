@@ -9,8 +9,8 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "@hono/node-server": "^1.9.1",
-    "hono": "^4.1.7"
+    "@hono/node-server": "^1.11.0",
+    "hono": "^4.2.7"
   },
   "devDependencies": {
     "@instamint/eslint-config-server": "workspace:^",
