@@ -17,7 +17,7 @@
           "error": "Le lien doit être une url."
         },
         "location": {
-          "label": "Location",
+          "label": "Localisation",
           "placeholder": "Pays",
           "error": "Choisissez votre pays."
         },
