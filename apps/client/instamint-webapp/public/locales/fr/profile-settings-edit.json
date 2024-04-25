@@ -16,6 +16,11 @@
           "placeholder": "Entrez votre lien",
           "error": "Le lien doit être une url."
         },
+        "location": {
+          "label": "Localisation",
+          "placeholder": "Pays",
+          "error": "Choisissez votre pays."
+        },
         "picture": {
           "label": "Photo de profil"
         },

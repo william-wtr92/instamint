@@ -17,6 +17,11 @@
       "placeholder": "Please enter your link",
       "error": "The link must be: an url"
     },
+    "location": {
+      "label": "Location",
+      "placeholder": "Country",
+      "error": "Please choose your country."
+    },
     "picture": {
       "label": "Profile picture"
     },
