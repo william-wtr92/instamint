@@ -4,7 +4,7 @@ import type { ActivateTwoFactorAuth } from "@instamint/shared-types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const twoFactorActivationService: Services<ActivateTwoFactorAuth> =
+const twoFactorActivationService: Services<ActivateTwoFactorAuth, null> =
   ({ api }) =>
   async (data) => {
     const body = {

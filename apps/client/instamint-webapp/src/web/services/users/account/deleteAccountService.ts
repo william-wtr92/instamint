@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import { routes } from "@/web/routes"
 
-const deleteAccountService: Services<DeleteAccount> =
+const deleteAccountService: Services<DeleteAccount, null> =
   ({ api }) =>
   async (data) => {
     try {

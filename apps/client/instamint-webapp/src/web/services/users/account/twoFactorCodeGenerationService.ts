@@ -4,9 +4,9 @@ import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
-const twoFactorCodeGenerationService: Services<void> =
+const twoFactorCodeGenerationService: Services<null, TwoFactorGenerateResult> =
   ({ api }) =>
-  async (data) => {
+  async () => {
     const config = {
       withCredentials: true,
     }

@@ -4,7 +4,7 @@ import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import type { Services } from "@/types"
 
-const resendEmailValidationService: Services<UserResendEmail> =
+const resendEmailValidationService: Services<UserResendEmail, null> =
   ({ api }) =>
   async (data) => {
     try {

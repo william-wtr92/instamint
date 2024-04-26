@@ -8,11 +8,11 @@ import type {
 } from "@instamint/shared-types"
 
 export type UsersServices = {
-  requestResetPassword: RequestResetPassword
-  confirmResetPassword: ConfirmResetPassword
-  updateUserInfos: UserInfosSchema
-  deleteAccount: DeleteAccount
-  reactivateAccount: ReactivateAccount
-  twoFactorCodeGeneration: TwoFactorGenerateResult
-  twoFactorActivation: string
+  requestResetPassword: [RequestResetPassword, null]
+  confirmResetPassword: [ConfirmResetPassword, null]
+  updateUserInfos: [UserInfosSchema, null]
+  deleteAccount: [DeleteAccount, null]
+  reactivateAccount: [ReactivateAccount, null]
+  twoFactorCodeGeneration: [null, TwoFactorGenerateResult]
+  twoFactorActivation: [string, null]
 }
