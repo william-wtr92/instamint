@@ -8,7 +8,8 @@ CONTAINER_IMAGE=$3
 CONTAINER_NAME=$4
 CONTAINER_PORT=$5
 
-NEXT_PUBLIC_BASE_URL=$6
+NEXT_PUBLIC_BLOB_URL=$6
+NEXT_PUBLIC_BASE_URL=$7
 
 LOG_FILE="$HOME/docker-deployment.log"
 
@@ -26,6 +27,7 @@ LOG_FILE="$HOME/docker-deployment.log"
       --name "${CONTAINER_NAME}" \
       --network web \
       -p "${CONTAINER_PORT}":3000 \
+      -e NEXT_PUBLIC_BLOB_URL="${NEXT_PUBLIC_BLOB_URL}" \
       -e NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
       --label "traefik.enable=true" \
       --label "traefik.http.routers.webapp.rule=HostRegexp(\`{host:.+}\`)" \

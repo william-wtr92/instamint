@@ -35,7 +35,13 @@
         "userNotModified": "An error has occurred while modifying your information.",
         "usernameAlreadyExist": "This username already exist.",
         "userInfosSameAsPrevious": "You have not changed any informations.",
-        "linkAlreadyExist": "This link already exist."
+        "linkAlreadyExist": "This link already exist.",
+        "avatar": {
+          "avatarSizeTooLarge": "Avatar size too large. Maximum size is 10MB.",
+          "userNotFound": "Session expired. Please sign-in again.",
+          "avatarUploadFailed": "An error has occurred while uploading your avatar.",
+          "avatarDeleteFailed": "An error has occurred while deleting your past avatar."
+        }
       },
       "modify-password": {
         "userNotFound": "Session expired. Please log in again.",

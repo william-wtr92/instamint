@@ -35,7 +35,13 @@
         "userNotModified": "Une erreur est survenue lors de la modification de vos informations.",
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
         "userInfosSameAsPrevious": "Vous n'avez modifié aucune information.",
-        "linkAlreadyExist": "Ce lien existe déjà."
+        "linkAlreadyExist": "Ce lien existe déjà.",
+        "avatar": {
+          "avatarSizeTooLarge": "L'image est trop grande. La taille maximale est de 10Mo.",
+          "userNotFound": "Session expirée, reconnectez-vous.",
+          "avatarUploadFailed": "Une erreur est survenue lors de l'envoi de votre avatar.",
+          "avatarDeleteFailed": "Une erreur est survenue lors de la suppression de votre ancien avatar."
+        }
       },
       "modify-password": {
         "userNotFound": "Session expirée, reconnectez-vous.",

@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import { type UserInfosSchema, userInfosSchema } from "@instamint/shared-types"
+import { type UserInfos, userInfosSchema } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
@@ -38,7 +38,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const requestBody = await c.req.json()
-      const { username, bio, link }: UserInfosSchema = requestBody
+      const { username, bio, link }: UserInfos = requestBody
 
       const user = await UserModel.query().findOne({ email: contextUser.email })
 

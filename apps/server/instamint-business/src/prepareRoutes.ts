@@ -8,6 +8,7 @@ import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAcc
 import prepareModifyEmailRoutes from "@/routes/users/settings/prepareModifyEmailRoutes"
 import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
 import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
+import prepareUploadAvatarRoutes from "@/routes/users/settings/prepareUploadAvatarRoutes"
 
 const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignUpRoutes(ctx)
@@ -19,6 +20,7 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareDeleteAccountRoutes(ctx)
   prepareModifyPasswordRoutes(ctx)
   prepareModifyEmailRoutes(ctx)
+  prepareUploadAvatarRoutes(ctx)
 }
 
 export default prepareRoutes

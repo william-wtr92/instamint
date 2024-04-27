@@ -9,10 +9,9 @@ import {
   globalsMessages,
   redisKeys,
 } from "@/def"
-import { signOutSuccess } from "@/def/ressources/authMessages"
 import { auth } from "@/middlewares/auth"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
-import { delCookie } from "@/utils/helpers/cookiesActions"
+import { delCookie } from "@/utils/helpers/actions/cookiesActions"
 
 const prepareSignOutRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signOut = new Hono()
@@ -43,7 +42,10 @@ const prepareSignOutRoutes: ApiRoutes = ({ app, db, redis }) => {
     const sessionKey = redisKeys.auth.authSession(contextUser.email)
     await redis.del(sessionKey)
 
-    return c.json({ message: signOutSuccess.message }, SC.success.OK)
+    return c.json(
+      { message: authMessages.signOutSuccess.message },
+      SC.success.OK
+    )
   })
 
   app.route("/auth", signOut)

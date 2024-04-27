@@ -21,8 +21,8 @@ import {
 import { handleError } from "@/middlewares/handleError"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { hashPassword } from "@/utils/helpers/hashPassword"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import {
   now,

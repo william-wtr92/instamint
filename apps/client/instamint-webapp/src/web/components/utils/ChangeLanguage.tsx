@@ -24,7 +24,7 @@ export const ChangeLanguage = () => {
     async (newLanguage: string) => {
       await changeLanguage(newLanguage)
 
-      await router.push(router.asPath, router.asPath, { locale: newLanguage })
+      router.push(router.asPath, router.asPath, { locale: newLanguage })
     },
     [router, changeLanguage]
   )

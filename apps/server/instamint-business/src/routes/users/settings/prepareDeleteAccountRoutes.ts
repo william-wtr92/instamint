@@ -24,8 +24,8 @@ import { handleError } from "@/middlewares/handleError"
 import { deleteAccountJob } from "@/middlewares/jobs/deleteAccountJob"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { delCookie } from "@/utils/helpers/cookiesActions"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
+import { delCookie } from "@/utils/helpers/actions/cookiesActions"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import {
   now,

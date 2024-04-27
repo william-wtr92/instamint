@@ -6,8 +6,8 @@ import UserModel from "@/db/models/UserModel"
 import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { getCookie } from "@/utils/helpers/cookiesActions"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
+import { getCookie } from "@/utils/helpers/actions/cookiesActions"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 
 const factory: Factory = createFactory()
 

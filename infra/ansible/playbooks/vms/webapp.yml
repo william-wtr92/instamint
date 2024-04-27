@@ -20,6 +20,7 @@
         '{{ terraform_outputs.webapp_config.value.image }}'
         '{{ terraform_outputs.webapp_config.value.name }}'
         '{{ terraform_outputs.webapp_config.value.port }}'
+        '{{ terraform_outputs['secrets']['value']['NEXT-PUBLIC-BLOB-URL'] }}'
         '{{ terraform_outputs['secrets']['value']['NEXT-PUBLIC-BASE-URL'] }}'
       register: script_output
       changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"

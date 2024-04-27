@@ -42,6 +42,7 @@ const apiRoutes = {
     reactivateAccount: "/users/reactivate-account",
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",
+    uploadAvatar: "/users/upload-avatar",
   },
 } as const
 

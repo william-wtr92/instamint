@@ -5,7 +5,7 @@ import { createFactory, type Factory } from "hono/factory"
 import appConfig from "@/db/config/config"
 import { contextsKeys, globalsMessages, redisKeys } from "@/def"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { redis } from "@/utils/redis/instance"
 
 const factory: Factory = createFactory()

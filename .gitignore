@@ -13,6 +13,9 @@
 !**/terraform/modules/**
 !**/terraform/*.png
 
+# azure
+**/azurite/**
+
 # node_modules
 node_modules/
 */**/node_modules

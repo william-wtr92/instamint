@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { userInfosSchema, type UserInfosSchema } from "@instamint/shared-types"
+import { userInfosSchema, type UserInfos } from "@instamint/shared-types"
 import {
   Form,
   FormField,
@@ -10,6 +10,8 @@ import {
   Input,
   Button,
   Textarea,
+  Text,
+  Label,
 } from "@instamint/ui-kit"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
@@ -40,7 +42,7 @@ const ProfileSettingsEditPage = () => {
   const { t } = useTranslation()
   const {
     services: {
-      users: { updateUserInfos },
+      users: { updateUserInfos, uploadAvatar },
     },
   } = useAppContext()
   const { toast } = useActionsContext()
@@ -48,14 +50,30 @@ const ProfileSettingsEditPage = () => {
   const user = isLoading ? null : data
 
   const onSubmit = useCallback(
-    async (values: UserInfosSchema) => {
-      const [err] = await updateUserInfos(values)
+    async (values: UserInfos) => {
+      const [errInfos] = await updateUserInfos({
+        username: values.username,
+        bio: values.bio,
+        link: values.link,
+      })
+      const [errAvatar] = await uploadAvatar({ avatar: values.avatar })
 
-      if (err) {
+      if (errInfos) {
         toast({
           variant: "error",
           description: t(
-            `errors:users.profile-settings.update-account.${err.message}`
+            `errors:users.profile-settings.update-account.${errInfos.message}`
+          ),
+        })
+
+        return
+      }
+
+      if (errAvatar) {
+        toast({
+          variant: "error",
+          description: t(
+            `errors:users.profile-settings.update-account.avatar.${errAvatar.message}`
           ),
         })
 
@@ -67,16 +85,17 @@ const ProfileSettingsEditPage = () => {
         description: t("profile-settings-edit:update-account.success"),
       })
     },
-    [updateUserInfos, toast, t]
+    [updateUserInfos, uploadAvatar, toast, t]
   )
 
-  const form = useForm<UserInfosSchema>({
+  const form = useForm<UserInfos>({
     resolver: zodResolver(userInfosSchema),
     mode: "onBlur",
     defaultValues: {
-      username: "",
-      bio: "",
-      link: "",
+      username: user?.username ?? "",
+      bio: user?.bio ?? "",
+      link: user?.link ?? "",
+      avatar: undefined,
     },
   })
 
@@ -85,16 +104,29 @@ const ProfileSettingsEditPage = () => {
   } = form
 
   useEffect(() => {
-    form.setValue("username", user?.username)
-    form.setValue("bio", user?.bio)
-    form.setValue("link", user?.link)
+    form.setValue("username", user?.username ?? "")
+    form.setValue("bio", user?.bio ?? "")
+    form.setValue("link", user?.link ?? "")
   }, [form, user])
+
+  const handleClearAvatar = useCallback(() => {
+    form.setValue("avatar", undefined)
+  }, [form])
 
   return (
     <>
       {user && (
         <div className="flex flex-col p-4">
-          <p className="p-4">{t("profile-settings-edit:update-account.p1")}</p>
+          <Text
+            type={"medium"}
+            variant={"neutral"}
+            className="border-1 ml-6 flex w-[80%] items-center gap-2 rounded-md border-neutral-600 px-2 py-3"
+          >
+            <span className="flex size-6 items-center justify-center rounded-2xl border-2 border-dashed border-neutral-600">
+              {t("profile-settings-edit:update-account.i")}
+            </span>
+            <span>{t("profile-settings-edit:update-account.p1")}</span>
+          </Text>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -186,6 +218,72 @@ const ProfileSettingsEditPage = () => {
                       {errors.username ? (
                         <span>
                           {t("profile-settings-edit:update-account.link.error")}
+                        </span>
+                      ) : null}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="avatar"
+                render={({ field: { value, onChange, ...fieldProps } }) => (
+                  <FormItem className="w-full">
+                    <FormLabel
+                      className="relative left-1 font-bold"
+                      htmlFor={"avatar"}
+                    >
+                      {t("profile-settings-edit:update-account.avatar.label")}
+                    </FormLabel>
+                    <FormControl>
+                      <div>
+                        <Input
+                          {...fieldProps}
+                          id={"avatar"}
+                          type={"file"}
+                          className="hidden"
+                          placeholder={t(
+                            "profile-settings-edit:update-account.avatar.placeholder"
+                          )}
+                          accept="image/png, image/jpeg, image/jpg"
+                          onChange={(event) =>
+                            onChange(
+                              event.target.files && event.target.files[0]
+                            )
+                          }
+                        />
+                        <div className="relative left-1.5 mt-4 flex items-center gap-3">
+                          <Label
+                            htmlFor={"avatar"}
+                            className="rounded-md p-3 outline-dashed outline-2 hover:cursor-pointer"
+                          >
+                            {t(
+                              "profile-settings-edit:update-account.avatar.placeholder"
+                            )}
+                          </Label>
+                          <span>{value ? value.name : ""} </span>
+                          {value && (
+                            <span
+                              onClick={handleClearAvatar}
+                              className="hover:cursor-pointer"
+                            >
+                              {t(
+                                "profile-settings-edit:update-account.avatar.delete"
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </FormControl>
+                    <FormMessage
+                      className="text-error-primary relative left-2"
+                      useCustomError={true}
+                    >
+                      {errors.avatar ? (
+                        <span>
+                          {t(
+                            "profile-settings-edit:update-account.avatar.error"
+                          )}
                         </span>
                       ) : null}
                     </FormMessage>

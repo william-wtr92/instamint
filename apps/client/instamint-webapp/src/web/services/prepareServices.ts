@@ -9,6 +9,7 @@ import modifyEmailService from "@/web/services/users/account/modifyEmailService"
 import modifyPasswordService from "@/web/services/users/account/modifyPasswordService"
 import reactivateAccountService from "@/web/services/users/account/reactivateAccountService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
+import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
 import confirmResetPasswordService from "@/web/services/users/reset/confirmResetPasswordService"
 import requestResetPasswordService from "@/web/services/users/reset/requestResetPasswordService"
 
@@ -30,6 +31,7 @@ export const prepareServices: PrepareServicesContext = (context) => {
         reactivateAccount: reactivateAccountService(context),
         modifyPassword: modifyPasswordService(context),
         modifyEmail: modifyEmailService(context),
+        uploadAvatar: uploadAvatarService(context),
       },
     },
   }

@@ -92,8 +92,7 @@ export const passwordAlreadyModify = {
   message: "You have already changed your password within the last 24 hours.",
 } as const
 
-/* modify email */
-
+/* Modify Email */
 export const emailSameAsPrevious = {
   errorCode: "emailSameAsPrevious",
   message: "You need a different email.",
@@ -112,4 +111,28 @@ export const emailAlreadyUse = {
 export const invalidEmail = {
   errorCode: "invalidEmail",
   message: "Invalid email.",
+} as const
+
+/* Avatar */
+export const avatarSizeTooLarge = {
+  errorCode: "avatarSizeTooLarge",
+  message: "Avatar size too large.",
+} as const
+
+export const avatarUploadFailed = {
+  errorCode: "avatarUploadFailed",
+  message: "Avatar upload failed.",
+} as const
+
+export const avatarUploaded = {
+  message: "Avatar uploaded.",
+} as const
+
+export const avatarDeleteFailed = {
+  errorCode: "avatarDeleteFailed",
+  message: "Avatar delete failed.",
+} as const
+
+export const avatarDeleted = {
+  message: "Avatar deleted.",
 } as const

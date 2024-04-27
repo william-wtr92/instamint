@@ -8,6 +8,12 @@ CONTAINER_IMAGE=$3
 CONTAINER_NAME=$4
 CONTAINER_PORT=$5
 
+CORS_ORIGIN_BUSINESS=$6
+AZURE_ACCOUNT_NAME=$7
+AZURE_ACCOUNT_KEY=$8
+AZURE_BLOB_CONTAINER=$9
+AZURE_BLOB_CONNECTION=${10}
+
 LOG_FILE="$HOME/docker-deployment.log"
 
 {
@@ -24,6 +30,11 @@ LOG_FILE="$HOME/docker-deployment.log"
       --name "${CONTAINER_NAME}" \
       --network web \
       -p "${CONTAINER_PORT}":"${CONTAINER_PORT}" \
+      -e CORS_ORIGIN_BUSINESS="${CORS_ORIGIN_BUSINESS}" \
+      -e AZURE_ACCOUNT_NAME="${AZURE_ACCOUNT_NAME}" \
+      -e AZURE_ACCOUNT_KEY="${AZURE_ACCOUNT_KEY}" \
+      -e AZURE_BLOB_CONTAINER="${AZURE_BLOB_CONTAINER}" \
+      -e AZURE_BLOB_CONNECTION="${AZURE_BLOB_CONNECTION}" \
       --label "traefik.enable=true" \
       --label "traefik.http.routers.files.rule=HostRegexp(\`{host:.+}\`)" \
       --label "traefik.http.services.files.loadbalancer.server.port=${CONTAINER_PORT}" \
