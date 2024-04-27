@@ -1,7 +1,6 @@
 {
   "title": "",
   "update-account": {
-    "i": "i",
     "p1": "If you'd like to change your details, such as your username, your bio or your link, this is the place to do it!",
     "username": {
       "label": "Username",
@@ -17,6 +16,11 @@
       "label": "Link",
       "placeholder": "Please enter your link",
       "error": "The link must be: an url"
+    },
+    "location": {
+      "label": "Location",
+      "placeholder": "Country",
+      "error": "Please choose your country."
     },
     "avatar": {
       "label": "Avatar",

@@ -15,6 +15,7 @@ export const userInfosSchema = z.object({
     .max(50, "The bio must be at most 50 characters long!")
     .optional(),
   link: z.string().url().optional(),
+  location: z.string().optional(),
   avatar: z.instanceof(File).optional(),
 })
 

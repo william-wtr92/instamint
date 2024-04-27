@@ -16,5 +16,6 @@ export * from "./src/components/AlertDialog"
 export * from "./src/components/DropDown"
 export * from "./src/components/Dialog"
 export * from "./src/components/Textarea"
+export * from "./src/components/Select"
 
 export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"

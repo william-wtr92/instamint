@@ -4,6 +4,7 @@ export type ConnectedUser = {
     username: string
     bio: string
     link: string
+    location: string
     avatar: string
   }
 }
