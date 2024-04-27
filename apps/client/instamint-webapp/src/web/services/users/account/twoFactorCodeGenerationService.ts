@@ -13,7 +13,7 @@ const twoFactorCodeGenerationService: Services<null, TwoFactorGenerateResult> =
 
     try {
       const { data: responseData } = await api.get<TwoFactorGenerateResult>(
-        routes.api.auth.twoFactorAuth.generate,
+        routes.api.users.twoFactorAuth.generate,
         config
       )
 

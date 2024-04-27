@@ -65,6 +65,10 @@ export const signOutSuccess = {
 } as const
 
 /* Two Factor Auth Messages  */
+export const twoFactorAuthSuccess = {
+  message: "Two factor authentication success.",
+} as const
+
 export const twoFactorAuthAlreadyEnabled = {
   errorCode: "twoFactorAuthAlreadyEnabled",
   message: "Two factor authentication already enabled.",
@@ -92,4 +96,9 @@ export const errorHotpCounterNotAvailable = {
 export const errorTwoFactorAuthCodeNotValid = {
   errorCode: "errorTwoFactorAuthCodeNotValid",
   message: "Two factor authentication code not valid.",
+} as const
+
+export const errorDuringTwoFactorAuthActivation = {
+  errorCode: "errorDuringTwoFactorAuthActivation",
+  message: "Error during two-factor authentication activation.",
 } as const

@@ -1,5 +1,12 @@
 import { type Context, Hono } from "hono"
 import { type ApiRoutes, SC } from "@instamint/server-types"
+import { zValidator } from "@hono/zod-validator"
+import {
+  type ActivateTwoFactorAuth,
+  type TwoFactorAuthenticate,
+  activateTwoFactorAuthSchema,
+  twoFactorAuthenticateSchema,
+} from "@instamint/shared-types"
 
 import {
   globalsMessages,
@@ -13,13 +20,11 @@ import UserModel from "@/db/models/UserModel"
 import {
   generateAuthenticatorToken,
   generateAuthenticatorURI,
+  generateBackupCodes,
   generateSecret,
-  verifyHotpToken,
+  verifyAuthenticatorToken,
 } from "@/utils/helpers/twoFactorAuthActions"
 import { generateQRCode } from "@/utils/helpers/qrCodeActions"
-import { zValidator } from "@hono/zod-validator"
-import type { ActivateTwoFactorAuth } from "@instamint/shared-types"
-import { activateTwoFactorAuthSchema } from "@instamint/shared-types"
 
 const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
   const twoFactorAuth = new Hono()
@@ -37,6 +42,43 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
+
+  twoFactorAuth.post(
+    "/authenticate",
+    auth,
+    zValidator("json", twoFactorAuthenticateSchema),
+    async (c: Context): Promise<Response> => {
+      const { password }: TwoFactorAuthenticate = await c.req.json()
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const user = await UserModel.query().findOne({
+        email: contextUser.email,
+      })
+
+      if (!user) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      if (!user.active) {
+        return c.json(
+          usersMessages.accountAlreadyDeactivated,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      const isRightPassword = await user?.checkPassword(password)
+
+      if (!isRightPassword) {
+        return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
+      }
+
+      return c.json(
+        {
+          message: authMessages.twoFactorAuthSuccess,
+        },
+        SC.success.OK
+      )
+    }
+  )
 
   twoFactorAuth.get(
     "/generate",
@@ -67,7 +109,6 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       try {
         const secret = generateSecret()
-        const hotpCounter = await redis.incr("hotpCounter")
 
         await UserModel.query()
           .update({
@@ -78,9 +119,9 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
         const token = generateAuthenticatorToken(secret)
 
         const hotpUri = generateAuthenticatorURI(
-          secret,
           user.email,
-          "Instamint"
+          "Instamint",
+          secret
         )
         const qrCode = await generateQRCode(hotpUri)
 
@@ -111,7 +152,6 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { code }: ActivateTwoFactorAuth = await c.req.json()
       const contextUser: UserModel = c.get(contextsKeys.user)
       const user = await UserModel.query().findOne({ email: contextUser.email })
-      const hotpCounter = Number(await redis.get("hotpCounter"))
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -138,34 +178,42 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      if (!hotpCounter) {
+      const trx = await db.transaction()
+
+      try {
+        const secret = user.secret
+        const verified = verifyAuthenticatorToken(code, secret)
+
+        if (!verified) {
+          return c.json(
+            authMessages.errorTwoFactorAuthCodeNotValid,
+            SC.errors.BAD_REQUEST
+          )
+        }
+
+        const newSecret = generateSecret()
+        const backupCodes = generateBackupCodes()
+
+        await UserModel.query().patchAndFetchById(user.id, {
+          twoFactorAuthentication: true,
+          secret: newSecret,
+          twoFactorBackupCodes: backupCodes,
+        })
+
+        await trx.commit()
+
         return c.json(
-          authMessages.errorHotpCounterNotAvailable,
-          SC.errors.BAD_REQUEST
+          { message: authMessages.twoFactorAuthActivated, backupCodes },
+          SC.success.OK
+        )
+      } catch (error) {
+        await trx.rollback()
+
+        throw createErrorResponse(
+          authMessages.errorDuringTwoFactorAuthActivation,
+          SC.serverErrors.SERVICE_UNAVAILABLE
         )
       }
-
-      const secret = user.secret
-      const verified = verifyHotpToken(secret, code, hotpCounter)
-
-      if (!verified) {
-        return c.json(
-          authMessages.errorTwoFactorAuthCodeNotValid,
-          SC.errors.BAD_REQUEST
-        )
-      }
-
-      const newSecret = generateSecret()
-
-      await UserModel.query().patchAndFetchById(user.id, {
-        twoFactorAuthentication: true,
-        secret: newSecret,
-      })
-
-      return c.json(
-        { message: authMessages.twoFactorAuthActivated },
-        SC.success.OK
-      )
     }
   )
 

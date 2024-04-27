@@ -1,4 +1,5 @@
 import { authenticator, hotp, totp } from "otplib"
+import crypto from "crypto"
 
 export const generateSecret = () => {
   return authenticator.generateSecret()
@@ -76,4 +77,24 @@ export const generateHotpURI = (
   counter: number
 ) => {
   return hotp.keyuri(email, issuer, secret, counter)
+}
+
+export const generateBackupCodes = (): string[] => {
+  const codes: string[] = []
+
+  const charset =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  const charsetLength = charset.length
+
+  for (let y = 0; y < 6; y++) {
+    let code = ""
+    for (let i = 0; i < 25; i++) {
+      const randomIndex = crypto.randomInt(0, charsetLength)
+      code += charset.charAt(randomIndex)
+    }
+
+    codes.push(code)
+  }
+
+  return codes
 }

@@ -8,6 +8,7 @@ import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import { Button, Text } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
+import { useUser } from "@/web/hooks/auth/useUser"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -25,15 +26,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const ProfileSettingsSecurityPage = () => {
   const { t } = useTranslation("profile-settings-security")
 
+  const { data, error, isLoading } = useUser()
+  const user = !isLoading && !error ? data : null
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleOpenModal = useCallback(() => {
     setIsModalOpen(true)
   }, [])
 
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false)
+  }, [])
+
   return (
     <>
-      <div className="animate-slideInFromLeft z-10 flex flex-col gap-6 p-6">
+      <div className="animate-slideInFromLeft z-10 mx-auto flex flex-col gap-6 p-6 lg:w-[90%]">
         <Text type="heading" variant="neutral" className="text-center">
           {t("title")}
         </Text>
@@ -47,13 +55,27 @@ const ProfileSettingsSecurityPage = () => {
             {t("2fa-description")}
           </Text>
 
+          <div className="border-accent-500 text-accent-500 mx-auto w-fit rounded-sm border-2 p-1.5 text-center">
+            {user?.twoFactorAuthentication
+              ? t("2fa-enabled")
+              : t("2fa-disabled")}
+          </div>
+
           <Button variant="default" onClick={handleOpenModal}>
-            {t("cta.activate-2fa")}
+            {user?.twoFactorAuthentication
+              ? t("cta.desactivate-2fa")
+              : t("cta.activate-2fa")}
+            {}
           </Button>
         </div>
       </div>
 
-      {isModalOpen && <TwoFactorAuthModal isOpen={isModalOpen} />}
+      {isModalOpen && (
+        <TwoFactorAuthModal
+          isOpen={isModalOpen}
+          closeModal={handleCloseModal}
+        />
+      )}
     </>
   )
 }

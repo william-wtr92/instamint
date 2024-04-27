@@ -13,6 +13,7 @@ import deleteAccountService from "@/web/services/users/account/deleteAccountServ
 import reactivateAccountService from "@/web/services/users/account/reactivateAccountService"
 import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
 import twoFactorActivationService from "@/web/services/users/account/twoFactorActivationService"
+import twoFactorAuthenticationService from "./users/account/twoFactorAuthenticationService"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -32,6 +33,7 @@ export const prepareServices: PrepareServicesContext = (context) => {
         reactivateAccount: reactivateAccountService(context),
         twoFactorCodeGeneration: twoFactorCodeGenerationService(context),
         twoFactorActivation: twoFactorActivationService(context),
+        twoFactorAuthentication: twoFactorAuthenticationService(context),
       },
     },
   }
