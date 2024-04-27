@@ -62,6 +62,7 @@ const ProfileSettingsEditPage = () => {
         username: values.username,
         bio: values.bio,
         link: values.link,
+        location: values.location,
       })
       const [errAvatar] = await uploadAvatar({ avatar: values.avatar })
 
@@ -251,7 +252,7 @@ const ProfileSettingsEditPage = () => {
                           />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-white" position={"popper"}>
                         {countries.map((country, index) => (
                           <SelectItem key={index} value={country.name}>
                             {t(`countries:${country.name}`)}
