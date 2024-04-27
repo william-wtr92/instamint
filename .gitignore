@@ -25,3 +25,4 @@ node_modules/
 .env
 .env.test
 *env.sh
+.vercel
