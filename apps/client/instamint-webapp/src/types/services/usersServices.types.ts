@@ -18,5 +18,5 @@ export type UsersServices = {
   twoFactorCodeGeneration: [null, TwoFactorGenerateResult]
   twoFactorActivation: [string, ActivateTwoFactorAuthResult]
   twoFactorAuthentication: [TwoFactorAuthenticate, null]
-  twoFactorDesactivation: [string, null]
+  twoFactorDeactivation: [string, null]
 }

@@ -78,6 +78,10 @@ export const twoFactorAuthActivated = {
   message: "Two factor authentication successfully activated.",
 } as const
 
+export const twoFactorAuthDeactivated = {
+  message: "Two factor authentication successfully deactivated.",
+} as const
+
 export const errorDuringHotpGeneration = {
   errorCode: "errorDuringHotpGeneration",
   message: "Error during HOTP generation.",
@@ -101,4 +105,14 @@ export const errorTwoFactorAuthCodeNotValid = {
 export const errorDuringTwoFactorAuthActivation = {
   errorCode: "errorDuringTwoFactorAuthActivation",
   message: "Error during two-factor authentication activation.",
+} as const
+
+export const errorTwoFactorAuthNotEnabled = {
+  errorCode: "errorTwoFactorAuthNotEnabled",
+  message: "Two factor authentication not enabled.",
+} as const
+
+export const errorDuringTwoFactorAuthDeactivation = {
+  errorCode: "errorDuringTwoFactorAuthDeactivation",
+  message: "Error during two-factor authentication deactivation.",
 } as const

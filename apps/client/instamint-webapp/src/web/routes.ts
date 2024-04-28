@@ -44,7 +44,7 @@ const apiRoutes = {
       authenticate: "auth/2fa/authenticate",
       generate: "auth/2fa/generate",
       activate: "auth/2fa/activate",
-      desactivate: "auth/2fa/desactivate",
+      deactivate: "auth/2fa/deactivate",
     },
   },
 } as const

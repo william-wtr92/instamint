@@ -2,7 +2,7 @@ import { type Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-export const twoFactorDesactivationService: Services<string, null> =
+export const twoFactorDeactivationService: Services<string, null> =
   ({ api }) =>
   async (data) => {
     const body = {
@@ -14,9 +14,13 @@ export const twoFactorDesactivationService: Services<string, null> =
     }
 
     try {
-      await api.post(routes.api.users.twoFactorAuth.desactivate, body, config)
+      const { data: responseData } = await api.put(
+        routes.api.users.twoFactorAuth.deactivate,
+        body,
+        config
+      )
 
-      return [null, null]
+      return [null, responseData]
     } catch (err) {
       return [handleApiErrors(err)]
     }

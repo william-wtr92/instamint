@@ -23,8 +23,8 @@ class UserModel extends BaseModel {
   roleId!: number
   roleData!: RoleModel
   twoFactorAuthentication!: boolean
-  secret!: string
-  twoFactorBackupCodes!: string[]
+  secret!: string | null
+  twoFactorBackupCodes!: string[] | null
 
   static relationMappings() {
     return {

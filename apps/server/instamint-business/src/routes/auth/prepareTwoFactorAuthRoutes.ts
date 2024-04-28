@@ -191,12 +191,10 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
           )
         }
 
-        const newSecret = generateSecret()
         const backupCodes = generateBackupCodes()
 
         await UserModel.query().patchAndFetchById(user.id, {
           twoFactorAuthentication: true,
-          secret: newSecret,
           twoFactorBackupCodes: backupCodes,
         })
 
@@ -211,6 +209,78 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         throw createErrorResponse(
           authMessages.errorDuringTwoFactorAuthActivation,
+          SC.serverErrors.SERVICE_UNAVAILABLE
+        )
+      }
+    }
+  )
+
+  twoFactorAuth.put(
+    "/deactivate",
+    auth,
+    zValidator("json", activateTwoFactorAuthSchema),
+    async (c: Context): Promise<Response> => {
+      const { code }: ActivateTwoFactorAuth = await c.req.json()
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const user = await UserModel.query().findOne({
+        email: contextUser.email,
+      })
+
+      if (!user) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      if (!user.active) {
+        return c.json(
+          usersMessages.accountAlreadyDeactivated,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      if (!user.twoFactorAuthentication) {
+        return c.json(
+          authMessages.errorTwoFactorAuthNotEnabled,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      if (!user.secret || !code) {
+        return c.json(
+          authMessages.errorSecretOrCodeNotProvided,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      const trx = await db.transaction()
+
+      try {
+        const secret = user.secret
+        const verified = verifyAuthenticatorToken(code, secret)
+
+        if (!verified) {
+          return c.json(
+            authMessages.errorTwoFactorAuthCodeNotValid,
+            SC.errors.BAD_REQUEST
+          )
+        }
+
+        await UserModel.query().patchAndFetchById(user.id, {
+          twoFactorAuthentication: false,
+          secret: null,
+          twoFactorBackupCodes: null,
+        })
+
+        await trx.commit()
+
+        return c.json(
+          { message: authMessages.twoFactorAuthDeactivated },
+          SC.success.OK
+        )
+      } catch (error) {
+        await trx.rollback()
+
+        throw createErrorResponse(
+          authMessages.errorDuringTwoFactorAuthDeactivation,
           SC.serverErrors.SERVICE_UNAVAILABLE
         )
       }
