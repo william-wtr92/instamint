@@ -7,8 +7,9 @@ import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImp
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import { Button, Text } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
-import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
 import { useUser } from "@/web/hooks/auth/useUser"
+import EnableTwoFactorAuthModal from "@/web/components/settings/EnableTwoFactorAuthModal"
+import DisableTwoFactorAuthModal from "@/web/components/settings/DisableTwoFactorAuthModal"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -28,6 +29,7 @@ const ProfileSettingsSecurityPage = () => {
 
   const { data, error, isLoading } = useUser()
   const user = !isLoading && !error ? data : null
+  const is2faEnabled = user?.twoFactorAuthentication
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -56,26 +58,27 @@ const ProfileSettingsSecurityPage = () => {
           </Text>
 
           <div className="border-accent-500 text-accent-500 mx-auto w-fit rounded-sm border-2 p-1.5 text-center">
-            {user?.twoFactorAuthentication
-              ? t("2fa-enabled")
-              : t("2fa-disabled")}
+            {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
           </div>
 
           <Button variant="default" onClick={handleOpenModal}>
-            {user?.twoFactorAuthentication
-              ? t("cta.desactivate-2fa")
-              : t("cta.activate-2fa")}
-            {}
+            {is2faEnabled ? t("cta.desactivate-2fa") : t("cta.activate-2fa")}
           </Button>
         </div>
       </div>
 
-      {isModalOpen && (
-        <TwoFactorAuthModal
-          isOpen={isModalOpen}
-          closeModal={handleCloseModal}
-        />
-      )}
+      {isModalOpen &&
+        (!is2faEnabled ? (
+          <EnableTwoFactorAuthModal
+            isOpen={isModalOpen}
+            handleCloseModal={handleCloseModal}
+          />
+        ) : (
+          <DisableTwoFactorAuthModal
+            isOpen={isModalOpen}
+            handleCloseModal={handleCloseModal}
+          />
+        ))}
     </>
   )
 }

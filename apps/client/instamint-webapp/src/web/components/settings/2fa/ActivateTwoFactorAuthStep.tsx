@@ -18,17 +18,24 @@ type Props = {
   otpCode: string
   setOtpCode: (otpCode: string) => void
   setBackupCodes: (backupCodes: string[]) => void
+  isEnable2faModal: boolean
 }
 
 const otpCodeLength = 6
 
 const ActivateTwoFactorAuthStep = (props: Props) => {
-  const { handleNextStep, otpCode, setOtpCode, setBackupCodes } = props
+  const {
+    handleNextStep,
+    otpCode,
+    setOtpCode,
+    setBackupCodes,
+    isEnable2faModal,
+  } = props
   const { t } = useTranslation("profile-settings-security")
 
   const {
     services: {
-      users: { twoFactorActivation },
+      users: { twoFactorActivation, twoFactorDesactivation },
     },
   } = useAppContext()
   const { toast } = useActionsContext()
@@ -56,11 +63,37 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
     handleNextStep()
   }, [twoFactorActivation, otpCode, toast, t, handleNextStep, setBackupCodes])
 
+  const desactivateTwoFactorAuth = useCallback(async () => {
+    const [err, data] = await twoFactorDesactivation(otpCode)
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(
+          `errors:users.profile-settings.security.2fa.${err.message}`
+        ),
+      })
+
+      return
+    }
+
+    if (!data) {
+      return
+    }
+
+    handleNextStep()
+  }, [handleNextStep, otpCode, toast, t, twoFactorDesactivation])
+
   useEffect(() => {
     if (otpCode.length === otpCodeLength) {
-      activateTwoFactorAuth()
+      isEnable2faModal ? activateTwoFactorAuth() : desactivateTwoFactorAuth()
     }
-  }, [otpCode, activateTwoFactorAuth])
+  }, [
+    otpCode,
+    activateTwoFactorAuth,
+    desactivateTwoFactorAuth,
+    isEnable2faModal,
+  ])
 
   return (
     <>

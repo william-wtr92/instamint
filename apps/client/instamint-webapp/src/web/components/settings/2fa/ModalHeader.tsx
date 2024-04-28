@@ -4,12 +4,12 @@ import React from "react"
 
 type Props = {
   step: number
-  handleCloseModal: () => void
+  closeModal: () => void
   handlePreviousStep: () => void
 }
 
 const ModalHeader = (props: Props) => {
-  const { step, handleCloseModal, handlePreviousStep } = props
+  const { step, closeModal, handlePreviousStep } = props
 
   return (
     <>
@@ -24,7 +24,7 @@ const ModalHeader = (props: Props) => {
         ))}
 
       <AlertDialogCancel
-        onClick={handleCloseModal}
+        onClick={closeModal}
         className="absolute right-0 top-0 rounded-tr-md border-0 p-[5px]"
       >
         <XMarkIcon className="size-7" />

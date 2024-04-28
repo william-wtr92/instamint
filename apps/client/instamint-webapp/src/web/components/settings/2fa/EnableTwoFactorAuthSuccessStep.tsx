@@ -11,20 +11,20 @@ import { useTranslation } from "next-i18next"
 import React, { useCallback } from "react"
 
 type Props = {
-  handleCloseModal: () => void
+  closeModal: () => void
   backupCodes: string[]
 }
 
-const TwoFactorAuthSuccessStep = (props: Props) => {
-  const { handleCloseModal, backupCodes } = props
+const EnableTwoFactorAuthSuccessStep = (props: Props) => {
+  const { closeModal, backupCodes } = props
   const { t } = useTranslation("profile-settings-security")
 
   const { mutate } = useUser()
 
   const handleRedirection = useCallback(() => {
     mutate()
-    handleCloseModal()
-  }, [mutate, handleCloseModal])
+    closeModal()
+  }, [mutate, closeModal])
 
   return (
     <>
@@ -110,4 +110,4 @@ const TwoFactorAuthSuccessStep = (props: Props) => {
   )
 }
 
-export default TwoFactorAuthSuccessStep
+export default EnableTwoFactorAuthSuccessStep

@@ -1,5 +1,6 @@
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
+import { useUser } from "@/web/hooks/auth/useUser"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -37,6 +38,10 @@ const TwoFactorAuthenticateStep = (props: Props) => {
   } = useAppContext()
   const { toast } = useActionsContext()
 
+  const { data, error, isLoading } = useUser()
+  const user = !isLoading && !error ? data : null
+  const is2faEnabled = user?.twoFactorAuthentication
+
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const form = useForm<TwoFactorAuthenticate>({
@@ -69,10 +74,14 @@ const TwoFactorAuthenticateStep = (props: Props) => {
     <>
       <AlertDialogHeader>
         <AlertDialogTitle className="xs:w-[90%] mx-auto text-center">
-          {t("modal.step-zero.title")}
+          {is2faEnabled
+            ? t("modal.step-zero.title")
+            : t("modal.step-zero.title")}
         </AlertDialogTitle>
         <AlertDialogDescription className="text-center">
-          {t("modal.step-zero.description")}
+          {is2faEnabled
+            ? t("modal.step-zero.description")
+            : t("modal.step-zero.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 

@@ -6,15 +6,15 @@ import GenerateCodeStep from "./2fa/GenerateCodeStep"
 import ModalHeader from "./2fa/ModalHeader"
 import DisplayQrCodeStep from "./2fa/DisplayQrCodeStep"
 import ActivateTwoFactorAuthStep from "./2fa/ActivateTwoFactorAuthStep"
-import TwoFactorAuthSuccessStep from "./2fa/TwoFactorAuthSuccessStep"
+import EnableTwoFactorAuthSuccessStep from "./2fa/EnableTwoFactorAuthSuccessStep"
 
 type Props = {
   isOpen: boolean
-  closeModal: () => void
+  handleCloseModal: () => void
 }
 
-const TwoFactorAuthModal = (props: Props) => {
-  const { isOpen, closeModal } = props
+const EnableTwoFactorAuthModal = (props: Props) => {
+  const { isOpen, handleCloseModal } = props
 
   const [step, setStep] = useState<number>(0)
   const [showLoader, setShowLoader] = useState<boolean>(false)
@@ -30,19 +30,19 @@ const TwoFactorAuthModal = (props: Props) => {
     setStep((prevState) => prevState + 1)
   }, [])
 
-  const handleCloseModal = useCallback(() => {
+  const closeModal = useCallback(() => {
     setStep(0)
     setQrCode("")
     setOtpCode("")
-    closeModal()
-  }, [closeModal])
+    handleCloseModal()
+  }, [handleCloseModal])
 
   return (
     <AlertDialog open={isOpen}>
       <AlertDialogContent className="h-fit gap-6 bg-white pt-8">
         <ModalHeader
           step={step}
-          handleCloseModal={handleCloseModal}
+          closeModal={closeModal}
           handlePreviousStep={handlePreviousStep}
         />
 
@@ -73,12 +73,13 @@ const TwoFactorAuthModal = (props: Props) => {
             otpCode={otpCode}
             setOtpCode={setOtpCode}
             setBackupCodes={setBackupCodes}
+            isEnable2faModal={true}
           />
         )}
 
         {step === 4 && (
-          <TwoFactorAuthSuccessStep
-            handleCloseModal={handleCloseModal}
+          <EnableTwoFactorAuthSuccessStep
+            closeModal={closeModal}
             backupCodes={backupCodes}
           />
         )}
@@ -87,4 +88,4 @@ const TwoFactorAuthModal = (props: Props) => {
   )
 }
 
-export default TwoFactorAuthModal
+export default EnableTwoFactorAuthModal
