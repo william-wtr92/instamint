@@ -17,7 +17,7 @@ type Props = {
   handleNextStep: () => void
   otpCode: string
   setOtpCode: (otpCode: string) => void
-  setBackupCodes: (backupCodes: string[]) => void
+  setBackupCodes?: (backupCodes: string[]) => void
   isEnable2faModal: boolean
 }
 
@@ -58,6 +58,10 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
       return
     }
 
+    if (!setBackupCodes) {
+      return
+    }
+
     setBackupCodes(data.backupCodes)
 
     handleNextStep()
@@ -83,7 +87,6 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
   useEffect(() => {
     if (otpCode.length === otpCodeLength) {
       isEnable2faModal ? activateTwoFactorAuth() : deactivateTwoFactorAuth()
-      // deactivateTwoFactorAuth()
     }
   }, [
     otpCode,

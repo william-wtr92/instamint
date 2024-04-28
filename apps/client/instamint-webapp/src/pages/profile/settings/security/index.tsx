@@ -8,8 +8,7 @@ import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import { Button, Text } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import { useUser } from "@/web/hooks/auth/useUser"
-import EnableTwoFactorAuthModal from "@/web/components/settings/EnableTwoFactorAuthModal"
-import DisableTwoFactorAuthModal from "@/web/components/settings/DisableTwoFactorAuthModal"
+import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -62,23 +61,18 @@ const ProfileSettingsSecurityPage = () => {
           </div>
 
           <Button variant="default" onClick={handleOpenModal}>
-            {is2faEnabled ? t("cta.desactivate-2fa") : t("cta.activate-2fa")}
+            {is2faEnabled ? t("cta.deactivate-2fa") : t("cta.activate-2fa")}
           </Button>
         </div>
       </div>
 
-      {isModalOpen &&
-        (!is2faEnabled ? (
-          <EnableTwoFactorAuthModal
-            isOpen={isModalOpen}
-            handleCloseModal={handleCloseModal}
-          />
-        ) : (
-          <DisableTwoFactorAuthModal
-            isOpen={isModalOpen}
-            handleCloseModal={handleCloseModal}
-          />
-        ))}
+      {isModalOpen && (
+        <TwoFactorAuthModal
+          isOpen={isModalOpen}
+          handleCloseModal={handleCloseModal}
+          is2faEnabled={is2faEnabled}
+        />
+      )}
     </>
   )
 }

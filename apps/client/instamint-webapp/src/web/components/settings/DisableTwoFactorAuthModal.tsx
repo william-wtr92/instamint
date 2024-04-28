@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
+import { AlertDialogContent } from "@instamint/ui-kit"
 import React, { useCallback, useState } from "react"
 import ModalHeader from "./2fa/ModalHeader"
 import ActivateTwoFactorAuthStep from "./2fa/ActivateTwoFactorAuthStep"
@@ -6,16 +6,14 @@ import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
 import DisableTwoFactorAuthSuccessStep from "./2fa/DisableTwoFactorAuthSuccessStep"
 
 type Props = {
-  isOpen: boolean
   handleCloseModal: () => void
 }
 
 const DisableTwoFactorAuthModal = (props: Props) => {
-  const { isOpen, handleCloseModal } = props
+  const { handleCloseModal } = props
 
   const [step, setStep] = useState<number>(0)
   const [otpCode, setOtpCode] = useState<string>("")
-  const [, setBackupCodes] = useState<string[]>([])
 
   const handlePreviousStep = useCallback(async () => {
     setStep((prevState) => prevState - 1)
@@ -32,7 +30,7 @@ const DisableTwoFactorAuthModal = (props: Props) => {
   }, [handleCloseModal])
 
   return (
-    <AlertDialog open={isOpen}>
+    <>
       <AlertDialogContent className="h-fit gap-6 bg-white pt-8">
         <ModalHeader
           step={step}
@@ -49,7 +47,6 @@ const DisableTwoFactorAuthModal = (props: Props) => {
             handleNextStep={handleNextStep}
             otpCode={otpCode}
             setOtpCode={setOtpCode}
-            setBackupCodes={setBackupCodes}
             isEnable2faModal={false}
           />
         )}
@@ -58,7 +55,7 @@ const DisableTwoFactorAuthModal = (props: Props) => {
           <DisableTwoFactorAuthSuccessStep closeModal={closeModal} />
         )}
       </AlertDialogContent>
-    </AlertDialog>
+    </>
   )
 }
 

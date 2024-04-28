@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
+import { AlertDialogContent } from "@instamint/ui-kit"
 
 import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
 import GenerateCodeStep from "./2fa/GenerateCodeStep"
@@ -9,12 +9,11 @@ import ActivateTwoFactorAuthStep from "./2fa/ActivateTwoFactorAuthStep"
 import EnableTwoFactorAuthSuccessStep from "./2fa/EnableTwoFactorAuthSuccessStep"
 
 type Props = {
-  isOpen: boolean
   handleCloseModal: () => void
 }
 
 const EnableTwoFactorAuthModal = (props: Props) => {
-  const { isOpen, handleCloseModal } = props
+  const { handleCloseModal } = props
 
   const [step, setStep] = useState<number>(0)
   const [showLoader, setShowLoader] = useState<boolean>(false)
@@ -38,7 +37,7 @@ const EnableTwoFactorAuthModal = (props: Props) => {
   }, [handleCloseModal])
 
   return (
-    <AlertDialog open={isOpen}>
+    <>
       <AlertDialogContent className="h-fit gap-6 bg-white pt-8">
         <ModalHeader
           step={step}
@@ -84,7 +83,7 @@ const EnableTwoFactorAuthModal = (props: Props) => {
           />
         )}
       </AlertDialogContent>
-    </AlertDialog>
+    </>
   )
 }
 
