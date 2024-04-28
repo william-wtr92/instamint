@@ -23,7 +23,7 @@ const DisplayQrCodeStep = (props: Props) => {
     <>
       <AlertDialogHeader>
         <AlertDialogTitle className="mx-auto w-[85%] text-center">
-          {t("modal.step-two.title")}
+          {t("modal.activate-2fa.step-two.title")}
         </AlertDialogTitle>
       </AlertDialogHeader>
 

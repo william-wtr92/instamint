@@ -1,10 +1,10 @@
 import { useUser } from "@/web/hooks/auth/useUser"
 import {
+  AlertDialogAction,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
   Text,
 } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
@@ -30,23 +30,23 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
     <>
       <AlertDialogHeader className="gap-4">
         <AlertDialogTitle className="mx-auto w-[85%] text-center">
-          {t("modal.step-four.title")}
+          {t("modal.activate-2fa.step-four.title")}
         </AlertDialogTitle>
 
         <AlertDialogDescription className="xs:block hidden text-center">
-          {t("modal.step-four.description")}
+          {t("modal.activate-2fa.step-four.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
       <AlertDialogHeader>
         <AlertDialogDescription className="text-error-primary text-center font-bold">
-          {t("modal.step-four.backup-codes-description")}
+          {t("modal.activate-2fa.step-four.backup-codes-description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
       <AlertDialogHeader className="gap-4">
         <AlertDialogTitle className="mx-auto w-[85%] text-center">
-          {t("modal.step-four.backup-codes-title")}
+          {t("modal.activate-2fa.step-four.backup-codes-title")}
         </AlertDialogTitle>
 
         <div className="flex flex-col gap-2">
@@ -102,9 +102,9 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
       </AlertDialogHeader>
 
       <AlertDialogFooter className="sm:justify-center">
-        <Button onClick={handleRedirection}>
+        <AlertDialogAction onClick={handleRedirection}>
           {t("modal.cta.back-to-settings")}
-        </Button>
+        </AlertDialogAction>
       </AlertDialogFooter>
     </>
   )

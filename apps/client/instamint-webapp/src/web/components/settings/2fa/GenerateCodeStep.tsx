@@ -68,10 +68,10 @@ const GenerateCodeStep = (props: Props) => {
     <>
       <AlertDialogHeader>
         <AlertDialogTitle className="text-center">
-          {t("modal.step-one.title")}
+          {t("modal.activate-2fa.step-one.title")}
         </AlertDialogTitle>
         <AlertDialogDescription>
-          {t("modal.step-one.description")}
+          {t("modal.activate-2fa.step-one.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 

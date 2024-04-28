@@ -75,13 +75,14 @@ const TwoFactorAuthenticateStep = (props: Props) => {
       <AlertDialogHeader>
         <AlertDialogTitle className="xs:w-[90%] mx-auto text-center">
           {is2faEnabled
-            ? t("modal.step-zero.title")
-            : t("modal.step-zero.title")}
+            ? t("modal.deactivate-2fa.step-zero.title")
+            : t("modal.activate-2fa.step-zero.title")}
         </AlertDialogTitle>
+
         <AlertDialogDescription className="text-center">
           {is2faEnabled
-            ? t("modal.step-zero.description")
-            : t("modal.step-zero.description")}
+            ? t("modal.deactivate-2fa.step-zero.description")
+            : t("modal.activate-2fa.step-zero.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
@@ -97,14 +98,18 @@ const TwoFactorAuthenticateStep = (props: Props) => {
               render={({ field }) => (
                 <FormItem className="relative w-full">
                   <FormLabel className="relative left-1 flex items-center gap-2 font-bold">
-                    <span>{t("modal.step-zero.password.label")}</span>
+                    <span>
+                      {t("modal.activate-2fa.step-zero.password.label")}
+                    </span>
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         className="focus-visible:outline-accent-500 mt-2 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                         type={showPassword ? "text" : "password"}
-                        placeholder={t("modal.step-zero.password.placeholder")}
+                        placeholder={t(
+                          "modal.activate-2fa.step-zero.password.placeholder"
+                        )}
                         {...field}
                       />
                       {showPassword ? (

@@ -35,7 +35,7 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
 
   const {
     services: {
-      users: { twoFactorActivation, twoFactorDesactivation },
+      users: { twoFactorActivation, twoFactorDeactivation },
     },
   } = useAppContext()
   const { toast } = useActionsContext()
@@ -63,8 +63,8 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
     handleNextStep()
   }, [twoFactorActivation, otpCode, toast, t, handleNextStep, setBackupCodes])
 
-  const desactivateTwoFactorAuth = useCallback(async () => {
-    const [err, data] = await twoFactorDesactivation(otpCode)
+  const deactivateTwoFactorAuth = useCallback(async () => {
+    const [err] = await twoFactorDeactivation(otpCode)
 
     if (err) {
       toast({
@@ -77,21 +77,18 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
       return
     }
 
-    if (!data) {
-      return
-    }
-
     handleNextStep()
-  }, [handleNextStep, otpCode, toast, t, twoFactorDesactivation])
+  }, [handleNextStep, otpCode, toast, t, twoFactorDeactivation])
 
   useEffect(() => {
     if (otpCode.length === otpCodeLength) {
-      isEnable2faModal ? activateTwoFactorAuth() : desactivateTwoFactorAuth()
+      isEnable2faModal ? activateTwoFactorAuth() : deactivateTwoFactorAuth()
+      // deactivateTwoFactorAuth()
     }
   }, [
     otpCode,
     activateTwoFactorAuth,
-    desactivateTwoFactorAuth,
+    deactivateTwoFactorAuth,
     isEnable2faModal,
   ])
 
@@ -99,11 +96,15 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
     <>
       <AlertDialogHeader>
         <AlertDialogTitle className="mx-auto w-[85%] text-center">
-          {t("modal.step-three.title")}
+          {isEnable2faModal
+            ? t("modal.activate-2fa.step-three.title")
+            : t("modal.deactivate-2fa.step-one.title")}
         </AlertDialogTitle>
 
         <AlertDialogDescription className="text-center">
-          {t("modal.step-three.description")}
+          {isEnable2faModal
+            ? t("modal.activate-2fa.step-three.description")
+            : t("modal.deactivate-2fa.step-one.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 

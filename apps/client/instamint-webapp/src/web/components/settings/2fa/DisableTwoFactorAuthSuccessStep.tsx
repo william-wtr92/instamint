@@ -28,17 +28,17 @@ const DisableTwoFactorAuthSuccessStep = (props: Props) => {
     <>
       <AlertDialogHeader className="gap-4">
         <AlertDialogTitle className="mx-auto w-[85%] text-center">
-          {t("modal.step-four.title")}
+          {t("modal.activate-2fa.step-four.title")}
         </AlertDialogTitle>
 
         <AlertDialogDescription className="xs:block hidden text-center">
-          {t("modal.step-four.description")}
+          {t("modal.activate-2fa.step-four.description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
       <AlertDialogHeader>
         <AlertDialogDescription className="text-error-primary text-center font-bold">
-          {t("modal.step-four.backup-codes-description")}
+          {t("modal.activate-2fa.step-four.backup-codes-description")}
         </AlertDialogDescription>
       </AlertDialogHeader>
 

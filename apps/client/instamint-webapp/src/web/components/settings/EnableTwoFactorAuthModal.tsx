@@ -31,10 +31,10 @@ const EnableTwoFactorAuthModal = (props: Props) => {
   }, [])
 
   const closeModal = useCallback(() => {
+    handleCloseModal()
     setStep(0)
     setQrCode("")
     setOtpCode("")
-    handleCloseModal()
   }, [handleCloseModal])
 
   return (

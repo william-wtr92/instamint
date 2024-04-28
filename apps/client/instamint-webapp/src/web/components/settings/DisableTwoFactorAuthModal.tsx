@@ -26,9 +26,9 @@ const DisableTwoFactorAuthModal = (props: Props) => {
   }, [])
 
   const closeModal = useCallback(() => {
+    handleCloseModal()
     setStep(0)
     setOtpCode("")
-    handleCloseModal()
   }, [handleCloseModal])
 
   return (
