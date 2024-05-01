@@ -71,11 +71,6 @@ export const usernameAlreadyExist = {
   message: "Error this username already exist.",
 } as const
 
-export const userInfosSameAsPrevious = {
-  errorCode: "userInfosSameAsPrevious",
-  message: "You have not changed any information.",
-} as const
-
 export const linkAlreadyExist = {
   errorCode: "linkAlreadyExist",
   message: "Error this link already exist.",

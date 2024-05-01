@@ -34,7 +34,6 @@
       "update-account": {
         "userNotModified": "An error has occurred while modifying your information.",
         "usernameAlreadyExist": "This username already exist.",
-        "userInfosSameAsPrevious": "You have not changed any informations.",
         "linkAlreadyExist": "This link already exist.",
         "avatar": {
           "avatarSizeTooLarge": "Avatar size too large. Maximum size is 10MB.",
