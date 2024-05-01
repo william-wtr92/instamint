@@ -38,12 +38,14 @@
       },
 			"security": {
 				"2fa": {
-					"twoFactorAuthAlreadyEnabled": "Two-factor authentication is already enabled.",
+					"errorTwoFactorAuthAlreadyEnabled": "Two-factor authentication is already enabled.",
 					"errorDuringHotpGeneration": "An error occurred during the generation of the 2FA code.",
 					"errorSecretOrCodeNotProvided": "Secret or code not provided.",
 					"errorHotpCounterNotAvailable": "HOTP counter not available.",
 					"errorTwoFactorAuthCodeNotValid": "Two-factor authentication code not valid.",
-					"errorDuringTwoFactorAuthActivation": "An error occurred during the activation of two-factor authentication."
+					"errorDuringTwoFactorAuthActivation": "An error occurred during the activation of two-factor authentication.",
+					"errorTwoFactorAuthNotEnabled": "Two-factor authentication couldn't be enabled.",
+					"errorDuringTwoFactorAuthDeactivation": "An error occurred during the deactivation of two-factor authentication."
 				}
 			}
     },

@@ -69,17 +69,17 @@ export const twoFactorAuthSuccess = {
   message: "Two factor authentication success.",
 } as const
 
-export const twoFactorAuthAlreadyEnabled = {
-  errorCode: "twoFactorAuthAlreadyEnabled",
-  message: "Two factor authentication already enabled.",
-} as const
-
 export const twoFactorAuthActivated = {
   message: "Two factor authentication successfully activated.",
 } as const
 
 export const twoFactorAuthDeactivated = {
   message: "Two factor authentication successfully deactivated.",
+} as const
+
+export const errorTwoFactorAuthAlreadyEnabled = {
+  errorCode: "errorTwoFactorAuthAlreadyEnabled",
+  message: "Two factor authentication already enabled.",
 } as const
 
 export const errorDuringHotpGeneration = {
