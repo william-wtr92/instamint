@@ -11,18 +11,11 @@ type Response = {
   mimeType: string
 }
 
-export const uploadBlob = async <T extends string | File | (string | File)[]>(
+export const uploadBlob = async <T extends File>(
   c: Context,
   image: T,
   endpoint: string
 ): Promise<{ url: string } | Response> => {
-  if (!(image instanceof File)) {
-    return c.json(
-      { message: usersMessages.avatarUploadFailed },
-      SC.errors.BAD_REQUEST
-    )
-  }
-
   const formData = new FormData()
   formData.append("image", image, image.name)
 

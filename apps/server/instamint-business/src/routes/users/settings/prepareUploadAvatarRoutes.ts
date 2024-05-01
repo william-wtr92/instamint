@@ -62,11 +62,17 @@ const prepareUploadAvatarRoutes: ApiRoutes = ({ app, db, redis }) => {
         await deleteBlob(c, user.avatar, filesServiceEndpoints.delete)
       }
 
+      if (!(image instanceof File)) {
+        return c.json(usersMessages.avatarUploadFailed, SC.errors.BAD_REQUEST)
+      }
+
       const response = await uploadBlob(c, image, filesServiceEndpoints.upload)
 
-      await db("users").where({ email: user.email }).update({
-        avatar: response.url,
-      })
+      await UserModel.query()
+        .where({ email: user.email })
+        .update({
+          ...(response.url ? { avatar: response.url } : {}),
+        })
 
       return c.json(
         {

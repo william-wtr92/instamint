@@ -46,18 +46,6 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      if (
-        user.username === username &&
-        user.bio === bio &&
-        user.link === link &&
-        user.location === location
-      ) {
-        return c.json(
-          usersMessages.userInfosSameAsPrevious,
-          SC.errors.BAD_REQUEST
-        )
-      }
-
       if (user.username !== username) {
         const existingUsername = await UserModel.query().findOne({ username })
 
@@ -81,8 +69,8 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         .where({ email: contextUser.email })
         .update({
           ...(username ? { username } : {}),
-          ...(bio ? { bio } : {}),
-          ...(link ? { link } : {}),
+          ...(bio !== undefined ? { bio } : undefined),
+          ...(link !== undefined ? { link } : undefined),
           ...(location ? { location } : {}),
         })
 

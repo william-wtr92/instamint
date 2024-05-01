@@ -59,12 +59,11 @@ const ProfileSettingsEditPage = () => {
   const onSubmit = useCallback(
     async (values: UserInfos) => {
       const [errInfos] = await updateUserInfos({
-        username: values.username,
-        bio: values.bio,
-        link: values.link,
-        location: values.location,
+        username: values.username ? values.username : "",
+        bio: values.bio ? values.bio : "",
+        link: values.link ? values.link : "",
+        location: values.location ? values.location : "",
       })
-      const [errAvatar] = await uploadAvatar({ avatar: values.avatar })
 
       if (errInfos) {
         toast({
@@ -77,15 +76,19 @@ const ProfileSettingsEditPage = () => {
         return
       }
 
-      if (errAvatar) {
-        toast({
-          variant: "error",
-          description: t(
-            `errors:users.profile-settings.update-account.avatar.${errAvatar.message}`
-          ),
-        })
+      if (values.avatar !== undefined) {
+        const [errAvatar] = await uploadAvatar({ avatar: values.avatar })
 
-        return
+        if (errAvatar) {
+          toast({
+            variant: "error",
+            description: t(
+              `errors:users.profile-settings.update-account.avatar.${errAvatar.message}`
+            ),
+          })
+
+          return
+        }
       }
 
       toast({
