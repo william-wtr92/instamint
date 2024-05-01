@@ -26,3 +26,11 @@ export const decodeJwt = async (jwt: string, secret?: string) => {
     appConfig.security.jwt.algorithm
   )
 }
+
+export const isJwtExpired = (exp: number) => {
+  const expiryTimeInSeconds = exp
+
+  const currentTimeInSeconds = Math.floor(Date.now() / 1000)
+
+  return currentTimeInSeconds >= expiryTimeInSeconds
+}

@@ -100,7 +100,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (user.twoFactorAuthentication) {
         return c.json(
-          authMessages.twoFactorAuthAlreadyEnabled,
+          authMessages.errorTwoFactorAuthAlreadyEnabled,
           SC.errors.BAD_REQUEST
         )
       }
@@ -166,7 +166,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (user.twoFactorAuthentication) {
         return c.json(
-          authMessages.twoFactorAuthAlreadyEnabled,
+          authMessages.errorTwoFactorAuthAlreadyEnabled,
           SC.errors.BAD_REQUEST
         )
       }

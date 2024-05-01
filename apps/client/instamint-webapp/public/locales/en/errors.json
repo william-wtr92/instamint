@@ -11,7 +11,10 @@
     "userEmailAlreadyValidated": "This email has already been validated.",
     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
     "emailNotExists": "This email does not exist.",
-    "invalidPassword": "Invalid password."
+    "invalidPassword": "Invalid password.",
+		"errorInvalidTwoFactorCookie": "Invalid two-factor cookie.",
+		"errorDuringSignIn": "An error occurred during the sign in.",
+		"errorTwoFactorAuthRequired": "Two-factor authentication is required."
   },
   "users": {
     "reset": {

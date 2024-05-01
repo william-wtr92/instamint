@@ -59,6 +59,21 @@ export const signedInUser = {
   message: "User signed in.",
 } as const
 
+export const errorInvalidTwoFactorCookie = {
+  errorCode: "errorInvalidTwoFactorCookie",
+  message: "Invalid two factor cookie.",
+} as const
+
+export const errorDuringSignIn = {
+  errorCode: "errorDuringSignIn",
+  message: "Error during sign in.",
+} as const
+
+export const errorTwoFactorAuthRequired = {
+  errorCode: "errorTwoFactorAuthRequired",
+  message: "Two factor authentication required.",
+} as const
+
 /* SignOut Messages  */
 export const signOutSuccess = {
   message: "Sign out success.",

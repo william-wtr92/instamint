@@ -11,7 +11,9 @@
     "userEmailAlreadyValidated": "Votre email a déjà été validé.",
     "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
     "emailNotExists": "Cet email n'existe pas.",
-    "invalidPassword": "Mot de passe invalide."
+    "invalidPassword": "Mot de passe invalide.",
+		"errorDuringSignIn": "Erreur lors de la connexion.",
+		"errorTwoFactorAuthRequired": "L'authentification à deux facteurs est requise."
   },
   "users": {
     "reset": {

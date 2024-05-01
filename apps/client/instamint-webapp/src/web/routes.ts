@@ -31,6 +31,7 @@ const apiRoutes = {
     emailValidation: "/auth/email-validation",
     resendEmailValidation: "/auth/resend-email-validation",
     signIn: "/auth/sign-in",
+    signIn2fa: "/auth/sign-in-2fa",
     signOut: "/auth/sign-out",
     me: "/auth/me",
   },

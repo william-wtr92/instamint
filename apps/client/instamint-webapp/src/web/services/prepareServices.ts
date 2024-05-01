@@ -15,6 +15,7 @@ import twoFactorCodeGenerationService from "@/web/services/users/account/twoFact
 import twoFactorActivationService from "@/web/services/users/account/twoFactorActivationService"
 import twoFactorAuthenticationService from "./users/account/twoFactorAuthenticationService"
 import { twoFactorDeactivationService } from "./users/account/twoFactorDeactivationService"
+import signIn2faService from "./auth/signIn2faService"
 
 export const prepareServices: PrepareServicesContext = (context) => {
   return {
@@ -24,6 +25,7 @@ export const prepareServices: PrepareServicesContext = (context) => {
         emailValidation: emailValidationService(context),
         resendEmailValidation: resendEmailValidationService(context),
         signIn: signInService(context),
+        signIn2fa: signIn2faService(context),
         signOut: signOutService(context),
       },
       users: {

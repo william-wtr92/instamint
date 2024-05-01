@@ -20,5 +20,10 @@
       "description": "Mot de passe oublié ?",
       "link": "Réinitialisez-le ici."
     }
-  }
+  },
+	"modal": {
+		"title": "Entrez votre code 2FA pour vous connecter",
+		"description": "Pour vous connecter, veuillez entrer votre code d'authentification à deux facteurs généré sur l'application d'authentification que vous avez choisi lors de sa configuration",
+		"checkbox-description": "Ne plus demander le code 2FA sur cet appareil pendant 30 jours"
+	}
 }
