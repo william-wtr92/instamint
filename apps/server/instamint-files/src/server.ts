@@ -1,6 +1,5 @@
 import { type Context, Hono } from "hono"
 import { cors } from "hono/cors"
-import { showRoutes } from "hono/dev"
 import { etag } from "hono/etag"
 import { logger } from "hono/logger"
 import { prettyJSON } from "hono/pretty-json"
@@ -29,12 +28,10 @@ const server = async () => {
     return c.json("Instamint Files Service!")
   })
 
-  // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${appConfig.port}`)
-
   prepareRoutes({ app, azure: blobStorage })
 
-  showRoutes(app)
+  // eslint-disable-next-line no-console
+  console.log(`Server is running on port ${appConfig.port}`)
 
   return app
 }

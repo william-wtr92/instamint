@@ -19,7 +19,7 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { hashPassword } from "@/utils/helpers/hashPassword"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import { now, oneDayTTL } from "@/utils/helpers/times"
@@ -28,14 +28,14 @@ const prepareModifyPasswordRoutes: ApiRoutes = ({ app, db, redis }) => {
   const modifyPassword = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )

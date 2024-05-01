@@ -22,8 +22,8 @@ import {
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { deleteAccountJob } from "@/middlewares/jobs/deleteAccountJob"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { delCookie } from "@/utils/helpers/actions/cookiesActions"
 import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -39,14 +39,14 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
   const deleteAccount = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -142,7 +142,7 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
 
               await sgMail.send(confirmDeleteAccountMail)
             } catch (err) {
-              throw createErrorResponse(
+              throw throwInternalError(
                 usersMessages.deleteAccountJob(user.email),
                 SC.serverErrors.INTERNAL_SERVER_ERROR
               )

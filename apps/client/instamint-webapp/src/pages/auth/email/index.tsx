@@ -49,30 +49,28 @@ const EmailValidationPage = (
   const { redirect, toast } = useActionsContext()
 
   const onSubmit = useCallback(async () => {
-    if (validation != null) {
-      const [err] = await emailValidation({ validation })
-
-      if (err) {
-        toast({
-          variant: "error",
-          description: t(`errors:auth.${err.message}`),
-        })
-
-        return
-      }
-
-      toast({
-        variant: "success",
-        description: t("email:validation.success"),
-      })
-      redirect(routes.client.home, 3000)
-    } else {
+    if (!validation) {
       toast({
         variant: "error",
         description: t("email:validation.errorNoToken"),
       })
     }
 
+    const [err] = await emailValidation({ validation })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:auth.${err.message}`),
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("email:validation.success"),
+    })
     redirect(routes.client.home, 6000)
   }, [redirect, emailValidation, validation, t, toast])
 

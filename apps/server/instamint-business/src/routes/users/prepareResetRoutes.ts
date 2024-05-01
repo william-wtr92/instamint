@@ -19,8 +19,8 @@ import {
   usersMessages,
 } from "@/def"
 import { handleError } from "@/middlewares/handleError"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { hashPassword } from "@/utils/helpers/hashPassword"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -36,14 +36,14 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
   const reset = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )

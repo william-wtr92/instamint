@@ -4,6 +4,7 @@
     "emailOrUsernameAlreadyExist": "Email or username already exist.",
     "gdprValidationIsRequired": "You must accept the GDPR validation.",
     "errorDuringUserRegistration": "Error during user registration.",
+    "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenExpired": "Your link is expired. Please request a new one.",

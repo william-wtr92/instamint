@@ -1,7 +1,7 @@
 import type { StatusCode, SimpleHeaders } from "@instamint/server-types"
 import { HTTPException } from "hono/http-exception"
 
-export const createErrorResponse = (
+export const throwInternalError = (
   error: object,
   statusCode: number,
   headers?: SimpleHeaders

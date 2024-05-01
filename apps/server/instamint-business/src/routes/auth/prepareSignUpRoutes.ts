@@ -22,8 +22,8 @@ import {
 import { handleError } from "@/middlewares/handleError"
 import type { InsertedUser } from "@/types"
 import { sanitizeCreatedUser } from "@/utils/dto/sanitizeUsers"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 import { hashPassword } from "@/utils/helpers/hashPassword"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
@@ -33,14 +33,14 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signUp = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -107,7 +107,7 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
           SC.success.CREATED
         )
       } catch (error) {
-        throw createErrorResponse(
+        throw throwInternalError(
           authMessages.errorDuringUserRegistration,
           SC.serverErrors.SERVICE_UNAVAILABLE
         )

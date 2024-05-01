@@ -5,7 +5,7 @@ import { configSchema } from "@/config/configSchema"
 config()
 
 const appConfig = configSchema.parse({
-  port: 3002,
+  port: parseInt(process.env.PORT_FILES!),
   cors: {
     origin: process.env.CORS_ORIGIN_BUSINESS!,
   },

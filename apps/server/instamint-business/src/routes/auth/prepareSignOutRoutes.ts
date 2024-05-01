@@ -10,21 +10,21 @@ import {
   redisKeys,
 } from "@/def"
 import { auth } from "@/middlewares/auth"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { delCookie } from "@/utils/helpers/actions/cookiesActions"
 
 const prepareSignOutRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signOut = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )

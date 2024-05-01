@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "test") {
 }
 
 const appConfig = baseConfig.parse({
-  port: 3001,
+  port: parseInt(process.env.PORT_BUSINESS!),
   db: {
     client: "pg",
     connection: {

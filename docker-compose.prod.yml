@@ -26,6 +26,7 @@ services:
     ports:
       - "3001:3001"
     environment:
+      - PORT_BUSINESS=${PORT_BUSINESS}
       - DB_CONNECTION_HOST=db
       - DB_CONNECTION_USER=${DB_CONNECTION_USER_DOCKER}
       - DB_CONNECTION_PWD=${DB_CONNECTION_PASSWORD_DOCKER}
@@ -67,6 +68,7 @@ services:
     ports:
       - "3002:3002"
     environment:
+      - PORT_FILES=${PORT_FILES}
       - CORS_ORIGIN_BUSINESS=${CORS_ORIGIN_BUSINESS_DOCKER}
       - AZURE_ACCOUNT_NAME=${AZURE_ACCOUNT_NAME}
       - AZURE_ACCOUNT_KEY=${AZURE_ACCOUNT_KEY}
