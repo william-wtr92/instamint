@@ -37,6 +37,8 @@
         "usernameAlreadyExist": "This username already exist.",
         "linkAlreadyExist": "This link already exist.",
         "avatar": {
+          "fileNotFound": "File not found.",
+          "fileSizeTooLarge": "File size too large.",
           "avatarSizeTooLarge": "Avatar size too large. Maximum size is 10MB.",
           "userNotFound": "Session expired. Please sign-in again.",
           "avatarUploadFailed": "An error has occurred while uploading your avatar.",

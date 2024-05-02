@@ -22,10 +22,10 @@ const prepareAzureRoutes: ApiRoutes = ({ app, azure }) => {
     bodyLimit({
       maxSize: oneGB,
       onError: (c: Context) => {
-        return c.json({
-          message: "file too large",
-          status: SC.errors.PAYLOAD_TOO_LARGE,
-        })
+        return c.json(
+          globalsMessages.fileSizeTooLarge,
+          SC.errors.PAYLOAD_TOO_LARGE
+        )
       },
     }),
     async (c: Context): Promise<Response> => {

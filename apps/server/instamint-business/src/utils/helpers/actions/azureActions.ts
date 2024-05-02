@@ -3,7 +3,7 @@ import type { Context } from "hono"
 import { type Dispatcher, FormData, request } from "undici"
 
 import appConfig from "@/db/config/config"
-import { usersMessages } from "@/def"
+import { globalsMessages, usersMessages } from "@/def"
 
 type Response = {
   message: string
@@ -16,24 +16,37 @@ export const uploadBlob = async <T extends File>(
   image: T,
   endpoint: string
 ): Promise<{ url: string } | Response> => {
-  const formData = new FormData()
-  formData.append("image", image, image.name)
+  try {
+    const formData = new FormData()
+    formData.append("image", image, image.name)
 
-  const { ...response }: Dispatcher.ResponseData = await request(
-    `${appConfig.microservices.files}${endpoint}`,
-    {
-      method: "POST",
-      body: formData,
+    const { ...response }: Dispatcher.ResponseData = await request(
+      `${appConfig.microservices.files}${endpoint}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+
+    const responseBody = (await response.body.json()) as Response
+
+    return { url: responseBody.url }
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes(globalsMessages.fileSizeTooLarge.message)
+    ) {
+      return c.json(
+        globalsMessages.fileSizeTooLarge,
+        SC.errors.PAYLOAD_TOO_LARGE
+      )
     }
-  )
 
-  if (response.statusCode !== SC.success.OK) {
-    return c.json(usersMessages.avatarUploadFailed, SC.errors.BAD_REQUEST)
+    return c.json({
+      message: usersMessages.avatarUploadFailed,
+      status: SC.serverErrors.INTERNAL_SERVER_ERROR,
+    })
   }
-
-  const responseBody = (await response.body.json()) as Response
-
-  return { url: responseBody.url }
 }
 
 export const deleteBlob = async (
@@ -41,16 +54,20 @@ export const deleteBlob = async (
   imageName: string,
   endpoint: string
 ) => {
-  const { ...response }: Dispatcher.ResponseData = await request(
-    `${appConfig.microservices.files}${endpoint}${imageName}`,
-    {
+  try {
+    await request(`${appConfig.microservices.files}${endpoint}${imageName}`, {
       method: "DELETE",
-    }
-  )
+    })
 
-  if (response.statusCode !== SC.success.OK) {
+    return { message: usersMessages.avatarDeleted.message }
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes(globalsMessages.fileNotFound.message)
+    ) {
+      return c.json(globalsMessages.fileNotFound, SC.errors.NOT_FOUND)
+    }
+
     return c.json(usersMessages.avatarDeleteFailed, SC.errors.BAD_REQUEST)
   }
-
-  return { message: usersMessages.avatarDeleted.message }
 }
