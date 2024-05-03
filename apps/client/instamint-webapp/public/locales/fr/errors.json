@@ -4,6 +4,7 @@
     "emailOrUsernameAlreadyExist": "L'email ou le nom d'utilisateur existe déjà.",
     "gdprValidationIsRequired": "Vous devez accepter les conditions d'utilisation.",
     "errorDuringUserRegistration": "Erreur lors de l'inscription.",
+    "tokenNotProvided": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
     "tokenInvalidStructure": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
     "tokenSignatureMismatched": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
     "tokenExpired": "Votre lien est expiré. Demandez en un à nouveau.",
@@ -17,7 +18,7 @@
     "reset": {
       "userNotFound": "Ce compte n'existe pas.",
       "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
-      "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+      "tokenNotProvided": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
       "tokenInvalidStructure": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
       "tokenSignatureMismatched": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",
       "tokenExpired": "Votre lien est expiré. Demandez en un à nouveau.",
@@ -34,8 +35,15 @@
       "update-account": {
         "userNotModified": "Une erreur est survenue lors de la modification de vos informations.",
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
-        "userInfosSameAsPrevious": "Vous n'avez modifié aucune information.",
-        "linkAlreadyExist": "Ce lien existe déjà."
+        "linkAlreadyExist": "Ce lien existe déjà.",
+        "avatar": {
+          "fileNotFound": "Fichier introuvable.",
+          "fileSizeTooLarge": "L'image est trop grande.",
+          "avatarSizeTooLarge": "L'image est trop grande. La taille maximale est de 10Mo.",
+          "userNotFound": "Session expirée, reconnectez-vous.",
+          "avatarUploadFailed": "Une erreur est survenue lors de l'envoi de votre avatar.",
+          "avatarDeleteFailed": "Une erreur est survenue lors de la suppression de votre ancien avatar."
+        }
       },
       "modify-password": {
         "userNotFound": "Session expirée, reconnectez-vous.",

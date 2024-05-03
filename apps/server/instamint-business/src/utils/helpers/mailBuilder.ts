@@ -2,7 +2,7 @@ import sgMail from "@sendgrid/mail"
 
 import appConfig from "@/db/config/config"
 import type { DynamicData, MailBuild, MailData } from "@/types"
-import { signJwt } from "@/utils/helpers/jwtActions"
+import { signJwt } from "@/utils/helpers/actions/jwtActions"
 import { oneHour } from "@/utils/helpers/times"
 
 export const mailBuilder = async <T extends MailData>(

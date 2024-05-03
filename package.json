@@ -19,7 +19,7 @@
 
     "build:files": "pnpm --filter @instamint/files-server build",
     "lint:files": "pnpm --filter @instamint/files-server lint",
-    "dev:files": "pnpm --filter @instamint/files-server dev",
+    "dev:files": "dotenv -e .env -- pnpm --filter @instamint/files-server dev:local",
 
     "build:business": "pnpm --filter @instamint/business-server build",
     "lint:business": "pnpm --filter @instamint/business-server lint",

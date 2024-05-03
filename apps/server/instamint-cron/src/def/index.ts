@@ -1,4 +1,4 @@
-import * as globalsMessages from "./ressources/globalsMessages"
+import * as globalsMessages from "./resources/globalsMessages"
 
 export { globalsMessages }
 

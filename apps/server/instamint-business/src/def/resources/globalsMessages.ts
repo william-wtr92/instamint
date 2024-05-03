@@ -48,3 +48,15 @@ export const tokenInvalidScope = {
   errorCode: "tokenInvalidScope",
   message: "Token has invalid scope.",
 } as const
+
+/* FILES MESSAGES */
+
+export const fileNotFound = {
+  errorCode: "fileNotFound",
+  message: "File not found.",
+} as const
+
+export const fileSizeTooLarge = {
+  errorCode: "fileSizeTooLarge",
+  message: "File size too large.",
+} as const

@@ -4,6 +4,7 @@
     "emailOrUsernameAlreadyExist": "Email or username already exist.",
     "gdprValidationIsRequired": "You must accept the GDPR validation.",
     "errorDuringUserRegistration": "Error during user registration.",
+    "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenExpired": "Your link is expired. Please request a new one.",
@@ -34,8 +35,15 @@
       "update-account": {
         "userNotModified": "An error has occurred while modifying your information.",
         "usernameAlreadyExist": "This username already exist.",
-        "userInfosSameAsPrevious": "You have not changed any informations.",
-        "linkAlreadyExist": "This link already exist."
+        "linkAlreadyExist": "This link already exist.",
+        "avatar": {
+          "fileNotFound": "File not found.",
+          "fileSizeTooLarge": "File size too large.",
+          "avatarSizeTooLarge": "Avatar size too large. Maximum size is 10MB.",
+          "userNotFound": "Session expired. Please sign-in again.",
+          "avatarUploadFailed": "An error has occurred while uploading your avatar.",
+          "avatarDeleteFailed": "An error has occurred while deleting your past avatar."
+        }
       },
       "modify-password": {
         "userNotFound": "Session expired. Please log in again.",

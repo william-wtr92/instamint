@@ -20,6 +20,11 @@
         '{{ terraform_outputs.files_config.value.image }}'
         '{{ terraform_outputs.files_config.value.name }}'
         '{{ terraform_outputs.files_config.value.port }}'
+        '{{ terraform_outputs['secrets']['value']['CORS-ORIGIN-BUSINESS'] }}'
+        '{{ terraform_outputs['secrets']['value']['AZURE-ACCOUNT-NAME'] }}'
+        '{{ terraform_outputs['secrets']['value']['AZURE-ACCOUNT-KEY'] }}'
+        '{{ terraform_outputs['secrets']['value']['AZURE-BLOB-CONTAINER'] }}'
+        '{{ terraform_outputs['secrets']['value']['AZURE-BLOB-CONNECTION'] }}'
       register: script_output
       changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"
       when: inventory_hostname == 'instamint-files-vm'

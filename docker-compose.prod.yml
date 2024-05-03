@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   instamint-webapp:
@@ -8,6 +8,7 @@ services:
       target: prod
       args:
         - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+        - NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
     image: instamintACR.azurecr.io/instamint/instamint-client-webapp:latest
     ports:
       - "3000:3000"
@@ -25,6 +26,7 @@ services:
     ports:
       - "3001:3001"
     environment:
+      - PORT_BUSINESS=${PORT_BUSINESS}
       - DB_CONNECTION_HOST=db
       - DB_CONNECTION_USER=${DB_CONNECTION_USER_DOCKER}
       - DB_CONNECTION_PWD=${DB_CONNECTION_PASSWORD_DOCKER}
@@ -65,6 +67,13 @@ services:
     image: instamintACR.azurecr.io/instamint/instamint-server-files:latest
     ports:
       - "3002:3002"
+    environment:
+      - PORT_FILES=${PORT_FILES}
+      - CORS_ORIGIN_BUSINESS=${CORS_ORIGIN_BUSINESS_DOCKER}
+      - AZURE_ACCOUNT_NAME=${AZURE_ACCOUNT_NAME}
+      - AZURE_ACCOUNT_KEY=${AZURE_ACCOUNT_KEY}
+      - AZURE_BLOB_CONTAINER=${AZURE_BLOB_CONTAINER}
+      - AZURE_BLOB_CONNECTION=${AZURE_BLOB_CONNECTION_DOCKER}
     networks:
       - instamint_network
 
@@ -102,6 +111,19 @@ services:
     image: "redis:alpine"
     ports:
       - "6379:6379"
+    networks:
+      - instamint_network
+
+  azurite:
+    image: "mcr.microsoft.com/azure-storage/azurite"
+    hostname: azurite
+    restart: always
+    command: 'azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --location /workspace --debug /workspace/debug.log'
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+    volumes:
+      - ./azurite:/workspace
     networks:
       - instamint_network
 

@@ -3,6 +3,7 @@ import { z } from "zod"
 export const envTestSchema = z
   .object({
     server: z.object({
+      NEXT_PUBLIC_BLOB_URL: z.string(),
       NEXT_PUBLIC_BASE_URL: z.string(),
     }),
   })

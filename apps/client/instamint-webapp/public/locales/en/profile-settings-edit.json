@@ -1,6 +1,7 @@
 {
   "title": "",
   "update-account": {
+    "i": "i",
     "p1": "If you'd like to change your details, such as your username, your bio or your link, this is the place to do it!",
     "username": {
       "label": "Username",
@@ -22,8 +23,11 @@
       "placeholder": "Country",
       "error": "Please choose your country."
     },
-    "picture": {
-      "label": "Profile picture"
+    "avatar": {
+      "label": "Avatar",
+      "placeholder": "Choose your avatar",
+      "delete": "x",
+      "error": "The avatar must be an image."
     },
     "success":  "Your account has been modified!",
     "save": "Save"

@@ -71,11 +71,6 @@ export const usernameAlreadyExist = {
   message: "Error this username already exist.",
 } as const
 
-export const userInfosSameAsPrevious = {
-  errorCode: "userInfosSameAsPrevious",
-  message: "You have not changed any information.",
-} as const
-
 export const linkAlreadyExist = {
   errorCode: "linkAlreadyExist",
   message: "Error this link already exist.",
@@ -92,8 +87,7 @@ export const passwordAlreadyModify = {
   message: "You have already changed your password within the last 24 hours.",
 } as const
 
-/* modify email */
-
+/* Modify Email */
 export const emailSameAsPrevious = {
   errorCode: "emailSameAsPrevious",
   message: "You need a different email.",
@@ -112,4 +106,28 @@ export const emailAlreadyUse = {
 export const invalidEmail = {
   errorCode: "invalidEmail",
   message: "Invalid email.",
+} as const
+
+/* Avatar */
+export const avatarSizeTooLarge = {
+  errorCode: "avatarSizeTooLarge",
+  message: "Avatar size too large.",
+} as const
+
+export const avatarUploadFailed = {
+  errorCode: "avatarUploadFailed",
+  message: "Avatar upload failed.",
+} as const
+
+export const avatarUploaded = {
+  message: "Avatar uploaded.",
+} as const
+
+export const avatarDeleteFailed = {
+  errorCode: "avatarDeleteFailed",
+  message: "Avatar delete failed.",
+} as const
+
+export const avatarDeleted = {
+  message: "Avatar deleted.",
 } as const

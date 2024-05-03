@@ -17,6 +17,7 @@ export const up = async (knex: Knex): Promise<void> => {
     table.string("bio").nullable()
     table.string("link").unique().nullable()
     table.string("location").nullable()
+    table.string("avatar").nullable()
     table.text("passwordHash").notNullable()
     table.text("passwordSalt").notNullable()
     table.timestamps(true, true, true)

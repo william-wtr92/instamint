@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import { type UserInfosSchema, userInfosSchema } from "@instamint/shared-types"
+import { type UserInfos, userInfosSchema } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
@@ -12,20 +12,20 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 
 const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
   const updateUserInfos = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -38,24 +38,12 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const requestBody = await c.req.json()
-      const { username, bio, link, location }: UserInfosSchema = requestBody
+      const { username, bio, link, location }: UserInfos = requestBody
 
       const user = await UserModel.query().findOne({ email: contextUser.email })
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
-      }
-
-      if (
-        user.username === username &&
-        user.bio === bio &&
-        user.link === link &&
-        user.location === location
-      ) {
-        return c.json(
-          usersMessages.userInfosSameAsPrevious,
-          SC.errors.BAD_REQUEST
-        )
       }
 
       if (user.username !== username) {
@@ -81,8 +69,8 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         .where({ email: contextUser.email })
         .update({
           ...(username ? { username } : {}),
-          ...(bio ? { bio } : {}),
-          ...(link ? { link } : {}),
+          ...(bio !== undefined ? { bio } : undefined),
+          ...(link !== undefined ? { link } : undefined),
           ...(location ? { location } : {}),
         })
 

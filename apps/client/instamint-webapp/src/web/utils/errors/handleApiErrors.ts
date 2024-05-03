@@ -1,29 +1,33 @@
 import type { AxiosError } from "axios"
 
+type ErrorData = {
+  errorCode?: string
+  message?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
+}
+
 export const handleApiErrors = (error: unknown): Error => {
-  if ((error as AxiosError).isAxiosError) {
-    const axiosError = error as AxiosError
-    let errorMessage = "Oops. Something went wrong"
-
-    if (
-      axiosError.response?.data &&
-      typeof axiosError.response?.data === "object"
-    ) {
-      if ("errorCode" in axiosError.response.data) {
-        // eslint-disable-next-line
-        errorMessage = (axiosError.response.data as any).errorCode
-      } else {
-        // eslint-disable-next-line
-        const message = (axiosError.response.data as any).message
-        errorMessage =
-          typeof message === "string"
-            ? message
-            : JSON.stringify(axiosError.response.data)
-      }
-    }
-
-    return new Error(errorMessage)
+  if (!(error as AxiosError).isAxiosError) {
+    return new Error("An unexpected error occurred")
   }
 
-  return new Error("An unexpected error occurred")
+  const axiosError = error as AxiosError
+
+  if (
+    !axiosError.response?.data ||
+    typeof axiosError.response?.data !== "object"
+  ) {
+    return new Error(JSON.stringify(axiosError.response?.data))
+  }
+
+  const data: ErrorData = axiosError.response.data
+
+  if (data.errorCode) {
+    return new Error(data.errorCode)
+  }
+
+  const errorMessage = data.message ? data.message : JSON.stringify(data)
+
+  return new Error(errorMessage)
 }
