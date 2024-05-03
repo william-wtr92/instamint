@@ -1,4 +1,4 @@
-# 🖥️ Server Side (Business API) - HonoJS
+# 🖥️ Server Side (Cron Jobs)
 
 ## ⚙️ Getting Started
 
