@@ -111,7 +111,7 @@ const ActivateTwoFactorAuthStep = (props: Props) => {
         </AlertDialogDescription>
       </AlertDialogHeader>
 
-      <AlertDialogFooter className="mt-4 pb-4 sm:justify-center">
+      <AlertDialogFooter className="mx-auto mt-4 pb-4 sm:justify-center">
         <InputOTP
           maxLength={6}
           value={otpCode}

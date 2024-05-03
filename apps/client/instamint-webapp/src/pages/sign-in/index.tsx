@@ -82,7 +82,7 @@ const SignInPage = () => {
       if (err) {
         toast({
           variant: "error",
-          description: t(`errors:auth${err.message}`),
+          description: t(`errors:auth.${err.message}`),
         })
 
         return

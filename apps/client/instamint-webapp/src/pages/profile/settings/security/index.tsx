@@ -56,7 +56,9 @@ const ProfileSettingsSecurityPage = () => {
             {t("2fa-description")}
           </Text>
 
-          <div className="border-accent-500 text-accent-500 mx-auto w-fit rounded-sm border-2 p-1.5 text-center">
+          <div
+            className={`${is2faEnabled ? "border-accent-500 text-accent-500" : "border-error-primary text-error-primary"}  mx-auto flex w-fit flex-row items-center gap-2 rounded-md border-2 p-1.5 text-center`}
+          >
             {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
           </div>
 
