@@ -32,6 +32,7 @@ const apiRoutes = {
     resendEmailValidation: "/auth/resend-email-validation",
     signIn: "/auth/sign-in",
     signIn2fa: "/auth/sign-in-2fa",
+    signIn2faBackupCode: "/auth/sign-in-2fa-backup-code",
     signOut: "/auth/sign-out",
     me: "/auth/me",
   },

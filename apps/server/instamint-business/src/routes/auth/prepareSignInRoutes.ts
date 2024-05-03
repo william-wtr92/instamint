@@ -6,6 +6,8 @@ import {
   signInSchema,
   twoFactorSignInSchema,
   type TwoFactorSignIn,
+  twoFactorSignInWithBackupCodeSchema,
+  type TwoFactorSignInWithBackupCode,
 } from "@instamint/shared-types"
 
 import UserModel from "@/db/models/UserModel"
@@ -129,8 +131,15 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         .findOne({ email })
         .withGraphFetched("roleData")
 
-      if (!user) {
-        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      if (!user || !user.active) {
+        return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
+      }
+
+      if (!user.twoFactorAuthentication) {
+        return c.json(
+          authMessages.errorTwoFactorAuthNotEnabled,
+          SC.errors.BAD_REQUEST
+        )
       }
 
       const validity = await user?.checkPassword(password)
@@ -166,7 +175,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         },
       })
 
-      if (user.twoFactorAuthentication && authorizeDevice) {
+      if (authorizeDevice) {
         const twoFactorToken = await signJwt({
           user: {
             id: user.id,
@@ -180,6 +189,84 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           thirtyDaysTTL
         )
       }
+
+      await redis.set(sessionKey, jwt, "EX", oneDayTTL)
+
+      await setCookie(c, cookiesKeys.auth.session, jwt)
+
+      return c.json(
+        { message: authMessages.signInSuccess.message },
+        SC.success.OK
+      )
+    }
+  )
+
+  signIn.post(
+    "/sign-in-2fa-backup-code",
+    zValidator("json", twoFactorSignInWithBackupCodeSchema),
+    async (c: Context): Promise<Response> => {
+      const { email, password, backupCode }: TwoFactorSignInWithBackupCode =
+        await c.req.json()
+
+      const user = await UserModel.query().findOne({ email })
+
+      if (!user || !user.active) {
+        return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
+      }
+
+      if (!user.twoFactorAuthentication) {
+        return c.json(
+          authMessages.errorTwoFactorAuthNotEnabled,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      const validity = await user?.checkPassword(password)
+
+      if (!validity) {
+        return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
+      }
+
+      if (!backupCode) {
+        return c.json(
+          authMessages.errorBackupCodeNotProvided,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      const backupCodes = user.twoFactorBackupCodes
+
+      if (!backupCodes) {
+        return c.json(
+          authMessages.errorUserHasNoBackupCodes,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      if (!backupCodes.includes(backupCode)) {
+        return c.json(
+          authMessages.errorBackupCodeNotValid,
+          SC.errors.UNAUTHORIZED
+        )
+      }
+
+      await UserModel.query()
+        .update({
+          twoFactorBackupCodes: backupCodes.filter(
+            (code) => code !== backupCode
+          ),
+        })
+        .where("id", user.id)
+
+      const sessionKey = redisKeys.auth.authSession(user.email)
+
+      const jwt = await signJwt({
+        user: {
+          id: user.id,
+          email: user.email,
+          role: user.roleData.right,
+        },
+      })
 
       await redis.set(sessionKey, jwt, "EX", oneDayTTL)
 

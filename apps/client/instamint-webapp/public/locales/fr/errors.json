@@ -12,9 +12,9 @@
     "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
     "emailNotExists": "Cet email n'existe pas.",
     "invalidPassword": "Mot de passe invalide.",
-		"errorDuringSignIn": "Erreur lors de la connexion.",
-		"errorTwoFactorAuthRequired": "L'authentification à deux facteurs est requise."
-  },
+		"errorInvalidTwoFactorCookie": "Coookie d'authentification à deux facteurs invalide.",
+		"errorDuringSignIn": "Erreur lors de la connexion."
+	},
   "users": {
     "reset": {
       "userNotFound": "Ce compte n'existe pas.",
@@ -47,7 +47,11 @@
 					"errorTwoFactorAuthCodeNotValid": "Le code d'authentification à deux facteurs n'est pas valide.",
 					"errorDuringTwoFactorAuthActivation": "Une erreur s'est produite lors de l'activation de l'authentification à deux facteurs.",
 					"errorTwoFactorAuthNotEnabled": "L'authentification à deux facteurs n'a pas pu être activée.",
-					"errorDuringTwoFactorAuthDeactivation": "Une erreur s'est produite lors de la désactivation de l'authentification à deux facteurs."
+					"errorDuringTwoFactorAuthDeactivation": "Une erreur s'est produite lors de la désactivation de l'authentification à deux facteurs.",
+					"errorTwoFactorAuthRequired": "L'authentification à deux facteurs est requise.",
+					"errorBackupCodeNotProvided": "Backup code not provided.",
+					"errorUserHasNoBackupCodes": "User has no backup codes.",
+					"errorBackupCodeNotValid": "errorBackupCodeNotValid"
 				}
 			}
     },

@@ -131,3 +131,18 @@ export const errorDuringTwoFactorAuthDeactivation = {
   errorCode: "errorDuringTwoFactorAuthDeactivation",
   message: "Error during two-factor authentication deactivation.",
 } as const
+
+export const errorBackupCodeNotProvided = {
+  errorCode: "errorBackupCodeNotProvided",
+  message: "Backup code not provided.",
+} as const
+
+export const errorUserHasNoBackupCodes = {
+  errorCode: "errorUserHasNoBackupCodes",
+  message: "User has no backup codes.",
+} as const
+
+export const errorBackupCodeNotValid = {
+  errorCode: "errorBackupCodeNotValid",
+  message: "Backup code not valid.",
+} as const
