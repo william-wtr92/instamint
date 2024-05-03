@@ -22,7 +22,7 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import { routes } from "@/web/routes"
-import TwoFactorLoginModal from "@/web/components/utils/TwoFactorLoginModal"
+import TwoFactorLoginModal from "@/web/components/settings/TwoFactorLoginModal"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -98,12 +98,12 @@ const SignInPage = () => {
   )
 
   const signInWith2fa = useCallback(
-    async (authorizeDevice: boolean) => {
+    async (authorizeDevice?: boolean) => {
       const data = {
         email: form.watch("email"),
         password: form.watch("password"),
         code: otpCode,
-        authorizeDevice,
+        authorizeDevice: authorizeDevice ?? false,
       }
 
       const [err] = await signIn2fa(data)
@@ -245,6 +245,7 @@ const SignInPage = () => {
             </form>
           </Form>
         </div>
+
         {show2faModal && (
           <TwoFactorLoginModal
             isOpen={show2faModal}

@@ -1,9 +1,12 @@
 import { AlertDialogContent } from "@instamint/ui-kit"
 import React, { useCallback, useState } from "react"
 import ModalHeader from "./2fa/ModalHeader"
-import ActivateTwoFactorAuthStep from "./2fa/ActivateTwoFactorAuthStep"
 import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
 import DisableTwoFactorAuthSuccessStep from "./2fa/DisableTwoFactorAuthSuccessStep"
+import EnterTwoFactorCodeModalContent from "./2fa/EnterTwoFactorCodeModalContent"
+import useAppContext from "@/web/contexts/useAppContext"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import { useTranslation } from "next-i18next"
 
 type Props = {
   handleCloseModal: () => void
@@ -11,6 +14,15 @@ type Props = {
 
 const DisableTwoFactorAuthModal = (props: Props) => {
   const { handleCloseModal } = props
+
+  const { t } = useTranslation("profile-settings-security")
+
+  const {
+    services: {
+      users: { twoFactorDeactivation },
+    },
+  } = useAppContext()
+  const { toast } = useActionsContext()
 
   const [step, setStep] = useState<number>(0)
   const [otpCode, setOtpCode] = useState<string>("")
@@ -29,6 +41,23 @@ const DisableTwoFactorAuthModal = (props: Props) => {
     setOtpCode("")
   }, [handleCloseModal])
 
+  const deactivateTwoFactorAuth = useCallback(async () => {
+    const [err] = await twoFactorDeactivation(otpCode)
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(
+          `errors:users.profile-settings.security.2fa.${err.message}`
+        ),
+      })
+
+      return
+    }
+
+    handleNextStep()
+  }, [handleNextStep, otpCode, toast, t, twoFactorDeactivation])
+
   return (
     <>
       <AlertDialogContent className="h-fit gap-6 bg-white pt-8">
@@ -43,11 +72,13 @@ const DisableTwoFactorAuthModal = (props: Props) => {
         )}
 
         {step === 1 && (
-          <ActivateTwoFactorAuthStep
-            handleNextStep={handleNextStep}
+          <EnterTwoFactorCodeModalContent
+            title={t("modal.deactivate-2fa.step-one.title")}
+            description={t("modal.deactivate-2fa.step-one.description")}
             otpCode={otpCode}
             setOtpCode={setOtpCode}
-            isEnable2faModal={false}
+            handleCloseModal={closeModal}
+            handleTwoFactorCodeValidation={deactivateTwoFactorAuth}
           />
         )}
 
