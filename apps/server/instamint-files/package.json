@@ -18,7 +18,7 @@
     "hono": "^4.2.7",
     "mime": "^4.0.3",
     "uuid": "^9.0.1",
-    "zod": "^3.22.4"
+    "zod": "^3.23.6"
   },
   "devDependencies": {
     "@instamint/eslint-config-server": "workspace:^",
