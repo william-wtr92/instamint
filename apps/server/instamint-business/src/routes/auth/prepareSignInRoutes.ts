@@ -97,7 +97,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
     return c.json(
       {
         message: authMessages.signedInUser.message,
-        result: sanitizeUser(user, ["bio", "link", "location", "avatar"]),
+        result: sanitizeUser(user, ["id", "bio", "link", "location", "avatar"]),
       },
       SC.success.OK
     )

@@ -8,7 +8,7 @@
     "config"
   ],
   "author": "William - @william-wtr92",
-  "license": "ISC",
+  "license": "All Rights Reserved",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",

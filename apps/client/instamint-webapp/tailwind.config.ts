@@ -33,6 +33,7 @@ module.exports = {
       padding: {
         "text-small-screen": "1.5rem",
         "text-large-screen": "1.3rem",
+        body: "0.5rem",
         content: "0.375rem",
         border: "0.25rem",
       },
@@ -145,5 +146,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 }

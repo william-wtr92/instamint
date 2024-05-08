@@ -13,7 +13,7 @@ import uploadAvatarService from "@/web/services/users/account/uploadAvatarServic
 import confirmResetPasswordService from "@/web/services/users/reset/confirmResetPasswordService"
 import requestResetPasswordService from "@/web/services/users/reset/requestResetPasswordService"
 
-export const prepareServices: PrepareServicesContext = (context) => {
+export const prepareApiServices: PrepareServicesContext = (context) => {
   return {
     services: {
       auth: {

@@ -44,6 +44,10 @@ const apiRoutes = {
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
   },
+  messages: {
+    getMessages: (roomName: string, offset: number) =>
+      `/messages?roomName=${encodeURIComponent(roomName)}&limit=20&offset=${offset}`,
+  },
 } as const
 
 export const routes = defineRoutes({

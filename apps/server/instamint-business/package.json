@@ -33,6 +33,7 @@
     "objection": "^3.1.4",
     "pg": "^8.11.3",
     "rate-limiter-flexible": "^4.0.1",
+    "socket.io": "^4.7.5",
     "ts-node": "^10.9.2",
     "undici": "^6.7.0",
     "zod": "^3.22.4"
@@ -43,9 +44,11 @@
     "@instamint/tsconfig-server": "workspace:^",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
+    "@types/socket.io": "^3.0.2",
     "cross-env": "^7.0.3",
     "esbuild-jest": "^0.5.0",
     "tsx": "^3.14.0",
     "typescript": "^5.4.2"
-  }
+  },
+  "license": "All Rights Reserved"
 }
