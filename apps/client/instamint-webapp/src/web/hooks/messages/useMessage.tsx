@@ -1,3 +1,4 @@
+import type { GetMessages } from "@instamint/shared-types"
 import { type SWRConfiguration } from "swr"
 import useSWRInfinite from "swr/infinite"
 
@@ -43,7 +44,9 @@ const getKey = (
   return routes.api.messages.getMessages(roomName, offset)
 }
 
-export const useMessage = (roomName: string): SWRInfiniteResponse => {
+export const useMessage = (
+  getMessages: Pick<GetMessages, "roomName">
+): SWRInfiniteResponse => {
   const config: SWRConfiguration = {
     revalidateOnFocus: false,
     refreshInterval: 1000,
@@ -55,7 +58,7 @@ export const useMessage = (roomName: string): SWRInfiniteResponse => {
     Error
   >(
     (pageIndex, previousPageData) =>
-      getKey(pageIndex, previousPageData, roomName),
+      getKey(pageIndex, previousPageData, getMessages.roomName),
     config
   )
 

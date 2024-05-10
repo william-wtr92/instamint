@@ -6,6 +6,7 @@ import {
 import type { Socket, Server as SocketIOServer } from "socket.io"
 
 import MessageModel from "@/db/models/MessageModel"
+import { authMessages, wsMessages } from "@/def"
 import { joinRoom, leaveRoom } from "@/sockets/handlers/room"
 
 export const chat = (io: SocketIOServer, socket: Socket) => {
@@ -20,12 +21,27 @@ export const chat = (io: SocketIOServer, socket: Socket) => {
   })
 
   socket.on(events.chat.message, async (data: ChatMessage) => {
-    const user = socket.data.user
+    const userAuthenticated = socket.data.user
+
+    if (!userAuthenticated) {
+      return socket.emit(events.error, {
+        error: authMessages.userNotFound.errorCode,
+        message: authMessages.userNotFound.message,
+      })
+    }
+
     const roomRecord = socket.data.roomRecord?.id
+
+    if (!roomRecord) {
+      return socket.emit(events.error, {
+        error: wsMessages.roomNotFound.errorCode,
+        message: wsMessages.roomNotFound.message,
+      })
+    }
 
     await MessageModel.query().insert({
       roomId: roomRecord,
-      userId: user?.id,
+      userId: userAuthenticated?.id,
       content: data?.message,
     })
 

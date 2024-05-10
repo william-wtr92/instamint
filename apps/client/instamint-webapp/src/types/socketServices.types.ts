@@ -22,4 +22,4 @@ export type PrepareSocketActionsContext = (
 
 export type SocketServices<T> = (
   args: ArgsPrepareSocketServices
-) => (data: T) => void
+) => <C>(data: T, callback?: C) => void

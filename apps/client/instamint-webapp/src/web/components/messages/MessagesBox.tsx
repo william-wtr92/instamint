@@ -1,27 +1,32 @@
 import { UserIcon } from "@heroicons/react/24/outline"
+import { useTranslation } from "next-i18next"
 import { useCallback, useEffect, useRef, useState } from "react"
 
+import useActionsContext from "@/web/contexts/useActionsContext"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { useMessage } from "@/web/hooks/messages/useMessage"
+import { routes } from "@/web/routes"
+import { firstLetterUppercase } from "@/web/utils/helpers/stringHelper"
 
 type Props = {
-  roomName: string | null
+  roomName: string
   children: React.ReactNode
 }
 
 export const MessagesBox = (props: Props) => {
   const { roomName, children } = props
 
+  const { t } = useTranslation("message")
+
+  const { redirect } = useActionsContext()
   const { data } = useUser()
-  const { messages, userTargeted, isLoading, setSize, isReachingEnd } =
-    useMessage(roomName!)
+  const { messages, userTargeted, isLoading, setSize, isReachingEnd, isError } =
+    useMessage({ roomName })
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const [isAtBottom, setIsAtBottom] = useState<boolean>(true)
 
-  const userTargetedUsername = userTargeted?.username.replace(/^\w/, (c) =>
-    c.toUpperCase()
-  )
+  const userTargetedUsername = firstLetterUppercase(userTargeted?.username)
 
   const sortedMessages = messages.sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
@@ -63,6 +68,12 @@ export const MessagesBox = (props: Props) => {
     }
   }, [handleScroll])
 
+  useEffect(() => {
+    if (isError) {
+      redirect(routes.client.home, 0)
+    }
+  }, [isError, redirect])
+
   return (
     <div className="p-text-large-screen flex h-[60vh] flex-col gap-6 xl:h-screen">
       <div className="flex items-center gap-2.5">
@@ -85,7 +96,7 @@ export const MessagesBox = (props: Props) => {
             {message?.content}
           </div>
         ))}
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p>{t("message:loading")}</p>}
       </div>
       <div>{children}</div>
     </div>

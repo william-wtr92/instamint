@@ -10,6 +10,7 @@ import {
   Input,
 } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
@@ -33,7 +34,7 @@ export const getServerSideProps: GetServerSideProps<MessagesPageProps> = async (
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
         ...getTranslationBaseImports(),
-        "common",
+        "message",
       ])),
       roomName,
     },
@@ -48,6 +49,8 @@ const MessagesPage = (
   const {
     socket: { chatMessage },
   } = useAppContext()
+
+  const { t } = useTranslation("message")
 
   const form = useForm<Omit<ChatMessage, "room">>({
     resolver: zodResolver(chatMessageSchema.omit({ room: true })),
@@ -71,43 +74,41 @@ const MessagesPage = (
   )
 
   return (
-    <div>
-      <MessagesBox roomName={roomName}>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex items-center justify-center gap-2.5"
+    <MessagesBox roomName={roomName!}>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex items-center justify-center gap-2.5"
+        >
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem className="w-3/4">
+                <FormControl>
+                  <Input
+                    className="focus-visible:outline-accent-500  px-4 py-1.5 focus-visible:border-0 focus-visible:ring-0"
+                    type="text"
+                    placeholder={t("chat.placeholder")}
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            disabled={!form.formState.isValid}
+            className={`bg-accent-500 py-5 font-semibold text-white ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
+            type="submit"
           >
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem className="w-3/4">
-                  <FormControl>
-                    <Input
-                      className="focus-visible:outline-accent-500  px-4 py-1.5 focus-visible:border-0 focus-visible:ring-0"
-                      type="text"
-                      placeholder="Envoie un message"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <Button
-              disabled={!form.formState.isValid}
-              className={`bg-accent-500 py-5 font-semibold text-white ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
-              type="submit"
-            >
-              <PaperAirplaneIcon className="h-6 w-6" />
-            </Button>
-          </form>
-        </Form>
-      </MessagesBox>
-    </div>
+            <PaperAirplaneIcon className="h-6 w-6" />
+          </Button>
+        </form>
+      </Form>
+    </MessagesBox>
   )
 }
 
-MessagesPage.title = "Messages"
+MessagesPage.title = "messages"
 
 export default MessagesPage

@@ -6,7 +6,7 @@ export const joinRoomSchema = z.object({
 
 export const chatMessageSchema = z.object({
   room: z.string(),
-  message: z.string().min(1).max(500),
+  message: z.string().min(1).max(1000),
 })
 
 export const getMessagesSchema = z.object({

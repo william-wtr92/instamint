@@ -22,6 +22,7 @@ const clientRoutes = {
     resetPasswordRequest: "/users/reset-password",
     resetPasswordConfirm: "/users/reset-password/confirm",
   },
+  messages: (roomName: string) => `/messages/${roomName}`,
   about: "/about",
 }
 
@@ -43,6 +44,9 @@ const apiRoutes = {
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
+    profile: {
+      getProfile: (username: string) => `/profile/${username}`,
+    },
   },
   messages: {
     getMessages: (roomName: string, offset: number) =>

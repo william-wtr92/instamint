@@ -1,4 +1,4 @@
-import type { JoinRoom } from "@instamint/shared-types"
+import { events, type JoinRoom } from "@instamint/shared-types"
 import type { Socket } from "socket.io"
 
 import RoomModel from "@/db/models/RoomModel"
@@ -9,12 +9,23 @@ import { generateRoomName } from "@/sockets/actions/roomActions"
 
 export const joinRoom = async (socket: Socket, data: JoinRoom) => {
   const userAuthenticated = socket.data.user
+
+  if (!userAuthenticated) {
+    return socket.emit(events.error, {
+      error: authMessages.userNotFound.errorCode,
+      message: authMessages.userNotFound.message,
+    })
+  }
+
   const userTargeted = await UserModel.query()
     .where({ username: data?.userTargetedUsername })
     .first()
 
   if (!userTargeted) {
-    throw new Error(authMessages.userNotFound.message)
+    return socket.emit(events.error, {
+      error: authMessages.userNotFound.errorCode,
+      message: authMessages.userNotFound.message,
+    })
   }
 
   const room = generateRoomName(
@@ -40,6 +51,7 @@ export const joinRoom = async (socket: Socket, data: JoinRoom) => {
   }
 
   socket.join(room)
+  socket.emit(events.room.join, { roomName: room })
 }
 
 export const leaveRoom = (socket: Socket, room: string) => {

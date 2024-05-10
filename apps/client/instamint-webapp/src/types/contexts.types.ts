@@ -22,7 +22,7 @@ export type AppContextType = {
     users: ServicesActionsMappings<UsersServices>
   }
   socket: {
-    joinRoom: (data: JoinRoom) => void
+    joinRoom: <C>(data: JoinRoom, callback: C) => void
     chatMessage: (data: ChatMessage) => void
   }
 }
