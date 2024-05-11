@@ -66,7 +66,7 @@ const ProfilePage = (
   }, [pageTitle])
 
   return (
-    <div className="border-1 ml-3 mt-4 flex w-1/2 flex-col justify-center gap-2.5 rounded-md border-dashed p-4">
+    <div className="border-1 ml-3 mt-4 flex w-4/5 flex-col justify-center gap-2.5 rounded-md border-dashed p-4 xl:w-1/2">
       <UserCircleIcon className="size-8" />
       <div className="ml-1 flex justify-between">
         <p>{userUsername}</p>
