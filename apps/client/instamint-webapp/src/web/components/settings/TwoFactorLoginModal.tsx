@@ -8,16 +8,32 @@ type Props = {
   handleCloseModal: () => void
   otpCode: string
   setOtpCode: (value: string) => void
+  backupCode: string
+  setBackupCode: (value: string) => void
   signInWith2fa: (value?: boolean) => void
+  signInWith2faBackupCode: (value?: boolean) => void
+  isSignInWithBackupCode: boolean
+  handleIsSignInWithBackupCode: () => void
 }
 
 const TwoFactorLoginModal = (props: Props) => {
-  const { isOpen, handleCloseModal, otpCode, setOtpCode, signInWith2fa } = props
+  const {
+    isOpen,
+    handleCloseModal,
+    otpCode,
+    setOtpCode,
+    backupCode,
+    setBackupCode,
+    signInWith2fa,
+    signInWith2faBackupCode,
+    isSignInWithBackupCode,
+    handleIsSignInWithBackupCode,
+  } = props
   const { t } = useTranslation("sign-in")
 
   const [authorizeDevice, setAuthorizeDevice] = useState<boolean>(false)
 
-  const handleCheckbox = useCallback(() => {
+  const handleAuthorizeDevice = useCallback(() => {
     setAuthorizeDevice((prevState) => !prevState)
   }, [])
 
@@ -25,14 +41,29 @@ const TwoFactorLoginModal = (props: Props) => {
     <AlertDialog open={isOpen}>
       <AlertDialogContent className="bg-white pt-8">
         <EnterTwoFactorCodeModalContent
-          title={t("modal.title")}
-          description={t("modal.description")}
+          title={
+            !isSignInWithBackupCode
+              ? t("modal.title")
+              : t("modal.backup-code-title")
+          }
+          description={
+            !isSignInWithBackupCode
+              ? t("modal.description")
+              : t("modal.backup-code-description")
+          }
           otpCode={otpCode}
           setOtpCode={setOtpCode}
+          backupCode={backupCode}
+          setBackUpCode={setBackupCode}
           handleCloseModal={handleCloseModal}
           authorizeDevice={authorizeDevice}
-          handleCheckbox={handleCheckbox}
-          handleTwoFactorCodeValidation={signInWith2fa}
+          handleAuthorizeDevice={handleAuthorizeDevice}
+          handleTwoFactorCodeValidation={
+            !isSignInWithBackupCode ? signInWith2fa : signInWith2faBackupCode
+          }
+          isSignInWithBackupCode={isSignInWithBackupCode}
+          handleIsSignInWithBackupCode={handleIsSignInWithBackupCode}
+          canUseBackupCode={true}
         />
       </AlertDialogContent>
     </AlertDialog>

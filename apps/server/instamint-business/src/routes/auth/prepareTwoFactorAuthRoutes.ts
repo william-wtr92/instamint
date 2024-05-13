@@ -195,7 +195,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await UserModel.query().patchAndFetchById(user.id, {
           twoFactorAuthentication: true,
-          twoFactorBackupCodes: backupCodes,
+          twoFactorBackupCodes: JSON.stringify(backupCodes),
         })
 
         await trx.commit()

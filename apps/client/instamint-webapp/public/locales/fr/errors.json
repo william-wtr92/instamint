@@ -38,22 +38,22 @@
         "usernameAlreadyExist": "Ce nom d'utilisateur existe déjà.",
         "usernameSameAsPrevious": "Vous n'avez pas modifier votre nom d'utilisateur."
       },
-			"security": {
-				"2fa": {
-					"errorTwoFactorAuthAlreadyEnabled": "L'authentification à deux facteurs est déjà activée.",
-					"errorDuringHotpGeneration": "Une erreur s'est produite lors de la génération du code 2FA.",
-					"errorSecretOrCodeNotProvided": "Secret ou code non fourni.",
-					"errorHotpCounterNotAvailable": "Le compteur HOTP est indisponible.",
-					"errorTwoFactorAuthCodeNotValid": "Le code d'authentification à deux facteurs n'est pas valide.",
-					"errorDuringTwoFactorAuthActivation": "Une erreur s'est produite lors de l'activation de l'authentification à deux facteurs.",
-					"errorTwoFactorAuthNotEnabled": "L'authentification à deux facteurs n'a pas pu être activée.",
-					"errorDuringTwoFactorAuthDeactivation": "Une erreur s'est produite lors de la désactivation de l'authentification à deux facteurs.",
-					"errorTwoFactorAuthRequired": "L'authentification à deux facteurs est requise.",
-					"errorBackupCodeNotProvided": "Backup code not provided.",
-					"errorUserHasNoBackupCodes": "User has no backup codes.",
-					"errorBackupCodeNotValid": "errorBackupCodeNotValid"
-				}
-			}
+      "security": {
+        "2fa": {
+          "errorTwoFactorAuthAlreadyEnabled": "L'authentification à deux facteurs est déjà activée.",
+          "errorDuringHotpGeneration": "Une erreur s'est produite lors de la génération du code 2FA.",
+          "errorSecretOrCodeNotProvided": "Secret ou code non fourni.",
+          "errorHotpCounterNotAvailable": "Le compteur HOTP est indisponible.",
+          "errorTwoFactorAuthCodeNotValid": "Le code d'authentification à deux facteurs n'est pas valide.",
+          "errorDuringTwoFactorAuthActivation": "Une erreur s'est produite lors de l'activation de l'authentification à deux facteurs.",
+          "errorTwoFactorAuthNotEnabled": "L'authentification à deux facteurs n'a pas pu être activée.",
+          "errorDuringTwoFactorAuthDeactivation": "Une erreur s'est produite lors de la désactivation de l'authentification à deux facteurs.",
+          "errorTwoFactorAuthRequired": "L'authentification à deux facteurs est requise.",
+          "errorBackupCodeNotProvided": "Code de secours non fourni.",
+          "errorUserHasNoBackupCodes": "L'utilisateur n'a plus de code de secours.",
+          "errorBackupCodeNotValid": "Code de secours invalide."
+        }
+      }
     },
     "reactivate-account": {
       "tokenNotProvided": "Lien invalide ou expiré. Assurez-vous de cliquer sur le lien que vous avez reçu par courriel.",

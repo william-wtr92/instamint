@@ -208,7 +208,9 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { email, password, backupCode }: TwoFactorSignInWithBackupCode =
         await c.req.json()
 
-      const user = await UserModel.query().findOne({ email })
+      const user = await UserModel.query()
+        .findOne({ email })
+        .withGraphFetched("roleData")
 
       if (!user || !user.active) {
         return c.json(authMessages.emailNotExists, SC.errors.NOT_FOUND)
@@ -234,14 +236,17 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      const backupCodes = user.twoFactorBackupCodes
-
-      if (!backupCodes) {
+      if (!user.twoFactorBackupCodes) {
         return c.json(
           authMessages.errorUserHasNoBackupCodes,
           SC.errors.BAD_REQUEST
         )
       }
+
+      const backupCodes = user.twoFactorBackupCodes
+        .substring(1, user.twoFactorBackupCodes?.length - 1)
+        .replaceAll('"', "")
+        .split(",")
 
       if (!backupCodes.includes(backupCode)) {
         return c.json(
@@ -250,13 +255,13 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      await UserModel.query()
-        .update({
-          twoFactorBackupCodes: backupCodes.filter(
-            (code) => code !== backupCode
-          ),
-        })
-        .where("id", user.id)
+      const newBackupCodes = JSON.stringify(
+        backupCodes.filter((code: string) => code !== backupCode)
+      )
+
+      await UserModel.query().patchAndFetchById(user.id, {
+        twoFactorBackupCodes: newBackupCodes,
+      })
 
       const sessionKey = redisKeys.auth.authSession(user.email)
 

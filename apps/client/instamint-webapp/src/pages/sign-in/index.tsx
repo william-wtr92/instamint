@@ -42,7 +42,7 @@ const SignInPage = () => {
 
   const {
     services: {
-      auth: { signIn, signIn2fa },
+      auth: { signIn, signIn2fa, signIn2faBackupCode },
     },
   } = useAppContext()
 
@@ -50,7 +50,10 @@ const SignInPage = () => {
 
   const [show2faModal, setShow2faModal] = useState<boolean>(false)
   const [otpCode, setOtpCode] = useState<string>("")
+  const [backupCode, setBackupCode] = useState<string>("")
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [isSignInWithBackupCode, setIsSignInWithBackupCode] =
+    useState<boolean>(false)
 
   const form = useForm<SignIn>({
     resolver: zodResolver(signInSchema),
@@ -67,6 +70,10 @@ const SignInPage = () => {
 
   const handleCloseModal = useCallback(() => {
     setShow2faModal(false)
+  }, [])
+
+  const handleIsSignInWithBackupCode = useCallback(() => {
+    setIsSignInWithBackupCode((prevState) => !prevState)
   }, [])
 
   const onSubmit = useCallback(
@@ -129,6 +136,43 @@ const SignInPage = () => {
     },
     [otpCode, signIn2fa, toast, t, redirect, form, handleCloseModal]
   )
+
+  const signInWith2faBackupCode = useCallback(async () => {
+    const data = {
+      email: form.watch("email"),
+      password: form.watch("password"),
+      backupCode,
+    }
+
+    const [err] = await signIn2faBackupCode(data)
+
+    if (err) {
+      toast({
+        description: t(
+          `errors:users.profile-settings.security.2fa.${err.message}`
+        ),
+        variant: "error",
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("success"),
+    })
+
+    handleCloseModal()
+    redirect(routes.client.home, 3000)
+  }, [
+    toast,
+    t,
+    redirect,
+    form,
+    handleCloseModal,
+    backupCode,
+    signIn2faBackupCode,
+  ])
 
   const handleRedirect = useCallback(
     (path: string) => {
@@ -252,7 +296,12 @@ const SignInPage = () => {
             handleCloseModal={handleCloseModal}
             otpCode={otpCode}
             setOtpCode={setOtpCode}
+            backupCode={backupCode}
+            setBackupCode={setBackupCode}
             signInWith2fa={signInWith2fa}
+            signInWith2faBackupCode={signInWith2faBackupCode}
+            isSignInWithBackupCode={isSignInWithBackupCode}
+            handleIsSignInWithBackupCode={handleIsSignInWithBackupCode}
           />
         )}
       </div>
