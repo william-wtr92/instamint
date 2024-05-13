@@ -28,10 +28,6 @@ export const up = async (knex: Knex): Promise<void> => {
     table.boolean("twoFactorAuthentication").notNullable().defaultTo(false)
     table.text("secret").nullable().defaultTo(null)
     table.text("twoFactorBackupCodes").nullable().defaultTo(null)
-    // table
-    //   .specificType("twoFactorBackupCodes", "text[]")
-    //   .nullable()
-    //   .defaultTo(null)
     table.integer("roleId").references("id").inTable("roles").defaultTo(2)
   })
 }

@@ -15,6 +15,8 @@ const buttonVariants = cva(
           "border-accent-500 hover:bg-accent-500 text-accent-500 border hover:text-white",
         neutral:
           "text-secondary-foreground bg-neutral-300 hover:bg-neutral-500",
+        danger:
+          "border-2 border-red-600 bg-red-600 text-white hover:bg-white hover:text-red-600",
       },
     },
     defaultVariants: {

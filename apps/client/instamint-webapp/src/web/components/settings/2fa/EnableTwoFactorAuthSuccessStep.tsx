@@ -50,7 +50,7 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
         </AlertDialogTitle>
 
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2 md:flex-row">
             <Text
               variant="neutral"
               type="medium"
@@ -66,7 +66,7 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
               {backupCodes[1]}
             </Text>
           </div>
-          <div className="flex flex-row justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2 md:flex-row">
             <Text
               variant="neutral"
               type="medium"
@@ -82,7 +82,7 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
               {backupCodes[3]}
             </Text>
           </div>
-          <div className="flex flex-row justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2 md:flex-row">
             <Text
               variant="neutral"
               type="medium"

@@ -62,7 +62,10 @@ const ProfileSettingsSecurityPage = () => {
             {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
           </div>
 
-          <Button variant="default" onClick={handleOpenModal}>
+          <Button
+            variant={is2faEnabled ? "danger" : "default"}
+            onClick={handleOpenModal}
+          >
             {is2faEnabled ? t("cta.deactivate-2fa") : t("cta.activate-2fa")}
           </Button>
         </div>
