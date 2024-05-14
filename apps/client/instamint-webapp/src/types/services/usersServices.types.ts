@@ -22,7 +22,7 @@ export type UsersServices = {
   twoFactorActivation: [string, ActivateTwoFactorAuthResult]
   twoFactorAuthentication: [TwoFactorAuthenticate, null]
   twoFactorDeactivation: [string, null]
-  modifyPassword: ModifyPassword
-  modifyEmail: ModifyEmail
-  uploadAvatar: UserAvatar
+  modifyPassword: [ModifyPassword, null]
+  modifyEmail: [ModifyEmail, null]
+  uploadAvatar: [UserAvatar, null]
 }
