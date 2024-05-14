@@ -17,14 +17,14 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
-import { generateQRCode } from "@/utils/helpers/qrCodeActions"
+import { generateQRCode } from "@/utils/helpers/actions/qrCodeActions"
 import {
   generateAuthenticatorToken,
   generateAuthenticatorURI,
   generateBackupCodes,
   generateSecret,
   verifyAuthenticatorToken,
-} from "@/utils/helpers/twoFactorAuthActions"
+} from "@/utils/helpers/actions/twoFactorAuthActions"
 
 const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
   const twoFactorAuth = new Hono()

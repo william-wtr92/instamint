@@ -1,5 +1,5 @@
-import { authenticator, hotp, totp } from "otplib"
 import crypto from "crypto"
+import { authenticator, hotp, totp } from "otplib"
 
 export const generateSecret = () => {
   return authenticator.generateSecret()

@@ -29,8 +29,8 @@ import {
   isJwtExpired,
   signJwt,
 } from "@/utils/helpers/actions/jwtActions"
+import { checkAuthenticatorToken } from "@/utils/helpers/actions/twoFactorAuthActions"
 import { oneDayTTL, thirtyDaysTTL } from "@/utils/helpers/times"
-import { checkAuthenticatorToken } from "@/utils/helpers/twoFactorAuthActions"
 
 const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signIn = new Hono()
