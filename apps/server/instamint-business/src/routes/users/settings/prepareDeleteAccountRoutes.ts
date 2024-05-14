@@ -1,6 +1,4 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
-import sgMail from "@sendgrid/mail"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import {
   type DeleteAccount,
@@ -8,8 +6,11 @@ import {
   type ReactivateAccount,
   reactivateAccountSchema,
 } from "@instamint/shared-types"
+import sgMail from "@sendgrid/mail"
+import { type Context, Hono } from "hono"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import appConfig from "@/db/config/config"
+import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   contextsKeys,
@@ -18,10 +19,14 @@ import {
   redisKeys,
   usersMessages,
 } from "@/def"
-import { handleError } from "@/middlewares/handleError"
-import UserModel from "@/db/models/UserModel"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import { deleteAccountJob } from "@/middlewares/jobs/deleteAccountJob"
+import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
+import { delCookie } from "@/utils/helpers/actions/cookiesActions"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
+import { mailBuilder } from "@/utils/helpers/mailBuilder"
 import {
   now,
   nowDate,
@@ -29,24 +34,19 @@ import {
   oneMonthTTL,
   sixMonthsDate,
 } from "@/utils/helpers/times"
-import { mailBuilder } from "@/utils/helpers/mailBuilder"
-import appConfig from "@/db/config/config"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
-import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
-import { delCookie } from "@/utils/helpers/cookiesActions"
 
 const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
   const deleteAccount = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -142,7 +142,7 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
 
               await sgMail.send(confirmDeleteAccountMail)
             } catch (err) {
-              throw createErrorResponse(
+              throw throwInternalError(
                 usersMessages.deleteAccountJob(user.email),
                 SC.serverErrors.INTERNAL_SERVER_ERROR
               )

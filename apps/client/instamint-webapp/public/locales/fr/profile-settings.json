@@ -21,23 +21,50 @@
     },
     "success": "Votre compte a bien été désactivé."
   },
-  "update-account": {
-    "username": {
-      "p1" : "Si vous souhaitez modifier votre nom d'utilisateur vous pouvez le faire ici !",
-      "label" : "Nom d'utilisateur",
-      "placeholder": "Entrez votre nom d'utilisateur",
-      "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
-      },
-    "bio": {
-      "label" : "Bio"
+    "modify-password": {
+    "triggerLabel": "Modifier le mot de passe",
+    "title": "Êtes-vous sûr de vouloir modifier votre mot de passe ?",
+    "oldPassword": {
+      "label": "Mot de passe actuel",
+      "placeholder": "Entrez votre mot de passe actuel"
     },
-    "link": {
-      "label": "Lien"
+    "newPassword": {
+      "label": "Nouveau mot de passe",
+      "placeholder": "Entrez un nouveau mot de passe",
+      "error": "Le nouveau mot de passe doit être différent.",
+      "criteria": {
+        "uppercase": "Une lettre majuscule",
+        "lowercase": "Une lettre minuscule",
+        "number": "Un nombre",
+        "specialCharacter": "un character spécial",
+        "length": "8 characters de long"
+      }
     },
-    "picture": {
-      "label": "Photo de profil"
+    "confirmNewPassword": {
+      "label": "Confirmez votre nouveau mot de passe",
+      "placeholder": "Confirmez votre nouveau mot de passe",
+      "error": "Les mots de passe ne sont pas identiques."
     },
-    "success" :  "Votre compte a bien été modifier !",
-    "save" : "Enregistrer"
+    "success": "Votre mot passe a été modifié, vous allez être deconnecté.",
+    "submit": "Valider"
+  },
+  "modify-email" : {
+    "triggerLabel": "Modifier l'email",
+    "title": "Êtes-vous sûr de vouloir modifier votre email ?",
+    "mail": {
+      "label": "Email",
+      "placeholder": "Entrer votre email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Entrer votre mot de passe"
+    },
+    "newMail": {
+      "label": "Nouveau Email",
+      "placeholder": "Entrer votre nouveau email",
+      "error": "Le nouveau email doit être différent."
+    },
+    "success": "Votre email a été modifié avec succès. Regardez votre boite mail pour réactiver votre compte.",
+    "submit": "Valider"
   }
 }

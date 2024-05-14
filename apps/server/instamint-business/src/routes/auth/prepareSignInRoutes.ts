@@ -1,4 +1,3 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
 import {
@@ -9,6 +8,7 @@ import {
   twoFactorSignInWithBackupCodeSchema,
   type TwoFactorSignInWithBackupCode,
 } from "@instamint/shared-types"
+import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
 import {
@@ -18,28 +18,32 @@ import {
   cookiesKeys,
   contextsKeys,
 } from "@/def"
-import { oneDayTTL, thirtyDaysTTL } from "@/utils/helpers/times"
+import { oneDayTTL, getCookie } from "@/utils/helpers/times"
 import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { handleError } from "@/middlewares/handleError"
-import { auth } from "@/middlewares/auth"
 import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
-import { decodeJwt, isJwtExpired, signJwt } from "@/utils/helpers/jwtActions"
-import { getCookie, setCookie } from "@/utils/helpers/cookiesActions"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
+import { setCookie } from "@/utils/helpers/actions/cookiesActions"
+import {
+  decodeJwt,
+  isJwtExpired,
+  signJwt,
+} from "@/utils/helpers/actions/jwtActions"
 import { checkAuthenticatorToken } from "@/utils/helpers/twoFactorAuthActions"
 
 const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
   const signIn = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -300,7 +304,13 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
     return c.json(
       {
         message: authMessages.signedInUser.message,
-        result: sanitizeUser(user, ["bio", "link", "twoFactorAuthentication"]),
+        result: sanitizeUser(user, [
+          "bio",
+          "link",
+          "twoFactorAuthentication",
+          "location",
+          "avatar",
+        ]),
       },
       SC.success.OK
     )

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.9"
 
 services:
   instamint-webapp:
@@ -11,6 +11,7 @@ services:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
     networks:
       - instamint_network
 
@@ -23,6 +24,7 @@ services:
     ports:
       - "3001:3001"
     environment:
+      - PORT_BUSINESS=${PORT_BUSINESS}
       - DB_CONNECTION_HOST=db
       - DB_CONNECTION_USER=${DB_CONNECTION_USER_DOCKER}
       - DB_CONNECTION_PWD=${DB_CONNECTION_PASSWORD_DOCKER}
@@ -46,6 +48,8 @@ services:
       - SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION=${SENDGRID_TEMPLATE_CONFIRM_ACCOUNT_DELETION}
       - SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION=${SENDGRID_TEMPLATE_ACCOUNT_REACTIVATION}
       - SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION=${SENDGRID_TEMPLATE_ACCOUNT_CONFIRM_REACTIVATION}
+      - SENDGRID_TEMPLATE_ACCOUNT_MODIFY_PASSWORD=${SENDGRID_TEMPLATE_ACCOUNT_MODIFY_PASSWORD}
+      - SENDGRID_TEMPLATE_ACCOUNT_MODIFY_EMAIL=${SENDGRID_TEMPLATE_ACCOUNT_MODIFY_EMAIL}
       - FILES_SERVICE_URL=${FILES_SERVICE_URL_DOCKER}
     depends_on:
       - db
@@ -61,6 +65,13 @@ services:
     image: docker.pkg.github.com/william-wtr92/instamint/instamint-server-files:dev
     ports:
       - "3002:3002"
+    environment:
+      - PORT_FILES=${PORT_FILES}
+      - CORS_ORIGIN_BUSINESS_DOCKER=${CORS_ORIGIN_BUSINESS_DOCKER}
+      - AZURE_ACCOUNT_NAME=${AZURE_ACCOUNT_NAME}
+      - AZURE_ACCOUNT_KEY=${AZURE_ACCOUNT_KEY}
+      - AZURE_BLOB_CONTAINER=${AZURE_BLOB_CONTAINER}
+      - AZURE_BLOB_CONNECTION=${AZURE_BLOB_CONNECTION_DOCKER}
     networks:
       - instamint_network
 
@@ -74,6 +85,7 @@ services:
       - BUSINESS_SERVICE_URL=${BUSINESS_SERVICE_URL_DOCKER}
       - REDIS_HOST=${REDIS_HOST_DOCKER}
       - REDIS_PORT=${REDIS_PORT_DOCKER}
+      - REDIS_PASSWORD=${REDIS_PASSWORD_DOCKER}
       - SECURITY_CRON_JWT_SECRET=${SECURITY_CRON_JWT_SECRET}
       - SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT=${SECURITY_CRON_JWT_SCOPE_DELETE_ACCOUNT}
     depends_on:
@@ -97,6 +109,19 @@ services:
     image: "redis:alpine"
     ports:
       - "6379:6379"
+    networks:
+      - instamint_network
+
+  azurite:
+    image: "mcr.microsoft.com/azure-storage/azurite"
+    hostname: azurite
+    restart: always
+    command: 'azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --location /workspace --debug /workspace/debug.log'
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+    volumes:
+      - ./azurite:/workspace
     networks:
       - instamint_network
 

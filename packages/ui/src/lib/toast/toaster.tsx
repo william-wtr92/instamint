@@ -4,6 +4,7 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline"
 
+import { useToast } from "./useToast"
 import {
   ToastClose,
   ToastDescription,
@@ -11,7 +12,6 @@ import {
   ToastTitle,
   ToastViewport,
 } from "../../.."
-import { useToast } from "./useToast"
 import { Toast } from "../../components/Toast"
 
 export const Toaster = () => {

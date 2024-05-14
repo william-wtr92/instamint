@@ -1,6 +1,6 @@
 {
   "name": "@instamint/business-server",
-  "version": "1.0.0",
+  "version": "24.04",
   "description": "Business API service for Instamint",
   "type": "commonjs",
   "scripts": {
@@ -18,15 +18,15 @@
     "kn:seed": "knex seed:run"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20240329.0",
-    "@hono/node-server": "^1.9.1",
+    "@cloudflare/workers-types": "4.20240423.0",
+    "@hono/node-server": "^1.11.0",
     "@hono/sentry": "^1.0.1",
-    "@hono/zod-validator": "^0.1.11",
+    "@hono/zod-validator": "^0.2.1",
     "@instamint/shared-types": "workspace:^",
     "@jest/globals": "^29.7.0",
     "@sendgrid/mail": "^8.1.1",
     "dotenv": "^16.4.5",
-    "hono": "^4.1.7",
+    "hono": "^4.2.7",
     "ioredis": "^5.3.2",
     "jest": "^29.7.0",
     "knex": "^3.1.0",

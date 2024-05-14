@@ -1,5 +1,3 @@
-import { useForm } from "react-hook-form"
-import { useTranslation } from "next-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   type DeleteAccount,
@@ -23,15 +21,15 @@ import {
   Input,
   Label,
 } from "@instamint/ui-kit"
+import { useTranslation } from "next-i18next"
+import { useForm } from "react-hook-form"
 
 type Props = {
   onSubmit: (values: DeleteAccount) => void
-  success: string | null
-  error: string | Error | null
 }
 
 export const DeleteAccountForm = (props: Props) => {
-  const { onSubmit, success, error } = props
+  const { onSubmit } = props
 
   const { t } = useTranslation()
 
@@ -158,16 +156,6 @@ export const DeleteAccountForm = (props: Props) => {
                     {t("profile-settings:delete-account.cta.submit")}
                   </Button>
                 </DialogFooter>
-                {success ? (
-                  <p className="text-accent-600 mt-4 text-center text-sm">
-                    {success}
-                  </p>
-                ) : null}
-                {error ? (
-                  <p className="text-md text-error-primary mt-4 text-center">
-                    {error instanceof Error ? error.message : error}
-                  </p>
-                ) : null}
               </form>
             </div>
           </DialogContent>

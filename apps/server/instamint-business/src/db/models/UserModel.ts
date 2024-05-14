@@ -1,5 +1,6 @@
 import BaseModel from "./BaseModel"
 import RoleModel from "./RoleModel"
+
 import { hashPassword } from "@/utils/helpers/hashPassword"
 
 class UserModel extends BaseModel {
@@ -11,6 +12,7 @@ class UserModel extends BaseModel {
   bio!: string
   link!: string
   location!: string
+  avatar!: string
   passwordHash!: string
   passwordSalt!: string
   createdAt!: Date

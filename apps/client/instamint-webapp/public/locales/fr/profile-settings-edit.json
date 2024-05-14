@@ -1,3 +1,35 @@
 {
-  
+  "title": "",
+  "update-account": {
+    "i": "i",
+    "p1": "Si vous souhaitez modifier vos informations tel que votre nom d'utilisateur, votre bio ou votre lien c'est ici !",
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Entrez votre nom d'utilisateur",
+      "error": "Le nom d'utilisateur doit avoir : min 3 caractères, max 20 caractères et pas de caractères spéciaux."
+    },
+    "bio": {
+      "label": "Bio",
+      "placeholder": "Entrez votre bio",
+      "error": "La bio doit avoir: max 150 caractères."
+    },
+    "link": {
+      "label": "Lien",
+      "placeholder": "Entrez votre lien",
+      "error": "Le lien doit être une url."
+    },
+    "location": {
+      "label": "Localisation",
+      "placeholder": "Pays",
+      "error": "Choisissez votre pays."
+    },
+    "avatar": {
+      "label": "Avatar",
+      "placeholder": "Choisissez votre avatar",
+      "delete": "x",
+      "error": "L'avatar doit être une image."
+    },
+    "success":  "Votre compte a bien été modifié !",
+    "save" : "Enregistrer"
+  }
 }

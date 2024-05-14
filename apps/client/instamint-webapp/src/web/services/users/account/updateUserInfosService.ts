@@ -1,8 +1,8 @@
-import type { UserInfosSchema } from "@instamint/shared-types"
+import type { UserInfos } from "@instamint/shared-types"
 
+import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
-import type { Services } from "@/types"
 
 const updateUserInfoService: Services<UserInfosSchema, null> =
   ({ api }) =>
@@ -10,12 +10,19 @@ const updateUserInfoService: Services<UserInfosSchema, null> =
     try {
       const body = {
         username: data?.username,
-        email: data.email,
+        bio: data?.bio,
+        link: data?.link,
+        location: data?.location,
+      }
+
+      const config = {
+        withCredentials: true,
       }
 
       const { data: responseData } = await api.put(
         routes.api.users.updateUserInfos,
-        body
+        body,
+        config
       )
 
       return [null, responseData]

@@ -1,0 +1,33 @@
+[entryPoints]
+    [entryPoints.http]
+        address = ":80"
+
+[api]
+    dashboard = false
+    insecure = true
+
+[providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+    domain = "localhost"
+    watch = true
+    exposedByDefault = false
+    network = "web"
+
+[http.routers]
+    [http.routers.business]
+        rule = "HostRegexp(`{host:.+}`)"
+        service = "business"
+        entryPoints = ["http"]
+        middlewares = ["retry"]
+
+[http.middlewares.retry]
+    retry.attempts = 5
+
+[serversTransport]
+    forwardingTimeouts.dialTimeout = "30s"
+    forwardingTimeouts.responseHeaderTimeout = "60s"
+
+[http.services]
+    [http.services.business.loadBalancer]
+        [[http.services.business.loadBalancer.servers]]
+            url = "http://business:3001"

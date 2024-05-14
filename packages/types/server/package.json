@@ -9,9 +9,10 @@
   "author": "William - @william-wtr92",
   "license": "ISC",
   "peerDependencies": {
-    "hono": "^4.1.7",
+    "hono": "^4.2.7",
     "ioredis": "^5.3.2",
-    "knex": "^3.1.0"
+    "knex": "^3.1.0",
+    "@azure/storage-blob": "^12.17.0"
   },
   "devDependencies": {
     "@instamint/tsconfig-server": "workspace:^"

@@ -48,6 +48,9 @@ const apiRoutes = {
       activate: "auth/2fa/activate",
       deactivate: "auth/2fa/deactivate",
     },
+    modifyPassword: "/users/modify-password",
+    modifyEmail: "/users/modify-email",
+    uploadAvatar: "/users/upload-avatar",
   },
 } as const
 

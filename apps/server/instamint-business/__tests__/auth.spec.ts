@@ -1,10 +1,10 @@
-import knex from "knex"
-import { describe, test, expect, beforeAll, afterAll } from "@jest/globals"
 import { SC } from "@instamint/server-types"
+import { describe, test, expect, beforeAll, afterAll } from "@jest/globals"
+import knex from "knex"
 
-import server from "@/server"
 import appConfig from "@/db/config/config"
 import { authMessages } from "@/def"
+import server from "@/server"
 
 beforeAll(async () => {
   const db = knex(appConfig.db)

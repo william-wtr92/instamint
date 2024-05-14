@@ -5,5 +5,7 @@ export type ConnectedUser = {
     bio: string
     link: string
     twoFactorAuthentication: boolean
+    location: string
+    avatar: string
   }
 }

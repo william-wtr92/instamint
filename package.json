@@ -8,7 +8,7 @@
     "changelog": "chmod +x ./scripts/changelog.sh && bash ./scripts/changelog.sh -- $1",
     "release": "chmod +x ./scripts/release.sh && bash ./scripts/release.sh",
 
-    "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files && pnpm lint:cron",
+    "lint": "pnpm lint:webapp && pnpm lint:business && pnpm lint:files && pnpm lint:cron && pnpm lint:ui",
     "build": "pnpm build:webapp && pnpm build:business && pnpm build:files",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier -c \"**/*.{ts,tsx,md}\"",
@@ -19,7 +19,7 @@
 
     "build:files": "pnpm --filter @instamint/files-server build",
     "lint:files": "pnpm --filter @instamint/files-server lint",
-    "dev:files": "pnpm --filter @instamint/files-server dev",
+    "dev:files": "dotenv -e .env -- pnpm --filter @instamint/files-server dev:local",
 
     "build:business": "pnpm --filter @instamint/business-server build",
     "lint:business": "pnpm --filter @instamint/business-server lint",
@@ -32,7 +32,9 @@
 
     "lint:cron": "pnpm --filter @instamint/cron-server lint",
     "dev:cron": "dotenv -e .env -- pnpm --filter @instamint/cron-server dev",
-    "start:cron": "dotenv -e .env -- pnpm --filter @instamint/cron-server start"
+    "start:cron": "dotenv -e .env -- pnpm --filter @instamint/cron-server start",
+
+    "lint:ui": "pnpm --filter @instamint/ui-kit lint"
   },
   "workspaces": [
     "packages/**",
@@ -47,10 +49,10 @@
   ],
   "author": "William W., Pascal L., Hugo V., Thomas O.",
   "license": "ISC",
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@9.0.6",
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
-    "@commitlint/config-conventional": "^19.0.3",
+    "@commitlint/config-conventional": "^19.2.2",
     "dotenv-cli": "^7.3.0",
     "prettier": "^3.2.5"
   }

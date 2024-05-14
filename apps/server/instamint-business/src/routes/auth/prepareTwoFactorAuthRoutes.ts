@@ -1,22 +1,23 @@
-import { type Context, Hono } from "hono"
-import { type ApiRoutes, SC } from "@instamint/server-types"
 import { zValidator } from "@hono/zod-validator"
+import { type ApiRoutes, SC } from "@instamint/server-types"
 import {
   type ActivateTwoFactorAuth,
   type TwoFactorAuthenticate,
   activateTwoFactorAuthSchema,
   twoFactorAuthenticateSchema,
 } from "@instamint/shared-types"
+import { type Context, Hono } from "hono"
 
+import UserModel from "@/db/models/UserModel"
 import {
   globalsMessages,
   authMessages,
   contextsKeys,
   usersMessages,
 } from "@/def"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { auth } from "@/middlewares/auth"
-import UserModel from "@/db/models/UserModel"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
+import { generateQRCode } from "@/utils/helpers/qrCodeActions"
 import {
   generateAuthenticatorToken,
   generateAuthenticatorURI,
@@ -24,20 +25,19 @@ import {
   generateSecret,
   verifyAuthenticatorToken,
 } from "@/utils/helpers/twoFactorAuthActions"
-import { generateQRCode } from "@/utils/helpers/qrCodeActions"
 
 const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
   const twoFactorAuth = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
@@ -136,7 +136,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       } catch (error) {
         await trx.rollback()
-        throw createErrorResponse(
+        throw throwInternalError(
           authMessages.errorDuringHotpGeneration,
           SC.serverErrors.SERVICE_UNAVAILABLE
         )
@@ -207,7 +207,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       } catch (error) {
         await trx.rollback()
 
-        throw createErrorResponse(
+        throw throwInternalError(
           authMessages.errorDuringTwoFactorAuthActivation,
           SC.serverErrors.SERVICE_UNAVAILABLE
         )
@@ -279,7 +279,7 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       } catch (error) {
         await trx.rollback()
 
-        throw createErrorResponse(
+        throw throwInternalError(
           authMessages.errorDuringTwoFactorAuthDeactivation,
           SC.serverErrors.SERVICE_UNAVAILABLE
         )

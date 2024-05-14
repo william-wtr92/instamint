@@ -1,0 +1,52 @@
+- name: Deploy Traefik on Files VM
+  hosts: azure_vms
+  become: true
+  tasks:
+    - name: Create Traefik configuration directory
+      ansible.builtin.file:
+        path: /etc/traefik
+        state: directory
+        mode: '0755'
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Transfer Traefik configuration file
+      ansible.builtin.copy:
+        src: ./config/files.toml
+        dest: /etc/traefik/traefik.toml
+        mode: '0644'
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Pull the Traefik Docker image
+      community.docker.docker_image:
+        name: "traefik:latest"
+        source: pull
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Create Docker network for services
+      community.docker.docker_network:
+        name: web
+        state: present
+      when: inventory_hostname == 'instamint-files-vm'
+
+    - name: Run Traefik Docker container
+      community.docker.docker_container:
+        name: traefik
+        image: "traefik:latest"
+        state: started
+        restart_policy: always
+        published_ports:
+          - "80:80"
+        networks:
+          - name: web
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+        command:
+          - "--api.insecure=true"
+          - "--providers.docker=true"
+          - "--entrypoints.http.address=:80"
+          - "--log.level=DEBUG"
+        labels:
+          traefik.enable: "true"
+          traefik.http.routers.files.rule: "HostRegexp(`{host:.+}`)"
+          traefik.http.services.files.loadbalancer.server.port: "3002"
+      when: inventory_hostname == 'instamint-files-vm'

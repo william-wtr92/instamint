@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react"
 import { cva, cx } from "class-variance-authority"
+import React, { forwardRef } from "react"
+
 import { montserrat, poppins } from "../lib/fonts"
 
 type TextType = "title" | "heading" | "subheading" | "body" | "medium" | "small"

@@ -1,17 +1,17 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { type ReactElement, useCallback } from "react"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useTranslation } from "next-i18next"
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
-import { Button } from "@instamint/ui-kit"
 import type { UserEmailToken } from "@instamint/shared-types"
+import { Button } from "@instamint/ui-kit"
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { type ReactElement, useCallback } from "react"
 
-import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
-import useAppContext from "@/web/contexts/useAppContext"
-import useActionsContext from "@/web/contexts/useActionsContext"
 import AuthLayout from "@/web/components/layout/AuthLayout"
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -49,30 +49,28 @@ const EmailValidationPage = (
   const { redirect, toast } = useActionsContext()
 
   const onSubmit = useCallback(async () => {
-    if (validation != null) {
-      const [err] = await emailValidation({ validation })
-
-      if (err) {
-        toast({
-          variant: "error",
-          description: t(`errors:auth.${err.message}`),
-        })
-
-        return
-      }
-
-      toast({
-        variant: "success",
-        description: t("email:validation.success"),
-      })
-      redirect(routes.client.home, 3000)
-    } else {
+    if (!validation) {
       toast({
         variant: "error",
         description: t("email:validation.errorNoToken"),
       })
     }
 
+    const [err] = await emailValidation({ validation })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:auth.${err.message}`),
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("email:validation.success"),
+    })
     redirect(routes.client.home, 6000)
   }, [redirect, emailValidation, validation, t, toast])
 

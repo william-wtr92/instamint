@@ -1,3 +1,6 @@
+import { useToast } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
+import { useTranslation } from "next-i18next"
 import {
   type FC,
   type PropsWithChildren,
@@ -6,9 +9,6 @@ import {
   useContext,
   useCallback,
 } from "react"
-import { useTranslation } from "next-i18next"
-import { useToast } from "@instamint/ui-kit"
-import { useRouter } from "next/router"
 
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
 

@@ -5,10 +5,10 @@ import {
   useContext,
 } from "react"
 
-import { createApiClient } from "@/web/utils/api/createApiClient"
-import { config } from "@/web/config"
 import type { AppContextProviderProps, AppContextType } from "@/types"
+import { config } from "@/web/config"
 import { prepareServices } from "@/web/services/prepareServices"
+import { createApiClient } from "@/web/utils/api/createApiClient"
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 

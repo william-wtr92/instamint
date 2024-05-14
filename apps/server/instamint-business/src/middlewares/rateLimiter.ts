@@ -1,10 +1,10 @@
-import { createFactory, type Factory } from "hono/factory"
-import type { Context, Next } from "hono"
-import { RateLimiterMemory } from "rate-limiter-flexible"
 import { SC } from "@instamint/server-types"
+import type { Context, Next } from "hono"
+import { createFactory, type Factory } from "hono/factory"
+import { RateLimiterMemory } from "rate-limiter-flexible"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
 import { globalsMessages } from "@/def"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 
 const factory: Factory = createFactory()
 
@@ -24,7 +24,7 @@ export const rateLimiter = (points: number, duration: number) => {
     try {
       await customOptions.consume(ip)
     } catch (e) {
-      throw createErrorResponse(
+      throw throwInternalError(
         globalsMessages.toManyRequests,
         SC.errors.TOO_MANY_REQUESTS
       )
