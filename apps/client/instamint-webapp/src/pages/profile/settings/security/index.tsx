@@ -9,6 +9,7 @@ import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React, { type ReactElement, useCallback, useState } from "react"
 
+import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import { ModifyEmailForm } from "@/web/components/forms/ModifyEmail"
 import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"

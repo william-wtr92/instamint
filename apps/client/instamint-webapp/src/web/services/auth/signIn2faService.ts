@@ -1,7 +1,8 @@
+import { type TwoFactorSignIn } from "@instamint/shared-types"
+
 import { type Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
-import { type TwoFactorSignIn } from "@instamint/shared-types"
 
 const signIn2faService: Services<TwoFactorSignIn, null> =
   ({ api }) =>

@@ -18,11 +18,11 @@ import { type ReactElement, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import AuthLayout from "@/web/components/layout/AuthLayout"
+import TwoFactorLoginModal from "@/web/components/settings/TwoFactorLoginModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import TwoFactorLoginModal from "@/web/components/settings/TwoFactorLoginModal"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context

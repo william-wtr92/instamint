@@ -1,11 +1,8 @@
-import signIn2faBackupCodeService from "./auth/signIn2faBackupCodeService"
-import signIn2faService from "./auth/signIn2faService"
-import twoFactorAuthenticationService from "./users/account/twoFactorAuthenticationService"
-import { twoFactorDeactivationService } from "./users/account/twoFactorDeactivationService"
-
 import type { PrepareServicesContext } from "@/types"
 import emailValidationService from "@/web/services/auth/emailValidationService"
 import resendEmailValidationService from "@/web/services/auth/resendEmailValidationService"
+import signIn2faBackupCodeService from "@/web/services/auth/signIn2faBackupCodeService"
+import signIn2faService from "@/web/services/auth/signIn2faService"
 import signInService from "@/web/services/auth/signInService"
 import signOutService from "@/web/services/auth/signOutService"
 import signUpService from "@/web/services/auth/signUpService"
@@ -16,7 +13,9 @@ import reactivateAccountService from "@/web/services/users/account/reactivateAcc
 import confirmResetPasswordService from "@/web/services/users/account/reset/confirmResetPasswordService"
 import requestResetPasswordService from "@/web/services/users/account/reset/requestResetPasswordService"
 import twoFactorActivationService from "@/web/services/users/account/twoFactorActivationService"
+import twoFactorAuthenticationService from "@/web/services/users/account/twoFactorAuthenticationService"
 import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
+import twoFactorDeactivationService from "@/web/services/users/account/twoFactorDeactivationService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
 

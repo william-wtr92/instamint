@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const updateUserInfoService: Services<UserInfosSchema, null> =
+const updateUserInfoService: Services<UserInfos, null> =
   ({ api }) =>
   async (data) => {
     try {

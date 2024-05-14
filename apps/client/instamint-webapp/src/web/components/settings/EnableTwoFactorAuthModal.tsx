@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react"
 import { AlertDialogContent } from "@instamint/ui-kit"
-
-import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
-import GenerateCodeStep from "./2fa/GenerateCodeStep"
-import ModalHeader from "./2fa/ModalHeader"
-import DisplayQrCodeStep from "./2fa/DisplayQrCodeStep"
-import EnableTwoFactorAuthSuccessStep from "./2fa/EnableTwoFactorAuthSuccessStep"
-import EnterTwoFactorCodeModalContent from "./2fa/EnterTwoFactorCodeModalContent"
 import { useTranslation } from "next-i18next"
-import useAppContext from "@/web/contexts/useAppContext"
+import React, { useCallback, useState } from "react"
+
+import DisplayQrCodeStep from "@/web/components/settings/2fa/DisplayQrCodeStep"
+import EnableTwoFactorAuthSuccessStep from "@/web/components/settings/2fa/EnableTwoFactorAuthSuccessStep"
+import EnterTwoFactorCodeModalContent from "@/web/components/settings/2fa/EnterTwoFactorCodeModalContent"
+import GenerateCodeStep from "@/web/components/settings/2fa/GenerateCodeStep"
+import ModalHeader from "@/web/components/settings/2fa/ModalHeader"
+import TwoFactorAuthenticateStep from "@/web/components/settings/2fa/TwoFactorAuthenticateStep"
 import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 
 type Props = {
   handleCloseModal: () => void
@@ -33,11 +33,11 @@ const EnableTwoFactorAuthModal = (props: Props) => {
   const [otpCode, setOtpCode] = useState<string>("")
   const [backupCodes, setBackupCodes] = useState<string[]>([])
 
-  const handlePreviousStep = useCallback(async () => {
+  const handlePreviousStep = useCallback(() => {
     setStep((prevState) => prevState - 1)
   }, [])
 
-  const handleNextStep = useCallback(async () => {
+  const handleNextStep = useCallback(() => {
     setStep((prevState) => prevState + 1)
   }, [])
 

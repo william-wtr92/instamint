@@ -1,6 +1,3 @@
-import useActionsContext from "@/web/contexts/useActionsContext"
-import useAppContext from "@/web/contexts/useAppContext"
-import { useUser } from "@/web/hooks/auth/useUser"
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -22,6 +19,10 @@ import {
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
+
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
+import { useUser } from "@/web/hooks/auth/useUser"
 
 type Props = {
   handleNextStep: () => void

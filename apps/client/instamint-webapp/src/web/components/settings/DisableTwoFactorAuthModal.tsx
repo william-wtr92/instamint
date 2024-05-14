@@ -1,12 +1,13 @@
 import { AlertDialogContent } from "@instamint/ui-kit"
+import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
-import ModalHeader from "./2fa/ModalHeader"
-import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
+
 import DisableTwoFactorAuthSuccessStep from "./2fa/DisableTwoFactorAuthSuccessStep"
 import EnterTwoFactorCodeModalContent from "./2fa/EnterTwoFactorCodeModalContent"
-import useAppContext from "@/web/contexts/useAppContext"
+import ModalHeader from "./2fa/ModalHeader"
+import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
 import useActionsContext from "@/web/contexts/useActionsContext"
-import { useTranslation } from "next-i18next"
+import useAppContext from "@/web/contexts/useAppContext"
 
 type Props = {
   handleCloseModal: () => void
@@ -27,11 +28,11 @@ const DisableTwoFactorAuthModal = (props: Props) => {
   const [step, setStep] = useState<number>(0)
   const [otpCode, setOtpCode] = useState<string>("")
 
-  const handlePreviousStep = useCallback(async () => {
+  const handlePreviousStep = useCallback(() => {
     setStep((prevState) => prevState - 1)
   }, [])
 
-  const handleNextStep = useCallback(async () => {
+  const handleNextStep = useCallback(() => {
     setStep((prevState) => prevState + 1)
   }, [])
 

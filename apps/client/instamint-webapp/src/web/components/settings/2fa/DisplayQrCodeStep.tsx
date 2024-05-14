@@ -4,10 +4,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@instamint/ui-kit"
-import React from "react"
-import Loader from "../../utils/Loader"
 import Image from "next/image"
 import { useTranslation } from "next-i18next"
+import React from "react"
+
+import Loader from "@/web/components/utils/Loader"
 
 type Props = {
   handleNextStep: () => void

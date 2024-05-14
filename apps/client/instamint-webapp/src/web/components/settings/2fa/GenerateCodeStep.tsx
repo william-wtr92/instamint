@@ -5,9 +5,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@instamint/ui-kit"
-import React, { useCallback } from "react"
-import Loader from "../../utils/Loader"
 import { useTranslation } from "next-i18next"
+import React, { useCallback } from "react"
+
+import Loader from "@/web/components/utils/Loader"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 

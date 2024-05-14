@@ -18,18 +18,18 @@ import {
   cookiesKeys,
   contextsKeys,
 } from "@/def"
-import { oneDayTTL, getCookie } from "@/utils/helpers/times"
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
-import { setCookie } from "@/utils/helpers/actions/cookiesActions"
+import { getCookie, setCookie } from "@/utils/helpers/actions/cookiesActions"
 import {
   decodeJwt,
   isJwtExpired,
   signJwt,
 } from "@/utils/helpers/actions/jwtActions"
+import { oneDayTTL, thirtyDaysTTL } from "@/utils/helpers/times"
 import { checkAuthenticatorToken } from "@/utils/helpers/twoFactorAuthActions"
 
 const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {

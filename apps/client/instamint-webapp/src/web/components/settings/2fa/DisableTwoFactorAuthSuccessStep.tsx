@@ -1,4 +1,3 @@
-import { useUser } from "@/web/hooks/auth/useUser"
 import {
   AlertDialogAction,
   AlertDialogDescription,
@@ -8,6 +7,8 @@ import {
 } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import React, { useCallback } from "react"
+
+import { useUser } from "@/web/hooks/auth/useUser"
 
 type Props = {
   closeModal: () => void
