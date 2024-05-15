@@ -28,5 +28,6 @@
     "azurite": "^3.29.0",
     "concurrently": "^8.2.2",
     "tsx": "^3.14.0"
-  }
+  },
+  "license": "All Rights Reserved"
 }

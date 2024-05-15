@@ -8,7 +8,7 @@
     "shared"
   ],
   "author": "William - @william-wtr92",
-  "license": "ISC",
+  "license": "All Rights Reserved",
   "devDependencies": {
     "@instamint/tsconfig-server": "workspace:^",
     "typescript": "^5.4.2"

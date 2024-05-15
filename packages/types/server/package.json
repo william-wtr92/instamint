@@ -7,7 +7,7 @@
     "types"
   ],
   "author": "William - @william-wtr92",
-  "license": "ISC",
+  "license": "All Rights Reserved",
   "peerDependencies": {
     "hono": "^4.2.7",
     "ioredis": "^5.3.2",

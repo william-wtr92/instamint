@@ -29,5 +29,6 @@
     "@types/node-schedule": "^2.1.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.2"
-  }
+  },
+  "license": "All Rights Reserved"
 }

@@ -37,17 +37,17 @@ const UserInfo = () => {
   return (
     <>
       {user && (
-        <div className="mt-6 flex flex-col items-center justify-center">
-          <div className="flex w-[80%] flex-col">
-            <div className="flex w-full flex-col items-center justify-between sm:flex-row xl:gap-7">
-              <Avatar className="relative left-1.5 size-12 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400">
+        <div className="mt-3 flex flex-col items-center justify-center xl:mt-6">
+          <div className="flex w-full gap-3 xl:w-[80%] xl:flex-col xl:gap-0">
+            <div className="flex w-full flex-row items-center justify-between gap-4 xl:gap-7">
+              <Avatar className="relative left-1.5 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-12">
                 {userAvatar ? (
                   <AvatarImage src={userAvatar} alt={user.username} />
                 ) : (
                   <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
                 )}
               </Avatar>
-              <div className="text-medium flex flex-col font-semibold ">
+              <div className="text-small xl:text-medium flex flex-col font-semibold">
                 <span>{user.username}</span>
                 <span className="truncate">{user.email}</span>
               </div>
@@ -57,13 +57,15 @@ const UserInfo = () => {
             </div>
             <Button
               onClick={() => setModalOpen(true)}
-              className="bg-accent-500 mt-4 w-full rounded-md p-2 font-semibold text-white"
+              className="bg-accent-500 mr-2 w-1/5 rounded-md p-0 font-semibold text-white xl:mr-0 xl:mt-4 xl:w-full xl:p-2"
             >
-              {t("cta.button-sign-out")}
+              <span className="text-small xl:text-medium">
+                {t("cta.button-sign-out")}
+              </span>
             </Button>
           </div>
 
-          <div className="mt-5 flex w-2/3 justify-center">
+          <div className="mt-5 hidden xl:flex xl:w-2/3  xl:justify-center">
             <ChangeLanguage />
           </div>
         </div>

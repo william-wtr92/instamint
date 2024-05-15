@@ -7,8 +7,10 @@ import {
 
 import type { AppContextProviderProps, AppContextType } from "@/types"
 import { config } from "@/web/config"
-import { prepareServices } from "@/web/services/prepareServices"
+import { prepareApiServices } from "@/web/services/prepareApiServices"
+import { prepareSocketServices } from "@/web/services/prepareSocketServices"
 import { createApiClient } from "@/web/utils/api/createApiClient"
+import { createSocketClient } from "@/web/utils/socket/createSocketClient"
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
@@ -16,10 +18,21 @@ export const AppContextProvider: FC<
   PropsWithChildren<AppContextProviderProps>
 > = ({ children }) => {
   const api = createApiClient({ baseURL: config.api.baseUrl })
+  const socket = createSocketClient({ baseUrl: config.api.baseUrl })
 
-  const services = prepareServices({ api })
+  const apiServices = prepareApiServices({ api })
+  const socketServices = prepareSocketServices({ socket })
 
-  return <AppContext.Provider value={services}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider
+      value={{
+        ...apiServices,
+        ...socketServices,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  )
 }
 
 const useAppContext = () => {
