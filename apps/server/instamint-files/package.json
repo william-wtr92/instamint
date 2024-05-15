@@ -25,7 +25,7 @@
     "@instamint/server-types": "workspace:^",
     "@instamint/tsconfig-server": "workspace:^",
     "@types/uuid": "^9.0.8",
-    "azurite": "^3.29.0",
+    "azurite": "^3.30.0",
     "concurrently": "^8.2.2",
     "tsx": "^3.14.0"
   },
