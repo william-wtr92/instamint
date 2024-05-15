@@ -20,11 +20,10 @@ export const userInfosSchema = z.object({
     .refine(
       (data) =>
         data === "" ||
-        z.string().regex(new RegExp("^/[a-zA-Z0-9/]*$")).safeParse(data)
-          .success,
+        z.string().regex(new RegExp("^[a-zA-Z0-9/]*$")).safeParse(data).success,
       {
         message:
-          "Must be a valid link (You have to start with a / and Your link cannot contain special characters or spaces.) or empty!",
+          "Must be a valid link (Your link cannot contain special characters or spaces.) or empty!",
       }
     )
     .optional(),

@@ -58,7 +58,9 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       if (user.link !== link) {
-        const existingLink = await UserModel.query().findOne({ link })
+        const existingLink = await UserModel.query().findOne({
+          link: "/" + link,
+        })
 
         if (existingLink) {
           return c.json(usersMessages.linkAlreadyExist, SC.errors.BAD_REQUEST)
@@ -70,7 +72,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         .update({
           ...(username ? { username } : {}),
           ...(bio !== undefined ? { bio } : undefined),
-          ...(link !== undefined ? { link } : undefined),
+          ...(link !== undefined ? { link: "/" + link } : undefined),
           ...(location ? { location } : {}),
         })
 
