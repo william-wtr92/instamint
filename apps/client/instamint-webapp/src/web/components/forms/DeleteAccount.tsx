@@ -31,7 +31,7 @@ type Props = {
 export const DeleteAccountForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { t } = useTranslation()
+  const { t } = useTranslation("profile-settings-security")
 
   const form = useForm<DeleteAccount>({
     resolver: zodResolver(deleteAccountSchema),

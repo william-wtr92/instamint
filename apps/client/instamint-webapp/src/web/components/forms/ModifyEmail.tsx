@@ -27,7 +27,7 @@ type Props = {
 export const ModifyEmailForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { t } = useTranslation()
+  const { t } = useTranslation("profile-settings-security")
 
   const form = useForm<ModifyEmail>({
     resolver: zodResolver(modifyEmailSchema),

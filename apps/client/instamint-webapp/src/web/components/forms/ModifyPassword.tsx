@@ -34,7 +34,7 @@ type Props = {
 export const ModifyPasswordForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { t } = useTranslation()
+  const { t } = useTranslation("profile-settings-security")
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
