@@ -84,8 +84,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2)))
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/eslint-config-client':
         specifier: workspace:^
@@ -131,7 +131,7 @@ importers:
         version: 1.0.1(hono@4.2.7)
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.2.7)(zod@3.22.4)
+        version: 0.2.1(hono@4.2.7)(zod@3.23.8)
       '@instamint/shared-types':
         specifier: workspace:^
         version: link:../../../packages/types/shared
@@ -175,8 +175,8 @@ importers:
         specifier: ^6.7.0
         version: 6.7.0
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/eslint-config-server':
         specifier: workspace:^
@@ -236,8 +236,8 @@ importers:
         specifier: ^6.7.0
         version: 6.7.0
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/eslint-config-server':
         specifier: workspace:^
@@ -271,7 +271,7 @@ importers:
         version: 1.11.0
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.2.7)(zod@3.22.4)
+        version: 0.2.1(hono@4.2.7)(zod@3.23.8)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -285,8 +285,8 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/eslint-config-server':
         specifier: workspace:^
@@ -387,8 +387,8 @@ importers:
   packages/types/shared:
     dependencies:
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/tsconfig-server':
         specifier: workspace:^
@@ -463,8 +463,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2)))
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@instamint/eslint-config-client':
         specifier: workspace:^
@@ -5875,8 +5875,8 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
 
-  zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
 
@@ -6584,10 +6584,10 @@ snapshots:
       hono: 4.2.7
       toucan-js: 3.3.1
 
-  '@hono/zod-validator@0.2.1(hono@4.2.7)(zod@3.22.4)':
+  '@hono/zod-validator@0.2.1(hono@4.2.7)(zod@3.23.8)':
     dependencies:
       hono: 4.2.7
-      zod: 3.22.4
+      zod: 3.23.8
 
   '@hookform/resolvers@3.3.4(react-hook-form@7.51.1(react@18.2.0))':
     dependencies:
@@ -12246,4 +12246,4 @@ snapshots:
 
   yocto-queue@1.0.0: {}
 
-  zod@3.22.4: {}
+  zod@3.23.8: {}
