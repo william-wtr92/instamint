@@ -75,7 +75,7 @@ module.exports = {
     "dot-notation": "error",
     eqeqeq: ["error", "smart"],
     "func-style": ["error", "expression", { allowArrowFunctions: true }],
-    "max-depth": ["error", 3],
+    "max-depth": ["error", 4],
     "max-nested-callbacks": ["error", 3],
     "max-params": ["error", 5],
     "no-alert": "error",

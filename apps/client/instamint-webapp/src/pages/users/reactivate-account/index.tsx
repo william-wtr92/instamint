@@ -80,7 +80,7 @@ const ReactivateAccountPage = (
 
   const onSubmit = useCallback(
     async (values: ReactivateAccount) => {
-      if (validation != null) {
+      if (validation !== null) {
         const reactivateAccountValues = {
           ...values,
           validation,

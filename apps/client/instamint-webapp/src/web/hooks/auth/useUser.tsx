@@ -6,7 +6,7 @@ import { routes } from "@/web/routes"
 export const useUser = () => {
   const config: SWRConfiguration = {
     revalidateOnFocus: false,
-    refreshInterval: 60000,
+    refreshInterval: 150000,
     revalidateOnReconnect: true,
   }
 

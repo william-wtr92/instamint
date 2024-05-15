@@ -112,3 +112,12 @@ assess and minimise its ecological footprint, affirming its commitment to sustai
   targeting the directory where you cloned the project,
   _**you will have access to the various endpoints preconfigured on the correct urls and ports, as well as the body,
   params, etc.**_
+
+## 📝 License
+
+> No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including
+> photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the
+> author.
+> For permission requests, write to the author at the email provided in the contact details.
+
+> For more details, see the [LICENSE.md](LICENSE.md) file.

@@ -1,3 +1,4 @@
+import type { ChatMessage, JoinRoom } from "@instamint/shared-types"
 import type { ToastType as Toast, ToasterToast } from "@instamint/ui-kit"
 import type { ReactNode } from "react"
 
@@ -19,6 +20,10 @@ export type AppContextType = {
   services: {
     auth: ServicesActionsMappings<AuthServices>
     users: ServicesActionsMappings<UsersServices>
+  }
+  socket: {
+    joinRoom: <C>(data: JoinRoom, callback: C) => void
+    chatMessage: (data: ChatMessage) => void
   }
 }
 
