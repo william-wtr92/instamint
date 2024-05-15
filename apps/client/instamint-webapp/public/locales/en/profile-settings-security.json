@@ -59,5 +59,73 @@
 			"deactivate-2fa": "Disable two-factor authentication",
 			"back-to-settings": "Back to security settings"
 		}
+  },
+  "delete-account": {
+    "triggerLabel": "Delete my account",
+    "title": "Are you sure you want to delete your account?",
+    "description": {
+      "p1": "Initially, the account will be deactivated and you will be able to reactivate it within 30 days.",
+      "p2": "After this period, the account will be permanently deleted."
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "error": "Enter a valid password"
+    },
+    "confirmPassword": {
+      "label": "Confirm password",
+      "placeholder": "Confirm your password",
+      "error": "Passwords do not match"
+    },
+    "cta": {
+      "submit": "Delete my account"
+    },
+    "success": "Your account has been deactivated."
+  },
+  "modify-password" : {
+    "triggerLabel": "Change password",
+    "title": "Are you sure you want to change your password?",
+    "oldPassword": {
+      "label": "Current password",
+      "placeholder": "Enter your current password"
+    },
+    "newPassword": {
+      "label": "New password",
+      "placeholder": "Enter a new password",
+      "error": "New password must be different",
+      "criteria": {
+        "uppercase": "An uppercase letter",
+        "lowercase": "A lowercase letter",
+        "number": "A number",
+        "specialCharacter": "A special character",
+        "length": "8 characters long"
+      }
+    },
+    "confirmNewPassword": {
+      "label": "Confirm new password",
+      "placeholder": "Confirm your new password",
+      "error": "New passwords do not match"
+    },
+    "success": "Your password has been modified, you`ll be disconnected.",
+    "submit": "Confirm"
+  },
+  "modify-email" : {
+    "triggerLabel": "Change email",
+    "title": "Are you sure you want to change your email?",
+    "mail": {
+      "label": "Email",
+      "placeholder": "Enter your email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter a new password"
+    },
+    "newMail": {
+      "label": "New Email",
+      "placeholder": "Enter your new email",
+      "error": "New email must be different."
+    },
+    "success": "Your email has been modified, Look out for an email to verify your it.",
+    "submit": "Confirm"
   }
 }
