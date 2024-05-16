@@ -49,13 +49,13 @@ export const ModifyEmailForm = (props: Props) => {
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
             <Label className="font-semibold hover:cursor-pointer">
-              {t(`profile-settings:modify-email.triggerLabel`)}
+              {t(`modify-email.triggerLabel`)}
             </Label>
           </DialogTrigger>
           <DialogContent className="bg-white">
             <DialogHeader className="mb-6">
               <DialogTitle className="font-extrabold">
-                {t(`profile-settings:modify-email.title`)}
+                {t(`modify-email.title`)}
               </DialogTitle>
             </DialogHeader>
             <div className="flex flex-col">
@@ -66,18 +66,14 @@ export const ModifyEmailForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(`profile-settings:modify-email.mail.label`)}
-                        </span>
+                        <span>{t(`modify-email.mail.label`)}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="email"
-                            placeholder={t(
-                              `profile-settings:modify-email.mail.placeholder`
-                            )}
+                            placeholder={t(`modify-email.mail.placeholder`)}
                             {...field}
                           />
                         </div>
@@ -91,18 +87,14 @@ export const ModifyEmailForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(`profile-settings:modify-email.password.label`)}
-                        </span>
+                        <span>{t(`modify-email.password.label`)}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="password"
-                            placeholder={t(
-                              `profile-settings:modify-email.password.placeholder`
-                            )}
+                            placeholder={t(`modify-email.password.placeholder`)}
                             {...field}
                           />
                         </div>
@@ -116,18 +108,14 @@ export const ModifyEmailForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(`profile-settings:modify-email.newMail.label`)}
-                        </span>
+                        <span>{t(`modify-email.newMail.label`)}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="email"
-                            placeholder={t(
-                              `profile-settings:modify-email.newMail.placeholder`
-                            )}
+                            placeholder={t(`modify-email.newMail.placeholder`)}
                             {...field}
                           />
                         </div>
@@ -137,9 +125,7 @@ export const ModifyEmailForm = (props: Props) => {
                         useCustomError={true}
                       >
                         {errors.newEmail ? (
-                          <span>
-                            {t(`profile-settings:modify-email.newMail.error`)}
-                          </span>
+                          <span>{t(`modify-email.newMail.error`)}</span>
                         ) : null}
                       </FormMessage>
                     </FormItem>
@@ -151,7 +137,7 @@ export const ModifyEmailForm = (props: Props) => {
                     type="submit"
                     className="bg-accent-500 mt-6 py-2.5 font-semibold text-white"
                   >
-                    {t(`profile-settings:modify-email.submit`)}
+                    {t(`modify-email.submit`)}
                   </Button>
                 </DialogFooter>
               </form>
