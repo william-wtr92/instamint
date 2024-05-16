@@ -34,3 +34,9 @@ export const isJwtExpired = (exp: number) => {
 
   return currentTimeInSeconds >= expiryTimeInSeconds
 }
+
+export const restructureJwt = async (jwt: string) => {
+  const [header, payload, signature] = jwt.split(".")
+
+  return `${header}.${payload}.${signature}`
+}

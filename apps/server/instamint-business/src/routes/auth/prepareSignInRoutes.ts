@@ -305,6 +305,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
       {
         message: authMessages.signedInUser.message,
         result: sanitizeUser(user, [
+          "id",
           "bio",
           "link",
           "twoFactorAuthentication",

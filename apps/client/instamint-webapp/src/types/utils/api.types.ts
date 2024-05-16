@@ -7,7 +7,7 @@ type ApiClientArgs = {
 export type CreateApiClient = (args: ApiClientArgs) => AxiosInstance
 
 type Route = string
-type RouteFunction = (...args: number[]) => string
+type RouteFunction = (...args: never[]) => string
 
 type RouteObject = {
   [key: string]: Route | RouteObject | RouteFunction

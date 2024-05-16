@@ -24,11 +24,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React, { type ReactElement, useEffect, useCallback } from "react"
 import { useForm } from "react-hook-form"
 
-import countries from "@/countries.json"
 import SettingsLayout from "@/web/components/layout/SettingsLayout"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
+import countries from "@/web/utils/countries.json"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -8,7 +8,7 @@ type ArgsPrepareServices = {
 
 export type PrepareServicesContext = (
   context: ArgsPrepareServices
-) => AppContextType
+) => Pick<AppContextType, "services">
 
 export type Services<P, R> = (
   args: ArgsPrepareServices

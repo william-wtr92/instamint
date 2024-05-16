@@ -19,7 +19,7 @@ import twoFactorDeactivationService from "@/web/services/users/account/twoFactor
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
 
-export const prepareServices: PrepareServicesContext = (context) => {
+export const prepareApiServices: PrepareServicesContext = (context) => {
   return {
     services: {
       auth: {
