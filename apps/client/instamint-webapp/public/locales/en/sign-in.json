@@ -22,12 +22,12 @@
     }
   },
   "modal": {
-    "title": "Enter your 2FA code to log in",
-    "description": "To log in, please enter your two-factor authentication code generated on the authentication application you chose when configuring it.",
-    "backup-code-title": "Enter your 2FA backup code to log in",
-    "backup-code-description": "To log in, please enter one of your backup codes that were generated when you configured two-factor authentication.",
+    "title": "Enter your 2FA code to sign in",
+    "description": "To sign in, please enter your two-factor authentication code generated on the authentication application you chose when configuring it.",
+    "backup-code-title": "Enter your 2FA backup code to sign in",
+    "backup-code-description": "To sign in, please enter one of your backup codes that were generated when you configured two-factor authentication.",
     "checkbox-description": "Don't ask for 2FA code on this device for the next 30 days",
-    "cant-access-2fa-app": "Can't access your 2FA application ?",
+    "cant-access-2fa-app": "Can't access your 2FA application?",
     "sign-in-with-backup-code": "Sign in with a backup code",
     "backup-code-placeholder": "Enter your backup code"
   }

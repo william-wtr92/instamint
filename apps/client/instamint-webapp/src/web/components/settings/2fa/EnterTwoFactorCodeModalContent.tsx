@@ -21,12 +21,12 @@ type Props = {
   title: string
   description: string
   otpCode: string
-  setOtpCode: (otpCode: string) => void
+  handleOtpCode: (otpCode: string) => void
   handleTwoFactorCodeValidation: (value?: boolean) => void
-  handleCloseModal: () => void
+  handleModal: () => void
 
   backupCode?: string
-  setBackUpCode?: (backupCode: string) => void
+  handleBackupCode?: (backupCode: string) => void
   authorizeDevice?: boolean
   handleAuthorizeDevice?: () => void
   isSignInWithBackupCode?: boolean
@@ -41,10 +41,10 @@ const EnterTwoFactorCodeModalContent = (props: Props) => {
     title,
     description,
     otpCode,
-    setOtpCode,
+    handleOtpCode,
     backupCode,
-    setBackUpCode,
-    handleCloseModal,
+    handleBackupCode,
+    handleModal,
     handleAuthorizeDevice,
     authorizeDevice,
     handleTwoFactorCodeValidation,
@@ -79,7 +79,7 @@ const EnterTwoFactorCodeModalContent = (props: Props) => {
       )}
 
       <AlertDialogCancel
-        onClick={handleCloseModal}
+        onClick={handleModal}
         className="absolute right-0 top-0 rounded-tr-md border-0 p-[5px]"
       >
         <XMarkIcon className="size-7" />
@@ -100,7 +100,7 @@ const EnterTwoFactorCodeModalContent = (props: Props) => {
           <InputOTP
             maxLength={6}
             value={otpCode}
-            onChange={(value) => setOtpCode(value)}
+            onChange={(value) => handleOtpCode(value)}
           >
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -120,7 +120,7 @@ const EnterTwoFactorCodeModalContent = (props: Props) => {
               type="text"
               placeholder={t("modal.backup-code-placeholder")}
               className="w-[85%] text-center"
-              onChange={(e) => setBackUpCode!(e.target.value)}
+              onChange={(e) => handleBackupCode!(e.target.value)}
             />
 
             <Button

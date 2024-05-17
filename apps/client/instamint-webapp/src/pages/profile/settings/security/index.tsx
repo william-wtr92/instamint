@@ -7,18 +7,19 @@ import { Button, Text } from "@instamint/ui-kit"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React, { type ReactElement, useCallback, useState } from "react"
+import React, { useCallback, useState } from "react"
 
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import { ModifyEmailForm } from "@/web/components/forms/ModifyEmail"
 import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
-import SettingsLayout from "@/web/components/layout/SettingsLayout"
+import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer"
 import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getSettingsLayout from "@/web/utils/layout/getSettingsLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -50,12 +51,8 @@ const ProfileSettingsSecurityPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const handleOpenModal = useCallback(() => {
-    setIsModalOpen(true)
-  }, [])
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false)
+  const handleModal = useCallback(() => {
+    setIsModalOpen((prev) => !prev)
   }, [])
 
   const handleDeleteAccountSubmit = useCallback(
@@ -136,7 +133,7 @@ const ProfileSettingsSecurityPage = () => {
 
   return (
     <>
-      <div className="animate-slideInFromLeft z-10 mx-auto flex flex-col gap-6 p-6 lg:w-[90%]">
+      <SettingsPageContainer>
         <Text type="heading" variant="neutral" className="text-center">
           {t("title")}
         </Text>
@@ -158,7 +155,7 @@ const ProfileSettingsSecurityPage = () => {
 
           <Button
             variant={is2faEnabled ? "danger" : "default"}
-            onClick={handleOpenModal}
+            onClick={handleModal}
           >
             {is2faEnabled ? t("cta.deactivate-2fa") : t("cta.activate-2fa")}
           </Button>
@@ -175,12 +172,12 @@ const ProfileSettingsSecurityPage = () => {
             <DeleteAccountForm onSubmit={handleDeleteAccountSubmit} />
           </Button>
         </div>
-      </div>
+      </SettingsPageContainer>
 
       {isModalOpen && (
         <TwoFactorAuthModal
           isOpen={isModalOpen}
-          handleCloseModal={handleCloseModal}
+          handleModal={handleModal}
           is2faEnabled={is2faEnabled}
         />
       )}
@@ -189,8 +186,6 @@ const ProfileSettingsSecurityPage = () => {
 }
 ProfileSettingsSecurityPage.title = "profile.settings.security"
 
-ProfileSettingsSecurityPage.getLayout = (page: ReactElement) => {
-  return <SettingsLayout>{page}</SettingsLayout>
-}
+ProfileSettingsSecurityPage.getLayout = getSettingsLayout
 
 export default ProfileSettingsSecurityPage

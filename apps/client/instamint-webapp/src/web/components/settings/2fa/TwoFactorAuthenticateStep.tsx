@@ -53,7 +53,11 @@ const TwoFactorAuthenticateStep = (props: Props) => {
     },
   })
 
-  const authenticate = useCallback(
+  const handleShowPassword = useCallback(() => {
+    setShowPassword((prevState) => !prevState)
+  }, [])
+
+  const onSubmit = useCallback(
     async (values: TwoFactorAuthenticate) => {
       const [err] = await twoFactorAuthentication(values)
 
@@ -90,7 +94,7 @@ const TwoFactorAuthenticateStep = (props: Props) => {
       <AlertDialogHeader>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(authenticate)}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="flex w-full flex-col items-center space-y-8 rounded-md bg-white"
           >
             <FormField
@@ -116,12 +120,12 @@ const TwoFactorAuthenticateStep = (props: Props) => {
                       {showPassword ? (
                         <EyeSlashIcon
                           className="absolute right-2 top-1/4 h-5 w-4 hover:cursor-pointer"
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={handleShowPassword}
                         />
                       ) : (
                         <EyeIcon
                           className="absolute right-2 top-1/4 h-5 w-4 hover:cursor-pointer"
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={handleShowPassword}
                         />
                       )}
                     </div>

@@ -117,20 +117,19 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
           .where({ email: user.email })
 
         const token = generateAuthenticatorToken(secret)
+        const issuer = "Instamint"
 
-        const hotpUri = generateAuthenticatorURI(
-          user.email,
-          "Instamint",
-          secret
-        )
+        const hotpUri = generateAuthenticatorURI(user.email, issuer, secret)
         const qrCode = await generateQRCode(hotpUri)
 
         await trx.commit()
 
         return c.json(
           {
-            token,
-            qrCode,
+            result: {
+              token,
+              qrCode,
+            },
           },
           SC.success.OK
         )
@@ -201,7 +200,10 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
         await trx.commit()
 
         return c.json(
-          { message: authMessages.twoFactorAuthActivated, backupCodes },
+          {
+            message: authMessages.twoFactorAuthActivated,
+            result: { backupCodes },
+          },
           SC.success.OK
         )
       } catch (error) {

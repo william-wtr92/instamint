@@ -1,4 +1,7 @@
-import type { TwoFactorGenerateResult } from "@instamint/shared-types"
+import type {
+  TwoFactorGenerateResult,
+  TwoFactorGenerateResponse,
+} from "@instamint/shared-types"
 
 import type { Services } from "@/types"
 import { routes } from "@/web/routes"
@@ -12,12 +15,14 @@ const twoFactorCodeGenerationService: Services<null, TwoFactorGenerateResult> =
     }
 
     try {
-      const { data: responseData } = await api.get<TwoFactorGenerateResult>(
+      const {
+        data: { result },
+      } = await api.get<TwoFactorGenerateResponse>(
         routes.api.users.twoFactorAuth.generate,
         config
       )
 
-      return [null, responseData]
+      return [null, result]
     } catch (error) {
       return [handleApiErrors(error)]
     }

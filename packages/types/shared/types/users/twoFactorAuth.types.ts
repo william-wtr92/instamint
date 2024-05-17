@@ -12,9 +12,17 @@ export type ActivateTwoFactorAuthResult = {
   backupCodes: string[]
 }
 
+export type ActivateTwoFactorAuthResponse = {
+  result: ActivateTwoFactorAuthResult
+}
+
 export type TwoFactorGenerateResult = {
   token: string
   qrCode: string
+}
+
+export type TwoFactorGenerateResponse = {
+  result: TwoFactorGenerateResult
 }
 
 export type TwoFactorAuthenticate = z.infer<typeof twoFactorAuthenticateSchema>

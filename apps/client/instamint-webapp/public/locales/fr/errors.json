@@ -13,9 +13,9 @@
     "userMustWaitBeforeSendingAnotherMail": "Patientez 10 minutes avant de réessayer.",
     "emailNotExists": "Cet email n'existe pas.",
     "invalidPassword": "Mot de passe invalide.",
-		"errorInvalidTwoFactorCookie": "Coookie d'authentification à deux facteurs invalide.",
-		"errorDuringSignIn": "Erreur lors de la connexion."
-	},
+    "errorInvalidTwoFactorCookie": "Coookie d'authentification à deux facteurs invalide.",
+    "errorDuringSignIn": "Erreur lors de la connexion."
+  },
   "users": {
     "reset": {
       "userNotFound": "Ce compte n'existe pas.",
@@ -58,7 +58,7 @@
       "modify-email": {
         "userNotFound": "Session expirée, reconnectez-vous.",
         "emailAlreadyModify": "Vous avez déjà changé votre email dans les 24 dernières heures.",
-        "invalidPassword" : "Mot de passe incorrect.",
+        "invalidPassword": "Mot de passe incorrect.",
         "invalidEmail": "Email incorrect.",
         "emailSameAsPrevious": "Votre nouveau email doit être différent de l'ancien.",
         "emailAlreadyUse": "Cet email est déjà utilisé pour un compte.",

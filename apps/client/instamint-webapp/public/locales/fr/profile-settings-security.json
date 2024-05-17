@@ -2,62 +2,62 @@
   "title": "Securité du compte",
   "2fa-title": "Authentification à deux facteurs",
   "2fa-description": "L'activation de l'authentification à deux facteurs renforce la sécurité en ajoutant une couche supplémentaire de protection, réduisant ainsi le risque d'accès non autorisé à vos comptes.",
-	"2fa-enabled": "Statut : Activé",
-	"2fa-disabled": "Status : Désactivé",
-	"cta": {
+  "2fa-enabled": "Statut : Activé",
+  "2fa-disabled": "Status : Désactivé",
+  "cta": {
     "activate-2fa": "Activer l'authentification à deux facteurs",
-		"deactivate-2fa": "Désactiver l'authentification à deux facteurs"
+    "deactivate-2fa": "Désactiver l'authentification à deux facteurs"
   },
   "modal": {
     "activate-2fa": {
-        "step-zero": {
-            "title": "Authentifiez-vous pour activer l'authentification à deux facteurs",
-            "description": "Pour activer l'authentification à deux facteurs, veuillez-vous authentifier en saisissant votre mot de passe.",
-            "password": {
-                "label": "Mot de passe",
-                "placeholder": "Entrez votre mot de passe"
-            }
-        },
-        "step-one": {
-            "title": "Génération du code à usage unique",
-            "description": "Lors de cette étape, un code à usage unique est généré et sa valeur est dans le code QR. Ce code est utilisé en combinaison avec vos identifiants habituels pour accéder à votre compte, ajoutant ainsi une couche supplémentaire de sécurité."
-        },
-        "step-two": {
-            "title": "Utilisez ce code QR pour configurer votre application d'authentification",
-            "description": "Dans cette étape, saisissez ou scannez le code à usage unique généré dans l'application d'authentification que vous avez choisie. Ce code est temporaire et sera valide pour une seule utilisation."
-        },
-        "step-three": {
-            "title": "Utilisez le code généré sur l'application d'authentification",
-            "description": "Dans cette étape, saisissez le code généré par l'application d'authentification pour activer l'authentification à deux facteurs."
-        },
-        "step-four": {  
-            "title": "Double authentification activée avec succès",
-            "description": "Félicitations, vous avez activé l'authentification à deux facteurs avec succès. Vous pouvez maintenant utiliser votre code 2FA généré sur l'application que vous avez choisi pour accéder à votre compte.",
-            "backup-codes-title": "Codes de récupération",
-            "backup-codes-description": "Avant de quitter, veuillez stocker vos codes de récupération dans un endroit sûr. Vous en aurez besoin si vous perdez l'accès à votre application d'authentification."
+      "step-zero": {
+        "title": "Authentifiez-vous pour activer l'authentification à deux facteurs",
+        "description": "Pour activer l'authentification à deux facteurs, veuillez-vous authentifier en saisissant votre mot de passe.",
+        "password": {
+          "label": "Mot de passe",
+          "placeholder": "Entrez votre mot de passe"
         }
+      },
+      "step-one": {
+        "title": "Génération du code à usage unique",
+        "description": "Lors de cette étape, un code à usage unique est généré et sa valeur est dans le code QR. Ce code est utilisé en combinaison avec vos identifiants habituels pour accéder à votre compte, ajoutant ainsi une couche supplémentaire de sécurité."
+      },
+      "step-two": {
+        "title": "Utilisez ce code QR pour configurer votre application d'authentification",
+        "description": "Dans cette étape, saisissez ou scannez le code à usage unique généré dans l'application d'authentification que vous avez choisie. Ce code est temporaire et sera valide pour une seule utilisation."
+      },
+      "step-three": {
+        "title": "Utilisez le code généré sur l'application d'authentification",
+        "description": "Dans cette étape, saisissez le code généré par l'application d'authentification pour activer l'authentification à deux facteurs."
+      },
+      "step-four": {
+        "title": "Double authentification activée avec succès",
+        "description": "Félicitations, vous avez activé l'authentification à deux facteurs avec succès. Vous pouvez maintenant utiliser votre code 2FA généré sur l'application que vous avez choisi pour accéder à votre compte.",
+        "backup-codes-title": "Codes de récupération",
+        "backup-codes-description": "Avant de quitter, veuillez stocker vos codes de récupération dans un endroit sûr. Vous en aurez besoin si vous perdez l'accès à votre application d'authentification."
+      }
     },
     "deactivate-2fa": {
-        "step-zero": {
-            "title": "Authentifiez-vous pour désactiver l'authentification à deux facteurs",
-            "description": "Pour désactiver l'authentification à deux facteurs, veuillez-vous authentifier en saisissant votre mot de passe."
-        },
-        "step-one": {
-            "title": "Saisissez le code généré par votre application d'authentification",
-            "description": "Dans cette étape, saisissez le code généré par l'application d'authentification que vous avez choisie pour désactiver l'authentification à deux facteurs."
-        },
-        "step-two": {
-            "title": "Authentification à deux facteurs désactivée avec succès",
-            "description": "Félicitations, vous avez désactivé l'authentification à deux facteurs avec succès. Vous pouvez maintenant accéder à votre compte sans utiliser de code 2FA généré par l'application d'authentification."
-        }
+      "step-zero": {
+        "title": "Authentifiez-vous pour désactiver l'authentification à deux facteurs",
+        "description": "Pour désactiver l'authentification à deux facteurs, veuillez-vous authentifier en saisissant votre mot de passe."
+      },
+      "step-one": {
+        "title": "Saisissez le code généré par votre application d'authentification",
+        "description": "Dans cette étape, saisissez le code généré par l'application d'authentification que vous avez choisie pour désactiver l'authentification à deux facteurs."
+      },
+      "step-two": {
+        "title": "Authentification à deux facteurs désactivée avec succès",
+        "description": "Félicitations, vous avez désactivé l'authentification à deux facteurs avec succès. Vous pouvez maintenant accéder à votre compte sans utiliser de code 2FA généré par l'application d'authentification."
+      }
     },
     "cta": {
-        "authenticate": "S'authentifier",
-        "generate-2fa-otp": "Générer le code 2FA",
-        "i-have-my-2fa-code": "J'ai mon code 2FA",
-        "activate-2fa": "Activer la double authentification",
-        "deactivate-2fa": "Désactiver la double authentification",
-        "back-to-settings": "Retour aux paramètres de sécurité"
+      "authenticate": "S'authentifier",
+      "generate-2fa-otp": "Générer le code 2FA",
+      "i-have-my-2fa-code": "J'ai mon code 2FA",
+      "activate-2fa": "Activer la double authentification",
+      "deactivate-2fa": "Désactiver la double authentification",
+      "back-to-settings": "Retour aux paramètres de sécurité"
     }
   },
   "delete-account": {
@@ -82,7 +82,7 @@
     },
     "success": "Votre compte a bien été désactivé."
   },
-    "modify-password": {
+  "modify-password": {
     "triggerLabel": "Modifier le mot de passe",
     "title": "Êtes-vous sûr de vouloir modifier votre mot de passe ?",
     "oldPassword": {
@@ -109,7 +109,7 @@
     "success": "Votre mot passe a été modifié, vous allez être deconnecté.",
     "submit": "Valider"
   },
-  "modify-email" : {
+  "modify-email": {
     "triggerLabel": "Modifier l'email",
     "title": "Êtes-vous sûr de vouloir modifier votre email ?",
     "mail": {

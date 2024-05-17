@@ -13,8 +13,8 @@
     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
     "emailNotExists": "This email does not exist.",
     "invalidPassword": "Invalid password.",
-      "errorInvalidTwoFactorCookie": "Invalid two-factor cookie.",
-      "errorDuringSignIn": "An error occurred during the sign in."
+    "errorInvalidTwoFactorCookie": "Invalid two-factor cookie.",
+    "errorDuringSignIn": "An error occurred during the sign in."
   },
   "users": {
     "reset": {
@@ -58,7 +58,7 @@
       "modify-email": {
         "userNotFound": "Session expired. Please log in again.",
         "emailAlreadyModify": "you have already changed your email in the last 24 hours.",
-        "invalidPassword" : "Invalid password.",
+        "invalidPassword": "Invalid password.",
         "invalidEmail": "Invalid email.",
         "emailSameAsPrevious": "Your new email must be different from the old.",
         "emailAlreadyUse": "This email is already use for an account.",

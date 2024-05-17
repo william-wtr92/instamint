@@ -6,21 +6,21 @@ import EnableTwoFactorAuthModal from "@/web/components/settings/EnableTwoFactorA
 
 type Props = {
   isOpen: boolean
-  handleCloseModal: () => void
+  handleModal: () => void
   is2faEnabled: boolean | undefined
 }
 
 const TwoFactorAuthModal = (props: Props) => {
-  const { isOpen, handleCloseModal, is2faEnabled } = props
+  const { isOpen, handleModal, is2faEnabled } = props
 
   const [is2faActive] = useState<boolean | undefined>(is2faEnabled)
 
   return (
     <AlertDialog open={isOpen}>
       {is2faActive ? (
-        <DisableTwoFactorAuthModal handleCloseModal={handleCloseModal} />
+        <DisableTwoFactorAuthModal handleModal={handleModal} />
       ) : (
-        <EnableTwoFactorAuthModal handleCloseModal={handleCloseModal} />
+        <EnableTwoFactorAuthModal handleModal={handleModal} />
       )}
     </AlertDialog>
   )

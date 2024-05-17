@@ -50,55 +50,17 @@ const EnableTwoFactorAuthSuccessStep = (props: Props) => {
           {t("modal.activate-2fa.step-four.backup-codes-title")}
         </AlertDialogTitle>
 
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col justify-center gap-2 md:flex-row">
+        <div className="xs:flex-row flex flex-col flex-wrap gap-2">
+          {backupCodes.map((code) => (
             <Text
+              key={code}
               variant="neutral"
               type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
+              className="xs:max-w-[calc(50%-0.5rem)] h-fit flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
             >
-              {backupCodes[0]}
+              {code}
             </Text>
-            <Text
-              variant="neutral"
-              type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
-            >
-              {backupCodes[1]}
-            </Text>
-          </div>
-          <div className="flex flex-col justify-center gap-2 md:flex-row">
-            <Text
-              variant="neutral"
-              type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
-            >
-              {backupCodes[2]}
-            </Text>
-            <Text
-              variant="neutral"
-              type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
-            >
-              {backupCodes[3]}
-            </Text>
-          </div>
-          <div className="flex flex-col justify-center gap-2 md:flex-row">
-            <Text
-              variant="neutral"
-              type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
-            >
-              {backupCodes[4]}
-            </Text>
-            <Text
-              variant="neutral"
-              type="medium"
-              className="flex-1 rounded-md bg-neutral-100 p-1.5 text-center font-light"
-            >
-              {backupCodes[5]}
-            </Text>
-          </div>
+          ))}
         </div>
       </AlertDialogHeader>
 

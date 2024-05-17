@@ -11,12 +11,20 @@ import TwoFactorAuthenticateStep from "@/web/components/settings/2fa/TwoFactorAu
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 
+const steps = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+} as const
+
 type Props = {
-  handleCloseModal: () => void
+  handleModal: () => void
 }
 
 const EnableTwoFactorAuthModal = (props: Props) => {
-  const { handleCloseModal } = props
+  const { handleModal } = props
   const { t } = useTranslation("profile-settings-security")
 
   const {
@@ -41,12 +49,16 @@ const EnableTwoFactorAuthModal = (props: Props) => {
     setStep((prevState) => prevState + 1)
   }, [])
 
+  const handleOtpCode = useCallback((code: string) => {
+    setOtpCode(code)
+  }, [])
+
   const closeModal = useCallback(() => {
-    handleCloseModal()
+    handleModal()
     setStep(0)
     setQrCode("")
     setOtpCode("")
-  }, [handleCloseModal])
+  }, [handleModal])
 
   const activateTwoFactorAuth = useCallback(async () => {
     const [err, data] = await twoFactorActivation(otpCode)
@@ -62,11 +74,7 @@ const EnableTwoFactorAuthModal = (props: Props) => {
       return
     }
 
-    if (!data) {
-      return
-    }
-
-    if (!setBackupCodes) {
+    if (!data || !setBackupCodes) {
       return
     }
 
@@ -84,11 +92,11 @@ const EnableTwoFactorAuthModal = (props: Props) => {
           handlePreviousStep={handlePreviousStep}
         />
 
-        {step === 0 && (
+        {step === steps.zero && (
           <TwoFactorAuthenticateStep handleNextStep={handleNextStep} />
         )}
 
-        {step === 1 && (
+        {step === steps.one && (
           <GenerateCodeStep
             handleNextStep={handleNextStep}
             setQrCode={setQrCode}
@@ -97,7 +105,7 @@ const EnableTwoFactorAuthModal = (props: Props) => {
           />
         )}
 
-        {step === 2 && (
+        {step === steps.two && (
           <DisplayQrCodeStep
             handleNextStep={handleNextStep}
             showLoader={showLoader}
@@ -105,18 +113,18 @@ const EnableTwoFactorAuthModal = (props: Props) => {
           />
         )}
 
-        {step === 3 && (
+        {step === steps.three && (
           <EnterTwoFactorCodeModalContent
             title={t("modal.activate-2fa.step-three.title")}
             description={t("modal.activate-2fa.step-three.description")}
             otpCode={otpCode}
-            setOtpCode={setOtpCode}
-            handleCloseModal={closeModal}
+            handleOtpCode={handleOtpCode}
+            handleModal={closeModal}
             handleTwoFactorCodeValidation={activateTwoFactorAuth}
           />
         )}
 
-        {step === 4 && (
+        {step === steps.four && (
           <EnableTwoFactorAuthSuccessStep
             closeModal={closeModal}
             backupCodes={backupCodes}

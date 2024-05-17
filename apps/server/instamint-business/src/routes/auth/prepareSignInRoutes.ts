@@ -24,11 +24,7 @@ import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { getCookie, setCookie } from "@/utils/helpers/actions/cookiesActions"
-import {
-  decodeJwt,
-  isJwtExpired,
-  signJwt,
-} from "@/utils/helpers/actions/jwtActions"
+import { decodeJwt, signJwt } from "@/utils/helpers/actions/jwtActions"
 import { checkAuthenticatorToken } from "@/utils/helpers/actions/twoFactorAuthActions"
 import { oneDayTTL, thirtyDaysTTL } from "@/utils/helpers/times"
 
@@ -85,15 +81,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           payload: {
             user: { id },
           },
-          exp,
         } = await decodeJwt(twoFactorCookie)
-
-        if (isJwtExpired(exp)) {
-          return c.json(
-            authMessages.errorTwoFactorAuthRequired,
-            SC.errors.UNAUTHORIZED
-          )
-        }
 
         if (user.id !== id) {
           return c.json(

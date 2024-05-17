@@ -14,15 +14,17 @@ import {
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { type ReactElement, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import AuthLayout from "@/web/components/layout/AuthLayout"
 import TwoFactorLoginModal from "@/web/components/settings/TwoFactorLoginModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getAuthLayout from "@/web/utils/layout/getAuthLayout"
+
+const errorTwoFactorAuthRequired = "errorTwoFactorAuthRequired"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -68,19 +70,31 @@ const SignInPage = () => {
     formState: { errors },
   } = form
 
-  const handleCloseModal = useCallback(() => {
-    setShow2faModal(false)
+  const handleShowPassword = useCallback(() => {
+    setShowPassword((prevState) => !prevState)
+  }, [])
+
+  const handleModal = useCallback(() => {
+    setShow2faModal((prevState) => !prevState)
   }, [])
 
   const handleIsSignInWithBackupCode = useCallback(() => {
     setIsSignInWithBackupCode((prevState) => !prevState)
   }, [])
 
+  const handleOtpCode = useCallback((code: string) => {
+    setOtpCode(code)
+  }, [])
+
+  const handleBackupCode = useCallback((code: string) => {
+    setBackupCode(code)
+  }, [])
+
   const onSubmit = useCallback(
     async (values: SignIn) => {
       const [err] = await signIn(values)
 
-      if (err?.message === "errorTwoFactorAuthRequired") {
+      if (err?.message === errorTwoFactorAuthRequired) {
         setShow2faModal(true)
 
         return
@@ -131,10 +145,10 @@ const SignInPage = () => {
         description: t("success"),
       })
 
-      handleCloseModal()
+      handleModal()
       redirect(routes.client.home, 3000)
     },
-    [otpCode, signIn2fa, toast, t, redirect, form, handleCloseModal]
+    [otpCode, signIn2fa, toast, t, redirect, form, handleModal]
   )
 
   const signInWith2faBackupCode = useCallback(async () => {
@@ -162,17 +176,9 @@ const SignInPage = () => {
       description: t("success"),
     })
 
-    handleCloseModal()
+    handleModal()
     redirect(routes.client.home, 3000)
-  }, [
-    toast,
-    t,
-    redirect,
-    form,
-    handleCloseModal,
-    backupCode,
-    signIn2faBackupCode,
-  ])
+  }, [toast, t, redirect, form, handleModal, backupCode, signIn2faBackupCode])
 
   const handleRedirect = useCallback(
     (path: string) => {
@@ -234,12 +240,12 @@ const SignInPage = () => {
                         {showPassword ? (
                           <EyeSlashIcon
                             className="absolute right-2 top-1/4 h-5 w-4 hover:cursor-pointer"
-                            onClick={() => setShowPassword(!showPassword)}
+                            onClick={handleShowPassword}
                           />
                         ) : (
                           <EyeIcon
                             className="absolute right-2 top-1/4 h-5 w-4 hover:cursor-pointer"
-                            onClick={() => setShowPassword(!showPassword)}
+                            onClick={handleShowPassword}
                           />
                         )}
                       </div>
@@ -293,11 +299,11 @@ const SignInPage = () => {
         {show2faModal && (
           <TwoFactorLoginModal
             isOpen={show2faModal}
-            handleCloseModal={handleCloseModal}
+            handleModal={handleModal}
             otpCode={otpCode}
-            setOtpCode={setOtpCode}
+            handleOtpCode={handleOtpCode}
             backupCode={backupCode}
-            setBackupCode={setBackupCode}
+            handleBackupCode={handleBackupCode}
             signInWith2fa={signInWith2fa}
             signInWith2faBackupCode={signInWith2faBackupCode}
             isSignInWithBackupCode={isSignInWithBackupCode}
@@ -310,8 +316,6 @@ const SignInPage = () => {
 }
 SignInPage.title = "auth.login"
 
-SignInPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout>{page}</AuthLayout>
-}
+SignInPage.getLayout = getAuthLayout
 
 export default SignInPage

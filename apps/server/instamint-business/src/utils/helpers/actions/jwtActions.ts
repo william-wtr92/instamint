@@ -27,14 +27,6 @@ export const decodeJwt = async (jwt: string, secret?: string) => {
   )
 }
 
-export const isJwtExpired = (exp: number) => {
-  const expiryTimeInSeconds = exp
-
-  const currentTimeInSeconds = Math.floor(Date.now() / 1000)
-
-  return currentTimeInSeconds >= expiryTimeInSeconds
-}
-
 export const restructureJwt = async (jwt: string) => {
   const [header, payload, signature] = jwt.split(".")
 

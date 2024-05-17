@@ -1,4 +1,7 @@
-import type { ActivateTwoFactorAuthResult } from "@instamint/shared-types"
+import type {
+  ActivateTwoFactorAuthResponse,
+  ActivateTwoFactorAuthResult,
+} from "@instamint/shared-types"
 
 import type { Services } from "@/types"
 import { routes } from "@/web/routes"
@@ -19,14 +22,15 @@ const twoFactorActivationService: Services<
     }
 
     try {
-      const { data: responseData } =
-        await api.post<ActivateTwoFactorAuthResult>(
-          routes.api.users.twoFactorAuth.activate,
-          body,
-          config
-        )
+      const {
+        data: { result },
+      } = await api.post<ActivateTwoFactorAuthResponse>(
+        routes.api.users.twoFactorAuth.activate,
+        body,
+        config
+      )
 
-      return [null, responseData]
+      return [null, result]
     } catch (err) {
       return [handleApiErrors(err)]
     }

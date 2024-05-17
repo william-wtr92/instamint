@@ -6,11 +6,11 @@ import EnterTwoFactorCodeModalContent from "@/web/components/settings/2fa/EnterT
 
 type Props = {
   isOpen: boolean
-  handleCloseModal: () => void
+  handleModal: () => void
   otpCode: string
-  setOtpCode: (value: string) => void
+  handleOtpCode: (value: string) => void
   backupCode: string
-  setBackupCode: (value: string) => void
+  handleBackupCode: (value: string) => void
   signInWith2fa: (value?: boolean) => void
   signInWith2faBackupCode: (value?: boolean) => void
   isSignInWithBackupCode: boolean
@@ -20,11 +20,11 @@ type Props = {
 const TwoFactorLoginModal = (props: Props) => {
   const {
     isOpen,
-    handleCloseModal,
+    handleModal,
     otpCode,
-    setOtpCode,
+    handleOtpCode,
     backupCode,
-    setBackupCode,
+    handleBackupCode,
     signInWith2fa,
     signInWith2faBackupCode,
     isSignInWithBackupCode,
@@ -53,10 +53,10 @@ const TwoFactorLoginModal = (props: Props) => {
               : t("modal.backup-code-description")
           }
           otpCode={otpCode}
-          setOtpCode={setOtpCode}
+          handleOtpCode={handleOtpCode}
           backupCode={backupCode}
-          setBackUpCode={setBackupCode}
-          handleCloseModal={handleCloseModal}
+          handleBackupCode={handleBackupCode}
+          handleModal={handleModal}
           authorizeDevice={authorizeDevice}
           handleAuthorizeDevice={handleAuthorizeDevice}
           handleTwoFactorCodeValidation={

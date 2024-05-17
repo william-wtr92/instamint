@@ -2,19 +2,25 @@ import { AlertDialogContent } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
-import DisableTwoFactorAuthSuccessStep from "./2fa/DisableTwoFactorAuthSuccessStep"
-import EnterTwoFactorCodeModalContent from "./2fa/EnterTwoFactorCodeModalContent"
-import ModalHeader from "./2fa/ModalHeader"
-import TwoFactorAuthenticateStep from "./2fa/TwoFactorAuthenticateStep"
+import DisableTwoFactorAuthSuccessStep from "@/web/components/settings/2fa/DisableTwoFactorAuthSuccessStep"
+import EnterTwoFactorCodeModalContent from "@/web/components/settings/2fa/EnterTwoFactorCodeModalContent"
+import ModalHeader from "@/web/components/settings/2fa/ModalHeader"
+import TwoFactorAuthenticateStep from "@/web/components/settings/2fa/TwoFactorAuthenticateStep"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 
+const steps = {
+  zero: 0,
+  one: 1,
+  two: 2,
+} as const
+
 type Props = {
-  handleCloseModal: () => void
+  handleModal: () => void
 }
 
 const DisableTwoFactorAuthModal = (props: Props) => {
-  const { handleCloseModal } = props
+  const { handleModal } = props
 
   const { t } = useTranslation("profile-settings-security")
 
@@ -36,11 +42,15 @@ const DisableTwoFactorAuthModal = (props: Props) => {
     setStep((prevState) => prevState + 1)
   }, [])
 
+  const handleOtpCode = useCallback((code: string) => {
+    setOtpCode(code)
+  }, [])
+
   const closeModal = useCallback(() => {
-    handleCloseModal()
+    handleModal()
     setStep(0)
     setOtpCode("")
-  }, [handleCloseModal])
+  }, [handleModal])
 
   const deactivateTwoFactorAuth = useCallback(async () => {
     const [err] = await twoFactorDeactivation(otpCode)
@@ -68,22 +78,22 @@ const DisableTwoFactorAuthModal = (props: Props) => {
           handlePreviousStep={handlePreviousStep}
         />
 
-        {step === 0 && (
+        {step === steps.zero && (
           <TwoFactorAuthenticateStep handleNextStep={handleNextStep} />
         )}
 
-        {step === 1 && (
+        {step === steps.one && (
           <EnterTwoFactorCodeModalContent
             title={t("modal.deactivate-2fa.step-one.title")}
             description={t("modal.deactivate-2fa.step-one.description")}
             otpCode={otpCode}
-            setOtpCode={setOtpCode}
-            handleCloseModal={closeModal}
+            handleOtpCode={handleOtpCode}
+            handleModal={closeModal}
             handleTwoFactorCodeValidation={deactivateTwoFactorAuth}
           />
         )}
 
-        {step === 2 && (
+        {step === steps.two && (
           <DisableTwoFactorAuthSuccessStep closeModal={closeModal} />
         )}
       </AlertDialogContent>
