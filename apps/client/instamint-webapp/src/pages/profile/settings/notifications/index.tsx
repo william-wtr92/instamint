@@ -1,9 +1,10 @@
 import type { GetServerSideProps } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React, { type ReactElement } from "react"
+import React from "react"
 
-import SettingsLayout from "@/web/components/layout/SettingsLayout"
+import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getSettingsLayout from "@/web/utils/layout/getSettingsLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -19,12 +20,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const ProfileSettingsNotificationsPage = () => {
-  return <div className="animate-slideInFromLeft z-10 p-8"></div>
+  return (
+    <SettingsPageContainer>
+      <p>dzakdzalkl</p>
+    </SettingsPageContainer>
+  )
 }
 ProfileSettingsNotificationsPage.title = "profile.settings.notifications"
 
-ProfileSettingsNotificationsPage.getLayout = (page: ReactElement) => {
-  return <SettingsLayout>{page}</SettingsLayout>
-}
+ProfileSettingsNotificationsPage.getLayout = getSettingsLayout
 
 export default ProfileSettingsNotificationsPage

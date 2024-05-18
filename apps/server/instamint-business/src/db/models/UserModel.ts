@@ -24,6 +24,9 @@ class UserModel extends BaseModel {
   deletionDate!: Date
   roleId!: number
   roleData!: RoleModel
+  twoFactorAuthentication!: boolean
+  secret!: string | null
+  twoFactorBackupCodes!: string | null
 
   static relationMappings() {
     return {

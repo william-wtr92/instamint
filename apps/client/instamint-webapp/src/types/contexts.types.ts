@@ -10,10 +10,11 @@ export type AppContextProviderProps = {
 
 /* Services Context */
 
-type ServicesActions<T> = (data: T) => Promise<[Error | null, T?]>
+export type ServicesActions<P, R> = (data: P) => Promise<[Error | null, R?]>
 
-type ServicesActionsMappings<Actions extends Record<string, unknown>> = {
-  [K in keyof Actions]: ServicesActions<Actions[K]>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ServicesActionsMappings<Actions extends Record<string, any>> = {
+  [K in keyof Actions]: ServicesActions<Actions[K][0], Actions[K][1]>
 }
 
 export type AppContextType = {
