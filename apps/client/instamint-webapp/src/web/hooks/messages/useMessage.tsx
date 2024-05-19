@@ -41,7 +41,10 @@ const getKey = (
   const numberOfMessagesPerPage = 20
   const offset = pageIndex * numberOfMessagesPerPage
 
-  return routes.api.messages.getMessages(roomName, offset)
+  return routes.api.messages.getMessages({
+    roomName,
+    offset: offset.toString(),
+  })
 }
 
 export const useMessage = (

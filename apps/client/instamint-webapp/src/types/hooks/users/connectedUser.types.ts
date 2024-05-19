@@ -7,5 +7,6 @@ export type ConnectedUser = {
     link: string
     location: string
     avatar: string
+    roleData: string
   }
 }

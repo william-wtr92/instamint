@@ -1,3 +1,10 @@
+import type {
+  UserIdAdminAction,
+  AdminUsersAll,
+  Profile,
+  GetMessages,
+} from "@instamint/shared-types"
+
 import { defineRoutes } from "@/types"
 
 const clientRoutes = {
@@ -22,12 +29,28 @@ const clientRoutes = {
     resetPasswordRequest: "/users/reset-password",
     resetPasswordConfirm: "/users/reset-password/confirm",
   },
+  admin: {
+    users: "/admin/users",
+  },
   messages: (roomName: string) => `/messages/${roomName}`,
   about: "/about",
 }
 
 const apiRoutes = {
+  admin: {
+    users: {
+      all: (queries: AdminUsersAll) =>
+        `/admin/users?limit=${queries?.limit}&offset=${queries?.offset}&filter=${queries?.filter}`,
+      deactivate: (params: UserIdAdminAction) =>
+        `/admin/users/${params.id}/deactivate`,
+      reactivate: (params: UserIdAdminAction) =>
+        `/admin/users/${params.id}/reactivate`,
+    },
+  },
   auth: {
+    internal: {
+      authenticate: "/api/auth",
+    },
     signUp: "/auth/sign-up",
     emailValidation: "/auth/email-validation",
     resendEmailValidation: "/auth/resend-email-validation",
@@ -45,12 +68,12 @@ const apiRoutes = {
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
     profile: {
-      getProfile: (username: string) => `/profile/${username}`,
+      getProfile: (queries: Profile) => `/profile/${queries.username}`,
     },
   },
   messages: {
-    getMessages: (roomName: string, offset: number) =>
-      `/messages?roomName=${encodeURIComponent(roomName)}&limit=20&offset=${offset}`,
+    getMessages: (queries: Omit<GetMessages, "limit">) =>
+      `/messages?roomName=${encodeURIComponent(queries.roomName)}&limit=20&offset=${queries.offset}`,
   },
 } as const
 

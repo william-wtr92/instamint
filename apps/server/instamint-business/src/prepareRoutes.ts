@@ -1,5 +1,7 @@
 import type { PrepareRoutes } from "@instamint/server-types"
 
+import prepareAdminUsersActionsRoutes from "@/routes/admin/users/prepareAdminUsersActionsRoutes"
+import prepareAdminUsersRoutes from "@/routes/admin/users/prepareAdminUsersRoutes"
 import prepareSignInRoutes from "@/routes/auth/prepareSignInRoutes"
 import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
@@ -26,6 +28,9 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareProfileRoutes(ctx)
 
   prepareMessagesRoutes(ctx)
+
+  prepareAdminUsersRoutes(ctx)
+  prepareAdminUsersActionsRoutes(ctx)
 }
 
 export default prepareRoutes

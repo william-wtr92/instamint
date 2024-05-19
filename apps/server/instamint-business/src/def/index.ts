@@ -1,3 +1,4 @@
+import * as adminMessages from "./resources/adminMessages"
 import * as authMessages from "./resources/authMessages"
 import * as emailsMessages from "./resources/emailsMessages"
 import * as globalsMessages from "./resources/globalsMessages"
@@ -10,6 +11,7 @@ export {
   usersMessages,
   globalsMessages,
   wsMessages,
+  adminMessages,
 }
 
 export * from "./keys/redisKeys"

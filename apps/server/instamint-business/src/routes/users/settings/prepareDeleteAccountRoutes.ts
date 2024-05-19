@@ -80,7 +80,7 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.invalidPassword, SC.errors.BAD_REQUEST)
       }
 
-      await db("users").where({ email: user.email }).update({
+      await UserModel.query().where({ email: user.email }).update({
         active: false,
         deactivationDate: nowDate,
         deletionDate: sixMonthsDate,
@@ -130,7 +130,7 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
         users.map(async (user) => {
           if (user.deletionDate && nowDate > user.deletionDate) {
             try {
-              await db("users").where({ email: user.email }).delete()
+              await UserModel.query().where({ email: user.email }).delete()
 
               const confirmDeleteAccountMail = await mailBuilder(
                 {
@@ -211,7 +211,7 @@ const prepareDeleteAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
           )
         }
 
-        await db("users").where({ email: user.email }).update({
+        await UserModel.query().where({ email: user.email }).update({
           active: true,
           deactivationDate: null,
           deletionDate: null,

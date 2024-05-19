@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
+import { profileSchema, type Profile } from "@instamint/shared-types"
 import { Hono, type Context } from "hono"
-import { z } from "zod"
 
 import UserModel from "@/db/models/UserModel"
 import { authMessages, globalsMessages } from "@/def"
@@ -29,14 +29,9 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
   profile.get(
     "/:username",
     auth,
-    zValidator(
-      "param",
-      z.object({
-        username: z.string().min(3),
-      })
-    ),
+    zValidator("param", profileSchema),
     async (c: Context): Promise<Response> => {
-      const { username } = c.req.param()
+      const { username } = c.req.param() as Profile
 
       const user = await UserModel.query().where({ username }).first()
 

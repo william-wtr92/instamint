@@ -74,5 +74,12 @@
       "accountAlreadyActivated": "Votre compte est déjà activé.",
       "invalidPassword": "Mot de passe invalide."
     }
+  },
+  "admin": {
+    "users": {
+      "userNotFound": "Ce compte n'existe pas.",
+      "accountAlreadyActivated": "Ce compte est déjà activé.",
+      "accountAlreadyDeactivated": "Ce compte est déjà désactivé."
+    }
   }
 }

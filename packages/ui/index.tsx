@@ -17,5 +17,8 @@ export * from "./src/components/DropDown"
 export * from "./src/components/Dialog"
 export * from "./src/components/Textarea"
 export * from "./src/components/Select"
+export * from "./src/components/Table"
+export * from "./src/components/DataTable"
+export * from "./src/components/DataTablePagination"
 
 export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"

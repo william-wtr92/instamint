@@ -13,7 +13,6 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import { isAdmin } from "@/middlewares/perms"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { setCookie } from "@/utils/helpers/actions/cookiesActions"
@@ -88,7 +87,9 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
       return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
     }
 
-    const user = await UserModel.query().findOne({ email: contextUser.email })
+    const user = await UserModel.query()
+      .findOne({ email: contextUser.email })
+      .withGraphFetched("roleData")
 
     if (!user) {
       return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -102,20 +103,6 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
       SC.success.OK
     )
   })
-
-  signIn.get(
-    "/test-perms",
-    auth,
-    isAdmin,
-    async (c: Context): Promise<Response> => {
-      return c.json(
-        {
-          message: "You are an admin!",
-        },
-        SC.success.OK
-      )
-    }
-  )
 
   signIn.onError((e: Error, c: Context) => handleError(e, c))
 
