@@ -49,6 +49,7 @@ export const AlertPopup = <T,>({
           <AlertDialogTitle>{t(titleKey)}</AlertDialogTitle>
           <AlertDialogDescription>{t(descriptionKey)}</AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
           <AlertDialogCancel
             onClick={onClose}

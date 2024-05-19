@@ -2,7 +2,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const signOutService: Services<null> =
+const signOutService: Services<null, null> =
   ({ api }) =>
   async () => {
     try {

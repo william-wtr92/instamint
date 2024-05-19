@@ -20,5 +20,15 @@
       "description": "Mot de passe oublié ?",
       "link": "Réinitialisez-le ici."
     }
+  },
+  "modal": {
+    "title": "Entrez votre code 2FA pour vous connecter",
+    "description": "Pour vous connecter, veuillez entrer votre code d'authentification à deux facteurs généré sur l'application d'authentification que vous avez choisi lors de sa configuration",
+    "backup-code-title": "Entrez votre code de secours pour vous connecter",
+    "backup-code-description": "Pour vous connecter, veuillez entrer un code de secours qui avais été généré lors de la configuration de l'authentification à deux facteurs",
+    "checkbox-description": "Ne plus demander le code 2FA sur cet appareil pendant 30 jours",
+    "cant-access-2fa-app": "Vous avez perdu l'accès à votre application de double authentification ?",
+    "sign-in-with-backup-code": "Connectez-vous avec un code de secours",
+    "backup-code-placeholder": "Enttez votre code de secours"
   }
 }

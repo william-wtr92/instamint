@@ -17,14 +17,14 @@ import {
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { type ReactElement, useCallback } from "react"
+import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
-import AuthLayout from "@/web/components/layout/AuthLayout"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getAuthLayout from "@/web/utils/layout/getAuthLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -134,8 +134,6 @@ const RequestResetPasswordPage = () => {
 }
 RequestResetPasswordPage.title = "users.reset-password"
 
-RequestResetPasswordPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout>{page}</AuthLayout>
-}
+RequestResetPasswordPage.getLayout = getAuthLayout
 
 export default RequestResetPasswordPage

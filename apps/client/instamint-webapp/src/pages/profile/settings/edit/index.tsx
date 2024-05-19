@@ -21,15 +21,16 @@ import {
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React, { type ReactElement, useEffect, useCallback } from "react"
+import React, { useEffect, useCallback } from "react"
 import { useForm } from "react-hook-form"
 
-import SettingsLayout from "@/web/components/layout/SettingsLayout"
+import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
 import countries from "@/web/utils/countries.json"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getSettingsLayout from "@/web/utils/layout/getSettingsLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -129,7 +130,7 @@ const ProfileSettingsEditPage = () => {
   return (
     <>
       {user && (
-        <div className="flex flex-col p-4">
+        <SettingsPageContainer>
           <Text
             type={"medium"}
             variant={"neutral"}
@@ -352,15 +353,13 @@ const ProfileSettingsEditPage = () => {
               </Button>
             </form>
           </Form>
-        </div>
+        </SettingsPageContainer>
       )}
     </>
   )
 }
 ProfileSettingsEditPage.title = "profile.settings.edit"
 
-ProfileSettingsEditPage.getLayout = (page: ReactElement) => {
-  return <SettingsLayout>{page}</SettingsLayout>
-}
+ProfileSettingsEditPage.getLayout = getSettingsLayout
 
 export default ProfileSettingsEditPage

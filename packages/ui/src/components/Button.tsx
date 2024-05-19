@@ -5,30 +5,22 @@ import * as React from "react"
 import { cn } from "../lib/utils"
 
 const buttonVariants = cva(
-  "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-sm px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        default:
+          "bg-accent-500 text-primary-foreground hover:bg-accent-700 text-white",
         outline:
-          "border-input bg-background hover:bg-accent hover:text-accent-foreground border",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+          "border-accent-500 hover:bg-accent-500 text-accent-500 border hover:text-white",
+        neutral:
+          "text-secondary-foreground bg-neutral-300 hover:bg-neutral-500",
+        danger:
+          "border-2 border-red-600 bg-red-600 text-white hover:bg-white hover:text-red-600",
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
     },
   }
 )
@@ -39,12 +31,12 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, className }))}
         ref={ref}
         {...props}
       />
