@@ -14,6 +14,9 @@ export * from "./types/users/modifyPassword.types"
 export * from "./types/users/modifyEmail.types"
 export * from "./types/users/profile/profile.types"
 
+/* Publications Schemas & Types */
+export * from "./types/publications/publications.types"
+
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 

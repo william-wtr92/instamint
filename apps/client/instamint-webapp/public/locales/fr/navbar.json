@@ -9,6 +9,7 @@
       "fr": "Français"
     }
   },
+  "publish": "Publier",
   "settingsNavbarTitle": "Paramètres du compte",
   "accountInformation": "Informations du compte",
   "security": "Sécurité et confidentialité",
@@ -20,5 +21,35 @@
     "description-sign-out": "Vous serez déconnecté de votre compte Instamint.",
     "confirm-sign-out": "Confirmer",
     "cancel-sign-out": "Annuler"
+  },
+  "add-publication-modal": {
+    "header": {
+      "add-publication-title": "Ajouter une publication"
+    },
+    "step-one": {
+      "description": "Séléctionner l'image que vous souhaitez publier"
+    },    
+    "step-two": {
+      "description-input": {
+        "label": "Description",
+        "placeholder": "Ajouter une description...",
+        "error": "Veuillez ajouter une description"
+      },
+      "location-input": {
+        "label": "Localisation",
+        "placeholder": "Ajouter la localisation...",
+        "error": "Veuillez ajouter une localisation"
+      },
+      "hashtags-input": {
+        "label": "Hashtags (Max 5)",
+        "placeholder": "Ajouter des hashtags",
+        "error": "Veuillez ajouter des hashtags"
+      }
+    },
+    "cta": {
+      "select-image": "Selectionner une image",
+      "change-image": "Changer d'image",
+      "next": "Suivant"
+    }
   }
 }
