@@ -128,10 +128,10 @@ importers:
         version: 1.11.1
       '@hono/sentry':
         specifier: ^1.0.1
-        version: 1.1.0(hono@4.3.7)
+        version: 1.1.0(hono@4.3.8)
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.3.7)(zod@3.23.8)
+        version: 0.2.1(hono@4.3.8)(zod@3.23.8)
       '@instamint/shared-types':
         specifier: workspace:^
         version: link:../../../packages/types/shared
@@ -145,8 +145,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       hono:
-        specifier: ^4.2.7
-        version: 4.3.7
+        specifier: ^4.3.8
+        version: 4.3.8
       ioredis:
         specifier: ^5.3.2
         version: 5.4.1
@@ -280,13 +280,13 @@ importers:
         version: 1.11.1
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.3.7)(zod@3.23.8)
+        version: 0.2.1(hono@4.3.8)(zod@3.23.8)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
       hono:
-        specifier: ^4.2.7
-        version: 4.3.7
+        specifier: ^4.3.8
+        version: 4.3.8
       mime:
         specifier: ^4.0.3
         version: 4.0.3
@@ -3274,6 +3274,10 @@ packages:
 
   hono@4.3.7:
     resolution: {integrity: sha512-GXlsGnCAwGosu+COwYyYC8MwOY2L6Ihg9V1znYdMD8DHCJl+13Nk4o8dsBYJpae4oujjw24jBaITuYWVq2+V8Q==}
+    engines: {node: '>=16.0.0'}
+
+  hono@4.3.8:
+    resolution: {integrity: sha512-IepU1cWz7oWY/os4Dbgq8dAjQh+APbS0LvLf85bL3cnh4sqMZ1MSBCYFkpm+MIpGoRUMmX8v9CeQh+TmBX3RUA==}
     engines: {node: '>=16.0.0'}
 
   html-escaper@2.0.2:
@@ -6384,14 +6388,14 @@ snapshots:
 
   '@hono/node-server@1.11.1': {}
 
-  '@hono/sentry@1.1.0(hono@4.3.7)':
+  '@hono/sentry@1.1.0(hono@4.3.8)':
     dependencies:
-      hono: 4.3.7
+      hono: 4.3.8
       toucan-js: 3.4.0
 
-  '@hono/zod-validator@0.2.1(hono@4.3.7)(zod@3.23.8)':
+  '@hono/zod-validator@0.2.1(hono@4.3.8)(zod@3.23.8)':
     dependencies:
-      hono: 4.3.7
+      hono: 4.3.8
       zod: 3.23.8
 
   '@hookform/resolvers@3.4.0(react-hook-form@7.51.4(react@18.3.1))':
@@ -9224,6 +9228,8 @@ snapshots:
       react-is: 16.13.1
 
   hono@4.3.7: {}
+
+  hono@4.3.8: {}
 
   html-escaper@2.0.2: {}
 
