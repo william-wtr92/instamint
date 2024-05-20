@@ -81,6 +81,15 @@
         }
       }
     },
+    "publications": {
+      "image": {
+        "fileNotFound": "File not found.",
+        "fileSizeTooLarge": "File size too large.",
+        "imageSizeTooLarge": "Image size too large. Maximum size is 10MB.",
+        "userNotFound": "Session expired. Please sign-in again.",
+        "imageUploadFailed": "An error has occurred while uploading your image."
+      }
+    },
     "reactivate-account": {
       "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
       "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",

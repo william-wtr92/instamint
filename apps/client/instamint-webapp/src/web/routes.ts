@@ -49,6 +49,11 @@ const apiRoutes = {
       activate: "auth/2fa/activate",
       deactivate: "auth/2fa/deactivate",
     },
+    publications: {
+      uploadPublication: "/users/upload-publication",
+      getPublications: (offset: number) =>
+        `/users/publications?limit=6&offset=${offset}`,
+    },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",

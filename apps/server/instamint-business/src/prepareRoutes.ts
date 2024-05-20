@@ -8,6 +8,8 @@ import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
 import prepareMessagesRoutes from "@/routes/messages/prepareMessagesRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareProfileRoutes from "@/routes/users/profile/prepareProfileRoutes"
+import preparePublicationsRoutes from "@/routes/users/publications/preparePublicationsRoutes"
+import prepareUploadPublicationRoutes from "@/routes/users/publications/prepareUploadPublication"
 import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAccountRoutes"
 import prepareModifyEmailRoutes from "@/routes/users/settings/prepareModifyEmailRoutes"
 import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
@@ -28,6 +30,8 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareTwoFactorAuthRoutes(ctx)
   prepareProfileRoutes(ctx)
   prepareMessagesRoutes(ctx)
+  prepareUploadPublicationRoutes(ctx)
+  preparePublicationsRoutes(ctx)
 }
 
 export default prepareRoutes

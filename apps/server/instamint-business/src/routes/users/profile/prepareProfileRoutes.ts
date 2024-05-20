@@ -4,6 +4,7 @@ import { Hono, type Context } from "hono"
 import { z } from "zod"
 
 import UserModel from "@/db/models/UserModel"
+import FollowersModel from "@/db/models/FollowersModel"
 import { authMessages, globalsMessages } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
@@ -38,15 +39,33 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const { username } = c.req.param()
 
-      const user = await UserModel.query().where({ username }).first()
+      const user = await UserModel.query()
+        .where({ username })
+        .withGraphFetched("publicationData")
+        .first()
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
+      const countFollower = await FollowersModel.query()
+        .where({ followedId: user.id })
+        .count()
+
+      const countFollowed = await FollowersModel.query()
+        .where({ followerId: user.id })
+        .count()
+
       return c.json(
         {
-          result: sanitizeUser(user),
+          result: sanitizeUser(user, [
+            "bio",
+            "id",
+            "publicationData",
+            "avatar",
+          ]),
+          followers: countFollower[0],
+          followed: countFollowed[0],
         },
         SC.success.OK
       )
