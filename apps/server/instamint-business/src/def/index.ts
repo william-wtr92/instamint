@@ -1,6 +1,7 @@
 import * as authMessages from "./resources/authMessages"
 import * as emailsMessages from "./resources/emailsMessages"
 import * as globalsMessages from "./resources/globalsMessages"
+import * as teabagsMessages from "./resources/teaBagsMessages"
 import * as usersMessages from "./resources/usersMessages"
 import * as wsMessages from "./resources/wsMessages"
 
@@ -10,6 +11,7 @@ export {
   usersMessages,
   globalsMessages,
   wsMessages,
+  teabagsMessages,
 }
 
 export * from "./keys/redisKeys"

@@ -4,6 +4,7 @@ const clientRoutes = {
   home: "/",
   signUp: "/sign-up",
   signIn: "/sign-in",
+  teabags: "/teabags",
   auth: {
     email: {
       confirmation: "/auth/email",
@@ -59,6 +60,9 @@ const apiRoutes = {
   messages: {
     getMessages: (roomName: string, offset: number) =>
       `/messages?roomName=${encodeURIComponent(roomName)}&limit=20&offset=${offset}`,
+  },
+  teaBags: {
+    createTeaBags: "/teabags/create",
   },
 } as const
 

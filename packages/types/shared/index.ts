@@ -17,6 +17,9 @@ export * from "./types/users/profile/profile.types"
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 
+/* TeaBags Schemas & Types */
+export * from "./types/teaBags/teaBags.types"
+
 /* CONSTANTS */
 
 /* WS Events */

@@ -2,6 +2,7 @@ import {
   HomeIcon,
   MagnifyingGlassIcon,
   UserIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline"
 import { Text } from "@instamint/ui-kit"
 import Image from "next/image"
@@ -33,10 +34,10 @@ const buttons = [
   },
   {
     icon: (
-      <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+      <UserGroupIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
-    label: "home",
+    path: "/teabags",
+    label: "teabags",
   },
   {
     icon: (

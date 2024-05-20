@@ -1,0 +1,21 @@
+{
+  "title": "TeaBags",
+  "create": {
+    "triggerLabel": "Create TeaBags",
+    "title": "New TeaBags",
+    "name": {
+      "label": "Choose Name",
+      "placeholder": "Enter a name"
+    },
+    "bio": {
+      "label": "Descritpion",
+      "placeholder": "Enter a description"
+    },
+    "link": {
+      "label": "Link",
+      "placeholder": "Enter a link"
+    },
+    "success": "TeaBags has been created.",
+    "submit": "Confirm"
+  }
+}

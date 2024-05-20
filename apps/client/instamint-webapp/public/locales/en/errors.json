@@ -92,5 +92,14 @@
       "accountAlreadyActivated": "Account already activated.",
       "invalidPassword": "Invalid password."
     }
+  },
+  "teabags": {
+    "create": {
+      "userNotFound": "Session expired. Please log in again.",
+      "nameAlreadyExist": "Name is already use, please choose a new one.",
+      "linkAlreadyExist": "Link is already use, please choose a new one.",
+      "teaBagsNotExist": "Error during the creation of teabags, please retry the operation.",
+      "errorDuringTeabagsCreation": "Error during the creation of teabags, please retry the operation."
+    }
   }
 }

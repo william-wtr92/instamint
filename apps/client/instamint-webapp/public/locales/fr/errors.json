@@ -92,5 +92,14 @@
       "accountAlreadyActivated": "Votre compte est déjà activé.",
       "invalidPassword": "Mot de passe invalide."
     }
+  },
+  "teabags": {
+    "create": {
+      "userNotFound": "Session expirée, reconnectez-vous.",
+      "nameAlreadyExist": "Ce nom est deja utilisé, choisissez-en un nouveau.",
+      "linkAlreadyExist": "Ce lien est deja utilisé, choisissez-en un nouveau",
+      "teaBagsNotExist": "Une erreur c'est produite pendant la création du Teabags, veuillez réessayer l'opération.",
+      "errorDuringTeabagsCreation": "Une erreur c'est produite pendant la création du Teabags, veuillez réessayer l'opération."
+    }
   }
 }

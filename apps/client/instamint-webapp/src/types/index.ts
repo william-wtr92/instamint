@@ -16,6 +16,9 @@ export * from "./services/authServices.types"
 /* USERS SERVICES */
 export * from "./services/usersServices.types"
 
+/* TEABAGS SERVICES */
+export * from "./services/teaBagsServices.type"
+
 /* HOOKS */
 export * from "./hooks/users/connectedUser.types"
 export * from "./hooks/users/profileUser.types"
