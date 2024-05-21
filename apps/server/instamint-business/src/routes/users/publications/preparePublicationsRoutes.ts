@@ -52,7 +52,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const publications = await PublicationsModel.query()
         .where({ userId: contextUser.id })
-        .orderBy("createdAt", "asc")
+        .orderBy("createdAt", "desc")
         .limit(parseInt(limit))
         .offset(Math.max(0, newOffset))
 

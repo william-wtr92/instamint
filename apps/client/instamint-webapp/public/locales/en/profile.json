@@ -5,6 +5,8 @@
     "publications": "publication(s)",
     "followers": "follower(s)",
     "followed": "followed",
+    "no-publication": "You have no publications on your account.",
+    "loading": "Loading...",
     "add-publication": {
         "title": "Add a new publication",
         "p1": "A publication can include a description and a jpg, png or jpeg file.",

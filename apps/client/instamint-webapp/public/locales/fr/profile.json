@@ -5,6 +5,8 @@
     "publications": "publication(s)",
     "followers": "follower(s)",
     "followed": "suivi(e)s",
+    "no-publication": "Vous n'avez aucune publications sur votre compte.",
+    "loading": "Chargement en cours...",
     "add-publication": {
         "title": "Ajouter une publication",
         "p1": "Une publication peux comporter une description, ainsi qu'un fichier de type jpg, png ou jpeg",

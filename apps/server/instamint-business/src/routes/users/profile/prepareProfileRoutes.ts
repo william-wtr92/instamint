@@ -39,10 +39,17 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const { username } = c.req.param()
 
-      const user = await UserModel.query()
+      const userByUsername = await UserModel.query()
         .where({ username })
         .withGraphFetched("publicationData")
         .first()
+
+      const userByLink = await UserModel.query()
+        .where({ link: username })
+        .withGraphFetched("publicationData")
+        .first()
+
+      const user = userByLink ? userByLink : userByUsername
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
