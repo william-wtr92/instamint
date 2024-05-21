@@ -36,8 +36,8 @@
       },
       "update-account": {
         "userNotModified": "An error has occurred while modifying your information.",
-        "usernameAlreadyExist": "This username already exist.",
-        "linkAlreadyExist": "This link already exist.",
+        "usernameAlreadyExist": "This username already exists.",
+        "linkAlreadyExist": "This link already exists.",
         "avatar": {
           "fileNotFound": "File not found.",
           "fileSizeTooLarge": "File size too large.",
