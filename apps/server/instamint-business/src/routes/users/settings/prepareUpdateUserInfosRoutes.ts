@@ -59,7 +59,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (user.link !== link) {
         const existingLink = await UserModel.query().findOne({
-          link: "/" + link,
+          link: link,
         })
 
         if (existingLink) {
@@ -72,7 +72,7 @@ const prepareUpdateUserInfosRoutes: ApiRoutes = ({ app, db, redis }) => {
         .update({
           ...(username ? { username } : {}),
           ...(bio !== undefined ? { bio } : undefined),
-          ...(link !== undefined ? { link: "/" + link } : undefined),
+          ...(link !== undefined ? { link } : undefined),
           ...(location ? { location } : {}),
         })
 

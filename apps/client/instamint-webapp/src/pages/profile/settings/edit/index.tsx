@@ -106,7 +106,7 @@ const ProfileSettingsEditPage = () => {
     defaultValues: {
       username: user?.username ?? "",
       bio: user?.bio ?? "",
-      link: user?.link.substring(1) ?? "",
+      link: user?.link ?? "",
       location: user?.location ?? "",
       avatar: undefined,
     },
@@ -119,7 +119,7 @@ const ProfileSettingsEditPage = () => {
   useEffect(() => {
     form.setValue("username", user?.username || "")
     form.setValue("bio", user?.bio || "")
-    form.setValue("link", user?.link.substring(1) || "")
+    form.setValue("link", user?.link || "")
     form.setValue("location", user?.location || "")
   }, [form, user])
 
