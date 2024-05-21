@@ -54,8 +54,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       i18next:
-        specifier: ^23.10.1
-        version: 23.10.1
+        specifier: ^23.11.5
+        version: 23.11.5
       lucide-react:
         specifier: ^0.363.0
         version: 0.363.0(react@18.2.0)
@@ -64,7 +64,7 @@ importers:
         version: 14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-i18next:
         specifier: ^15.3.0
-        version: 15.3.0(i18next@23.10.1)(next@14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+        version: 15.3.0(i18next@23.11.5)(next@14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.11.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -76,7 +76,7 @@ importers:
         version: 7.51.1(react@18.2.0)
       react-i18next:
         specifier: ^14.1.0
-        version: 14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.0(i18next@23.11.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       socket.io-client:
         specifier: ^4.7.5
         version: 4.7.5
@@ -3527,8 +3527,8 @@ packages:
   i18next-fs-backend@2.3.1:
     resolution: {integrity: sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==}
 
-  i18next@23.10.1:
-    resolution: {integrity: sha512-NDiIzFbcs3O9PXpfhkjyf7WdqFn5Vq6mhzhtkXzj51aOcNuPNcTwuYNuXCpHsanZGHlHKL35G7huoFeVic1hng==}
+  i18next@23.11.5:
+    resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -9717,7 +9717,7 @@ snapshots:
 
   i18next-fs-backend@2.3.1: {}
 
-  i18next@23.10.1:
+  i18next@23.11.5:
     dependencies:
       '@babel/runtime': 7.24.0
 
@@ -10839,17 +10839,17 @@ snapshots:
 
   negotiator@0.6.3: {}
 
-  next-i18next@15.3.0(i18next@23.10.1)(next@14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0):
+  next-i18next@15.3.0(i18next@23.11.5)(next@14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-i18next@14.1.0(i18next@23.11.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.0
       '@types/hoist-non-react-statics': 3.3.5
       core-js: 3.36.1
       hoist-non-react-statics: 3.3.2
-      i18next: 23.10.1
+      i18next: 23.11.5
       i18next-fs-backend: 2.3.1
       next: 14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
-      react-i18next: 14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-i18next: 14.1.0(i18next@23.11.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
   next@14.2.2(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
@@ -11310,11 +11310,11 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  react-i18next@14.1.0(i18next@23.10.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-i18next@14.1.0(i18next@23.11.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.0
       html-parse-stringify: 3.0.1
-      i18next: 23.10.1
+      i18next: 23.11.5
       react: 18.2.0
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
