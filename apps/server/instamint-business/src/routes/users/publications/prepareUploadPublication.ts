@@ -46,7 +46,7 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
     }),
     async (c: Context): Promise<Response> => {
       const contextUser: UserModel = c.get(contextsKeys.user)
-      const { image } = await c.req.parseBody()
+      const { image, description } = await c.req.parseBody()
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -67,7 +67,7 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const response = await uploadBlob(c, image, filesServiceEndpoints.upload)
 
-      await db("publications").insert({ userId: user.id, image: response.url })
+      await db("publications").insert({ userId: user.id, image: response.url, description: description })
 
       return c.json(
         {

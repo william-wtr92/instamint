@@ -40,13 +40,15 @@ const UserInfo = () => {
         <div className="mt-3 flex flex-col items-center justify-center xl:mt-6">
           <div className="flex w-full gap-3 xl:w-[80%] xl:flex-col xl:gap-0">
             <div className="flex w-full flex-row items-center justify-between gap-4 xl:gap-7">
-              <Avatar className="relative left-1.5 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-12">
-                {userAvatar ? (
-                  <AvatarImage src={userAvatar} alt={user.username} />
-                ) : (
-                  <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-                )}
-              </Avatar>
+              <Link href={user.link ? routes.client.profile.getProfile(user.link) : routes.client.profile.getProfile(user.username)}>
+                <Avatar className="relative left-1.5 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-12">
+                  {userAvatar ? (
+                    <AvatarImage src={userAvatar} alt={user.username} />
+                  ) : (
+                    <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+                  )}
+                </Avatar>
+              </Link>
               <div className="text-small xl:text-medium flex flex-col font-semibold">
                 <span>{user.username}</span>
                 <span className="truncate">{user.email}</span>

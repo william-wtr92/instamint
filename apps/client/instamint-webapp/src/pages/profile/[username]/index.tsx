@@ -128,7 +128,7 @@ const ProfilePage = (
   const onSubmit = useCallback(
     async (values: UploadPublication) => {
       if (values.image !== undefined) {
-        const [err] = await uploadPublication({ image: values.image })
+        const [err] = await uploadPublication({ image: values.image, description: values.description })
 
         if (err) {
           toast({
@@ -181,7 +181,7 @@ const ProfilePage = (
                 className="bg-accent-200 flex flex-row items-center justify-between rounded-lg p-1"
               >
                 <Text type="medium" variant="neutral" className="font-normal">
-                  {t("settings.accountInformation")}
+                  {t("profile:settings.accountInformation")}
                 </Text>
               </Link>
             </div>

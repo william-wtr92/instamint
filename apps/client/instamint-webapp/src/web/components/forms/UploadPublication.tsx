@@ -92,6 +92,16 @@ export const UploadPublicationForm = (props: Props) => {
                           />
                         </div>
                       </FormControl>
+                      <FormMessage
+                        className="text-error-primary relative left-2"
+                        useCustomError={true}
+                      >
+                        {errors.description ? (
+                          <span>
+                            {t("profile:add-publication.description.error")}
+                          </span>
+                        ) : null}
+                      </FormMessage>
                     </FormItem>
                   )}
                 />

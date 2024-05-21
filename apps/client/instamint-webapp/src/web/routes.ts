@@ -11,6 +11,7 @@ const clientRoutes = {
     },
   },
   profile: {
+    getProfile: (link: string) => `/profile/${link}`,
     settings: {
       base: "/profile/settings",
       edit: "/profile/settings/edit",
