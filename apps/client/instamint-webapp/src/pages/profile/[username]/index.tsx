@@ -128,7 +128,10 @@ const ProfilePage = (
   const onSubmit = useCallback(
     async (values: UploadPublication) => {
       if (values.image !== undefined) {
-        const [err] = await uploadPublication({ image: values.image, description: values.description })
+        const [err] = await uploadPublication({
+          image: values.image,
+          description: values.description,
+        })
 
         if (err) {
           toast({

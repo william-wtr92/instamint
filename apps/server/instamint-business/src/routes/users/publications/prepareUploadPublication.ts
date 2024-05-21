@@ -67,7 +67,11 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const response = await uploadBlob(c, image, filesServiceEndpoints.upload)
 
-      await db("publications").insert({ userId: user.id, image: response.url, description: description })
+      await db("publications").insert({
+        userId: user.id,
+        image: response.url,
+        description: description,
+      })
 
       return c.json(
         {

@@ -14,8 +14,8 @@ const uploadPublicationService: Services<UploadPublication, null> =
         formData.append("image", data.image, data.image.name)
       }
 
-      if(data?.description) {
-        formData.append("description", data?.description )
+      if (data?.description) {
+        formData.append("description", data?.description)
       }
 
       const config = {
