@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const modifyPasswordService: Services<ModifyPassword> =
+const modifyPasswordService: Services<ModifyPassword, null> =
   ({ api }) =>
   async (data) => {
     try {

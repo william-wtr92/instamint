@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const confirmResetPasswordService: Services<ConfirmResetPassword> =
+const confirmResetPasswordService: Services<ConfirmResetPassword, null> =
   ({ api }) =>
   async (data) => {
     try {

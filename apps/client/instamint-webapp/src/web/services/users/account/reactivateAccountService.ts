@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const reactivateAccountService: Services<ReactivateAccount> =
+const reactivateAccountService: Services<ReactivateAccount, null> =
   ({ api }) =>
   async (data) => {
     try {

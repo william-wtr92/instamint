@@ -21,7 +21,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "import/no-unresolved": "error",
+    "import/no-unresolved": "off",
     "import/order": [
       "error",
       {

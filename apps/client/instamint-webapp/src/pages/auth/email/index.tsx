@@ -4,14 +4,14 @@ import { Button } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { type ReactElement, useCallback } from "react"
+import { useCallback } from "react"
 
-import AuthLayout from "@/web/components/layout/AuthLayout"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
+import getAuthLayout from "@/web/utils/layout/getAuthLayout"
 
 export const getServerSideProps: GetServerSideProps<UserEmailToken> = async (
   context
@@ -95,8 +95,6 @@ const EmailValidationPage = (
 }
 EmailValidationPage.title = "auth.email.confirmation"
 
-EmailValidationPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout>{page}</AuthLayout>
-}
+EmailValidationPage.getLayout = getAuthLayout
 
 export default EmailValidationPage
