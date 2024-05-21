@@ -9,11 +9,15 @@ services:
       args:
         - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
         - NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
+        - NEXT_PUBLIC_AUTH_URL=${NEXT_PUBLIC_AUTH_URL}
     image: instamintACR.azurecr.io/instamint/instamint-client-webapp:latest
     ports:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
+      - NEXT_PUBLIC_AUTH_URL=${NEXT_PUBLIC_AUTH_URL}
+      - DOCKER_ENV=true
     networks:
       - instamint_network
 

@@ -1,5 +1,7 @@
 import { EnvelopeIcon, UserCircleIcon } from "@heroicons/react/24/outline"
+import { Text } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback, useEffect, useState } from "react"
 
@@ -32,6 +34,8 @@ const ProfilePage = (
 ) => {
   const { username } = _props
 
+  const { t } = useTranslation()
+
   const {
     socket: { joinRoom },
   } = useAppContext()
@@ -57,9 +61,9 @@ const ProfilePage = (
   }, [userTargetedData, joinRoom, redirect])
 
   useEffect(() => {
-    const translatedTitle = `Instamint - @${username}`
+    const translatedTitle = `${t("titles:profile.user")} ${username}`
     setPageTitle(translatedTitle)
-  }, [username])
+  }, [username, t])
 
   useEffect(() => {
     document.title = pageTitle
@@ -69,7 +73,9 @@ const ProfilePage = (
     <div className="border-1 ml-3 mt-4 flex w-4/5 flex-col justify-center gap-2.5 rounded-md border-dashed p-4 xl:w-1/2">
       <UserCircleIcon className="size-8" />
       <div className="ml-1 flex justify-between">
-        <p>{userUsername}</p>
+        <Text type={"body"} variant={"none"}>
+          {userUsername}
+        </Text>
         {userTargetedData?.email !== userData?.email ? (
           <EnvelopeIcon
             className="size-6 hover:scale-105 hover:cursor-pointer"

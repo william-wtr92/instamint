@@ -12,7 +12,7 @@ export const useUserByUsername = (getUser: Profile) => {
   }
 
   const { data, ...query } = useSWR<ProfileUser, Error>(
-    routes.api.users.profile.getProfile(getUser.username),
+    routes.api.users.profile.getProfile(getUser),
     config
   )
 

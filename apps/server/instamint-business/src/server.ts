@@ -9,8 +9,11 @@ import knex from "knex"
 
 import type { AppConfig } from "./db/config/configTypes"
 import BaseModel from "./db/models/BaseModel"
-import prepareRoutes from "./prepareRoutes"
-import { redis } from "./utils/redis/instance"
+
+import { auth } from "@/middlewares/auth"
+import { isAdmin } from "@/middlewares/perms"
+import prepareRoutes from "@/prepareRoutes"
+import { redis } from "@/utils/redis/instance"
 
 const server = async (appConfig: AppConfig) => {
   const db = knex(appConfig.db)
@@ -29,6 +32,8 @@ const server = async (appConfig: AppConfig) => {
     logger(),
     prettyJSON()
   )
+
+  app.use("/admin/*", auth, isAdmin)
 
   app.get("/", (c: Context) => {
     return c.text("Instamint Business API!")

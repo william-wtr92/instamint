@@ -156,7 +156,7 @@ const prepareResetRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         const [passwordHash, passwordSalt] = await hashPassword(password)
 
-        await db("users").where({ email }).update({
+        await UserModel.query().where({ email }).update({
           passwordHash,
           passwordSalt,
         })

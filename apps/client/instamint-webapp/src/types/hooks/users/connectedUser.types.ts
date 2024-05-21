@@ -8,5 +8,6 @@ export type ConnectedUser = {
     twoFactorAuthentication: boolean
     location: string
     avatar: string
+    roleData: string
   }
 }
