@@ -11,6 +11,13 @@
 !**/terraform/.terraform.lock.hcl
 !**/terraform/modules
 !**/terraform/modules/**
+!**/terraform/*.png
+
+# azure
+**/azurite/**
+
+# vercel
+.vercel
 
 # node_modules
 node_modules/

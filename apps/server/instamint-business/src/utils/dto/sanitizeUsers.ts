@@ -11,16 +11,6 @@ export const sanitizeCreatedUser = (
   return { username, email }
 }
 
-export const sanitizeUsers = (
-  users: UserModel[]
-): Pick<UserModel, "username" | "email" | "roleData">[] => {
-  return users.map((user: UserModel) => {
-    const { username, email, roleData }: UserModel = user
-
-    return { username, email, roleData }
-  })
-}
-
 export const sanitizeUser = <T extends keyof AdditionalUserFields>(
   user: UserModel,
   additionalFields: T[] = []
@@ -37,6 +27,16 @@ export const sanitizeUser = <T extends keyof AdditionalUserFields>(
   return {
     username: user.username,
     email: user.email,
+    roleData: user.roleData?.right,
     ...additionalData,
   }
+}
+
+export const sanitizeUsers = <T extends keyof AdditionalUserFields>(
+  users: UserModel[],
+  additionalFields: T[] = []
+) => {
+  return users.map((user: UserModel) => {
+    return sanitizeUser(user, additionalFields)
+  })
 }

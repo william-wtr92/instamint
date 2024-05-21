@@ -1,14 +1,9 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { useTranslation } from "next-i18next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import type { ReactElement } from "react"
-import { useCallback, useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { ConfirmResetPasswordValidation } from "@instamint/shared-types"
 import {
   confirmResetPasswordSchema,
   type ConfirmResetPassword,
+  type ConfirmResetPasswordValidation,
 } from "@instamint/shared-types"
 import {
   Button,
@@ -20,15 +15,19 @@ import {
   FormMessage,
   Input,
 } from "@instamint/ui-kit"
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useCallback, useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 
-import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
 import useActionsContext from "@/web/contexts/useActionsContext"
-import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import useAppContext from "@/web/contexts/useAppContext"
-import AuthLayout from "@/web/components/layout/AuthLayout"
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 import { routes } from "@/web/routes"
+import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import { queryParamsHelper } from "@/web/utils/helpers/queryParamsHelper"
+import getAuthLayout from "@/web/utils/layout/getAuthLayout"
 
 export const getServerSideProps: GetServerSideProps<
   ConfirmResetPasswordValidation
@@ -255,8 +254,6 @@ const ConfirmResetPasswordPage = (
 }
 ConfirmResetPasswordPage.title = "users.reset-password-confirm"
 
-ConfirmResetPasswordPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout>{page}</AuthLayout>
-}
+ConfirmResetPasswordPage.getLayout = getAuthLayout
 
 export default ConfirmResetPasswordPage

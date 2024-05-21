@@ -8,6 +8,7 @@
   - [🧠 Monorepo](./monorepo/README.md)
     - [🧩 Stack](./monorepo/stack/README.md)
     - [👨🏻‍🔬 Immersed in the technical](./monorepo/tech/README.md)
+      - [💨 Azure](./monorepo/tech/azure/README.md)
       - [⚡️Cron Jobs](./monorepo/tech/cron/README.md)
       - [💾 Database](./monorepo/tech/db/README.md)
         - [🔍 Migrations](./monorepo/tech/db/migrations/README.md)
@@ -25,6 +26,17 @@
   - [🚀 Deploy](./deploy/README.md)
     - [⚙️ Release process](./deploy/release/README.md)
     - [🤖 Github Actions](./deploy/workflows/README.md)
+    - [💠 Terraform](./deploy/infra/terraform/README.md)
+    - [🧰 Ansible](./deploy/infra/ansible/README.md)
   - [📦 Docker](./docker/README.md)
   - [📚 Security](./security/README.md)
   - [📝 Utils](./utils/README.md)
+
+## 📝 License
+
+> No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including
+> photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the
+> author.
+> For permission requests, write to the author at the email provided in the contact details.
+
+> For more details, see the [LICENSE.md](../LICENSE.md) file.

@@ -1,0 +1,33 @@
+[entryPoints]
+    [entryPoints.http]
+        address = ":80"
+
+[api]
+    dashboard = false
+    insecure = true
+
+[providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+    domain = "localhost"
+    watch = true
+    exposedByDefault = false
+    network = "web"
+
+[http.routers]
+    [http.routers.files]
+        rule = "HostRegexp(`{host:.+}`)"
+        service = "files"
+        entryPoints = ["http"]
+        middlewares = ["retry"]
+
+[http.middlewares.retry]
+    retry.attempts = 5
+
+[serversTransport]
+    forwardingTimeouts.dialTimeout = "30s"
+    forwardingTimeouts.responseHeaderTimeout = "60s"
+
+[http.services]
+    [http.services.files.loadBalancer]
+        [[http.services.files.loadBalancer.servers]]
+            url = "http://files:3002"

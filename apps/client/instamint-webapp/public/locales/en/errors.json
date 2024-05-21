@@ -4,6 +4,7 @@
     "emailOrUsernameAlreadyExist": "Email or username already exist.",
     "gdprValidationIsRequired": "You must accept the GDPR validation.",
     "errorDuringUserRegistration": "Error during user registration.",
+    "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
     "tokenExpired": "Your link is expired. Please request a new one.",
@@ -11,7 +12,9 @@
     "userEmailAlreadyValidated": "This email has already been validated.",
     "userMustWaitBeforeSendingAnotherMail": "Please wait 10 minutes before trying again.",
     "emailNotExists": "This email does not exist.",
-    "invalidPassword": "Invalid password."
+    "invalidPassword": "Invalid password.",
+    "errorInvalidTwoFactorCookie": "Invalid two-factor cookie.",
+    "errorDuringSignIn": "An error occurred during the sign in."
   },
   "users": {
     "reset": {
@@ -33,9 +36,16 @@
       },
       "update-account": {
         "userNotModified": "An error has occurred while modifying your information.",
-        "usernameAlreadyExist": "This username already exist.",
-        "userInfosSameAsPrevious": "You have not changed any informations.",
-        "linkAlreadyExist": "This link already exist."
+        "usernameAlreadyExist": "This username already exists.",
+        "linkAlreadyExist": "This link already exists.",
+        "avatar": {
+          "fileNotFound": "File not found.",
+          "fileSizeTooLarge": "File size too large.",
+          "avatarSizeTooLarge": "Avatar size too large. Maximum size is 10MB.",
+          "userNotFound": "Session expired. Please sign-in again.",
+          "avatarUploadFailed": "An error has occurred while uploading your avatar.",
+          "avatarDeleteFailed": "An error has occurred while deleting your past avatar."
+        }
       },
       "modify-password": {
         "userNotFound": "Session expired. Please log in again.",
@@ -48,11 +58,27 @@
       "modify-email": {
         "userNotFound": "Session expired. Please log in again.",
         "emailAlreadyModify": "you have already changed your email in the last 24 hours.",
-        "invalidPassword" : "Invalid password.",
+        "invalidPassword": "Invalid password.",
         "invalidEmail": "Invalid email.",
         "emailSameAsPrevious": "Your new email must be different from the old.",
         "emailAlreadyUse": "This email is already use for an account.",
         "userNotModified": "An error has occurred while modifying your information."
+      },
+      "security": {
+        "2fa": {
+          "errorTwoFactorAuthRequired": "Two-factor authentication is required.",
+          "errorTwoFactorAuthAlreadyEnabled": "Two-factor authentication is already enabled.",
+          "errorDuringHotpGeneration": "An error occurred during the generation of the 2FA code.",
+          "errorSecretOrCodeNotProvided": "Secret or code not provided.",
+          "errorHotpCounterNotAvailable": "HOTP counter not available.",
+          "errorTwoFactorAuthCodeNotValid": "Two-factor authentication code not valid.",
+          "errorDuringTwoFactorAuthActivation": "An error occurred during the activation of two-factor authentication.",
+          "errorTwoFactorAuthNotEnabled": "Two-factor authentication couldn't be enabled.",
+          "errorDuringTwoFactorAuthDeactivation": "An error occurred during the deactivation of two-factor authentication.",
+          "errorBackupCodeNotProvided": "Backup code not provided.",
+          "errorUserHasNoBackupCodes": "User has no backup codes.",
+          "errorBackupCodeNotValid": "Backup code not valid."
+        }
       }
     },
     "reactivate-account": {
@@ -65,6 +91,13 @@
       "userNotFound": "This account does not exist.",
       "accountAlreadyActivated": "Account already activated.",
       "invalidPassword": "Invalid password."
+    }
+  },
+  "admin": {
+    "users": {
+      "userNotFound": "This account does not exist.",
+      "accountAlreadyActivated": "Account already activated.",
+      "accountAlreadyDeactivated": "Account already deactivated."
     }
   }
 }

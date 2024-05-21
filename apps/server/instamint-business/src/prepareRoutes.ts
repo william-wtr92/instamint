@@ -1,14 +1,19 @@
 import type { PrepareRoutes } from "@instamint/server-types"
 
-import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
+import prepareAdminUsersActionsRoutes from "@/routes/admin/users/prepareAdminUsersActionsRoutes"
+import prepareAdminUsersRoutes from "@/routes/admin/users/prepareAdminUsersRoutes"
 import prepareSignInRoutes from "@/routes/auth/prepareSignInRoutes"
 import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
-
+import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
+import prepareTwoFactorAuthRoutes from "@/routes/auth/prepareTwoFactorAuthRoutes"
+import prepareMessagesRoutes from "@/routes/messages/prepareMessagesRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
-import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
+import prepareProfileRoutes from "@/routes/users/profile/prepareProfileRoutes"
 import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAccountRoutes"
-import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
 import prepareModifyEmailRoutes from "@/routes/users/settings/prepareModifyEmailRoutes"
+import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
+import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
+import prepareUploadAvatarRoutes from "@/routes/users/settings/prepareUploadAvatarRoutes"
 
 const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareSignUpRoutes(ctx)
@@ -20,6 +25,14 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareDeleteAccountRoutes(ctx)
   prepareModifyPasswordRoutes(ctx)
   prepareModifyEmailRoutes(ctx)
+  prepareUploadAvatarRoutes(ctx)
+  prepareTwoFactorAuthRoutes(ctx)
+  prepareProfileRoutes(ctx)
+
+  prepareMessagesRoutes(ctx)
+
+  prepareAdminUsersRoutes(ctx)
+  prepareAdminUsersActionsRoutes(ctx)
 }
 
 export default prepareRoutes

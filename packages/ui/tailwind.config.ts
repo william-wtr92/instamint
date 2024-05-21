@@ -13,10 +13,15 @@ module.exports = {
           "0%": "translateX(0)",
           "100%": "translateX(-100%)",
         },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
       },
       animation: {
         slideIn: "slideIn 0.5s ease-in-out",
         slideOut: "slideOut 0.5s ease-in-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
     },
     colors: {

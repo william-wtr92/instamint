@@ -1,24 +1,25 @@
-import { useCallback } from "react"
-import type { GetServerSideProps } from "next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useTranslation } from "next-i18next"
-import type { ReactElement } from "react"
-import React from "react"
 import {
   type ModifyPassword,
   type DeleteAccount,
   type ModifyEmail,
 } from "@instamint/shared-types"
-import { Button } from "@instamint/ui-kit"
+import { Button, Text } from "@instamint/ui-kit"
+import type { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import React, { useCallback, useState } from "react"
 
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import SettingsLayout from "@/web/components/layout/SettingsLayout"
-import useAppContext from "@/web/contexts/useAppContext"
-import useActionsContext from "@/web/contexts/useActionsContext"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
-import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
 import { ModifyEmailForm } from "@/web/components/forms/ModifyEmail"
+import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
+import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer"
+import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
+import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getSettingsLayout from "@/web/utils/layout/getSettingsLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -27,14 +28,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       ...(await serverSideTranslations(locale ?? "en", [
         ...getTranslationBaseImports(),
-        "profile-settings-edit",
+        "profile-settings-security",
       ])),
     },
   }
 }
 
 const ProfileSettingsSecurityPage = () => {
-  const { t } = useTranslation(["errors", "profile-settings"])
+  const { t } = useTranslation("profile-settings-security")
 
   const {
     services: {
@@ -43,6 +44,16 @@ const ProfileSettingsSecurityPage = () => {
     },
   } = useAppContext()
   const { redirect, toast } = useActionsContext()
+
+  const { data, error, isLoading } = useUser()
+  const user = !isLoading && !error ? data : null
+  const is2faEnabled = user?.twoFactorAuthentication
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+  const handleModal = useCallback(() => {
+    setIsModalOpen((prev) => !prev)
+  }, [])
 
   const handleDeleteAccountSubmit = useCallback(
     async (values: DeleteAccount) => {
@@ -121,25 +132,60 @@ const ProfileSettingsSecurityPage = () => {
   )
 
   return (
-    <div className="animate-slideInFromLeft z-10 p-8">
-      <div className=" flex flex-col gap-6 xl:w-[25%]">
-        <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
-          <ModifyEmailForm onSubmit={handleModifyEmailSubmit} />
-        </Button>
-        <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
-          <ModifyPasswordForm onSubmit={handleModifyPasswordSubmit} />
-        </Button>
-        <Button className="mt-6 bg-red-500 py-2.5 font-semibold text-white">
-          <DeleteAccountForm onSubmit={handleDeleteAccountSubmit} />
-        </Button>
-      </div>
-    </div>
+    <>
+      <SettingsPageContainer>
+        <Text type="heading" variant="neutral" className="text-center">
+          {t("title")}
+        </Text>
+
+        <div className="flex flex-col gap-4">
+          <Text type="subheading" variant="neutral">
+            {t("2fa-title")}
+          </Text>
+
+          <Text type="medium" variant="neutral">
+            {t("2fa-description")}
+          </Text>
+
+          <div
+            className={`${is2faEnabled ? "border-accent-500 text-accent-500" : "border-error-primary text-error-primary"}  mx-auto flex w-fit flex-row items-center gap-2 rounded-md border-2 p-1.5 text-center`}
+          >
+            {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
+          </div>
+
+          <Button
+            variant={is2faEnabled ? "danger" : "default"}
+            onClick={handleModal}
+          >
+            {is2faEnabled ? t("cta.deactivate-2fa") : t("cta.activate-2fa")}
+          </Button>
+        </div>
+
+        <div className=" flex flex-col gap-6 xl:w-[25%]">
+          <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
+            <ModifyEmailForm onSubmit={handleModifyEmailSubmit} />
+          </Button>
+          <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
+            <ModifyPasswordForm onSubmit={handleModifyPasswordSubmit} />
+          </Button>
+          <Button className="mt-6 bg-red-500 py-2.5 font-semibold text-white">
+            <DeleteAccountForm onSubmit={handleDeleteAccountSubmit} />
+          </Button>
+        </div>
+      </SettingsPageContainer>
+
+      {isModalOpen && (
+        <TwoFactorAuthModal
+          isOpen={isModalOpen}
+          handleModal={handleModal}
+          is2faEnabled={is2faEnabled}
+        />
+      )}
+    </>
   )
 }
 ProfileSettingsSecurityPage.title = "profile.settings.security"
 
-ProfileSettingsSecurityPage.getLayout = (page: ReactElement) => {
-  return <SettingsLayout>{page}</SettingsLayout>
-}
+ProfileSettingsSecurityPage.getLayout = getSettingsLayout
 
 export default ProfileSettingsSecurityPage

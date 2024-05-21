@@ -1,10 +1,11 @@
-import { type Context, Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { type ApiRoutes, SC } from "@instamint/server-types"
-import sgMail from "@sendgrid/mail"
 import { modifyEmailSchema, type ModifyEmail } from "@instamint/shared-types"
+import sgMail from "@sendgrid/mail"
+import { type Context, Hono } from "hono"
 
-import { createErrorResponse } from "@/utils/errors/createErrorResponse"
+import appConfig from "@/db/config/config"
+import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
   contextsKeys,
@@ -15,23 +16,22 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import UserModel from "@/db/models/UserModel"
-import { now, oneDayTTL, oneHour, oneHourTTL } from "@/utils/helpers/times"
+import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { mailBuilder } from "@/utils/helpers/mailBuilder"
-import appConfig from "@/db/config/config"
+import { now, oneDayTTL, oneHour, oneHourTTL } from "@/utils/helpers/times"
 
 const prepareModifyEmailRoutes: ApiRoutes = ({ app, db, redis }) => {
   const modifyEmail = new Hono()
 
   if (!db) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.databaseNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )
   }
 
   if (!redis) {
-    throw createErrorResponse(
+    throw throwInternalError(
       globalsMessages.redisNotAvailable,
       SC.serverErrors.INTERNAL_SERVER_ERROR
     )

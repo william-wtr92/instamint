@@ -1,10 +1,10 @@
 import type { ModifyEmail } from "@instamint/shared-types"
 
+import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
-import type { Services } from "@/types"
 
-const modifyEmailService: Services<ModifyEmail> =
+const modifyEmailService: Services<ModifyEmail, null> =
   ({ api }) =>
   async (data) => {
     try {

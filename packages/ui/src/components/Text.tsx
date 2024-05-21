@@ -1,5 +1,6 @@
-import React, { forwardRef } from "react"
 import { cva, cx } from "class-variance-authority"
+import React, { forwardRef } from "react"
+
 import { montserrat, poppins } from "../lib/fonts"
 
 type TextType = "title" | "heading" | "subheading" | "body" | "medium" | "small"
@@ -38,7 +39,7 @@ const text = cva("", {
 })
 
 const Text = forwardRef<HTMLParagraphElement, Props>((props, ref) => {
-  const { className, type, variant, children } = props
+  const { className, type, variant, children, onClick } = props
 
   return (
     <p
@@ -46,6 +47,7 @@ const Text = forwardRef<HTMLParagraphElement, Props>((props, ref) => {
       ref={ref}
       className={cx(text({ variant, type, className }))}
       style={{ color: variant === "transparent" ? "transparent" : undefined }}
+      onClick={onClick}
     >
       {children}
     </p>

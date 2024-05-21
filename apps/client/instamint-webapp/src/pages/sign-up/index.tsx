@@ -1,9 +1,6 @@
-import { useForm } from "react-hook-form"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { type ReactElement, useCallback, useEffect, useState } from "react"
-import type { GetServerSideProps } from "next"
-import { useTranslation } from "next-i18next"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { signUpSchema, type SignUp } from "@instamint/shared-types"
 import {
   Form,
   FormField,
@@ -16,15 +13,18 @@ import {
   Button,
   Checkbox,
 } from "@instamint/ui-kit"
-import { signUpSchema, type SignUp } from "@instamint/shared-types"
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import type { GetServerSideProps } from "next"
+import { useTranslation } from "next-i18next"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { useCallback, useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 
-import useAppContext from "@/web/contexts/useAppContext"
-import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 import useActionsContext from "@/web/contexts/useActionsContext"
-import AuthLayout from "@/web/components/layout/AuthLayout"
-import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"
+import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
+import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getAuthLayout from "@/web/utils/layout/getAuthLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -315,8 +315,6 @@ const SignUpPage = () => {
 }
 SignUpPage.title = "auth.register"
 
-SignUpPage.getLayout = (page: ReactElement) => {
-  return <AuthLayout>{page}</AuthLayout>
-}
+SignUpPage.getLayout = getAuthLayout
 
 export default SignUpPage

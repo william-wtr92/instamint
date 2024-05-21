@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "next-i18next"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   type ModifyPassword,
@@ -23,7 +21,9 @@ import {
   Input,
   Label,
 } from "@instamint/ui-kit"
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
+import { useTranslation } from "next-i18next"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 
 import { checkPasswordHelper } from "@/web/utils/helpers/checkPasswordHelper"
 
@@ -34,7 +34,7 @@ type Props = {
 export const ModifyPasswordForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { t } = useTranslation()
+  const { t } = useTranslation("profile-settings-security")
 
   const [passwordCriteria, setPasswordCriteria] = useState<
     Record<string, boolean>
@@ -76,13 +76,13 @@ export const ModifyPasswordForm = (props: Props) => {
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
             <Label className="font-semibold hover:cursor-pointer">
-              {t(`profile-settings:modify-password.triggerLabel`)}
+              {t(`modify-password.triggerLabel`)}
             </Label>
           </DialogTrigger>
           <DialogContent className="bg-white">
             <DialogHeader className="mb-6">
               <DialogTitle className="font-extrabold">
-                {t(`profile-settings:modify-password.title`)}
+                {t(`modify-password.title`)}
               </DialogTitle>
             </DialogHeader>
             <div className="flex flex-col">
@@ -93,11 +93,7 @@ export const ModifyPasswordForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(
-                            `profile-settings:modify-password.oldPassword.label`
-                          )}
-                        </span>
+                        <span>{t(`modify-password.oldPassword.label`)}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -105,7 +101,7 @@ export const ModifyPasswordForm = (props: Props) => {
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="password"
                             placeholder={t(
-                              `profile-settings:modify-password.oldPassword.placeholder`
+                              `modify-password.oldPassword.placeholder`
                             )}
                             {...field}
                           />
@@ -120,11 +116,7 @@ export const ModifyPasswordForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(
-                            `profile-settings:modify-password.newPassword.label`
-                          )}
-                        </span>
+                        <span>{t(`modify-password.newPassword.label`)}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -132,7 +124,7 @@ export const ModifyPasswordForm = (props: Props) => {
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type={showPassword ? "text" : "password"}
                             placeholder={t(
-                              `profile-settings:modify-password.newPassword.placeholder`
+                              `modify-password.newPassword.placeholder`
                             )}
                             {...field}
                             onFocus={() => {
@@ -172,7 +164,7 @@ export const ModifyPasswordForm = (props: Props) => {
                                 className={`${value ? "text-medium font-semibold" : "text-medium font-light"} `}
                               >
                                 {t(
-                                  `profile-settings:modify-password.newPassword.criteria.${key}`
+                                  `modify-password.newPassword.criteria.${key}`
                                 )}
                               </span>
                             </span>
@@ -184,11 +176,7 @@ export const ModifyPasswordForm = (props: Props) => {
                         useCustomError={true}
                       >
                         {errors.newPassword ? (
-                          <span>
-                            {t(
-                              `profile-settings:modify-password.newPassword.error`
-                            )}
-                          </span>
+                          <span>{t(`modify-password.newPassword.error`)}</span>
                         ) : null}
                       </FormMessage>
                     </FormItem>
@@ -201,9 +189,7 @@ export const ModifyPasswordForm = (props: Props) => {
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
                         <span>
-                          {t(
-                            `profile-settings:modify-password.confirmNewPassword.label`
-                          )}
+                          {t(`modify-password.confirmNewPassword.label`)}
                         </span>
                       </FormLabel>
                       <FormControl>
@@ -212,7 +198,7 @@ export const ModifyPasswordForm = (props: Props) => {
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="password"
                             placeholder={t(
-                              `profile-settings:modify-password.confirmNewPassword.placeholder`
+                              `modify-password.confirmNewPassword.placeholder`
                             )}
                             {...field}
                           />
@@ -224,9 +210,7 @@ export const ModifyPasswordForm = (props: Props) => {
                       >
                         {errors.confirmNewPassword ? (
                           <span>
-                            {t(
-                              `profile-settings:modify-password.confirmNewPassword.error`
-                            )}
+                            {t(`modify-password.confirmNewPassword.error`)}
                           </span>
                         ) : null}
                       </FormMessage>

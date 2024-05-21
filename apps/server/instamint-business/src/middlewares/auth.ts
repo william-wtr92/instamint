@@ -1,13 +1,13 @@
-import { createFactory, type Factory } from "hono/factory"
-import type { Context, MiddlewareHandler, Next } from "hono"
 import { SC } from "@instamint/server-types"
+import type { Context, MiddlewareHandler, Next } from "hono"
+import { createFactory, type Factory } from "hono/factory"
 
-import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
 import UserModel from "@/db/models/UserModel"
-import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { globalsMessages, authMessages, cookiesKeys, contextsKeys } from "@/def"
 import { sanitizeUser } from "@/utils/dto/sanitizeUsers"
-import { decodeJwt } from "@/utils/helpers/jwtActions"
-import { getCookie } from "@/utils/helpers/cookiesActions"
+import { jwtTokenErrors } from "@/utils/errors/jwtTokenErrors"
+import { getCookie } from "@/utils/helpers/actions/cookiesActions"
+import { decodeJwt } from "@/utils/helpers/actions/jwtActions"
 
 const factory: Factory = createFactory()
 
@@ -38,7 +38,7 @@ export const auth: MiddlewareHandler = factory.createMiddleware(
           return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
         }
 
-        c.set(contextsKeys.user, sanitizeUser(user, ["roleData"]))
+        c.set(contextsKeys.user, sanitizeUser(user, ["id"]))
 
         await next()
       }

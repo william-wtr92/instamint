@@ -29,8 +29,12 @@ CMD ["pnpm", "run", "dev"]
 FROM base AS prod
 
 ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_BLOB_URL
+ARG NEXT_PUBLIC_AUTH_URL
 
 ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+ENV NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
+ENV NEXT_PUBLIC_AUTH_URL=${NEXT_PUBLIC_AUTH_URL}
 
 WORKDIR /usr/src/app
 
@@ -38,6 +42,7 @@ COPY scripts/postinstall.sh ./scripts/postinstall.sh
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/eslint/client/ ./packages/eslint/client/
 COPY packages/tsconfig/client/ ./packages/tsconfig/client/
+COPY packages/types/server/ ./packages/types/server/
 COPY packages/types/shared/ ./packages/types/shared/
 COPY packages/ui/ ./packages/ui/
 COPY apps/client/instamint-webapp ./apps/client/instamint-webapp

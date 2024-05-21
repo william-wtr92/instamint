@@ -3,18 +3,32 @@
   "version": "24.04",
   "description": "Images service for Instamint",
   "scripts": {
+    "azurite": "azurite --silent --location ./azurite --debug ./azurite/debug.log",
+    "start": "node ./dist/index.js",
     "build": "tsc --project tsconfig.json",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch ./src/index.ts",
+    "dev:local": "concurrently \"pnpm run azurite\" \"pnpm run dev\"",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "@hono/node-server": "^1.9.1",
-    "hono": "^4.1.7"
+    "@azure/storage-blob": "^12.17.0",
+    "@hono/node-server": "^1.11.0",
+    "@hono/zod-validator": "^0.2.1",
+    "dotenv": "^16.4.5",
+    "hono": "^4.2.7",
+    "mime": "^4.0.3",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@instamint/eslint-config-server": "workspace:^",
+    "@instamint/server-types": "workspace:^",
     "@instamint/tsconfig-server": "workspace:^",
+    "@types/uuid": "^9.0.8",
+    "azurite": "^3.29.0",
+    "concurrently": "^8.2.2",
     "tsx": "^3.14.0"
-  }
+  },
+  "license": "All Rights Reserved"
 }

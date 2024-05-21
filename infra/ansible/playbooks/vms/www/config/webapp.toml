@@ -1,0 +1,42 @@
+[entryPoints]
+    [entryPoints.http]
+        address = ":80"
+
+[api]
+    dashboard = false
+    insecure = true
+
+[providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+    watch = true
+    exposedByDefault = false
+    network = "web"
+
+[log]
+    debug = true
+    level = "DEBUG"
+    filePath = "/var/log/traefik/traefik.log"
+    format = "common"
+
+[accessLog]
+    filePath = "/var/log/traefik/access.log"
+    bufferingSize = 100
+
+[http.routers]
+    [http.routers.webapp]
+        rule = "HostRegexp(`{host:.+}`)"
+        service = "webapp"
+        entryPoints = ["http"]
+        middlewares = ["retry"]
+
+[http.middlewares.retry]
+    retry.attempts = 5
+
+[serversTransport]
+    forwardingTimeouts.dialTimeout = "30s"
+    forwardingTimeouts.responseHeaderTimeout = "60s"
+
+[http.services]
+    [http.services.webapp.loadBalancer]
+        [[http.services.webapp.loadBalancer.servers]]
+            url = "http://webapp:3000"

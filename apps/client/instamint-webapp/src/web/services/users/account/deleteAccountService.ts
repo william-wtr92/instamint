@@ -1,10 +1,10 @@
 import type { DeleteAccount } from "@instamint/shared-types"
 
 import type { Services } from "@/types"
-import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 import { routes } from "@/web/routes"
+import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const deleteAccountService: Services<DeleteAccount> =
+const deleteAccountService: Services<DeleteAccount, null> =
   ({ api }) =>
   async (data) => {
     try {

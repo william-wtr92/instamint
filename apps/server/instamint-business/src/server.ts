@@ -1,16 +1,19 @@
-import { type Context, Hono } from "hono"
-import { logger } from "hono/logger"
-import { cors } from "hono/cors"
-import { prettyJSON } from "hono/pretty-json"
-import { etag } from "hono/etag"
-import { secureHeaders } from "hono/secure-headers"
 import { sentry } from "@hono/sentry"
+import { type Context, Hono } from "hono"
+import { cors } from "hono/cors"
+import { etag } from "hono/etag"
+import { logger } from "hono/logger"
+import { prettyJSON } from "hono/pretty-json"
+import { secureHeaders } from "hono/secure-headers"
 import knex from "knex"
 
 import type { AppConfig } from "./db/config/configTypes"
-import prepareRoutes from "./prepareRoutes"
 import BaseModel from "./db/models/BaseModel"
-import { redis } from "./utils/redis/instance"
+
+import { auth } from "@/middlewares/auth"
+import { isAdmin } from "@/middlewares/perms"
+import prepareRoutes from "@/prepareRoutes"
+import { redis } from "@/utils/redis/instance"
 
 const server = async (appConfig: AppConfig) => {
   const db = knex(appConfig.db)
@@ -29,6 +32,8 @@ const server = async (appConfig: AppConfig) => {
     logger(),
     prettyJSON()
   )
+
+  app.use("/admin/*", auth, isAdmin)
 
   app.get("/", (c: Context) => {
     return c.text("Instamint Business API!")

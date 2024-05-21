@@ -1,5 +1,3 @@
-import { useForm } from "react-hook-form"
-import { useTranslation } from "next-i18next"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   type DeleteAccount,
@@ -23,6 +21,8 @@ import {
   Input,
   Label,
 } from "@instamint/ui-kit"
+import { useTranslation } from "next-i18next"
+import { useForm } from "react-hook-form"
 
 type Props = {
   onSubmit: (values: DeleteAccount) => void
@@ -31,7 +31,7 @@ type Props = {
 export const DeleteAccountForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { t } = useTranslation()
+  const { t } = useTranslation("profile-settings-security")
 
   const form = useForm<DeleteAccount>({
     resolver: zodResolver(deleteAccountSchema),
@@ -52,21 +52,17 @@ export const DeleteAccountForm = (props: Props) => {
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
             <Label className="font-semibold hover:cursor-pointer">
-              {t("profile-settings:delete-account.triggerLabel")}
+              {t("delete-account.triggerLabel")}
             </Label>
           </DialogTrigger>
           <DialogContent className="flex flex-col gap-5 bg-white">
             <DialogHeader className="flex flex-col gap-3">
               <DialogTitle className="font-extrabold">
-                {t("profile-settings:delete-account.title")}
+                {t("delete-account.title")}
               </DialogTitle>
               <DialogDescription className="flex flex-col gap-2">
-                <span>
-                  {t("profile-settings:delete-account.description.p1")}
-                </span>
-                <span>
-                  {t("profile-settings:delete-account.description.p2")}
-                </span>
+                <span>{t("delete-account.description.p1")}</span>
+                <span>{t("delete-account.description.p2")}</span>
               </DialogDescription>
             </DialogHeader>
             <div className="gap grid">
@@ -77,9 +73,7 @@ export const DeleteAccountForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 flex items-center gap-2 font-bold">
-                        <span>
-                          {t("profile-settings:delete-account.password.label")}
-                        </span>
+                        <span>{t("delete-account.password.label")}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -87,7 +81,7 @@ export const DeleteAccountForm = (props: Props) => {
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="password"
                             placeholder={t(
-                              "profile-settings:delete-account.password.placeholder"
+                              "delete-account.password.placeholder"
                             )}
                             {...field}
                           />
@@ -98,11 +92,7 @@ export const DeleteAccountForm = (props: Props) => {
                         useCustomError={true}
                       >
                         {errors.password ? (
-                          <span>
-                            {t(
-                              "profile-settings:delete-account.password.error"
-                            )}
-                          </span>
+                          <span>{t("delete-account.password.error")}</span>
                         ) : null}
                       </FormMessage>
                     </FormItem>
@@ -114,11 +104,7 @@ export const DeleteAccountForm = (props: Props) => {
                   render={({ field }) => (
                     <FormItem className="relative w-full">
                       <FormLabel className="relative left-1 mt-6 flex items-center gap-2 font-bold">
-                        <span>
-                          {t(
-                            "profile-settings:delete-account.confirmPassword.label"
-                          )}
-                        </span>
+                        <span>{t("delete-account.confirmPassword.label")}</span>
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
@@ -126,7 +112,7 @@ export const DeleteAccountForm = (props: Props) => {
                             className="focus-visible:outline-accent-500 mt-4 px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                             type="password"
                             placeholder={t(
-                              "profile-settings:delete-account.confirmPassword.placeholder"
+                              "delete-account.confirmPassword.placeholder"
                             )}
                             {...field}
                           />
@@ -138,9 +124,7 @@ export const DeleteAccountForm = (props: Props) => {
                       >
                         {errors.confirmPassword ? (
                           <span>
-                            {t(
-                              "profile-settings:delete-account.confirmPassword.error"
-                            )}
+                            {t("delete-account.confirmPassword.error")}
                           </span>
                         ) : null}
                       </FormMessage>
@@ -153,7 +137,7 @@ export const DeleteAccountForm = (props: Props) => {
                     type="submit"
                     className="bg-accent-500 mt-6 py-2.5 font-semibold text-white"
                   >
-                    {t("profile-settings:delete-account.cta.submit")}
+                    {t("delete-account.cta.submit")}
                   </Button>
                 </DialogFooter>
               </form>

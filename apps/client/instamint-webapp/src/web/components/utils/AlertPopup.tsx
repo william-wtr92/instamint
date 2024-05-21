@@ -1,5 +1,3 @@
-import { useTranslation } from "next-i18next"
-import { cx } from "class-variance-authority"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,11 +8,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@instamint/ui-kit"
+import { cx } from "class-variance-authority"
+import { useTranslation } from "next-i18next"
 
-type Props = {
+type Props<T> = {
   open: boolean
   onClose: () => void
-  onConfirm: () => void
+  onConfirm: (values?: T) => void
   titleKey: string
   descriptionKey: string
   cancelKey: string
@@ -22,18 +22,16 @@ type Props = {
   type?: "danger" | "warning" | "informative"
 }
 
-export const AlertPopup = (props: Props) => {
-  const {
-    open,
-    onClose,
-    onConfirm,
-    titleKey,
-    descriptionKey,
-    cancelKey,
-    confirmKey,
-    type = "informative",
-  } = props
-
+export const AlertPopup = <T,>({
+  open,
+  onClose,
+  onConfirm,
+  titleKey,
+  descriptionKey,
+  cancelKey,
+  confirmKey,
+  type = "informative",
+}: Props<T>) => {
   const { t } = useTranslation()
 
   const buttonVariants = {
@@ -51,6 +49,7 @@ export const AlertPopup = (props: Props) => {
           <AlertDialogTitle>{t(titleKey)}</AlertDialogTitle>
           <AlertDialogDescription>{t(descriptionKey)}</AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
           <AlertDialogCancel
             onClick={onClose}
@@ -58,7 +57,10 @@ export const AlertPopup = (props: Props) => {
           >
             {t(cancelKey)}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className={buttonClass}>
+          <AlertDialogAction
+            onClick={() => onConfirm()}
+            className={buttonClass}
+          >
             {t(confirmKey)}
           </AlertDialogAction>
         </AlertDialogFooter>

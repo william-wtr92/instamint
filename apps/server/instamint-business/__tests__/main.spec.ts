@@ -1,8 +1,8 @@
-import { describe, test, expect } from "@jest/globals"
 import { SC } from "@instamint/server-types"
+import { describe, test, expect } from "@jest/globals"
 
-import server from "@/server"
 import config from "@/db/config/config"
+import server from "@/server"
 
 const appContext = server(config)
 describe("Base route test", () => {

@@ -6,7 +6,7 @@ export const up = async (knex: Knex): Promise<void> => {
       table.increments("id")
       table.text("right").notNullable()
     })
-    .then(function () {
+    .then(() => {
       return knex("roles").insert([{ right: "admin" }, { right: "minter" }])
     })
 
@@ -17,6 +17,7 @@ export const up = async (knex: Knex): Promise<void> => {
     table.string("bio").nullable()
     table.string("link").unique().nullable()
     table.string("location").nullable()
+    table.string("avatar").nullable()
     table.text("passwordHash").notNullable()
     table.text("passwordSalt").notNullable()
     table.timestamps(true, true, true)
@@ -25,6 +26,9 @@ export const up = async (knex: Knex): Promise<void> => {
     table.boolean("active").notNullable().defaultTo(true)
     table.timestamp("deactivationDate").defaultTo(null)
     table.timestamp("deletionDate").defaultTo(null)
+    table.boolean("twoFactorAuthentication").notNullable().defaultTo(false)
+    table.text("secret").nullable().defaultTo(null)
+    table.text("twoFactorBackupCodes").nullable().defaultTo(null)
     table.integer("roleId").references("id").inTable("roles").defaultTo(2)
   })
 }

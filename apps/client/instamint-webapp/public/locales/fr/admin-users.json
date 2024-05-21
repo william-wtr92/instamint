@@ -1,0 +1,53 @@
+{
+  "table": {
+    "columns": {
+      "email": "Email",
+      "username": "Nom d'utilisateur",
+      "createAt": "Date de création",
+      "roleData": "Rôle",
+      "active": "Actif"
+    },
+    "cell": {
+      "emailConnected": "{{email}} (moi)",
+      "email": "{{email}}"
+    },
+    "actions": {
+      "trigger": "Ouvrir les actions",
+      "title": "Actions",
+      "copyEmail": "Copier l'email",
+      "deactivateAccount": "Désactiver le compte",
+      "reactivateAccount": "Réactiver le compte",
+      "deleteAccount": "Supprimer le compte"
+    },
+    "pagination": {
+      "rowsPerPage": "Lignes par page",
+      "pageLabel": "Page",
+      "ofLabel": "sur",
+      "firstPage": "Aller à la première page",
+      "previousPage": "Aller à la page précédente",
+      "nextPage": "Aller à la page suivante",
+      "lastPage": "Aller à la dernière page",
+      "totalElements": "Nombre d'utilisateurs total :"
+    },
+    "filterPlaceholder": "Rechercher par email...",
+    "noData": "Aucun utilisateur trouvé"
+  },
+  "cta": {
+    "deactivateAccount": {
+      "title": "Souhaitez-vous désactiver le compte de {{email}} ?",
+      "description": "Le compte sera désactivé et ne pourra plus se connecter à l'application.",
+      "cancel": "Annuler",
+      "confirm": "Désactiver"
+    },
+    "reactivateAccount": {
+      "title": "Souhaitez-vous réactiver le compte de {{email}} ?",
+      "description": "Le compte sera réactivé et pourra se connecter à nouveau à l'application.",
+      "cancel": "Annuler",
+      "confirm": "Réactiver"
+    }
+  },
+  "success": {
+    "reactivateAccount": "Le compte de {{email}} a été réactivé avec succès.",
+    "deactivateAccount": "Le compte de {{email}} a été désactivé avec succès."
+  }
+}

@@ -1,0 +1,27 @@
+- name: Deploy Docker containers on Webapp VM
+  hosts: azure_vms
+  gather_facts: false
+  vars:
+    terraform_outputs: "{{ lookup('file', '../../terraform_outputs.json') | from_json }}"
+
+  tasks:
+    - name: Transfer setup script to VM
+      ansible.builtin.copy:
+        src: ./scripts/webapp.sh
+        dest: /home/{{ ansible_user }}/webapp.sh
+        mode: '0755'
+      when: inventory_hostname == 'instamint-webapp-vm'
+
+    - name: Launch Docker setup script for Webapp VM
+      ansible.builtin.command: >
+        bash /home/{{ ansible_user }}/webapp.sh
+        '{{ terraform_outputs.webapp_config.value.username }}'
+        '{{ terraform_outputs.webapp_config.value.password }}'
+        '{{ terraform_outputs.webapp_config.value.image }}'
+        '{{ terraform_outputs.webapp_config.value.name }}'
+        '{{ terraform_outputs.webapp_config.value.port }}'
+        '{{ terraform_outputs['secrets']['value']['NEXT-PUBLIC-BLOB-URL'] }}'
+        '{{ terraform_outputs['secrets']['value']['NEXT-PUBLIC-BASE-URL'] }}'
+      register: script_output
+      changed_when: "'Docker image pulled successfully.' in script_output.stdout or 'Docker container started successfully.' in script_output.stdout"
+      when: inventory_hostname == 'instamint-webapp-vm'

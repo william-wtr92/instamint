@@ -1,9 +1,9 @@
-import { Text } from "@instamint/ui-kit"
-import { useTranslation } from "next-i18next"
-import Link from "next/link"
-import React, { useCallback } from "react"
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
+import { Text } from "@instamint/ui-kit"
+import Link from "next/link"
 import { useRouter } from "next/router"
+import { useTranslation } from "next-i18next"
+import React, { useCallback } from "react"
 
 import { routes } from "@/web/routes"
 
@@ -57,7 +57,7 @@ const AccountSettingsNavbar = () => {
           <Link
             key={index}
             href={button.path}
-            className={`flex flex-row items-center justify-between pb-4 ${index !== buttons.length - 1 ? "border-b border-neutral-300" : ""}`}
+            className="flex flex-row items-center justify-between pb-4 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-neutral-300"
           >
             <Text type="body" variant="neutral" className="font-normal">
               {t(button.label)}

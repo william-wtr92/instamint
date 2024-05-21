@@ -1,0 +1,978 @@
+[
+    {
+        "name": "Afghanistan",
+        "cioc": "AFG"
+    },
+    {
+        "name": "Åland-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "Albania",
+        "cioc": "ALB"
+    },
+    {
+        "name": "Algeria",
+        "cioc": "ALG"
+    },
+    {
+        "name": "American-Samoa",
+        "cioc": "ASA"
+    },
+    {
+        "name": "Andorra",
+        "cioc": "AND"
+    },
+    {
+        "name": "Angola",
+        "cioc": "ANG"
+    },
+    {
+        "name": "Anguilla",
+        "cioc": ""
+    },
+    {
+        "name": "Antarctica",
+        "cioc": ""
+    },
+    {
+        "name": "Antigua-and-Barbuda",
+        "cioc": "ANT"
+    },
+    {
+        "name": "Argentina",
+        "cioc": "ARG"
+    },
+    {
+        "name": "Armenia",
+        "cioc": "ARM"
+    },
+    {
+        "name": "Aruba",
+        "cioc": "ARU"
+    },
+    {
+        "name": "Australia",
+        "cioc": "AUS"
+    },
+    {
+        "name": "Austria",
+        "cioc": "AUT"
+    },
+    {
+        "name": "Azerbaijan",
+        "cioc": "AZE"
+    },
+    {
+        "name": "Bahamas",
+        "cioc": "BAH"
+    },
+    {
+        "name": "Bahrain",
+        "cioc": "BRN"
+    },
+    {
+        "name": "Bangladesh",
+        "cioc": "BAN"
+    },
+    {
+        "name": "Barbados",
+        "cioc": "BAR"
+    },
+    {
+        "name": "Belarus",
+        "cioc": "BLR"
+    },
+    {
+        "name": "Belgium",
+        "cioc": "BEL"
+    },
+    {
+        "name": "Belize",
+        "cioc": "BIZ"
+    },
+    {
+        "name": "Benin",
+        "cioc": "BEN"
+    },
+    {
+        "name": "Bermuda",
+        "cioc": "BER"
+    },
+    {
+        "name": "Bhutan",
+        "cioc": "BHU"
+    },
+    {
+        "name": "Bolivia",
+        "cioc": "BOL"
+    },
+    {
+        "name": "Bonaire-Sint-Eustatius-and-Saba",
+        "cioc": null
+    },
+    {
+        "name": "Bosnia-and-Herzegovina",
+        "cioc": "BIH"
+    },
+    {
+        "name": "Botswana",
+        "cioc": "BOT"
+    },
+    {
+        "name": "Bouvet-Island",
+        "cioc": ""
+    },
+    {
+        "name": "Brazil",
+        "cioc": "BRA"
+    },
+    {
+        "name": "Brunei-Darussalam",
+        "cioc": "BRU"
+    },
+    {
+        "name": "Bulgaria",
+        "cioc": "BUL"
+    },
+    {
+        "name": "Burkina-Faso",
+        "cioc": "BUR"
+    },
+    {
+        "name": "Burundi",
+        "cioc": "BDI"
+    },
+    {
+        "name": "Cambodia",
+        "cioc": "CAM"
+    },
+    {
+        "name": "Cameroon",
+        "cioc": "CMR"
+    },
+    {
+        "name": "Canada",
+        "cioc": "CAN"
+    },
+    {
+        "name": "Cabo-Verde",
+        "cioc": "CPV"
+    },
+    {
+        "name": "Cayman-Islands",
+        "cioc": "CAY"
+    },
+    {
+        "name": "Central-African-Republic",
+        "cioc": "CAF"
+    },
+    {
+        "name": "Chad",
+        "cioc": "CHA"
+    },
+    {
+        "name": "Chile",
+        "cioc": "CHI"
+    },
+    {
+        "name": "China",
+        "cioc": "CHN"
+    },
+    {
+        "name": "Colombia",
+        "cioc": "COL"
+    },
+    {
+        "name": "Comoros",
+        "cioc": "COM"
+    },
+    {
+        "name": "Congo",
+        "cioc": "CGO"
+    },
+    {
+        "name": "Democratic-Republic-of-the-Congo",
+        "cioc": "COD"
+    },
+    {
+        "name": "Cook-Islands",
+        "cioc": "COK"
+    },
+    {
+        "name": "Costa-Rica",
+        "cioc": "CRC"
+    },
+    {
+        "name": "Croatia",
+        "cioc": "CRO"
+    },
+    {
+        "name": "Cuba",
+        "cioc": "CUB"
+    },
+    {
+        "name": "Curaçao",
+        "cioc": ""
+    },
+    {
+        "name": "Cyprus",
+        "cioc": "CYP"
+    },
+    {
+        "name": "Czech-Republic",
+        "cioc": "CZE"
+    },
+    {
+        "name": "Denmark",
+        "cioc": "DEN"
+    },
+    {
+        "name": "Djibouti",
+        "cioc": "DJI"
+    },
+    {
+        "name": "Dominica",
+        "cioc": "DMA"
+    },
+    {
+        "name": "Dominican-Republic",
+        "cioc": "DOM"
+    },
+    {
+        "name": "Ecuador",
+        "cioc": "ECU"
+    },
+    {
+        "name": "Egypt",
+        "cioc": "EGY"
+    },
+    {
+        "name": "El-Salvador",
+        "cioc": "ESA"
+    },
+    {
+        "name": "Equatorial-Guinea",
+        "cioc": "GEQ"
+    },
+    {
+        "name": "Eritrea",
+        "cioc": "ERI"
+    },
+    {
+        "name": "Estonia",
+        "cioc": "EST"
+    },
+    {
+        "name": "Ethiopia",
+        "cioc": "ETH"
+    },
+    {
+        "name": "Falkland-Islands-Malvinas",
+        "cioc": ""
+    },
+    {
+        "name": "Faroe-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "Fiji",
+        "cioc": "FIJ"
+    },
+    {
+        "name": "Finland",
+        "cioc": "FIN"
+    },
+    {
+        "name": "France",
+        "cioc": "FRA"
+    },
+    {
+        "name": "French-Guiana",
+        "cioc": ""
+    },
+    {
+        "name": "French-Polynesia",
+        "cioc": ""
+    },
+    {
+        "name": "French-Southern-Territories",
+        "cioc": ""
+    },
+    {
+        "name": "Gabon",
+        "cioc": "GAB"
+    },
+    {
+        "name": "Gambia",
+        "cioc": "GAM"
+    },
+    {
+        "name": "Georgia",
+        "cioc": "GEO"
+    },
+    {
+        "name": "Germany",
+        "cioc": "GER"
+    },
+    {
+        "name": "Ghana",
+        "cioc": "GHA"
+    },
+    {
+        "name": "Gibraltar",
+        "cioc": ""
+    },
+    {
+        "name": "Greece",
+        "cioc": "GRE"
+    },
+    {
+        "name": "Greenland",
+        "cioc": ""
+    },
+    {
+        "name": "Grenada",
+        "cioc": "GRN"
+    },
+    {
+        "name": "Guadeloupe",
+        "cioc": ""
+    },
+    {
+        "name": "Guam",
+        "cioc": "GUM"
+    },
+    {
+        "name": "Guatemala",
+        "cioc": "GUA"
+    },
+    {
+        "name": "Guernsey",
+        "cioc": ""
+    },
+    {
+        "name": "Guinea",
+        "cioc": "GUI"
+    },
+    {
+        "name": "Guinea-Bissau",
+        "cioc": "GBS"
+    },
+    {
+        "name": "Guyana",
+        "cioc": "GUY"
+    },
+    {
+        "name": "Haiti",
+        "cioc": "HAI"
+    },
+    {
+        "name": "Heard-Island-and-McDonald-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "Holy-See",
+        "cioc": ""
+    },
+    {
+        "name": "Honduras",
+        "cioc": "HON"
+    },
+    {
+        "name": "Hong-Kong",
+        "cioc": "HKG"
+    },
+    {
+        "name": "Hungary",
+        "cioc": "HUN"
+    },
+    {
+        "name": "Iceland",
+        "cioc": "ISL"
+    },
+    {
+        "name": "India",
+        "cioc": "IND"
+    },
+    {
+        "name": "Indonesia",
+        "cioc": "INA"
+    },
+    {
+        "name": "Côte-d'Ivoire",
+        "cioc": "CIV"
+    },
+    {
+        "name": "Iran",
+        "cioc": "IRI"
+    },
+    {
+        "name": "Iraq",
+        "cioc": "IRQ"
+    },
+    {
+        "name": "Ireland",
+        "cioc": "IRL"
+    },
+    {
+        "name": "Isle-of-Man",
+        "cioc": ""
+    },
+    {
+        "name": "Israel",
+        "cioc": "ISR"
+    },
+    {
+        "name": "Italy",
+        "cioc": "ITA"
+    },
+    {
+        "name": "Jamaica",
+        "cioc": "JAM"
+    },
+    {
+        "name": "Japan",
+        "cioc": "JPN"
+    },
+    {
+        "name": "Jersey",
+        "cioc": ""
+    },
+    {
+        "name": "Jordan",
+        "cioc": "JOR"
+    },
+    {
+        "name": "Kazakhstan",
+        "cioc": "KAZ"
+    },
+    {
+        "name": "Kenya",
+        "cioc": "KEN"
+    },
+    {
+        "name": "Kiribati",
+        "cioc": "KIR"
+    },
+    {
+        "name": "Kuwait",
+        "cioc": "KUW"
+    },
+    {
+        "name": "Kyrgyzstan",
+        "cioc": "KGZ"
+    },
+    {
+        "name": "Lao",
+        "cioc": "LAO"
+    },
+    {
+        "name": "Latvia",
+        "cioc": "LAT"
+    },
+    {
+        "name": "Lebanon",
+        "cioc": "LIB"
+    },
+    {
+        "name": "Lesotho",
+        "cioc": "LES"
+    },
+    {
+        "name": "Liberia",
+        "cioc": "LBR"
+    },
+    {
+        "name": "Libya",
+        "cioc": "LBA"
+    },
+    {
+        "name": "Liechtenstein",
+        "cioc": "LIE"
+    },
+    {
+        "name": "Lithuania",
+        "cioc": "LTU"
+    },
+    {
+        "name": "Luxembourg",
+        "cioc": "LUX"
+    },
+    {
+        "name": "Macao",
+        "cioc": ""
+    },
+    {
+        "name": "Macedonia",
+        "cioc": "MKD"
+    },
+    {
+        "name": "Madagascar",
+        "cioc": "MAD"
+    },
+    {
+        "name": "Malawi",
+        "cioc": "MAW"
+    },
+    {
+        "name": "Malaysia",
+        "cioc": "MAS"
+    },
+    {
+        "name": "Maldives",
+        "cioc": "MDV"
+    },
+    {
+        "name": "Mali",
+        "cioc": "MLI"
+    },
+    {
+        "name": "Malta",
+        "cioc": "MLT"
+    },
+    {
+        "name": "Marshall-Islands",
+        "cioc": "MHL"
+    },
+    {
+        "name": "Martinique",
+        "cioc": ""
+    },
+    {
+        "name": "Mauritania",
+        "cioc": "MTN"
+    },
+    {
+        "name": "Mauritius",
+        "cioc": "MRI"
+    },
+    {
+        "name": "Mayotte",
+        "cioc": ""
+    },
+    {
+        "name": "Mexico",
+        "cioc": "MEX"
+    },
+    {
+        "name": "Micronesia",
+        "cioc": "FSM"
+    },
+    {
+        "name": "Moldova",
+        "cioc": "MDA"
+    },
+    {
+        "name": "Monaco",
+        "cioc": "MON"
+    },
+    {
+        "name": "Mongolia",
+        "cioc": "MGL"
+    },
+    {
+        "name": "Montenegro",
+        "cioc": "MNE"
+    },
+    {
+        "name": "Montserrat",
+        "cioc": ""
+    },
+    {
+        "name": "Morocco",
+        "cioc": "MAR"
+    },
+    {
+        "name": "Mozambique",
+        "cioc": "MOZ"
+    },
+    {
+        "name": "Myanmar",
+        "cioc": "MYA"
+    },
+    {
+        "name": "Namibia",
+        "cioc": "NAM"
+    },
+    {
+        "name": "Nauru",
+        "cioc": "NRU"
+    },
+    {
+        "name": "Nepal",
+        "cioc": "NEP"
+    },
+    {
+        "name": "Netherlands",
+        "cioc": "NED"
+    },
+    {
+        "name": "New-Caledonia",
+        "cioc": ""
+    },
+    {
+        "name": "New-Zealand",
+        "cioc": "NZL"
+    },
+    {
+        "name": "Nicaragua",
+        "cioc": "NCA"
+    },
+    {
+        "name": "Niger",
+        "cioc": "NIG"
+    },
+    {
+        "name": "Nigeria",
+        "cioc": "NGR"
+    },
+    {
+        "name": "Niue",
+        "cioc": ""
+    },
+    {
+        "name": "Norfolk-Island",
+        "cioc": ""
+    },
+    {
+        "name": "North-Korea",
+        "cioc": "PRK"
+    },
+    {
+        "name": "Northern-Mariana-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "Norway",
+        "cioc": "NOR"
+    },
+    {
+        "name": "Oman",
+        "cioc": "OMA"
+    },
+    {
+        "name": "Pakistan",
+        "cioc": "PAK"
+    },
+    {
+        "name": "Palau",
+        "cioc": "PLW"
+    },
+    {
+        "name": "Palestine",
+        "cioc": "PLE"
+    },
+    {
+        "name": "Panama",
+        "cioc": "PAN"
+    },
+    {
+        "name": "Papua-New-Guinea",
+        "cioc": "PNG"
+    },
+    {
+        "name": "Paraguay",
+        "cioc": "PAR"
+    },
+    {
+        "name": "Peru",
+        "cioc": "PER"
+    },
+    {
+        "name": "Philippines",
+        "cioc": "PHI"
+    },
+    {
+        "name": "Pitcairn",
+        "cioc": ""
+    },
+    {
+        "name": "Poland",
+        "cioc": "POL"
+    },
+    {
+        "name": "Portugal",
+        "cioc": "POR"
+    },
+    {
+        "name": "Puerto-Rico",
+        "cioc": "PUR"
+    },
+    {
+        "name": "Qatar",
+        "cioc": "QAT"
+    },
+    {
+        "name": "Republic-of-Kosovo",
+        "cioc": null
+    },
+    {
+        "name": "Réunion",
+        "cioc": ""
+    },
+    {
+        "name": "Romania",
+        "cioc": "ROU"
+    },
+    {
+        "name": "Russian-Federation",
+        "cioc": "RUS"
+    },
+    {
+        "name": "Rwanda",
+        "cioc": "RWA"
+    },
+    {
+        "name": "Saint-Barthélemy",
+        "cioc": ""
+    },
+    {
+        "name": "Saint-Helena-Ascension-and-Tristan-da-Cunha",
+        "cioc": null
+    },
+    {
+        "name": "Saint-Kitts-and-Nevis",
+        "cioc": "SKN"
+    },
+    {
+        "name": "Saint-Lucia",
+        "cioc": "LCA"
+    },
+    {
+        "name": "Saint-Martin",
+        "cioc": ""
+    },
+    {
+        "name": "Saint-Pierre-and-Miquelon",
+        "cioc": ""
+    },
+    {
+        "name": "Saint-Vincent-and-the-Grenadines",
+        "cioc": "VIN"
+    },
+    {
+        "name": "Samoa",
+        "cioc": "SAM"
+    },
+    {
+        "name": "San-Marino",
+        "cioc": "SMR"
+    },
+    {
+        "name": "Sao-Tome-and-Principe",
+        "cioc": "STP"
+    },
+    {
+        "name": "Saudi-Arabia",
+        "cioc": "KSA"
+    },
+    {
+        "name": "Senegal",
+        "cioc": "SEN"
+    },
+    {
+        "name": "Serbia",
+        "cioc": "SRB"
+    },
+    {
+        "name": "Seychelles",
+        "cioc": "SEY"
+    },
+    {
+        "name": "Sierra-Leone",
+        "cioc": "SLE"
+    },
+    {
+        "name": "Singapore",
+        "cioc": "SIN"
+    },
+    {
+        "name": "Sint-Maarten",
+        "cioc": ""
+    },
+    {
+        "name": "Slovakia",
+        "cioc": "SVK"
+    },
+    {
+        "name": "Slovenia",
+        "cioc": "SLO"
+    },
+    {
+        "name": "Solomon-Islands",
+        "cioc": "SOL"
+    },
+    {
+        "name": "Somalia",
+        "cioc": "SOM"
+    },
+    {
+        "name": "South-Africa",
+        "cioc": "RSA"
+    },
+    {
+        "name": "South-Georgia-and-the-South-Sandwich-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "South-Korea",
+        "cioc": "KOR"
+    },
+    {
+        "name": "South-Sudan",
+        "cioc": ""
+    },
+    {
+        "name": "Spain",
+        "cioc": "ESP"
+    },
+    {
+        "name": "Sri-Lanka",
+        "cioc": "SRI"
+    },
+    {
+        "name": "Sudan",
+        "cioc": "SUD"
+    },
+    {
+        "name": "Suriname",
+        "cioc": "SUR"
+    },
+    {
+        "name": "Svalbard-and-Jan-Mayen",
+        "cioc": ""
+    },
+    {
+        "name": "Swaziland",
+        "cioc": "SWZ"
+    },
+    {
+        "name": "Sweden",
+        "cioc": "SWE"
+    },
+    {
+        "name": "Switzerland",
+        "cioc": "SUI"
+    },
+    {
+        "name": "Syrian-Arab-Republic",
+        "cioc": "SYR"
+    },
+    {
+        "name": "Taiwan",
+        "cioc": "TPE"
+    },
+    {
+        "name": "Tajikistan",
+        "cioc": "TJK"
+    },
+    {
+        "name": "Tanzania-United-Republic-of",
+        "cioc": "TAN"
+    },
+    {
+        "name": "Thailand",
+        "cioc": "THA"
+    },
+    {
+        "name": "Timor-Leste",
+        "cioc": "TLS"
+    },
+    {
+        "name": "Togo",
+        "cioc": "TOG"
+    },
+    {
+        "name": "Tokelau",
+        "cioc": ""
+    },
+    {
+        "name": "Tonga",
+        "cioc": "TGA"
+    },
+    {
+        "name": "Trinidad-and-Tobago",
+        "cioc": "TTO"
+    },
+    {
+        "name": "Tunisia",
+        "cioc": "TUN"
+    },
+    {
+        "name": "Turkey",
+        "cioc": "TUR"
+    },
+    {
+        "name": "Turkmenistan",
+        "cioc": "TKM"
+    },
+    {
+        "name": "Turks-and-Caicos-Islands",
+        "cioc": ""
+    },
+    {
+        "name": "Tuvalu",
+        "cioc": "TUV"
+    },
+    {
+        "name": "Uganda",
+        "cioc": "UGA"
+    },
+    {
+        "name": "Ukraine",
+        "cioc": "UKR"
+    },
+    {
+        "name": "United-Arab-Emirates",
+        "cioc": "UAE"
+    },
+    {
+        "name": "United-Kingdom-of-Great-Britain-and-Northern-Ireland",
+        "cioc": "GBR"
+    },
+    {
+        "name": "United-States-of-America",
+        "cioc": "USA"
+    },
+    {
+        "name": "Uruguay",
+        "cioc": "URU"
+    },
+    {
+        "name": "Uzbekistan",
+        "cioc": "UZB"
+    },
+    {
+        "name": "Vanuatu",
+        "cioc": "VAN"
+    },
+    {
+        "name": "Venezuela",
+        "cioc": "VEN"
+    },
+    {
+        "name": "Viet-Nam",
+        "cioc": "VIE"
+    },
+    {
+        "name": "Wallis-and-Futuna",
+        "cioc": ""
+    },
+    {
+        "name": "Western-Sahara",
+        "cioc": ""
+    },
+    {
+        "name": "Yemen",
+        "cioc": "YEM"
+    },
+    {
+        "name": "Zambia",
+        "cioc": "ZAM"
+    },
+    {
+        "name": "Zimbabwe",  
+        "cioc": "ZIM"
+    }
+]

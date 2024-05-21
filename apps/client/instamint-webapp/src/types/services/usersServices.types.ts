@@ -1,19 +1,28 @@
 import type {
   ConfirmResetPassword,
   RequestResetPassword,
-  UserInfosSchema,
+  UserInfos,
   DeleteAccount,
   ReactivateAccount,
+  TwoFactorGenerateResult,
+  ActivateTwoFactorAuthResult,
+  TwoFactorAuthenticate,
   ModifyPassword,
   ModifyEmail,
+  UserAvatar,
 } from "@instamint/shared-types"
 
 export type UsersServices = {
-  requestResetPassword: RequestResetPassword
-  confirmResetPassword: ConfirmResetPassword
-  updateUserInfos: UserInfosSchema
-  deleteAccount: DeleteAccount
-  reactivateAccount: ReactivateAccount
-  modifyPassword: ModifyPassword
-  modifyEmail: ModifyEmail
+  requestResetPassword: [RequestResetPassword, null]
+  confirmResetPassword: [ConfirmResetPassword, null]
+  updateUserInfos: [UserInfos, null]
+  deleteAccount: [DeleteAccount, null]
+  reactivateAccount: [ReactivateAccount, null]
+  twoFactorCodeGeneration: [null, TwoFactorGenerateResult]
+  twoFactorActivation: [string, ActivateTwoFactorAuthResult]
+  twoFactorAuthentication: [TwoFactorAuthenticate, null]
+  twoFactorDeactivation: [string, null]
+  modifyPassword: [ModifyPassword, null]
+  modifyEmail: [ModifyEmail, null]
+  uploadAvatar: [UserAvatar, null]
 }

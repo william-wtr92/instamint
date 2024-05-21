@@ -1,13 +1,14 @@
 /* GENERIC TYPES */
-export * from "./api.types"
-export * from "./services.types"
+export * from "./utils/api.types"
+export * from "./apiServices.types"
 export * from "./contexts.types"
+export * from "./socketServices.types"
 
 /* APP */
-export * from "./app.types"
+export * from "./utils/app.types"
 
 /* ENV */
-export * from "./env.types"
+export * from "./utils/env.types"
 
 /* AUTH SERVICES */
 export * from "./services/authServices.types"
@@ -15,8 +16,11 @@ export * from "./services/authServices.types"
 /* USERS SERVICES */
 export * from "./services/usersServices.types"
 
+/* ADMIN SERVICES */
+export * from "./services/adminServices.types"
+
 /* HOOKS */
 export * from "./hooks/users/connectedUser.types"
-
-/* COMPONENTS */
-export * from "./components/utils/translateAlertDialog.types"
+export * from "./hooks/users/profileUser.types"
+export * from "./hooks/messages/message.types"
+export * from "./hooks/admin/users/adminUsers.types"

@@ -1,3 +1,6 @@
+import { useToast } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
+import { useTranslation } from "next-i18next"
 import {
   type FC,
   type PropsWithChildren,
@@ -6,9 +9,6 @@ import {
   useContext,
   useCallback,
 } from "react"
-import { useTranslation } from "next-i18next"
-import { useToast } from "@instamint/ui-kit"
-import { useRouter } from "next/router"
 
 import type { ActionsContextType, AppContextProviderProps } from "@/types"
 
@@ -31,7 +31,7 @@ export const ActionsProvider: FC<
   )
 
   const redirect = useCallback(
-    (link: string, delay = 3000) => {
+    (link: string, delay = 0) => {
       const timeoutId = setTimeout(() => {
         router.push(link)
       }, delay)
