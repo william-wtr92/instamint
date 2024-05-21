@@ -290,7 +290,7 @@ locals {
     "AZURE-ACCOUNT-KEY"                              = module.blob_storage.storage_account_key
     "AZURE-BLOB-CONTAINER"                           = module.blob_storage.storage_container_name
     "AZURE-BLOB-CONNECTION"                          = module.blob_storage.storage_account_connection_string
-    "NEXT_PUBLIC-BLOB_URL"                           = module.blob_storage.storage_url
+    "NEXT-PUBLIC-BLOB-URL"                           = module.blob_storage.storage_url
     "NEXT-PUBLIC-BASE-URL"                           = module.loadbalancer.business_ip // TODO: Change to Load Balancer IP on business VM
   }
 }

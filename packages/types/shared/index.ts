@@ -18,6 +18,10 @@ export * from "./types/users/profile/publication.types"
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 
+/* Admin Schemas & Types */
+export * from "./types/admin/users/adminUsersActions.types"
+export * from "./types/admin/users/adminUsersAll.types"
+
 /* CONSTANTS */
 
 /* WS Events */

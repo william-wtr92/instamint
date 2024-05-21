@@ -16,8 +16,12 @@ export * from "./services/authServices.types"
 /* USERS SERVICES */
 export * from "./services/usersServices.types"
 
+/* ADMIN SERVICES */
+export * from "./services/adminServices.types"
+
 /* HOOKS */
 export * from "./hooks/users/connectedUser.types"
 export * from "./hooks/users/profileUser.types"
 export * from "./hooks/publications/publications.types"
 export * from "./hooks/messages/message.types"
+export * from "./hooks/admin/users/adminUsers.types"

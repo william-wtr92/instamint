@@ -12,6 +12,8 @@ services:
     environment:
       - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
       - NEXT_PUBLIC_BLOB_URL=${NEXT_PUBLIC_BLOB_URL}
+      - NEXT_PUBLIC_AUTH_URL=${NEXT_PUBLIC_AUTH_URL}
+      - DOCKER_ENV=true
     networks:
       - instamint_network
 

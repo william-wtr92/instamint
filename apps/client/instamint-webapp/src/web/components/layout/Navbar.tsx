@@ -1,4 +1,5 @@
 import {
+  AdjustmentsHorizontalIcon,
   HomeIcon,
   MagnifyingGlassIcon,
   UserIcon,
@@ -9,46 +10,52 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React from "react"
 
+import { useUser } from "@/web/hooks/auth/useUser"
+import { routes } from "@/web/routes"
+
 const buttons = [
   {
     icon: (
       <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "home",
   },
   {
     icon: (
       <MagnifyingGlassIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "search",
   },
   {
     icon: (
       <UserIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/profile/settings",
+    path: routes.client.profile.settings.edit,
     label: "profile",
   },
   {
     icon: (
       <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "home",
   },
   {
     icon: (
       <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "home",
   },
 ]
 
 const Navbar = () => {
   const { t } = useTranslation("navbar")
+
+  const { data, isLoading } = useUser()
+  const user = isLoading ? null : data
 
   return (
     <div className="xs:h-full xs:min-w-[3.125rem] xs:w-fit xs:flex xs:flex-col xs:justify-start xs:px-2 xs:pt-10 xs:shadow-[0_0.125rem_5px_0_#00000040] xs:gap-12 z-30 h-[7%] w-full bg-neutral-50 lg:w-1/5 lg:min-w-[175px]">
@@ -82,6 +89,20 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
+
+      {user?.roleData === "admin" && (
+        <div className="mb-6 hidden md:flex md:gap-4">
+          <Link
+            href={routes.client.admin.users}
+            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+          >
+            <AdjustmentsHorizontalIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+            <Text type="body" variant="accent" className="hidden md:block">
+              {t("admin")}
+            </Text>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

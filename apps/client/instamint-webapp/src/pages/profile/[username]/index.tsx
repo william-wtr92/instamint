@@ -96,9 +96,9 @@ const ProfilePage = (
   }, [userTargetedData, joinRoom, redirect])
 
   useEffect(() => {
-    const translatedTitle = `Instamint - @${username}`
+    const translatedTitle = `${t("titles:profile.user")} ${username}`
     setPageTitle(translatedTitle)
-  }, [username])
+  }, [username, t])
 
   useEffect(() => {
     document.title = pageTitle

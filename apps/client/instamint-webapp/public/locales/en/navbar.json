@@ -1,6 +1,7 @@
 {
   "home": "Home",
   "search": "Search",
+  "admin": "Administration",
   "profile": "Profile",
     "select-lang": {
     "label": "Select language",

@@ -1,5 +1,11 @@
 import { Cog6ToothIcon } from "@heroicons/react/24/outline"
-import { Avatar, AvatarFallback, AvatarImage, Button } from "@instamint/ui-kit"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Text,
+} from "@instamint/ui-kit"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
@@ -56,8 +62,12 @@ const UserInfo = () => {
                 </Avatar>
               </Link>
               <div className="text-small xl:text-medium flex flex-col font-semibold">
-                <span>{user.username}</span>
-                <span className="truncate">{user.email}</span>
+                <Text type={"medium"} variant={"none"}>
+                  {user.username}
+                </Text>
+                <Text type={"medium"} variant={"none"} className="truncate">
+                  {user.email}
+                </Text>
               </div>
               <Link href={routes.client.profile.settings.base}>
                 <Cog6ToothIcon className="text-accent-500 w-6" />
