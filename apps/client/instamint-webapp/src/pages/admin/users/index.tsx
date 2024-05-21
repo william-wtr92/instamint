@@ -3,15 +3,9 @@ import { DataTable } from "@instamint/ui-kit"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import React, {
-  type ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from "react"
+import React, { useCallback, useEffect, useState } from "react"
 
 import type { UserActions } from "@/types"
-import AdminLayout from "@/web/components/layout/AdminLayout"
 import { useTableColumns } from "@/web/components/tables/admin/users/tableColumns"
 import { usersActionsConfig } from "@/web/components/tables/admin/users/usersActionsConfig"
 import { AlertPopup } from "@/web/components/utils/AlertPopup"
@@ -21,6 +15,7 @@ import { useUsers } from "@/web/hooks/admin/users/useUsers"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
+import getAdminLayout from "@/web/utils/layout/getAdminLayout"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context
@@ -207,9 +202,7 @@ const DashboardPage = () => {
   )
 }
 
-DashboardPage.getLayout = (page: ReactElement) => {
-  return <AdminLayout>{page}</AdminLayout>
-}
+DashboardPage.getLayout = getAdminLayout
 
 DashboardPage.title = "admin.users"
 
