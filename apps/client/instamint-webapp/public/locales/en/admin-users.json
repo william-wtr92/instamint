@@ -5,7 +5,8 @@
       "username": "Username",
       "createAt": "Creation date",
       "roleData": "Role",
-      "active": "Active"
+      "active": "Active",
+      "delete": "Deleted"
     },
     "cell": {
       "emailConnected": "{{email}} (me)",
@@ -44,10 +45,17 @@
       "description": "The account will be reactivated and will be able to connect to the application.",
       "cancel": "Cancel",
       "confirm": "Reactivate"
+    },
+    "deleteAccount": {
+      "title": "Would you like to delete the {{email}} account?",
+      "description": "The account will be deleted and will no longer be able to connect to the application.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
     }
   },
   "success": {
     "reactivateAccount": "The account of {{email}} has been successfully reactivated.",
-    "deactivateAccount": "The account of {{email}} has been successfully deactivated."
+    "deactivateAccount": "The account of {{email}} has been successfully deactivated.",
+    "deleteAccount": "The account of {{email}} has been successfully deleted."
   }
 }

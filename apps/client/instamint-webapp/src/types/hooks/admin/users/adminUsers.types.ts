@@ -5,6 +5,7 @@ export type User = {
   createdAt: string
   roleData: string
   active: boolean
+  deletionDate: string | null
 }
 
 export type Pagination = {
@@ -26,6 +27,7 @@ export type Users = {
 const userActions = {
   deactivate: "deactivate",
   reactivate: "reactivate",
+  delete: "delete",
 } as const
 
 export type UserActions = (typeof userActions)[keyof typeof userActions]
