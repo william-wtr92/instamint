@@ -98,7 +98,7 @@ const DashboardPage = () => {
 
       if (parseInt(userId!) === connectedUserData?.id) {
         await signOut(null)
-        redirect(routes.client.signIn, 2000)
+        redirect(routes.client.signIn)
       }
     },
     [
@@ -135,24 +135,8 @@ const DashboardPage = () => {
       })
 
       await mutate()
-
-      if (parseInt(userId!) === connectedUserData?.id) {
-        await signOut(null)
-        redirect(routes.client.signIn, 2000)
-      }
     },
-    [
-      reactivateAccount,
-      toast,
-      mutate,
-      redirect,
-      setModalOpen,
-      signOut,
-      connectedUserData,
-      userId,
-      userEmail,
-      t,
-    ]
+    [reactivateAccount, toast, mutate, setModalOpen, userEmail, t]
   )
 
   const handleFilterEmail = useCallback((email: string) => {

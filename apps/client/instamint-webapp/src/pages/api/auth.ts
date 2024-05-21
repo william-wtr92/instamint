@@ -12,6 +12,7 @@ const getApiBaseUrl = (): string => {
 
   return config.api.baseUrl
 }
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const authToken = req.cookies["auth-token"]
 

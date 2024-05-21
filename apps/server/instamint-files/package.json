@@ -3,10 +3,11 @@
   "version": "24.04",
   "description": "Images service for Instamint",
   "scripts": {
+    "azurite": "azurite --silent --location ./azurite --debug ./azurite/debug.log",
     "start": "node ./dist/index.js",
     "build": "tsc --project tsconfig.json",
     "dev": "tsx watch ./src/index.ts",
-    "dev:local": "concurrently \"azurite --silent --location ./azurite --debug ./azurite/debug.log\" \"tsx watch ./src/index.ts\"",
+    "dev:local": "concurrently \"pnpm run azurite\" \"pnpm run dev\"",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts"
   },

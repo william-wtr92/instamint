@@ -1,6 +1,7 @@
 import { EnvelopeIcon, UserCircleIcon } from "@heroicons/react/24/outline"
 import { Text } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback, useEffect, useState } from "react"
 
@@ -33,6 +34,8 @@ const ProfilePage = (
 ) => {
   const { username } = _props
 
+  const { t } = useTranslation()
+
   const {
     socket: { joinRoom },
   } = useAppContext()
@@ -58,9 +61,9 @@ const ProfilePage = (
   }, [userTargetedData, joinRoom, redirect])
 
   useEffect(() => {
-    const translatedTitle = `Instamint - @${username}`
+    const translatedTitle = `${t("titles:profile.user")} ${username}`
     setPageTitle(translatedTitle)
-  }, [username])
+  }, [username, t])
 
   useEffect(() => {
     document.title = pageTitle
