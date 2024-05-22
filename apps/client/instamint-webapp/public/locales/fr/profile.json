@@ -2,9 +2,9 @@
     "settings": {
         "accountInformation": "Informations du compte"
     },
-    "publications": "publication(s)",
-    "followers": "follower(s)",
-    "followed": "suivi(e)s",
+    "publications": "publication",
+    "followers": "follower",
+    "followed": "suivi(e)",
     "no-publication": "Vous n'avez aucune publications sur votre compte.",
     "loading": "Chargement en cours...",
     "add-publication": {
@@ -21,7 +21,7 @@
             "delete": "x",
             "error": "L'image doit être de type jpg, png ou jpeg."
           },
-        "success": "Félicitation vous venez d'ajouter une nouvelle publication!"
+        "success": "Félicitation vous venez d'ajouter une nouvelle publication !"
     },
     "cta": {
         "submit": "Enregistrer"

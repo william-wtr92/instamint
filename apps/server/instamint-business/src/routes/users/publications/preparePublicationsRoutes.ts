@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
-import { getPublicationSchema } from "@instamint/shared-types"
+import { getPublicationsSchema } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import PublicationsModel from "@/db/models/PublicationsModel"
@@ -30,10 +30,11 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
   publications.get(
     "/publications",
     auth,
-    zValidator("query", getPublicationSchema),
+    zValidator("query", getPublicationsSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const { limit, offset } = await c.req.query()
+      const noPublication = 0
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -42,8 +43,11 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
       const totalPublications = await PublicationsModel.query()
         .where({ userId: contextUser.id })
         .count()
+        .first()
 
-      const totalCount = parseInt(totalPublications[0].count, 10)
+      const totalCount = totalPublications
+        ? parseInt(totalPublications.count, 10)
+        : noPublication
 
       const newOffset = Math.max(
         totalCount - parseInt(offset, 10) - parseInt(limit, 10),

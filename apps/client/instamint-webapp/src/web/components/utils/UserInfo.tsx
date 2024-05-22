@@ -17,6 +17,10 @@ import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
+import {
+  firstLetter,
+  firstLetterUppercase,
+} from "@/web/utils/helpers/stringHelper"
 
 const UserInfo = () => {
   const { t } = useTranslation("navbar")
@@ -31,7 +35,8 @@ const UserInfo = () => {
 
   const { data, isLoading } = useUser()
   const user = isLoading ? null : data
-  const usernameFirstLetter = user?.username.charAt(0).toUpperCase()
+  const usernameFirstLetter = firstLetter(user?.username)
+  const userUsername = firstLetterUppercase(user?.username)
   const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
 
   const handleSignOut = useCallback(async () => {
@@ -63,7 +68,7 @@ const UserInfo = () => {
               </Link>
               <div className="text-small xl:text-medium flex flex-col font-semibold">
                 <Text type={"medium"} variant={"none"}>
-                  {user.username}
+                  {userUsername}
                 </Text>
                 <Text type={"medium"} variant={"none"} className="truncate">
                   {user.email}

@@ -3,6 +3,7 @@ import type {
   AdminUsersAll,
   Profile,
   GetMessages,
+  GetPublications,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -76,8 +77,8 @@ const apiRoutes = {
     },
     publications: {
       uploadPublication: "/users/upload-publication",
-      getPublications: (offset: number) =>
-        `/users/publications?limit=6&offset=${offset}`,
+      getPublications: (queries: Omit<GetPublications, "limit">) =>
+        `/users/publications?limit=6&offset=${queries.offset}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

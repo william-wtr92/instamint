@@ -2,8 +2,8 @@
     "settings": {
         "accountInformation": "Account information"
     },
-    "publications": "publication(s)",
-    "followers": "follower(s)",
+    "publications": "publication",
+    "followers": "follower",
     "followed": "followed",
     "no-publication": "You have no publications on your account.",
     "loading": "Loading...",

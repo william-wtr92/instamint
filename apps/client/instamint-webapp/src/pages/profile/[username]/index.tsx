@@ -1,13 +1,10 @@
-import { EnvelopeIcon } from "@heroicons/react/24/outline"
-import { Avatar, AvatarFallback, AvatarImage, Text } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import Image from "next/image"
-import Link from "next/link"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback, useEffect, useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
-import { config } from "@/web/config"
+import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
+import { PublicationsGrid } from "@/web/components/profile/PublicationsGrid"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
@@ -15,7 +12,6 @@ import { usePublication } from "@/web/hooks/publications/usePublication"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import { firstLetterUppercase } from "@/web/utils/helpers/stringHelper"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale, params } = context
@@ -42,6 +38,7 @@ const ProfilePage = (
     socket: { joinRoom },
   } = useAppContext()
   const { redirect } = useActionsContext()
+
   const { data: userData } = useUser()
   const {
     data: userTargetedData,
@@ -51,17 +48,11 @@ const ProfilePage = (
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const { publications, isLoading, setSize, isReachingEnd, isError } =
     usePublication()
+
   const [isAtBottom, setIsAtBottom] = useState<boolean>(true)
   const [isClient, setIsClient] = useState<boolean>(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
   const [pageTitle, setPageTitle] = useState<string>("")
-
-  const userUsername = firstLetterUppercase(userTargetedData?.username)
-  const usernameFirstLetter = userUsername?.charAt(0).toUpperCase()
+  const [havePublication, setHavePublication] = useState<boolean>(false)
 
   const handleScroll = useCallback(() => {
     const scrollContainer = scrollContainerRef.current
@@ -80,7 +71,7 @@ const ProfilePage = (
     }
 
     setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 10)
-  }, [setSize, isReachingEnd])
+  }, [setSize, isReachingEnd, setIsAtBottom])
 
   const handleDmUser = useCallback(() => {
     if (!userTargetedData) {
@@ -105,6 +96,12 @@ const ProfilePage = (
   }, [pageTitle])
 
   useEffect(() => {
+    if (publications.length > 0) {
+      setHavePublication(true)
+    }
+  }, [setHavePublication, publications])
+
+  useEffect(() => {
     const scrollContainer = scrollContainerRef.current
 
     if (scrollContainer && isAtBottom) {
@@ -123,87 +120,33 @@ const ProfilePage = (
 
   useEffect(() => {
     if (isError) {
-      redirect(routes.client.home, 0)
+      redirect(routes.client.home)
     }
   }, [isError, redirect])
 
+  useEffect(() => {
+    setIsClient(true)
+  }, [setIsClient])
+
   return (
     <div className="p-text-large-screen flex h-[60vh] flex-col gap-6 xl:h-screen">
-      {isClient ? (
+      {isClient && (
         <>
-          <div className="border-1 ml-4 mt-4 flex w-[95%] flex-row justify-start gap-2.5 rounded-md border-dashed p-4 xl:w-[95%]">
-            <Avatar className="relative left-1.5 size-12 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-28">
-              {userTargetedData?.avatar !== null &&
-              userTargetedData?.avatar !== undefined ? (
-                <AvatarImage
-                  src={config.api.blobUrl + userTargetedData?.avatar}
-                  alt={userUsername}
-                />
-              ) : (
-                <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-              )}
-            </Avatar>
-            <div className="ml-4 flex flex-col justify-between">
-              <div className="flex flex-row pt-2">
-                <Text variant="neutral" type="body" className="p-1 pr-4">
-                  {userUsername}
-                </Text>
-                <Link
-                  href={routes.client.profile.settings.edit}
-                  className="bg-accent-200 flex flex-row items-center justify-between rounded-lg p-1"
-                >
-                  <Text type="medium" variant="neutral" className="font-normal">
-                    {t("profile:settings.accountInformation")}
-                  </Text>
-                </Link>
-              </div>
-              <div className="P-1 flex flex-row pt-2">
-                <Text variant="neutral" type="body" className="pr-4">
-                  {publications?.length + " " + t("publications")}
-                </Text>
-                <Text variant="neutral" type="body" className="pr-4">
-                  {followersTargetedData?.count + " " + t("followers")}
-                </Text>
-                <Text variant="neutral" type="body" className="pr-4">
-                  {followedTargetedData?.count + " " + t("followed")}
-                </Text>
-              </div>
-              <Text variant="neutral" type="body" className="pt-3">
-                {userTargetedData?.bio}
-              </Text>
-              {userTargetedData?.email !== userData?.email ? (
-                <EnvelopeIcon
-                  className="size-6 hover:scale-105 hover:cursor-pointer"
-                  onClick={handleDmUser}
-                />
-              ) : null}
-            </div>
-          </div>
-          <div
-            className="p-text-large-screen border-1 scrollbar-thin scrollbar-thumb-accent-400 scrollbar-track-neutral-100 grid h-[85%] grid-cols-3 gap-1 overflow-y-auto rounded-md"
-            ref={scrollContainerRef}
-          >
-            {publications.length > 0 ? (
-              publications.map((publication) => (
-                <Image
-                  key={publication?.id}
-                  src={config.api.blobUrl + publication?.image}
-                  alt="post"
-                  width={250}
-                  height={250}
-                  className="h-[250px] w-[250px]"
-                />
-              ))
-            ) : (
-              <Text variant="neutral" type="body" className="pt-3">
-                {t("profile:no-publication")}
-              </Text>
-            )}
-            {isLoading && <p>{t("profile:loading")}</p>}
-          </div>
+          <ProfileHeader
+            userEmail={userData?.email}
+            userPage={userTargetedData}
+            handleDmUser={handleDmUser}
+            publications={publications}
+            followers={followersTargetedData?.count}
+            followed={followedTargetedData?.count}
+          />
+          <PublicationsGrid
+            publications={publications}
+            isLoading={isLoading}
+            havePublication={havePublication}
+            scrollContainerRef={scrollContainerRef}
+          />
         </>
-      ) : (
-        ""
       )}
     </div>
   )

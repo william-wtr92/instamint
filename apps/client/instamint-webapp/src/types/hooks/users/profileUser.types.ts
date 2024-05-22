@@ -1,18 +1,15 @@
-export type PublicationData = {
-  id: number
-  userId: number
-  image: string
-  description: string
-}
+import type { Publication } from "../publications/publications.types"
 
 export type ProfileUser = {
-  result: {
-    email: string
-    username: string
-    bio: string | null
-    avatar: string | null
-    publicationData: PublicationData[]
-  }
+  result:
+    | {
+        email: string
+        username: string
+        bio: string | null
+        avatar: string | null
+        publicationData: Publication[]
+      }
+    | undefined
   followers: {
     count: number
   }

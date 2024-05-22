@@ -53,10 +53,12 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
       const countFollower = await FollowersModel.query()
         .where({ followedId: user.id })
         .count()
+        .first()
 
       const countFollowed = await FollowersModel.query()
         .where({ followerId: user.id })
         .count()
+        .first()
 
       return c.json(
         {
@@ -66,8 +68,8 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
             "publicationData",
             "avatar",
           ]),
-          followers: countFollower[0],
-          followed: countFollowed[0],
+          followers: countFollower,
+          followed: countFollowed,
         },
         SC.success.OK
       )
