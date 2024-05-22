@@ -1,4 +1,4 @@
-import type { Publication as UserPublication } from "../publications/publications.types"
+import type { Publication } from "@/types/hooks/publications/publications.types"
 
 export type ProfileUser = {
   result: {
@@ -6,7 +6,7 @@ export type ProfileUser = {
     username: string
     bio: string | null
     avatar: string | null
-    publicationData: UserPublication[]
+    publicationData: Publication[]
   }
   followers: {
     count: number
