@@ -3,7 +3,7 @@ name: Instamint Monorepo - Azure CI/CD
 on:
   push:
     branches:
-      - main
+      - deactivated #by default is `main`, but we don't trigger this workflow because Azure ACR is not ready yet (not free)
 
 jobs:
   build_and_push:

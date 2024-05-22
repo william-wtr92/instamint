@@ -1,5 +1,6 @@
 import type { PrepareServicesContext } from "@/types"
 import deactivateAccountAdminService from "@/web/services/admin/users/deactivateAccountService"
+import deleteAccountAdminService from "@/web/services/admin/users/deleteAccountService"
 import reactivateAccountAdminService from "@/web/services/admin/users/reactivateAccountService"
 import emailValidationService from "@/web/services/auth/emailValidationService"
 import resendEmailValidationService from "@/web/services/auth/resendEmailValidationService"
@@ -52,6 +53,7 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
       admin: {
         deactivateAccount: deactivateAccountAdminService(context),
         reactivateAccount: reactivateAccountAdminService(context),
+        deleteAccount: deleteAccountAdminService(context),
       },
     },
   }

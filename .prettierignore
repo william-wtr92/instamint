@@ -8,3 +8,4 @@ out/
 **/pnpm-lock.yaml
 **/public/
 **/infra/terraform/.terraform/
+CHANGELOG.md

@@ -5,7 +5,8 @@
       "username": "Nom d'utilisateur",
       "createAt": "Date de création",
       "roleData": "Rôle",
-      "active": "Actif"
+      "active": "Actif",
+      "delete": "Supprimé"
     },
     "cell": {
       "emailConnected": "{{email}} (moi)",
@@ -44,10 +45,17 @@
       "description": "Le compte sera réactivé et pourra se connecter à nouveau à l'application.",
       "cancel": "Annuler",
       "confirm": "Réactiver"
+    },
+    "deleteAccount": {
+      "title": "Souhaitez-vous supprimer le compte de {{email}} ?",
+      "description": "Le compte sera supprimé et ne pourra plus se connecter à l'application.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
     }
   },
   "success": {
     "reactivateAccount": "Le compte de {{email}} a été réactivé avec succès.",
-    "deactivateAccount": "Le compte de {{email}} a été désactivé avec succès."
+    "deactivateAccount": "Le compte de {{email}} a été désactivé avec succès.",
+    "deleteAccount": "Le compte de {{email}} a été supprimé avec succès."
   }
 }
