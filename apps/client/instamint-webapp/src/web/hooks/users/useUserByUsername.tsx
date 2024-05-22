@@ -18,6 +18,8 @@ export const useUserByUsername = (getUser: Profile) => {
 
   return {
     data: data?.result,
+    followers: data?.followers,
+    followed: data?.followed,
     ...query,
   }
 }

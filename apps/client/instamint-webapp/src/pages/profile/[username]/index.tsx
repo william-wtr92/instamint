@@ -1,17 +1,17 @@
-import { EnvelopeIcon, UserCircleIcon } from "@heroicons/react/24/outline"
-import { Text } from "@instamint/ui-kit"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useRef } from "react"
+import { useTranslation } from "react-i18next"
 
+import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
+import { PublicationsGrid } from "@/web/components/profile/PublicationsGrid"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
+import { usePublication } from "@/web/hooks/publications/usePublication"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
-import { firstLetterUppercase } from "@/web/utils/helpers/stringHelper"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale, params } = context
@@ -32,20 +32,46 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const ProfilePage = (
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
+  const { t } = useTranslation("profile")
   const { username } = _props
-
-  const { t } = useTranslation()
-
   const {
     socket: { joinRoom },
   } = useAppContext()
   const { redirect } = useActionsContext()
+
   const { data: userData } = useUser()
-  const { data: userTargetedData } = useUserByUsername({ username })
+  const {
+    data: userTargetedData,
+    followers: followersTargetedData,
+    followed: followedTargetedData,
+  } = useUserByUsername({ username })
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const { publications, isLoading, setSize, isReachingEnd, isError } =
+    usePublication()
 
+  const [isAtBottom, setIsAtBottom] = useState<boolean>(true)
+  const [isClient, setIsClient] = useState<boolean>(false)
   const [pageTitle, setPageTitle] = useState<string>("")
+  const [havePublication, setHavePublication] = useState<boolean>(false)
 
-  const userUsername = firstLetterUppercase(userTargetedData?.username)
+  const handleScroll = useCallback(() => {
+    const scrollContainer = scrollContainerRef.current
+
+    if (!scrollContainer) {
+      return
+    }
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainer
+
+    if (scrollTop === 0 && !isReachingEnd) {
+      setSize((size) => size + 1)
+      scrollContainer.scrollTop = 10
+
+      return
+    }
+
+    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 10)
+  }, [setSize, isReachingEnd, setIsAtBottom])
 
   const handleDmUser = useCallback(() => {
     if (!userTargetedData) {
@@ -69,20 +95,59 @@ const ProfilePage = (
     document.title = pageTitle
   }, [pageTitle])
 
+  useEffect(() => {
+    if (publications.length > 0) {
+      setHavePublication(true)
+    }
+  }, [setHavePublication, publications])
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current
+
+    if (scrollContainer && isAtBottom) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight
+    }
+  }, [publications, isAtBottom])
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current
+    scrollContainer?.addEventListener("scroll", handleScroll)
+
+    return () => {
+      scrollContainer?.removeEventListener("scroll", handleScroll)
+    }
+  }, [handleScroll])
+
+  useEffect(() => {
+    if (isError) {
+      redirect(routes.client.home)
+    }
+  }, [isError, redirect])
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [setIsClient])
+
   return (
-    <div className="border-1 ml-3 mt-4 flex w-4/5 flex-col justify-center gap-2.5 rounded-md border-dashed p-4 xl:w-1/2">
-      <UserCircleIcon className="size-8" />
-      <div className="ml-1 flex justify-between">
-        <Text type={"body"} variant={"none"}>
-          {userUsername}
-        </Text>
-        {userTargetedData?.email !== userData?.email ? (
-          <EnvelopeIcon
-            className="size-6 hover:scale-105 hover:cursor-pointer"
-            onClick={handleDmUser}
+    <div className="p-text-large-screen flex h-[60vh] flex-col gap-6 xl:h-screen">
+      {isClient && (
+        <>
+          <ProfileHeader
+            userEmail={userData?.email}
+            userPage={userTargetedData}
+            handleDmUser={handleDmUser}
+            publications={publications}
+            followers={followersTargetedData?.count}
+            followed={followedTargetedData?.count}
           />
-        ) : null}
-      </div>
+          <PublicationsGrid
+            publications={publications}
+            isLoading={isLoading}
+            havePublication={havePublication}
+            scrollContainerRef={scrollContainerRef}
+          />
+        </>
+      )}
     </div>
   )
 }

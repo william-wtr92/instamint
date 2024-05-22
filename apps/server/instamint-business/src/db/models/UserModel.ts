@@ -1,4 +1,5 @@
 import BaseModel from "./BaseModel"
+import PublicationsModel from "./PublicationsModel"
 import RoleModel from "./RoleModel"
 
 import { hashPassword } from "@/utils/helpers/hashPassword"
@@ -27,6 +28,7 @@ class UserModel extends BaseModel {
   twoFactorAuthentication!: boolean
   secret!: string | null
   twoFactorBackupCodes!: string | null
+  publicationData!: PublicationsModel
 
   count!: string
 
@@ -38,6 +40,14 @@ class UserModel extends BaseModel {
         join: {
           from: "users.roleId",
           to: "roles.id",
+        },
+      },
+      publicationData: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: PublicationsModel,
+        join: {
+          from: "users.id",
+          to: "publications.userId",
         },
       },
     }

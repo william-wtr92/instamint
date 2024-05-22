@@ -3,6 +3,7 @@ import { type ApiRoutes, SC } from "@instamint/server-types"
 import { profileSchema, type Profile } from "@instamint/shared-types"
 import { Hono, type Context } from "hono"
 
+import FollowersModel from "@/db/models/FollowersModel"
 import UserModel from "@/db/models/UserModel"
 import { authMessages, globalsMessages } from "@/def"
 import { auth } from "@/middlewares/auth"
@@ -33,15 +34,42 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const { username } = c.req.param() as Profile
 
-      const user = await UserModel.query().where({ username }).first()
+      const userByUsername = await UserModel.query()
+        .where({ username })
+        .withGraphFetched("publicationData")
+        .first()
+
+      const userByLink = await UserModel.query()
+        .where({ link: username })
+        .withGraphFetched("publicationData")
+        .first()
+
+      const user = userByLink ? userByLink : userByUsername
 
       if (!user) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
+      const countFollower = await FollowersModel.query()
+        .where({ followedId: user.id })
+        .count()
+        .first()
+
+      const countFollowed = await FollowersModel.query()
+        .where({ followerId: user.id })
+        .count()
+        .first()
+
       return c.json(
         {
-          result: sanitizeUser(user),
+          result: sanitizeUser(user, [
+            "bio",
+            "id",
+            "publicationData",
+            "avatar",
+          ]),
+          followers: countFollower,
+          followed: countFollowed,
         },
         SC.success.OK
       )

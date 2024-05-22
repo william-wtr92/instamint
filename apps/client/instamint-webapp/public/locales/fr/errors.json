@@ -81,6 +81,15 @@
         }
       }
     },
+    "publications": {
+      "image": {
+        "fileNotFound": "Fichier introuvable.",
+        "fileSizeTooLarge": "L'image est trop grande.",
+        "avatarSizeTooLarge": "L'image est trop grande. La taille maximale est de 10Mo.",
+        "userNotFound": "Session expirée, reconnectez-vous.",
+        "avatarUploadFailed": "Une erreur est survenue lors de l'envoi de votre image."
+      }
+    },
     "reactivate-account": {
       "tokenNotProvided": "Lien invalide ou expiré. Assurez-vous de cliquer sur le lien que vous avez reçu par courriel.",
       "tokenInvalidStructure": "Lien invalide ou expiré. Veillez à bien cliquer sur le lien reçu par email.",

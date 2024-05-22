@@ -3,6 +3,7 @@ import type {
   AdminUsersAll,
   Profile,
   GetMessages,
+  GetPublications,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -18,6 +19,7 @@ const clientRoutes = {
     },
   },
   profile: {
+    getProfile: (link: string) => `/profile/${link}`,
     settings: {
       base: "/profile/settings",
       edit: "/profile/settings/edit",
@@ -72,6 +74,11 @@ const apiRoutes = {
       generate: "auth/2fa/generate",
       activate: "auth/2fa/activate",
       deactivate: "auth/2fa/deactivate",
+    },
+    publications: {
+      uploadPublication: "/users/upload-publication",
+      getPublications: (queries: Omit<GetPublications, "limit">) =>
+        `/users/publications?limit=6&offset=${queries.offset}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

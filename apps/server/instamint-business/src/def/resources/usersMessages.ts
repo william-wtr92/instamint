@@ -131,3 +131,18 @@ export const avatarDeleteFailed = {
 export const avatarDeleted = {
   message: "Avatar deleted.",
 } as const
+
+/* Publication */
+export const publicationUploadFailed = {
+  errorCode: "publicationUploadFailed",
+  message: "Publication upload failed.",
+} as const
+
+export const uploadFailed = {
+  errorCode: "uploadFailed",
+  message: "Upload failed.",
+} as const
+
+export const publicationUploaded = {
+  message: "Publication uploaded.",
+} as const
