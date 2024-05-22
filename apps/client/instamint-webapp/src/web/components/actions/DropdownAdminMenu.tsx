@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@instamint/ui-kit"
 import { MoreHorizontal } from "lucide-react"
+import { useCallback } from "react"
 
 import type { User, UserActions } from "@/types"
 
@@ -28,6 +29,10 @@ export const DropdownAdminMenu = ({
 }: Props) => {
   const deleted = user.deletionDate !== null
 
+  const handleCopyEmail = useCallback(() => {
+    navigator.clipboard.writeText(user.email)
+  }, [user])
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,7 +45,7 @@ export const DropdownAdminMenu = ({
         <DropdownMenuLabel>{t("table.actions.title")}</DropdownMenuLabel>
         <DropdownMenuItem
           className="hover:cursor-pointer"
-          onClick={() => navigator.clipboard.writeText(user.email)}
+          onClick={handleCopyEmail}
         >
           {t("table.actions.copyEmail")}
         </DropdownMenuItem>
