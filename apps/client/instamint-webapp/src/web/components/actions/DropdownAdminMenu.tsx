@@ -29,8 +29,8 @@ export const DropdownAdminMenu = ({
 }: Props) => {
   const deleted = user.deletionDate !== null
 
-  const handleCopyEmail = useCallback(() => {
-    navigator.clipboard.writeText(user.email)
+  const handleCopyEmail = useCallback(async () => {
+    await navigator.clipboard.writeText(user.email)
   }, [user])
 
   return (
