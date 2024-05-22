@@ -9,7 +9,7 @@ import { routes } from "@/web/routes"
 import {
   pluralCheckArray,
   pluralCheckNumber,
-} from "@/web/utils/helpers/pluralCheckHelpel"
+} from "@/web/utils/helpers/pluralCheckHelper"
 import {
   firstLetter,
   firstLetterUppercase,
