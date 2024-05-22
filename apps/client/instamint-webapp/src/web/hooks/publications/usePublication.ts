@@ -27,7 +27,9 @@ const getKey = (pageIndex: number, previousPageData: FetcherData | null) => {
   const numberOfPublicationPerPage = 6
   const offset = pageIndex * numberOfPublicationPerPage
 
-  return routes.api.users.publications.getPublications(offset)
+  return routes.api.users.publications.getPublications({
+    offset: offset.toString(),
+  })
 }
 
 export const usePublication = (): SWRInfiniteResponse => {
