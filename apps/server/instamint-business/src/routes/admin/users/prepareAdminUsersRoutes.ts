@@ -69,7 +69,12 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
         {
           message: adminMessages.usersFoundSuccessfully.message,
           result: {
-            users: sanitizeUsers(users, ["id", "createdAt", "active"]),
+            users: sanitizeUsers(users, [
+              "id",
+              "createdAt",
+              "active",
+              "deletionDate",
+            ]),
             pagination,
           },
         },

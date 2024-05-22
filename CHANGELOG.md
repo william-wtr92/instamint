@@ -2,6 +2,49 @@
 
 #### All notable changes of the project will be documented in this file.
 
+## [24.05](https://github.com/william-wtr92/instamint/compare/v24.04..HEAD) (2024-05-21)
+
+### 🚀 What's Changed
+
+- **build(azure): 🔨 terraform infrastructure & ansible setup ([#17](https://github.com/william-wtr92/instamint/pull/17))**, by [@william-wtr92](https://github.com/william-wtr92)
+  in ([#df344e3](https://github.com/william-wtr92/instamint/commit/df344e3795059e61c469dd9f0a483c98b06f1f95))
+- **chore(deps): bump next from 14.1.0 to 14.2.2 ([#18](https://github.com/william-wtr92/instamint/pull/18))**,
+  by [@dependabot[bot]](https://github.com/dependabot[bot])
+  in ([#3672867](https://github.com/william-wtr92/instamint/commit/367286753f32d3eae015f14b8fd6990465464be7))
+- **chore(deps-dev): bump @commitlint/config-conventional from 19.0.3 to
+  19.2.2 ([#20](https://github.com/william-wtr92/instamint/pull/20))**,
+  by [@dependabot[bot]](https://github.com/dependabot[bot])
+  in ([#5684130](https://github.com/william-wtr92/instamint/commit/568413070ed3709ed3992d5f9621edbf867f6ef3))
+- **chore(deps): bump next-i18next from 15.2.0 to 15.3.0 ([#21](https://github.com/william-wtr92/instamint/pull/21))**,
+  by [@dependabot[bot]](https://github.com/dependabot[bot])
+  in ([#2704704](https://github.com/william-wtr92/instamint/commit/270470435a6990e2efc8471da39b59520c1591b1))
+- **chore(deps-dev): bump eslint-plugin-jest from 27.9.0 to
+  28.2.0 ([#22](https://github.com/william-wtr92/instamint/pull/22))**,
+  by [@dependabot[bot]](https://github.com/dependabot[bot])
+  in ([#66a8c8d](https://github.com/william-wtr92/instamint/commit/66a8c8d7f666b626427eb605195465ed01eecc90))
+- **feat(settings): 🚀 user can update their location ([#23](https://github.com/william-wtr92/instamint/pull/23))**,
+  by [@Thomas-De-Oliveira](https://github.com/Thomas-De-Oliveira)
+  in ([#3abbdd1](https://github.com/william-wtr92/instamint/commit/3abbdd1b4e4174bd9a901f90652f0fed6582f28f))
+- **feat(avatar): 🚀 user can upload their own avatar ([#24](https://github.com/william-wtr92/instamint/pull/24))**,
+  by [@william-wtr92](https://github.com/william-wtr92)
+  in ([#512047c](https://github.com/william-wtr92/instamint/commit/512047c81760fe85d382a5872ea68d2cfcd57987))
+- **feat(messages): 🚀 private messages ([#30](https://github.com/william-wtr92/instamint/pull/30))**,
+  by [@william-wtr92](https://github.com/william-wtr92)
+  in ([#9012596](https://github.com/william-wtr92/instamint/commit/90125962f9696e33bb65b2f7f954997a2d986a2c))
+- **feat(2FA) : 🚀 users can enable/disable two-factor
+  authentication ([#36](https://github.com/william-wtr92/instamint/pull/36))**,
+  by [@Scalpal](https://github.com/Scalpal)
+  in ([#8d9e1bc](https://github.com/william-wtr92/instamint/commit/8d9e1bc9972b9e91e9d6b4fa99adba5c8d51512f))
+- **fix(settings): 🚨 redirect link to user profile ([#31](https://github.com/william-wtr92/instamint/pull/31))**,
+  by [@Thomas-De-Oliveira](https://github.com/Thomas-De-Oliveira)
+  in ([#c174a2b](https://github.com/william-wtr92/instamint/commit/c174a2b591a79ba97ac8c77d4883339d33454116))
+- **feat(admin-users): 🚀 administration of users ([#37](https://github.com/william-wtr92/instamint/pull/37))**,
+  by [@william-wtr92](https://github.com/william-wtr92)
+  in ([#495cc80](https://github.com/william-wtr92/instamint/commit/495cc809a75eff159b18cb71fef5f884aa361e25))
+- **fix(ci): 🚨 deactivation of deploy CI because Azure ACR is down now caused by his pricing**,
+  by [@wwautrin](https://github.com/wwautrin)
+  in ([#61495c3](https://github.com/william-wtr92/instamint/commit/61495c32d72e84f8d03978a093c66b2d75a3d0be))
+
 ## [24.04](https://github.com/william-wtr92/instamint/compare/ab2f5ebbdd7899ba9ee70966b0854ab887754f21..HEAD) (2024-04-23)
 
 ### 🚀 What's Changed

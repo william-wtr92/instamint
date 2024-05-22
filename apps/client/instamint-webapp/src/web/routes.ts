@@ -45,6 +45,7 @@ const apiRoutes = {
         `/admin/users/${params.id}/deactivate`,
       reactivate: (params: UserIdAdminAction) =>
         `/admin/users/${params.id}/reactivate`,
+      delete: (params: UserIdAdminAction) => `/admin/users/${params.id}/delete`,
     },
   },
   auth: {
