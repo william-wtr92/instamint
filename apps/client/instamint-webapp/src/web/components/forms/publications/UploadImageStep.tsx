@@ -3,7 +3,6 @@ import type { AddPublication } from "@instamint/shared-types"
 import {
   AlertDialogDescription,
   AlertDialogFooter,
-  Button,
   FormControl,
   FormField,
   FormItem,
@@ -12,84 +11,73 @@ import {
 } from "@instamint/ui-kit"
 import Image from "next/image"
 import { useTranslation } from "next-i18next"
-import React from "react"
 import type { UseFormReturn } from "react-hook-form"
 
 type Props = {
   form: UseFormReturn<AddPublication>
-  handleNextStep: () => void
+  baseImage: File | null
+  handleBaseImage: (image: File | null) => void
 }
 
 const UploadImageStep = (props: Props) => {
-  const { form, handleNextStep } = props
+  const { form, baseImage, handleBaseImage } = props
 
   const { t } = useTranslation("navbar")
 
   return (
-    <AlertDialogFooter className="flex h-[70vh] w-[100vw] flex-col items-center justify-center gap-4 p-8 pt-0 sm:flex-col sm:justify-center">
-      {!form.watch("image") && (
-        <>
+    <AlertDialogFooter className="flex h-[60vh] w-[100vw] flex-col items-center justify-center gap-8 p-8 pt-0 sm:flex-col sm:justify-center md:w-[80vw] lg:w-[60vw]">
+      {baseImage !== null ? (
+        <div className="relative mt-4 aspect-square h-full overflow-hidden rounded border border-neutral-200">
+          <Image
+            src={URL.createObjectURL(baseImage)}
+            className="h-full w-full object-cover"
+            alt="Uploaded publication image"
+            fill
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-3">
           <PhotoIcon className="size-14" />
 
-          <AlertDialogDescription>
+          <AlertDialogDescription className="lg:text-heading text-subheading font-medium">
             {t("add-publication-modal.step-one.description")}
           </AlertDialogDescription>
-        </>
+
+          <AlertDialogDescription className="text-medium font-light">
+            {t("add-publication-modal.step-one.sub-description")}
+          </AlertDialogDescription>
+        </div>
       )}
 
       <FormField
         control={form.control}
         name="image"
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         render={({ field: { value, onChange, ...fieldProps } }) => (
-          <FormItem className="flex w-full flex-col items-center justify-center gap-4">
-            {value && (
-              <div className="relative mt-8 aspect-square w-full overflow-hidden rounded border border-neutral-200 md:w-[80%]">
-                <Image
-                  src={URL.createObjectURL(value)}
-                  className="h-full w-full object-cover"
-                  alt="Uploaded publication image"
-                  fill
-                />
-              </div>
-            )}
-
+          <FormItem>
             <FormControl>
-              <div className="mt-0">
-                <Input
-                  {...fieldProps}
-                  id={"avatar"}
-                  type={"file"}
-                  className="hidden"
-                  placeholder={t(
-                    "profile-settings-edit:update-account.avatar.placeholder"
-                  )}
-                  accept=".jpg,.png,.webp,.ogg,.flac"
-                  onChange={(event) =>
-                    onChange(event.target.files && event.target.files[0])
-                  }
-                />
-
-                <div className="flex flex-col items-center gap-3">
-                  <Label
-                    htmlFor={"avatar"}
-                    className="rounded-md p-3 outline-dashed outline-[0.5px] hover:cursor-pointer"
-                  >
-                    {form.watch("image") === undefined
-                      ? t("add-publication-modal.cta.select-image")
-                      : t("add-publication-modal.cta.change-image")}
-                  </Label>
-                </div>
-              </div>
+              <Input
+                {...fieldProps}
+                id={"publication-image"}
+                type={"file"}
+                className="hidden"
+                accept=".jpg,.png,.webp,.ogg,.flac"
+                onChange={(event) =>
+                  handleBaseImage(event.target.files && event.target.files[0])
+                }
+              />
             </FormControl>
+            <Label
+              htmlFor={"publication-image"}
+              className="lg:text-body rounded-md border border-dashed border-neutral-300 p-3 hover:cursor-pointer"
+            >
+              {baseImage !== null
+                ? t("add-publication-modal.cta.select-image")
+                : t("add-publication-modal.cta.change-image")}
+            </Label>
           </FormItem>
         )}
       />
-
-      {form.watch("image") !== undefined && (
-        <Button onClick={handleNextStep}>
-          {t("add-publication-modal.cta.next")}
-        </Button>
-      )}
     </AlertDialogFooter>
   )
 }

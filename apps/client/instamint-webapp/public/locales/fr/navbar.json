@@ -23,15 +23,18 @@
     "cancel-sign-out": "Annuler"
   },
   "add-publication-modal": {
-    "header": {
-      "add-publication-title": "Ajouter une publication"
-    },
     "step-one": {
-      "description": "Séléctionner l'image que vous souhaitez publier"
+      "title": "Créer une publication",
+      "description": "Séléctionnez l'image que vous souhaitez publier",
+      "sub-description": "Seuls les fichiers .jpg, .png, .webp, .ogg, .flac sont acceptés"
     },    
     "step-two": {
+      "title": "Recadrer votre image"
+    },
+    "step-three": {
+      "title": "Information de la publication",
       "description-input": {
-        "label": "Description",
+        "label" : "Description",
         "placeholder": "Ajouter une description...",
         "error": "Veuillez ajouter une description"
       },
@@ -49,6 +52,8 @@
     "cta": {
       "select-image": "Selectionner une image",
       "change-image": "Changer d'image",
+      "back-to-original": "Rétablir à l'original",
+      "crop-image": "Recadrer l'image",
       "next": "Suivant"
     }
   }

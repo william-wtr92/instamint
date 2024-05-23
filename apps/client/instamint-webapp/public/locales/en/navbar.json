@@ -23,13 +23,16 @@
     "cancel-sign-out": "Cancel"
   },
   "add-publication-modal": {
-    "header": {
-      "add-publication-title": "Add a publication"
-    },
     "step-one": {
-      "description": "Select the image you wish to publish"
+      "title": "Create a publication",
+      "description": "Select the image you want to publish",
+      "sub-description": "Only .jpg, .png, .webp, .ogg, .flac formats are accepted"
     },
     "step-two": {
+      "title": "Crop your image"
+    },
+    "step-three": {
+      "title": "Publication information",
       "description-input": {
         "label": "Description",
         "placeholder": "Add a description...",
@@ -49,6 +52,8 @@
     "cta": {
       "select-image": "Select an image",
       "change-image": "Change image",
+      "back-to-original": "Back to original",
+      "crop-image": "Crop image",
       "next": "Next"
     }
   }

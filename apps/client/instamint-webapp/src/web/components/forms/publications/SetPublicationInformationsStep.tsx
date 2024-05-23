@@ -13,6 +13,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Text,
   Textarea,
 } from "@instamint/ui-kit"
 import Image from "next/image"
@@ -24,11 +25,11 @@ import countries from "@/web/utils/countries.json"
 
 type Props = {
   form: UseFormReturn<AddPublication>
-  handleNextStep: () => void
+  croppedImage: File
 }
 
 const SetPublicationInformationsStep = (props: Props) => {
-  const { form, handleNextStep } = props
+  const { form, croppedImage } = props
 
   const { t } = useTranslation("navbar")
 
@@ -59,6 +60,10 @@ const SetPublicationInformationsStep = (props: Props) => {
       if (event.key === "Enter") {
         event.preventDefault()
 
+        if (input.value.trim() === "") {
+          return
+        }
+
         const currentHashtags = form.getValues("hashtags")
 
         const hashtag = "#" + input.value.trim()
@@ -79,31 +84,58 @@ const SetPublicationInformationsStep = (props: Props) => {
     }
   }, [form])
 
+  useEffect(() => {
+    const input = inputRef.current
+
+    if (!input) {
+      return
+    }
+
+    const handleRegex = (event: Event) => {
+      const regex = /^[a-zA-Z]*$/
+      const input = event.target as HTMLInputElement
+
+      if (!input) {
+        return
+      }
+
+      if (!regex.test(input.value)) {
+        input.value = input.value.slice(0, -1)
+      }
+    }
+
+    input.addEventListener("input", handleRegex)
+
+    return () => {
+      input.removeEventListener("input", handleRegex)
+    }
+  }, [])
+
   return (
-    <AlertDialogFooter className="flex h-[70vh] w-[100vw] flex-col gap-4 p-8 md:flex-row">
-      <div className="relative aspect-square flex-1 overflow-hidden rounded border border-neutral-200">
+    <AlertDialogFooter className="flex h-[60vh] w-[100vw] flex-col overflow-scroll pt-4 md:h-[60vh] md:w-[80vw] md:flex-row md:overflow-auto md:pt-0 lg:w-[60vw]">
+      <div className="relative aspect-square h-full min-h-[25vh] flex-1 self-center overflow-hidden bg-neutral-800 md:h-full md:w-[60%] md:self-start">
         <Image
-          src={URL.createObjectURL(form.getValues("image"))}
-          className="h-full w-full object-cover"
+          src={URL.createObjectURL(croppedImage)}
+          className="h-full w-full object-contain"
           alt="Uploaded publication image"
           fill
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-col gap-4 p-4 md:w-[40%] md:overflow-scroll">
         <FormField
           control={form.control}
           name="description"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="relative left-1 font-bold">
-                {t("add-publication-modal.step-two.description-input.label")}
+                {t("add-publication-modal.step-three.description-input.label")}
               </FormLabel>
               <FormControl>
                 <Textarea
                   className="focus-visible:outline-accent-500 mt-2 max-h-[10rem] px-4 py-2 focus-visible:border-0 focus-visible:ring-0"
                   placeholder={t(
-                    "add-publication-modal.step-two.description-input.placeholder"
+                    "add-publication-modal.step-three.description-input.placeholder"
                   )}
                   {...field}
                 />
@@ -115,7 +147,7 @@ const SetPublicationInformationsStep = (props: Props) => {
                 {errors.description ? (
                   <span>
                     {t(
-                      "add-publication-modal.step-two.description-input.error"
+                      "add-publication-modal.step-three.description-input.error"
                     )}
                   </span>
                 ) : null}
@@ -130,19 +162,19 @@ const SetPublicationInformationsStep = (props: Props) => {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="relative left-1 font-bold">
-                {t("add-publication-modal.step-two.location-input.label")}
+                {t("add-publication-modal.step-three.location-input.label")}
               </FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-[250px]">
+                  <SelectTrigger className="w-full">
                     <SelectValue
                       placeholder={t(
-                        "add-publication-modal.step-two.location-input.placeholder"
+                        "add-publication-modal.step-three.location-input.placeholder"
                       )}
                     />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-white" position={"popper"}>
+                <SelectContent className="w-full bg-white" position={"popper"}>
                   {countries.map((country, index) => (
                     <SelectItem key={index} value={country.name}>
                       {t(`countries:${country.name}`)}
@@ -156,7 +188,7 @@ const SetPublicationInformationsStep = (props: Props) => {
               >
                 {errors.location ? (
                   <span>
-                    {t("add-publication-modal.step-two.location-input.error")}
+                    {t("add-publication-modal.step-three.location-input.error")}
                   </span>
                 ) : null}
               </FormMessage>
@@ -167,24 +199,26 @@ const SetPublicationInformationsStep = (props: Props) => {
         <FormField
           control={form.control}
           name="hashtags"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel className="relative left-1 font-bold">
-                {t("add-publication-modal.step-two.hashtags-input.label")}
+                {t("add-publication-modal.step-three.hashtags-input.label")}
               </FormLabel>
 
               {form.getValues("hashtags").length > 0 && (
-                <div className="flex flex-row gap-2 rounded-sm p-1">
+                <div className="flex flex-row flex-wrap gap-2 rounded-sm p-1">
                   {form.getValues("hashtags").map((hashtag, index) => (
                     <button
                       type="button"
                       key={index}
-                      className="bg-accent-500 group/hashtag flex flex-row items-center justify-between gap-2 rounded-sm p-1 text-white"
+                      className="bg-accent-500 group/hashtag flex flex-row flex-wrap items-center justify-between rounded-sm p-1 text-white hover:gap-2"
                       onClick={() => removeHashtag(index)}
                     >
-                      <span>{hashtag}</span>
+                      <Text type="medium" variant="none">
+                        {hashtag}
+                      </Text>
                       <span>
-                        <XMarkIcon className="hidden size-5 group-hover/hashtag:block" />
+                        <XMarkIcon className="hidden size-4 group-hover/hashtag:block" />
                       </span>
                     </button>
                   ))}
@@ -193,9 +227,10 @@ const SetPublicationInformationsStep = (props: Props) => {
 
               <FormControl>
                 <Input
+                  type="text"
                   ref={inputRef}
                   placeholder={t(
-                    "add-publication-modal.step-two.hashtags-input.placeholder"
+                    "add-publication-modal.step-three.hashtags-input.placeholder"
                   )}
                   min={2}
                   maxLength={20}
