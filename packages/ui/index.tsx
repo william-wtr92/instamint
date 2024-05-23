@@ -18,5 +18,6 @@ export * from "./src/components/Dialog"
 export * from "./src/components/InputOtp"
 export * from "./src/components/Textarea"
 export * from "./src/components/Select"
+export * from "./src/components/Slider"
 
 export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"
