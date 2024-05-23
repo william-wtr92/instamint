@@ -1,5 +1,4 @@
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"
-import { type AddPublication } from "@instamint/shared-types"
 import {
   AlertDialogCancel,
   AlertDialogHeader,
@@ -8,15 +7,14 @@ import {
 } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import { useCallback } from "react"
-import { type UseFormReturn } from "react-hook-form"
 
 import { steps } from "./AddPublicationModal"
 
 type Props = {
-  form: UseFormReturn<AddPublication>
   step: number
   baseImage: File | null
   croppedImage: File | null
+  isFormValid: () => boolean
   handleNextStep: () => void
   handleShowAddPublicationModal: () => void
   handlePreviousStep: () => void
@@ -24,10 +22,10 @@ type Props = {
 
 const AddPublicationModalHeader = (props: Props) => {
   const {
-    form,
     step,
     baseImage,
     croppedImage,
+    isFormValid,
     handleNextStep,
     handleShowAddPublicationModal,
     handlePreviousStep,
@@ -60,12 +58,12 @@ const AddPublicationModalHeader = (props: Props) => {
         return croppedImage === null
 
       case steps.three:
-        return !form.formState.isValid
+        return !isFormValid()
 
       default:
         return true
     }
-  }, [baseImage, croppedImage, form, step])
+  }, [baseImage, croppedImage, isFormValid, step])
 
   return (
     <AlertDialogHeader className="border-b-1 flex w-full flex-row items-center justify-between border-neutral-200">

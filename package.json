@@ -15,6 +15,7 @@
 
     "build:webapp": "dotenv -e .env -- pnpm pnpm --filter @instamint/webapp-client build",
     "lint:webapp": "pnpm --filter @instamint/webapp-client lint",
+    "fix:webapp": "pnpm --filter @instamint/webapp-client fix",
     "dev:webapp": "dotenv -e .env -- pnpm --filter @instamint/webapp-client dev",
 
     "build:files": "pnpm --filter @instamint/files-server build",

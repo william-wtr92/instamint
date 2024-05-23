@@ -1,15 +1,15 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { type SignIn, signInSchema } from "@instamint/shared-types"
+import { signInSchema, type SignIn } from "@instamint/shared-types"
 import {
+  Button,
   Form,
-  FormField,
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
   Input,
-  Button,
 } from "@instamint/ui-kit"
 import type { GetServerSideProps } from "next"
 import { useTranslation } from "next-i18next"

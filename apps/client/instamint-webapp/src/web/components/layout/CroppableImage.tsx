@@ -10,12 +10,10 @@ type Props = {
   baseImage: string
   croppedImage: File | null
   handleCroppedImage: (croppedImage: File | null) => void
-  handleFinalImage: (image: File) => void
 }
 
 const CroppableImage = (props: Props) => {
-  const { baseImage, croppedImage, handleCroppedImage, handleFinalImage } =
-    props
+  const { baseImage, croppedImage, handleCroppedImage } = props
 
   const { t } = useTranslation("navbar")
 
@@ -50,8 +48,7 @@ const CroppableImage = (props: Props) => {
     }
 
     handleCroppedImage(croppedImgFile)
-    handleFinalImage(croppedImgFile)
-  }, [croppedAreaPixels, baseImage, handleCroppedImage, handleFinalImage])
+  }, [croppedAreaPixels, baseImage, handleCroppedImage])
 
   const resetToOriginalImage = useCallback(() => {
     handleCroppedImage(null)

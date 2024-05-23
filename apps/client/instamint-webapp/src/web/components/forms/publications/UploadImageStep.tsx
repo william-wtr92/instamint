@@ -1,26 +1,20 @@
 import { PhotoIcon } from "@heroicons/react/24/outline"
-import type { AddPublication } from "@instamint/shared-types"
 import {
   AlertDialogDescription,
   AlertDialogFooter,
-  FormControl,
-  FormField,
-  FormItem,
   Input,
   Label,
 } from "@instamint/ui-kit"
 import Image from "next/image"
 import { useTranslation } from "next-i18next"
-import type { UseFormReturn } from "react-hook-form"
 
 type Props = {
-  form: UseFormReturn<AddPublication>
   baseImage: File | null
   handleBaseImage: (image: File | null) => void
 }
 
 const UploadImageStep = (props: Props) => {
-  const { form, baseImage, handleBaseImage } = props
+  const { baseImage, handleBaseImage } = props
 
   const { t } = useTranslation("navbar")
 
@@ -49,35 +43,23 @@ const UploadImageStep = (props: Props) => {
         </div>
       )}
 
-      <FormField
-        control={form.control}
-        name="image"
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        render={({ field: { value, onChange, ...fieldProps } }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...fieldProps}
-                id={"publication-image"}
-                type={"file"}
-                className="hidden"
-                accept=".jpg,.png,.webp,.ogg,.flac"
-                onChange={(event) =>
-                  handleBaseImage(event.target.files && event.target.files[0])
-                }
-              />
-            </FormControl>
-            <Label
-              htmlFor={"publication-image"}
-              className="lg:text-body rounded-md border border-dashed border-neutral-300 p-3 hover:cursor-pointer"
-            >
-              {baseImage !== null
-                ? t("add-publication-modal.cta.select-image")
-                : t("add-publication-modal.cta.change-image")}
-            </Label>
-          </FormItem>
-        )}
+      <Input
+        id={"publication-image"}
+        type={"file"}
+        className="hidden"
+        accept=".jpg,.png,.webp,.ogg,.flac"
+        onChange={(event) =>
+          handleBaseImage(event.target.files && event.target.files[0])
+        }
       />
+      <Label
+        htmlFor={"publication-image"}
+        className="lg:text-body rounded-md border border-dashed border-neutral-300 p-3 hover:cursor-pointer"
+      >
+        {baseImage !== null
+          ? t("add-publication-modal.cta.select-image")
+          : t("add-publication-modal.cta.change-image")}
+      </Label>
     </AlertDialogFooter>
   )
 }

@@ -1,16 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  addPublicationSchema,
-  type AddPublication,
-} from "@instamint/shared-types"
-import { AlertDialog, AlertDialogContent, Form } from "@instamint/ui-kit"
-import { useCallback, useState } from "react"
-import { useForm } from "react-hook-form"
+import { addPublicationSchema } from "@instamint/shared-types"
+import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
+import { useState } from "react"
 
-import AddPublicationModalHeader from "./AddPublicationModalHeader"
-import CropImageStep from "./CropImageStep"
-import SetPublicationInformationsStep from "./SetPublicationInformationsStep"
-import UploadImageStep from "./UploadImageStep"
+import AddPublicationModalHeader from "@/web/components/forms/publications/AddPublicationModalHeader"
+import CropImageStep from "@/web/components/forms/publications/CropImageStep"
+import SetPublicationInformationsStep from "@/web/components/forms/publications/SetPublicationInformationsStep"
+import UploadImageStep from "@/web/components/forms/publications/UploadImageStep"
+import { useUser } from "@/web/hooks/auth/useUser"
 
 export const steps = {
   one: 1,
@@ -26,45 +22,58 @@ type Props = {
 const AddPublicationModal = (props: Props) => {
   const { isOpen, handleShowAddPublicationModal } = props
 
-  const form = useForm<AddPublication>({
-    resolver: zodResolver(addPublicationSchema),
-    mode: "onBlur",
-    defaultValues: {
-      author: "",
-      description: "",
-      image: undefined,
-      hashtags: [],
-      location: undefined,
-    },
-  })
+  const { data, isLoading } = useUser()
+  const user = !isLoading && data
 
   const [step, setStep] = useState<number>(1)
+  const [description, setDescription] = useState<string>("")
+  const [location, setLocation] = useState<string>("")
+  const [hashtags, setHashtags] = useState<string[]>([])
   const [baseImage, setBaseImage] = useState<File | null>(null)
   const [croppedImage, setCroppedImage] = useState<File | null>(null)
 
-  const handleNextStep = useCallback(() => {
+  const handleNextStep = () => {
     setStep((prevState) => prevState + 1)
-  }, [])
+  }
 
-  const handlePreviousStep = useCallback(() => {
+  const handlePreviousStep = () => {
     setStep((prevState) => prevState - 1)
-  }, [])
+  }
 
-  const handleBaseImage = useCallback((image: File | null) => {
+  const removeHashtag = (index: number) => {
+    setHashtags((prevState: string[]) =>
+      prevState.filter((_, i) => i !== index)
+    )
+  }
+
+  const handleBaseImage = (image: File | null) => {
     setBaseImage(image)
     setCroppedImage(null)
-  }, [])
+  }
 
-  const handleCroppedImage = useCallback((image: File | null) => {
+  const handleCroppedImage = (image: File | null) => {
     setCroppedImage(image)
-  }, [])
+  }
 
-  const handleFinalImage = useCallback(
-    (image: File) => {
-      form.setValue("image", image)
-    },
-    [form]
-  )
+  const isFormValid = () => {
+    if (!user) {
+      return false
+    }
+
+    try {
+      addPublicationSchema.parse({
+        author: user.username,
+        description,
+        image: croppedImage,
+        location,
+        hashtags,
+      })
+
+      return true
+    } catch (error) {
+      return false
+    }
+  }
 
   return (
     <AlertDialog open={isOpen}>
@@ -73,42 +82,43 @@ const AddPublicationModal = (props: Props) => {
         className="flex flex-col gap-0 overflow-hidden bg-white p-0"
       >
         <AddPublicationModalHeader
-          form={form}
           step={step}
           baseImage={baseImage}
           croppedImage={croppedImage}
+          isFormValid={isFormValid}
           handleNextStep={handleNextStep}
           handleShowAddPublicationModal={handleShowAddPublicationModal}
           handlePreviousStep={handlePreviousStep}
         />
 
-        <Form {...form}>
-          <form className="h-full w-full">
-            {step === steps.one && (
-              <UploadImageStep
-                form={form}
-                baseImage={baseImage}
-                handleBaseImage={handleBaseImage}
-              />
-            )}
+        <div className="size-full">
+          {step === steps.one && (
+            <UploadImageStep
+              baseImage={baseImage}
+              handleBaseImage={handleBaseImage}
+            />
+          )}
 
-            {step === steps.two && (
-              <CropImageStep
-                baseImage={baseImage!}
-                croppedImage={croppedImage}
-                handleCroppedImage={handleCroppedImage}
-                handleFinalImage={handleFinalImage}
-              />
-            )}
+          {step === steps.two && (
+            <CropImageStep
+              baseImage={baseImage!}
+              croppedImage={croppedImage}
+              handleCroppedImage={handleCroppedImage}
+            />
+          )}
 
-            {step === steps.three && (
-              <SetPublicationInformationsStep
-                form={form}
-                croppedImage={croppedImage!}
-              />
-            )}
-          </form>
-        </Form>
+          {step === steps.three && (
+            <SetPublicationInformationsStep
+              croppedImage={croppedImage!}
+              location={location}
+              hashtags={hashtags}
+              setDescription={setDescription}
+              setLocation={setLocation}
+              setHashtags={setHashtags}
+              removeHashtag={removeHashtag}
+            />
+          )}
+        </div>
       </AlertDialogContent>
     </AlertDialog>
   )
