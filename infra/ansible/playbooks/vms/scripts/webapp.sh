@@ -29,6 +29,8 @@ LOG_FILE="$HOME/docker-deployment.log"
       -p "${CONTAINER_PORT}":3000 \
       -e NEXT_PUBLIC_BLOB_URL="${NEXT_PUBLIC_BLOB_URL}" \
       -e NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
+      -e NEXT_PUBLIC_AUTH_URL="${NEXT_PUBLIC_BASE_URL}"\
+      -e DOCKER_ENV="true" \
       --label "traefik.enable=true" \
       --label "traefik.http.routers.webapp.rule=HostRegexp(\`{host:.+}\`)" \
       --label "traefik.http.services.webapp.loadbalancer.server.port=${CONTAINER_PORT}" \

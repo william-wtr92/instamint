@@ -1,4 +1,5 @@
 import BaseModel from "./BaseModel"
+import PublicationsModel from "./PublicationsModel"
 import RoleModel from "./RoleModel"
 
 import { hashPassword } from "@/utils/helpers/hashPassword"
@@ -20,23 +21,33 @@ class UserModel extends BaseModel {
   emailValidation!: boolean
   gdprValidation!: boolean
   active!: boolean
-  deactivationDate!: Date
-  deletionDate!: Date
+  deactivationDate!: Date | null
+  deletionDate!: Date | null
   roleId!: number
   roleData!: RoleModel
   twoFactorAuthentication!: boolean
   secret!: string | null
   twoFactorBackupCodes!: string | null
+  publicationData!: PublicationsModel
+
+  count!: string
 
   static relationMappings() {
     return {
       roleData: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: RoleModel,
-        filter: (query: any) => query.select("right"),
         join: {
           from: "users.roleId",
           to: "roles.id",
+        },
+      },
+      publicationData: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: PublicationsModel,
+        join: {
+          from: "users.id",
+          to: "publications.userId",
         },
       },
     }

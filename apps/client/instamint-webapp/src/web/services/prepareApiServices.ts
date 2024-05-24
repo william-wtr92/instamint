@@ -1,4 +1,7 @@
 import type { PrepareServicesContext } from "@/types"
+import deactivateAccountAdminService from "@/web/services/admin/users/deactivateAccountService"
+import deleteAccountAdminService from "@/web/services/admin/users/deleteAccountService"
+import reactivateAccountAdminService from "@/web/services/admin/users/reactivateAccountService"
 import emailValidationService from "@/web/services/auth/emailValidationService"
 import resendEmailValidationService from "@/web/services/auth/resendEmailValidationService"
 import signIn2faBackupCodeService from "@/web/services/auth/signIn2faBackupCodeService"
@@ -18,6 +21,7 @@ import twoFactorCodeGenerationService from "@/web/services/users/account/twoFact
 import twoFactorDeactivationService from "@/web/services/users/account/twoFactorDeactivationService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
+import uploadPublicationService from "@/web/services/users/publications/uploadPublicationService"
 
 export const prepareApiServices: PrepareServicesContext = (context) => {
   return {
@@ -44,6 +48,12 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         modifyPassword: modifyPasswordService(context),
         modifyEmail: modifyEmailService(context),
         uploadAvatar: uploadAvatarService(context),
+        uploadPublication: uploadPublicationService(context),
+      },
+      admin: {
+        deactivateAccount: deactivateAccountAdminService(context),
+        reactivateAccount: reactivateAccountAdminService(context),
+        deleteAccount: deleteAccountAdminService(context),
       },
     },
   }

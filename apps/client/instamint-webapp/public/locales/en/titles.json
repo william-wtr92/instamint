@@ -21,6 +21,9 @@
     "reset-password": "Instamint - Reset password",
     "reset-password-confirm": "Instamint - Reset password confirmation"
   },
+  "admin": {
+    "users": "Instamint - Users"
+  },
   "messages": "Instamint - Messages",
   "about": "Instamint - About Instamint"
 }

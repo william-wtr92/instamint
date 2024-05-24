@@ -1,4 +1,5 @@
 import {
+  AdjustmentsHorizontalIcon,
   HomeIcon,
   MagnifyingGlassIcon,
   PlusCircleIcon,
@@ -11,40 +12,52 @@ import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
 import AddPublicationModal from "../forms/publications/AddPublicationModal"
+import { useUser } from "@/web/hooks/auth/useUser"
+import { routes } from "@/web/routes"
 
 const buttons = [
   {
     icon: (
       <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "home",
   },
   {
     icon: (
       <MagnifyingGlassIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
     label: "search",
   },
   {
     icon: (
       <UserIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/profile/settings",
+    path: routes.client.profile.settings.edit,
     label: "profile",
   },
   {
     icon: (
       <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: "/",
+    path: routes.client.home,
+    label: "home",
+  },
+  {
+    icon: (
+      <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+    ),
+    path: routes.client.home,
     label: "home",
   },
 ]
 
 const Navbar = () => {
   const { t } = useTranslation("navbar")
+
+  const { data, isLoading } = useUser()
+  const user = isLoading ? null : data
 
   const [showAddPublicationModal, setShowAddPublicationModal] =
     useState<boolean>(false)
@@ -98,6 +111,20 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+
+      {user?.roleData === "admin" && (
+        <div className="mb-6 hidden md:flex md:gap-4">
+          <Link
+            href={routes.client.admin.users}
+            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+          >
+            <AdjustmentsHorizontalIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+            <Text type="body" variant="accent" className="hidden md:block">
+              {t("admin")}
+            </Text>
+          </Link>
+        </div>
+      )}
 
       {showAddPublicationModal && (
         <AddPublicationModal

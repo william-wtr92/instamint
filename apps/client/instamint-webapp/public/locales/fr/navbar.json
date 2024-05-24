@@ -1,6 +1,7 @@
 {
   "home": "Accueil",
   "search": "Recherche",
+  "admin": "Administration",
   "profile": "Profil",
     "select-lang": {
     "label": "Changez la langue",

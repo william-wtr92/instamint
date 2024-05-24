@@ -12,14 +12,21 @@ export const userInfosSchema = z.object({
     .optional(),
   bio: z
     .string()
-    .max(50, "The bio must be at most 50 characters long!")
+    .max(150, "The bio must be at most 150 characters long!")
     .optional(),
   link: z
     .string()
-    .optional()
-    .refine((data) => data === "" || z.string().url().safeParse(data).success, {
-      message: "Must be a valid URL or empty!",
-    }),
+    .max(60, "The link must be at most 60 characters long!")
+    .refine(
+      (data) =>
+        data === "" ||
+        z.string().regex(new RegExp("^[a-zA-Z0-9]+$")).safeParse(data).success,
+      {
+        message:
+          "Must be a valid link (Your link cannot contain special characters or spaces.) or empty!",
+      }
+    )
+    .optional(),
   location: z.string().optional(),
   avatar: z.instanceof(File).optional(),
 })

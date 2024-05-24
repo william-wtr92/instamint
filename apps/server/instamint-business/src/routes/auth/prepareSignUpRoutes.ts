@@ -93,7 +93,7 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
 
       try {
-        await db("users").insert(newUser)
+        await UserModel.query().insert(newUser)
 
         await sgMail.send(validationMail)
 
@@ -150,7 +150,9 @@ const prepareSignUpRoutes: ApiRoutes = ({ app, db, redis }) => {
           )
         }
 
-        await db("users").where({ email }).update({ emailValidation: true })
+        await UserModel.query()
+          .where({ email })
+          .update({ emailValidation: true })
 
         await redis.del(emailTokenKey)
 
