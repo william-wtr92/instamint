@@ -1,3 +1,5 @@
+import type { QueryBuilder } from "objection"
+
 import BaseModel from "./BaseModel"
 import PublicationsModel from "./PublicationsModel"
 import RoleModel from "./RoleModel"
@@ -21,6 +23,7 @@ class UserModel extends BaseModel {
   emailValidation!: boolean
   gdprValidation!: boolean
   active!: boolean
+  private!: boolean
   deactivationDate!: Date | null
   deletionDate!: Date | null
   roleId!: number
@@ -51,6 +54,12 @@ class UserModel extends BaseModel {
         },
       },
     }
+  }
+
+  static modifiers = {
+    async selectFollowerData(query: QueryBuilder<UserModel>) {
+      query.select("username", "email", "avatar", "private")
+    },
   }
 
   checkPassword = async (password: string) => {

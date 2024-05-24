@@ -1,4 +1,7 @@
-import { Cog6ToothIcon } from "@heroicons/react/24/outline"
+import {
+  ArrowLeftStartOnRectangleIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/24/outline"
 import {
   Avatar,
   AvatarFallback,
@@ -39,6 +42,10 @@ const UserInfo = () => {
   const userUsername = firstLetterUppercase(user?.username)
   const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
 
+  const handleTriggerModal = useCallback(() => {
+    setModalOpen((prev) => !prev)
+  }, [])
+
   const handleSignOut = useCallback(async () => {
     await signOut(null)
 
@@ -58,7 +65,7 @@ const UserInfo = () => {
                     : routes.client.profile.getProfile(user.username)
                 }
               >
-                <Avatar className="relative left-1.5 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-12">
+                <Avatar className="relative left-4 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:left-1.5 xl:size-12">
                   {userAvatar ? (
                     <AvatarImage src={userAvatar} alt={user.username} />
                   ) : (
@@ -67,10 +74,18 @@ const UserInfo = () => {
                 </Avatar>
               </Link>
               <div className="text-small xl:text-medium flex flex-col font-semibold">
-                <Text type={"medium"} variant={"none"}>
+                <Text
+                  type={"medium"}
+                  variant={"none"}
+                  className="font-extrabold"
+                >
                   {userUsername}
                 </Text>
-                <Text type={"medium"} variant={"none"} className="truncate">
+                <Text
+                  type={"medium"}
+                  variant={"none"}
+                  className="w-36 truncate xl:w-full"
+                >
                   {user.email}
                 </Text>
               </div>
@@ -79,12 +94,14 @@ const UserInfo = () => {
               </Link>
             </div>
             <Button
-              onClick={() => setModalOpen(true)}
-              className="bg-accent-500 mr-2 w-1/5 rounded-md p-0 font-semibold text-white xl:mr-0 xl:mt-4 xl:w-full xl:p-2"
+              onClick={handleTriggerModal}
+              className="text-small bg-accent-500 xl:text-medium mr-2 w-1/6 rounded-md p-0 font-semibold text-white xl:mr-0 xl:mt-4 xl:w-full xl:p-2"
             >
-              <span className="text-small xl:text-medium">
+              <span className="text-small xl:text-medium hidden xl:block">
                 {t("cta.button-sign-out")}
               </span>
+
+              <ArrowLeftStartOnRectangleIcon className="block size-5 xl:hidden" />
             </Button>
           </div>
 
@@ -97,7 +114,7 @@ const UserInfo = () => {
       {modalOpen && (
         <AlertPopup
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={handleTriggerModal}
           onConfirm={handleSignOut}
           titleKey={"navbar:cta.label-sign-out"}
           descriptionKey={"navbar:cta.description-sign-out"}

@@ -1,9 +1,13 @@
+import type { FollowersStatus } from "@instamint/shared-types"
+
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
 
 class FollowersModel extends BaseModel {
   static tableName = "followers"
 
+  id!: number
+  status!: FollowersStatus
   followerId!: number
   followedId!: number
 
@@ -18,6 +22,7 @@ class FollowersModel extends BaseModel {
           from: "followers.followerId",
           to: "users.id",
         },
+        modify: "selectFollowerData",
       },
       followedData: {
         relation: BaseModel.BelongsToOneRelation,

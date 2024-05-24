@@ -1,4 +1,4 @@
-export type ConnectedUser = {
+export type ConnectedUserResult = {
   result: {
     id: number
     email: string
@@ -9,5 +9,6 @@ export type ConnectedUser = {
     location: string
     avatar: string
     roleData: string
+    private: boolean
   }
 }

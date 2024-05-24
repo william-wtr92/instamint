@@ -16,6 +16,7 @@ import {
   usersMessages,
 } from "@/def"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { generateQRCode } from "@/utils/helpers/actions/qrCodeActions"
 import {
@@ -288,6 +289,8 @@ const prepareTwoFactorAuthRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
     }
   )
+
+  twoFactorAuth.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/auth/2fa", twoFactorAuth)
 }

@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const SettingsPage = () => {
   return (
     <SettingsPageContainer>
-      <div className="flex flex-grow flex-col gap-5 border border-blue-500 p-5"></div>
+      <div className="flex flex-grow flex-col gap-5 p-5"></div>
     </SettingsPageContainer>
   )
 }

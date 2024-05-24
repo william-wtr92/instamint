@@ -75,7 +75,7 @@ export const ModifyPasswordForm = (props: Props) => {
       <Form {...form}>
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
-            <Label className="font-semibold hover:cursor-pointer">
+            <Label className="hover:cursor-pointer">
               {t(`modify-password.triggerLabel`)}
             </Label>
           </DialogTrigger>

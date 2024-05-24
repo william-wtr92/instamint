@@ -78,6 +78,9 @@
           "errorBackupCodeNotProvided": "Code de secours non fourni.",
           "errorUserHasNoBackupCodes": "L'utilisateur n'a plus de code de secours.",
           "errorBackupCodeNotValid": "Code de secours invalide."
+        },
+        "visibility": {
+          "userNotFound": "Session expirée, reconnectez-vous."
         }
       }
     },
@@ -100,6 +103,14 @@
       "userNotFound": "Ce compte n'existe pas.",
       "accountAlreadyActivated": "Votre compte est déjà activé.",
       "invalidPassword": "Mot de passe invalide."
+    },
+    "profile": {
+      "follow": {
+        "userNotFound": "Ce compte n'existe pas.",
+        "cannotFollowYourself": "Vous ne pouvez pas vous suivre vous-même.",
+        "alreadyFollowing": "Vous suivez déjà cet utilisateur.",
+        "followRequestNotFound": "Demande de suivi introuvable."
+      }
     }
   },
   "admin": {

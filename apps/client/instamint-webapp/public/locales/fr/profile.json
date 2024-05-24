@@ -2,9 +2,29 @@
     "settings": {
         "accountInformation": "Informations du compte"
     },
-    "publications": "publication",
-    "followers": "follower",
-    "followed": "suivi(e)",
+    "publications": "Publication",
+    "followers": "Abonné",
+    "followed": "Abonnement",
+    "actions": {
+        "follow": "Suivre",
+        "unfollow": "Se désabonner",
+        "pending": "En attente",
+        "accept-request": "Accepter la demande",
+        "delete-request": "Annuler la demande",
+        "messages": {
+            "followSuccess": "Vous suivez désormais {{username}}.",
+            "unfollowSuccess": "Vous ne suivez plus {{username}}.",
+            "acceptFollowRequestSuccess": "Vous avez accepté la demande de suivi de {{username}}.",
+            "rejectFollowRequestSuccess": "Vous avez refusé la demande de suivi de {{username}}.",
+            "deleteRequestSuccess": "Vous avez supprimé la demande de suivi à {{username}}."
+        }
+    },
+    "requests": {
+        "title": "Demandes de suivi",
+        "placeholder": "Rechercher une demande...",
+        "no-requests": "Vous n'avez aucune demande de suivi."
+    },
+    "private-publications": "Compte privé - Abonnez-vous pour voir les publications",
     "no-publication": "Vous n'avez aucune publications sur votre compte.",
     "loading": "Chargement en cours...",
     "add-publication": {

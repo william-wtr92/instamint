@@ -78,6 +78,9 @@
           "errorBackupCodeNotProvided": "Backup code not provided.",
           "errorUserHasNoBackupCodes": "User has no backup codes.",
           "errorBackupCodeNotValid": "Backup code not valid."
+        },
+        "visibility": {
+          "userNotFound": "Session expired. Please log in again."
         }
       }
     },
@@ -100,6 +103,14 @@
       "userNotFound": "This account does not exist.",
       "accountAlreadyActivated": "Account already activated.",
       "invalidPassword": "Invalid password."
+    },
+    "profile": {
+      "follow": {
+        "userNotFound": "This account does not exist.",
+        "cannotFollowYourself": "You cannot follow yourself.",
+        "alreadyFollowing": "You are already following this user.",
+        "followRequestNotFound": "Follow request not found."
+      }
     }
   },
   "admin": {

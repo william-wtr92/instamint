@@ -83,8 +83,15 @@ const apiRoutes = {
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
+    visibility: "/users/visibility",
     profile: {
       getProfile: (queries: Profile) => `/profile/${queries.username}`,
+      follow: (queries: Profile) => `/profile/${queries.username}/follow`,
+      unfollow: (queries: Profile) => `/profile/${queries.username}/unfollow`,
+      followRequest: "/profile/follow/request",
+      deleteRequest: (queries: Profile) =>
+        `/profile/${queries.username}/follow/request`,
+      getFollowRequests: "/profile/follow/requests",
     },
   },
   messages: {
