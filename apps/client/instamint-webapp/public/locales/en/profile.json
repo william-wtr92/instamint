@@ -1,29 +1,29 @@
 {
-    "settings": {
-        "accountInformation": "Account information"
-    },
-    "publications": "publication",
-    "followers": "follower",
-    "followed": "followed",
-    "no-publication": "You have no publications on your account.",
-    "loading": "Loading...",
-    "add-publication": {
-        "title": "Add a new publication",
-        "p1": "A publication can include a description and a jpg, png or jpeg file.",
-        "description": {
-            "label": "Description",
-            "placeholder": "Please enter a description...",
-            "error": "Please enter a valid description."
-        }, 
-        "image": {
-            "label": "Image",
-            "placeholder": "Choose your picture",
-            "delete": "x",
-            "error": "The image must be a jpg, png or jpeg file."
-          },
-        "success": "Congratulations, you've just added a new publication!"
-    },
-    "cta": {
-        "submit": "Save"
-    }
+  "settings": {
+      "accountInformation": "Account information"
+  },
+  "publications": "publication",
+  "followers": "follower",
+  "followed": "followed",
+  "no-publication": "You have no publications on your account.",
+  "loading": "Loading...",
+  "add-publication": {
+      "title": "Add a new publication",
+      "p1": "A publication can include a description and a jpg, png or jpeg file.",
+      "description": {
+          "label": "Description",
+          "placeholder": "Please enter a description...",
+          "error": "Please enter a valid description."
+      }, 
+      "image": {
+          "label": "Image",
+          "placeholder": "Choose your picture",
+          "delete": "x",
+          "error": "The image must be a jpg, png or jpeg file."
+        },
+      "success": "Congratulations, you've just added a new publication!"
+  },
+  "cta": {
+      "submit": "Save"
+  }
 }

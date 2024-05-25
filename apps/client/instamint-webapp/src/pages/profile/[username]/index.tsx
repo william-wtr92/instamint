@@ -1,16 +1,13 @@
+import type { Publication } from "@instamint/shared-types"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useCallback, useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
-import { PublicationsGrid } from "@/web/components/profile/PublicationsGrid"
-import useActionsContext from "@/web/contexts/useActionsContext"
-import useAppContext from "@/web/contexts/useAppContext"
+import { PublicationsList } from "@/web/components/profile/PublicationsList"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { usePublication } from "@/web/hooks/publications/usePublication"
-import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
-import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -34,57 +31,39 @@ const ProfilePage = (
 ) => {
   const { t } = useTranslation("profile")
   const { username } = _props
-  const {
-    socket: { joinRoom },
-  } = useAppContext()
-  const { redirect } = useActionsContext()
+
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
   const { data: userData } = useUser()
-  const {
-    data: userTargetedData,
-    followers: followersTargetedData,
-    followed: followedTargetedData,
-  } = useUserByUsername({ username })
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const { publications, isLoading, setSize, isReachingEnd, isError } =
-    usePublication()
 
-  const [isAtBottom, setIsAtBottom] = useState<boolean>(true)
-  const [isClient, setIsClient] = useState<boolean>(false)
+  const { data, isLoading, setSize } = usePublication()
+  const publications = data
+    ? data.reduce(
+        (acc: Publication[], { result }) => [...acc, ...result.publications],
+        []
+      )
+    : []
+
   const [pageTitle, setPageTitle] = useState<string>("")
-  const [havePublication, setHavePublication] = useState<boolean>(false)
 
-  const handleScroll = useCallback(() => {
-    const scrollContainer = scrollContainerRef.current
+  const handleSetSize = () => {
+    setSize((prevState) => prevState + 1)
+  }
 
-    if (!scrollContainer) {
+  const onScroll = () => {
+    if (!scrollContainerRef.current) {
       return
     }
 
-    const { scrollTop, scrollHeight, clientHeight } = scrollContainer
+    if (scrollContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } =
+        scrollContainerRef.current
 
-    if (scrollTop === 0 && !isReachingEnd) {
-      setSize((size) => size + 1)
-      scrollContainer.scrollTop = 10
-
-      return
-    }
-
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 10)
-  }, [setSize, isReachingEnd, setIsAtBottom])
-
-  const handleDmUser = useCallback(() => {
-    if (!userTargetedData) {
-      return
-    }
-
-    joinRoom(
-      { userTargetedUsername: userTargetedData.username },
-      (roomName: string) => {
-        redirect(routes.client.messages(roomName), 800)
+      if (scrollTop + clientHeight >= scrollHeight - 5) {
+        handleSetSize()
       }
-    )
-  }, [userTargetedData, joinRoom, redirect])
+    }
+  }
 
   useEffect(() => {
     const translatedTitle = `${t("titles:profile.user")} ${username}`
@@ -95,57 +74,17 @@ const ProfilePage = (
     document.title = pageTitle
   }, [pageTitle])
 
-  useEffect(() => {
-    if (publications.length > 0) {
-      setHavePublication(true)
-    }
-  }, [setHavePublication, publications])
-
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current
-
-    if (scrollContainer && isAtBottom) {
-      scrollContainer.scrollTop = scrollContainer.scrollHeight
-    }
-  }, [publications, isAtBottom])
-
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current
-    scrollContainer?.addEventListener("scroll", handleScroll)
-
-    return () => {
-      scrollContainer?.removeEventListener("scroll", handleScroll)
-    }
-  }, [handleScroll])
-
-  useEffect(() => {
-    if (isError) {
-      redirect(routes.client.home)
-    }
-  }, [isError, redirect])
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [setIsClient])
-
   return (
-    <div className="p-text-large-screen flex h-[60vh] flex-col gap-6 xl:h-screen">
-      {isClient && (
+    <div
+      ref={scrollContainerRef}
+      className="p-text-large-screen flex h-full flex-col gap-6 overflow-scroll xl:h-screen"
+      onScroll={onScroll}
+    >
+      {userData && (
         <>
-          <ProfileHeader
-            userEmail={userData?.email}
-            userPage={userTargetedData}
-            handleDmUser={handleDmUser}
-            publications={publications}
-            followers={followersTargetedData?.count}
-            followed={followedTargetedData?.count}
-          />
-          <PublicationsGrid
-            publications={publications}
-            isLoading={isLoading}
-            havePublication={havePublication}
-            scrollContainerRef={scrollContainerRef}
-          />
+          <ProfileHeader username={username} />
+
+          <PublicationsList publications={publications} isLoading={isLoading} />
         </>
       )}
     </div>

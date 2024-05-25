@@ -77,8 +77,8 @@ const apiRoutes = {
     },
     publications: {
       uploadPublication: "/users/upload-publication",
-      getPublications: (queries: Omit<GetPublications, "limit">) =>
-        `/users/publications?limit=6&offset=${queries.offset}`,
+      getPublications: (queries: GetPublications) =>
+        `/users/publications?limit=${queries.limit}&offset=${queries.offset}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

@@ -33,32 +33,26 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
     zValidator("query", getPublicationsSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
-      const { limit, offset } = await c.req.query()
-      const noPublication = 0
+      const { limit: limitString, offset: offsetString } = c.req.query()
+      const limit = parseInt(limitString, 10)
+      const offset = parseInt(offsetString, 10)
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const totalPublications = await PublicationsModel.query()
-        .where({ userId: contextUser.id })
-        .count()
-        .first()
+      const query = PublicationsModel.query()
+      query.where({ userId: contextUser.id })
+      query.orderBy("createdAt", "desc")
 
-      const totalCount = totalPublications
-        ? parseInt(totalPublications.count, 10)
-        : noPublication
+      // const [{ count }]: PublicationsModel[] = await query
+      //   .clone()
+      //   .clearOrder()
+      //   .count("id")
 
-      const newOffset = Math.max(
-        totalCount - parseInt(offset, 10) - parseInt(limit, 10),
-        0
-      )
+      // const totalPages = Math.ceil(parseInt(count) / limit)
 
-      const publications = await PublicationsModel.query()
-        .where({ userId: contextUser.id })
-        .orderBy("createdAt", "desc")
-        .limit(parseInt(limit))
-        .offset(Math.max(0, newOffset))
+      const publications = await query.modify("paginate", limit, offset)
 
       return c.json(
         {

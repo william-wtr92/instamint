@@ -1,10 +1,14 @@
 import { EnvelopeIcon } from "@heroicons/react/24/outline"
+import type { Publication } from "@instamint/shared-types"
 import { Avatar, AvatarFallback, AvatarImage, Text } from "@instamint/ui-kit"
 import Link from "next/link"
+import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import type { Publication } from "@/types"
 import { config } from "@/web/config"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
+import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { routes } from "@/web/routes"
 import {
   pluralCheckArray,
@@ -15,40 +19,47 @@ import {
   firstLetterUppercase,
 } from "@/web/utils/helpers/stringHelper"
 
-type ProfileUser = {
-  email: string
-  username: string
-  avatar: string | null
-  bio: string | null
-}
-
 type ProfileHeaderProps = {
-  userEmail: string | undefined
-  userPage: ProfileUser | undefined
-  handleDmUser: () => void
-  publications: Publication[]
-  followers: number | undefined
-  followed: number | undefined
+  username: string
 }
 
-export const ProfileHeader = ({
-  userEmail,
-  userPage,
-  handleDmUser,
-  publications,
-  followers,
-  followed,
-}: ProfileHeaderProps) => {
+export const ProfileHeader = (props: ProfileHeaderProps) => {
+  const { username } = props
   const { t } = useTranslation("profile")
 
-  const userAvatar = userPage?.avatar
-    ? `${config.api.blobUrl}${userPage?.avatar}`
+  const {
+    socket: { joinRoom },
+  } = useAppContext()
+
+  const { redirect } = useActionsContext()
+
+  const {
+    data: currentUser,
+    followers,
+    followed,
+  } = useUserByUsername({ username })
+
+  const handleDmUser = useCallback(() => {
+    if (!currentUser) {
+      return
+    }
+
+    joinRoom(
+      { userTargetedUsername: currentUser.username },
+      (roomName: string) => {
+        redirect(routes.client.messages(roomName), 800)
+      }
+    )
+  }, [currentUser, joinRoom, redirect])
+
+  const userAvatar = currentUser?.avatar
+    ? `${config.api.blobUrl}${currentUser?.avatar}`
     : null
-  const userUsername = firstLetterUppercase(userPage?.username)
-  const usernameFirstLetter = firstLetter(userPage?.username)
+  const userUsername = firstLetterUppercase(currentUser?.username)
+  const usernameFirstLetter = firstLetter(currentUser?.username)
 
   return (
-    <div className="border-1 ml-4 mt-4 flex w-[95%] flex-row justify-start gap-2.5 rounded-md border-dashed p-4 xl:w-[95%]">
+    <div className="border-1 --xl:w-[95%] flex flex-row justify-start gap-2.5 rounded-md border-dashed p-4">
       <Avatar className="relative left-1.5 size-12 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-28">
         {userAvatar ? (
           <AvatarImage src={userAvatar} alt={userUsername} />
@@ -56,32 +67,37 @@ export const ProfileHeader = ({
           <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
         )}
       </Avatar>
+
       <div className="ml-4 flex flex-col justify-between">
         <div className="flex flex-row pt-2">
           <Text variant="neutral" type="body" className="p-1 pr-4">
             {userUsername}
           </Text>
-          {userEmail === userPage?.email && (
+          {username === currentUser?.username && (
             <Link
               href={routes.client.profile.settings.edit}
               className="bg-accent-200 flex flex-row items-center justify-between rounded-lg p-1"
             >
               <Text type="medium" variant="neutral" className="font-normal">
-                {t("profile:settings.accountInformation")}
+                {t("settings.accountInformation")}
               </Text>
             </Link>
           )}
         </div>
-        <ProfileStats
-          publications={publications}
-          followers={followers}
-          followed={followed}
-          t={t}
-        />
+
+        {currentUser && followers && followed && (
+          <ProfileStats
+            publications={currentUser.publicationData}
+            followers={followers.count}
+            followed={followed.count}
+          />
+        )}
+
         <Text variant="neutral" type="body" className="pt-3">
-          {userPage?.bio}
+          {currentUser?.bio}
         </Text>
-        {userEmail !== userPage?.email && (
+
+        {username !== currentUser?.username && (
           <EnvelopeIcon
             className="size-6 hover:scale-105 hover:cursor-pointer"
             onClick={handleDmUser}
@@ -94,23 +110,22 @@ export const ProfileHeader = ({
 
 type ProfileStatsProps = {
   publications: Publication[]
-  followers: number | undefined
-  followed: number | undefined
-  t: (key: string) => string
+  followers: number
+  followed: number
 }
 
-const ProfileStats = ({
-  publications,
-  followers,
-  followed,
-  t,
-}: ProfileStatsProps) => {
+const ProfileStats = (props: ProfileStatsProps) => {
+  const { publications, followers, followed } = props
+  const { t } = useTranslation("profile")
+
   const numberPublications = pluralCheckArray(publications)
     ? `${publications.length} ${t("publications")}s`
     : `${publications.length} ${t("publications")}`
+
   const numberFollowers = pluralCheckNumber(followers)
     ? `${followers} ${t("followers")}s`
     : `${followers} ${t("followers")}`
+
   const numberFollowed = pluralCheckNumber(followed)
     ? `${followed} ${t("followed")}s`
     : `${followed} ${t("followed")}`
