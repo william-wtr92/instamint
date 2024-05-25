@@ -11,7 +11,7 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
-import AddPublicationModal from "../forms/publications/AddPublicationModal"
+import AddPublicationModal from "@/web/components/forms/publications/AddPublicationModal"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
 
@@ -36,20 +36,6 @@ const buttons = [
     ),
     path: routes.client.profile.settings.edit,
     label: "profile",
-  },
-  {
-    icon: (
-      <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-    ),
-    path: routes.client.home,
-    label: "home",
-  },
-  {
-    icon: (
-      <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-    ),
-    path: routes.client.home,
-    label: "home",
   },
 ]
 

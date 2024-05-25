@@ -20,7 +20,7 @@ const UploadImageStep = (props: Props) => {
 
   return (
     <AlertDialogFooter className="flex h-[60vh] w-[100vw] flex-col items-center justify-center gap-8 p-8 pt-0 sm:flex-col sm:justify-center md:w-[80vw] lg:w-[60vw]">
-      {baseImage !== null ? (
+      {baseImage !== null && baseImage !== undefined ? (
         <div className="relative mt-4 aspect-square h-full overflow-hidden rounded border border-neutral-200">
           <Image
             src={URL.createObjectURL(baseImage)}

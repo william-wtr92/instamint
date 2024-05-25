@@ -1,12 +1,17 @@
 import { addPublicationSchema } from "@instamint/shared-types"
 import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
+import { useRouter } from "next/router"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import AddPublicationModalHeader from "@/web/components/forms/publications/AddPublicationModalHeader"
 import CropImageStep from "@/web/components/forms/publications/CropImageStep"
 import SetPublicationInformationsStep from "@/web/components/forms/publications/SetPublicationInformationsStep"
 import UploadImageStep from "@/web/components/forms/publications/UploadImageStep"
-import { useUser } from "@/web/hooks/auth/useUser"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
+import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 
 export const steps = {
   one: 1,
@@ -22,12 +27,27 @@ type Props = {
 const AddPublicationModal = (props: Props) => {
   const { isOpen, handleShowAddPublicationModal } = props
 
-  const { data, isLoading } = useUser()
-  const user = !isLoading && data
+  const { t } = useTranslation("navbar")
+
+  const router = useRouter()
+
+  const {
+    services: {
+      users: { uploadPublication },
+    },
+  } = useAppContext()
+
+  const { toast } = useActionsContext()
+
+  const { mutate: refreshUserStats } = useUserByUsername({
+    username: router.query.username as string,
+  })
+
+  const { mutate: refreshPublications } = usePublication()
 
   const [step, setStep] = useState<number>(1)
   const [description, setDescription] = useState<string>("")
-  const [location, setLocation] = useState<string>("")
+  const [location, setLocation] = useState<string | undefined>(undefined)
   const [hashtags, setHashtags] = useState<string[]>([])
   const [baseImage, setBaseImage] = useState<File | null>(null)
   const [croppedImage, setCroppedImage] = useState<File | null>(null)
@@ -56,13 +76,8 @@ const AddPublicationModal = (props: Props) => {
   }
 
   const isFormValid = () => {
-    if (!user) {
-      return false
-    }
-
     try {
       addPublicationSchema.parse({
-        author: user.username,
         description,
         image: croppedImage,
         location,
@@ -73,6 +88,35 @@ const AddPublicationModal = (props: Props) => {
     } catch (error) {
       return false
     }
+  }
+
+  const onSubmit = async () => {
+    const [err] = await uploadPublication({
+      description,
+      image: croppedImage!,
+      location,
+      hashtags,
+    })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors.publications.${err.message}`),
+      })
+
+      return
+    }
+
+    if (router.query.username) {
+      await refreshUserStats()
+      await refreshPublications()
+    }
+
+    toast({
+      variant: "success",
+      description: t("add-publication-modal.step-three.success"),
+    })
+    handleShowAddPublicationModal()
   }
 
   return (
@@ -87,8 +131,9 @@ const AddPublicationModal = (props: Props) => {
           croppedImage={croppedImage}
           isFormValid={isFormValid}
           handleNextStep={handleNextStep}
-          handleShowAddPublicationModal={handleShowAddPublicationModal}
           handlePreviousStep={handlePreviousStep}
+          handleShowAddPublicationModal={handleShowAddPublicationModal}
+          onSubmit={onSubmit}
         />
 
         <div className="size-full">

@@ -18,6 +18,7 @@ type Props = {
   handleNextStep: () => void
   handleShowAddPublicationModal: () => void
   handlePreviousStep: () => void
+  onSubmit: () => void
 }
 
 const AddPublicationModalHeader = (props: Props) => {
@@ -29,11 +30,12 @@ const AddPublicationModalHeader = (props: Props) => {
     handleNextStep,
     handleShowAddPublicationModal,
     handlePreviousStep,
+    onSubmit,
   } = props
 
   const { t } = useTranslation("navbar")
 
-  const getModalTitle = useCallback(() => {
+  const handleModalTitle = useCallback(() => {
     switch (step) {
       case steps.one:
         return t("add-publication-modal.step-one.title")
@@ -52,7 +54,7 @@ const AddPublicationModalHeader = (props: Props) => {
   const handleNextButtonDisabled = useCallback(() => {
     switch (step) {
       case steps.one:
-        return baseImage === null
+        return baseImage === null || baseImage === undefined
 
       case steps.two:
         return croppedImage === null
@@ -95,15 +97,17 @@ const AddPublicationModalHeader = (props: Props) => {
       )}
 
       <AlertDialogTitle className="text-body">
-        {getModalTitle()}
+        {handleModalTitle()}
       </AlertDialogTitle>
 
       <Button
         className="space-0 mr-1 mt-0 h-full rounded-md border-0 bg-none"
-        onClick={handleNextStep}
+        onClick={step !== steps.three ? handleNextStep : onSubmit}
         disabled={handleNextButtonDisabled()}
       >
-        {t("add-publication-modal.cta.next")}
+        {step !== steps.three
+          ? t("add-publication-modal.cta.next")
+          : t("add-publication-modal.cta.publish")}
       </Button>
     </AlertDialogHeader>
   )

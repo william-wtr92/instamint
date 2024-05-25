@@ -48,14 +48,16 @@
         "label": "Hashtags (Max 5)",
         "placeholder": "Ajouter des hashtags...",
         "error": "Veuillez ajouter des hashtags"
-      }
+      },
+      "success": "Publication created successfully"
     },
     "cta": {
       "select-image": "Select an image",
       "change-image": "Change image",
       "back-to-original": "Back to original",
       "crop-image": "Crop image",
-      "next": "Next"
+      "next": "Next",
+      "publish": "Publish"
     }
   }
 }

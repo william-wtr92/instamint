@@ -18,7 +18,7 @@ import countries from "@/web/utils/countries.json"
 
 type Props = {
   croppedImage: File
-  location: string
+  location: string | undefined
   hashtags: string[]
   setDescription: (description: string) => void
   setLocation: (location: string) => void
@@ -143,7 +143,10 @@ const SetPublicationInformationsStep = (props: Props) => {
                 )}
               />
             </SelectTrigger>
-            <SelectContent className="w-full bg-white" position={"popper"}>
+            <SelectContent
+              className="w-full bg-white"
+              position={"item-aligned"}
+            >
               {countries.map((country, index) => (
                 <SelectItem key={index} value={country.name}>
                   {t(`countries:${country.name}`)}
