@@ -20,6 +20,7 @@ export const publicationSchema = z.object({
   location: z.string().nullable().optional(),
   hashtags: z.string(),
   userId: z.number(),
+  createdAt: z.string(),
 })
 
 export type AddPublication = z.infer<typeof addPublicationSchema>

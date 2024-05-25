@@ -7,21 +7,14 @@
     "followed": "suivi(e)",
     "no-publication": "Vous n'avez aucune publications sur votre compte.",
     "loading": "Chargement en cours...",
-    "add-publication": {
-        "title": "Ajouter une publication",
-        "p1": "Une publication peux comporter une description, ainsi qu'un fichier de type jpg, png ou jpeg",
-        "description": {
-            "label": "Description",
-            "placeholder": "Veuillez saisir une description...",
-            "error": "Veuillez saisir une description valide."
-        }, 
-        "image": {
-            "label": "Image",
-            "placeholder": "Choisissez votre image",
-            "delete": "x",
-            "error": "L'image doit être de type jpg, png ou jpeg."
-          },
-        "success": "Félicitation vous venez d'ajouter une nouvelle publication !"
+    "publication-modal": {
+      "likes": "j'aimes",
+      "add-comment-placeholder": "Ajouter un commentaire...",
+      "icons": {
+        "like-title": "Aimer",
+        "comment-title": "Commenter",
+        "reply-title": "Répondre"
+      }
     },
     "cta": {
         "submit": "Enregistrer"
