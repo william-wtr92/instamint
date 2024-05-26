@@ -16,6 +16,7 @@ export * from "./types/users/profile/profile.types"
 
 /* Publications Schemas & Types */
 export * from "./types/publications/publications.types"
+export * from "./types/publications/publicationsLikes.types"
 
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"

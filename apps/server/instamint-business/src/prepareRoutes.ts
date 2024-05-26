@@ -1,5 +1,6 @@
 import type { PrepareRoutes } from "@instamint/server-types"
 
+import preparePublicationsLikesRoutes from "./routes/users/publications/preparePublicationsLikesRoute"
 import prepareUploadPublicationRoutes from "./routes/users/publications/prepareUploadPublicationRoutes"
 
 import prepareAdminUsersActionsRoutes from "@/routes/admin/users/prepareAdminUsersActionsRoutes"
@@ -35,6 +36,7 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareMessagesRoutes(ctx)
   prepareUploadPublicationRoutes(ctx)
   preparePublicationsRoutes(ctx)
+  preparePublicationsLikesRoutes(ctx)
 
   prepareAdminUsersRoutes(ctx)
   prepareAdminUsersActionsRoutes(ctx)

@@ -146,3 +146,17 @@ export const errorBackupCodeNotValid = {
   errorCode: "errorBackupCodeNotValid",
   message: "Backup code not valid.",
 } as const
+
+/* Publications messages */
+export const publicationNotFound = {
+  errorCode: "publicationNotFound",
+  message: "Publication not found.",
+} as const
+
+export const publicationSuccessfullyLiked = {
+  message: "Publication successfully liked.",
+} as const
+
+export const publicationSuccessfullyDisliked = {
+  message: "Publication successfully disliked.",
+} as const
