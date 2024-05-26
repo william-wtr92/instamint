@@ -9,13 +9,17 @@ type Props = {
   userAvatar: string | null
   usernameFirstLetter: string | undefined
   location: string | null | undefined
+  className?: string
 }
 
 const PublicationModalContentHeader = (props: Props) => {
-  const { username, userAvatar, usernameFirstLetter, location } = props
+  const { username, userAvatar, usernameFirstLetter, location, className } =
+    props
 
   return (
-    <div className="border-b-1 flex h-fit w-full flex-row items-center gap-2 border-neutral-300 p-2">
+    <div
+      className={`border-b-1 flex h-fit w-full flex-row items-center gap-2 border-neutral-300 p-2 ${className} md:flex`}
+    >
       <Link href={routes.client.profile.getProfile(username)}>
         <Avatar className="border-accent-500 size-8 border">
           {userAvatar ? (

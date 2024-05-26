@@ -1,4 +1,4 @@
-import type { Publication } from "@/types/hooks/publications/publications.types"
+import type { Publication } from "@instamint/shared-types"
 
 export type ProfileUser = {
   result: {

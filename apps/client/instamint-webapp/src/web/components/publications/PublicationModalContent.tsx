@@ -1,7 +1,7 @@
 import type { Publication } from "@instamint/shared-types"
 import { DialogContent } from "@instamint/ui-kit"
 import Image from "next/image"
-import React from "react"
+import React, { useState } from "react"
 
 import PublicationCommentRow from "@/web/components/publications/PublicationCommentRow"
 import PublicationModalContentActions from "@/web/components/publications/PublicationModalContentActions"
@@ -26,12 +26,20 @@ const PublicationModalContent = (props: Props) => {
   const usernameFirstLetter = firstLetter(username)
   const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
 
+  const [showComments, setShowComments] = useState<boolean>(false)
+
+  const handleShowComments = () => {
+    setShowComments((prevState) => !prevState)
+  }
+
   return (
     <DialogContent
       variant="fit"
-      className="flex h-[90vh] w-[90vw] flex-row justify-start gap-0 overflow-hidden border-0 bg-neutral-100 p-0"
+      className="block h-[90vh] w-[90vw] overflow-hidden rounded-sm border-0 bg-neutral-100 p-0 md:flex md:h-[70vh] md:w-[95vw] md:flex-row md:gap-0 lg:h-[80vh] lg:w-[80vw]"
     >
-      <div className="relative aspect-square h-full">
+      <div
+        className={`border-b-1 relative hidden aspect-square duration-300 md:mt-0 md:block md:border-0`}
+      >
         <Image
           src={config.api.blobUrl + publication.image}
           alt={"Publication " + publication.id}
@@ -40,7 +48,7 @@ const PublicationModalContent = (props: Props) => {
         />
       </div>
 
-      <div className="border-l-1 flex h-full w-full flex-col border-neutral-300">
+      <div className="md:border-l-1 flex h-full w-full flex-col md:h-full">
         <PublicationModalContentHeader
           username={username}
           userAvatar={userAvatar}
@@ -48,7 +56,32 @@ const PublicationModalContent = (props: Props) => {
           location={publication.location}
         />
 
-        <div className="h-[70%] w-full overflow-scroll">
+        {/* Displayed on mobile / Hidden on tablets and bigger */}
+        <div
+          className={`relative mx-auto block aspect-square overflow-hidden rounded-sm duration-300 md:hidden ${showComments ? "h-0" : "h-[40%]"}`}
+        >
+          <Image
+            src={config.api.blobUrl + publication.image}
+            alt={"Publication " + publication.id}
+            fill
+            className="size-full object-contain"
+          />
+        </div>
+
+        <div
+          className={`border-t-1 w-full flex-1 overflow-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`}
+        >
+          <PublicationCommentRow
+            avatar={userAvatar}
+            username={username}
+            content={publication.description}
+          />
+
+          <PublicationCommentRow
+            avatar={userAvatar}
+            username={username}
+            content={publication.description}
+          />
           <PublicationCommentRow
             avatar={userAvatar}
             username={username}
@@ -56,7 +89,10 @@ const PublicationModalContent = (props: Props) => {
           />
         </div>
 
-        <PublicationModalContentActions publication={publication} />
+        <PublicationModalContentActions
+          publication={publication}
+          handleShowComments={handleShowComments}
+        />
       </div>
     </DialogContent>
   )
