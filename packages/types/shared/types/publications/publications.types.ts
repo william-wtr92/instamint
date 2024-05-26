@@ -21,6 +21,8 @@ export const publicationSchema = z.object({
   hashtags: z.string(),
   userId: z.number(),
   createdAt: z.string(),
+  likes: z.array(z.object({ id: z.number(), username: z.string() })),
+  isLiked: z.boolean(),
 })
 
 export type AddPublication = z.infer<typeof addPublicationSchema>

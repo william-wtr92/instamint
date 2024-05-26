@@ -1,4 +1,4 @@
-import type { QueryBuilderType } from "objection"
+import type { QueryBuilder, QueryBuilderType } from "objection"
 
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
@@ -15,6 +15,12 @@ class PublicationsModel extends BaseModel {
   hashtags!: string
 
   count!: string
+  isLiked!: boolean
+
+  likes!: {
+    id: number
+    username: string
+  }[]
 
   static modifiers = {
     paginate: (
@@ -35,6 +41,20 @@ class PublicationsModel extends BaseModel {
           from: "followers.followerId",
           to: "users.id",
         },
+      },
+      likes: {
+        relation: BaseModel.ManyToManyRelation,
+        modelClass: UserModel,
+        join: {
+          from: "publications.id",
+          through: {
+            from: "publication_likes.publicationId",
+            to: "publication_likes.userId",
+          },
+          to: "users.id",
+        },
+        modify: (query: QueryBuilder<UserModel>) =>
+          query.select("id", "username"),
       },
     }
   }

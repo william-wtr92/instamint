@@ -95,6 +95,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2)))
+      tailwindcss-animated:
+        specifier: ^1.0.1
+        version: 1.0.1(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2)))
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -5565,6 +5568,11 @@ packages:
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  tailwindcss-animated@1.0.1:
+    resolution: {integrity: sha512-u5wusj89ZwP8I+s8WZlaAd7aZTWBN/XEG6QgMKpkIKmAf3xP1A6WYf7oYIKmGaB10UAQaSqWopi/i1ozzZEs8Q==}
+    peerDependencies:
+      tailwindcss: '>=3.1.0'
 
   tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}
@@ -12020,6 +12028,10 @@ snapshots:
       tailwindcss: 3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2))
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2))):
+    dependencies:
+      tailwindcss: 3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2))
+
+  tailwindcss-animated@1.0.1(tailwindcss@3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2))):
     dependencies:
       tailwindcss: 3.4.1(ts-node@10.9.2(@types/node@20.11.25)(typescript@5.4.2))
 

@@ -14,7 +14,7 @@ const PublicationModal = (props: Props) => {
 
   return (
     <Dialog>
-      <ProfilePublicationCardOverlay />
+      <ProfilePublicationCardOverlay publication={publication} />
 
       <PublicationModalContent publication={publication} />
     </Dialog>

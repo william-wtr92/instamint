@@ -52,12 +52,29 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       // const totalPages = Math.ceil(parseInt(count) / limit)
 
-      const publications = await query.modify("paginate", limit, offset)
+      const publications = await query
+        .modify("paginate", limit, offset)
+        .withGraphFetched("likes")
+
+      const finalPublications = publications.reduce(
+        (acc: PublicationsModel[], publication: PublicationsModel) => {
+          const isLiked = publication.likes.some(
+            (like) => like.id === contextUser.id
+          )
+
+          publication.isLiked = isLiked
+
+          acc.push(publication)
+
+          return acc
+        },
+        []
+      )
 
       return c.json(
         {
           result: {
-            publications: publications,
+            publications: finalPublications,
           },
         },
         SC.success.OK
