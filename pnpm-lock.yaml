@@ -137,10 +137,10 @@ importers:
         version: 1.11.0
       '@hono/sentry':
         specifier: ^1.0.1
-        version: 1.0.1(hono@4.2.7)
+        version: 1.0.1(hono@4.4.0)
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.2.7)(zod@3.22.4)
+        version: 0.2.1(hono@4.4.0)(zod@3.22.4)
       '@instamint/shared-types':
         specifier: workspace:^
         version: link:../../../packages/types/shared
@@ -154,8 +154,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       hono:
-        specifier: ^4.2.7
-        version: 4.2.7
+        specifier: ^4.4.0
+        version: 4.4.0
       ioredis:
         specifier: ^5.3.2
         version: 5.3.2
@@ -289,13 +289,13 @@ importers:
         version: 1.11.0
       '@hono/zod-validator':
         specifier: ^0.2.1
-        version: 0.2.1(hono@4.2.7)(zod@3.22.4)
+        version: 0.2.1(hono@4.4.0)(zod@3.22.4)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
       hono:
-        specifier: ^4.2.7
-        version: 4.2.7
+        specifier: ^4.4.0
+        version: 4.4.0
       mime:
         specifier: ^4.0.3
         version: 4.0.3
@@ -3411,6 +3411,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -3498,6 +3499,10 @@ packages:
     resolution: {integrity: sha512-k1xHi86tJnRIVvqhFMBDGFKJ8r5O+bEsT4P59ZK59r0F300Xd910/r237inVfuT/VmE86RQQffX4OYNda6dLXw==}
     engines: {node: '>=16.0.0'}
 
+  hono@4.4.0:
+    resolution: {integrity: sha512-Bb2GHk8jmlLIuxc3U+7UBGOoA5lByJTAFnRdH2N2fqEVy9TEQzJ9saIJUQ/ZqBvEvgEFe7UjPFNSFi8cyeU+3Q==}
+    engines: {node: '>=16.0.0'}
+
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
 
@@ -3573,6 +3578,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -5113,6 +5119,7 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rsvp@4.8.5:
@@ -6699,14 +6706,14 @@ snapshots:
 
   '@hono/node-server@1.11.0': {}
 
-  '@hono/sentry@1.0.1(hono@4.2.7)':
+  '@hono/sentry@1.0.1(hono@4.4.0)':
     dependencies:
-      hono: 4.2.7
+      hono: 4.4.0
       toucan-js: 3.3.1
 
-  '@hono/zod-validator@0.2.1(hono@4.2.7)(zod@3.22.4)':
+  '@hono/zod-validator@0.2.1(hono@4.4.0)(zod@3.22.4)':
     dependencies:
-      hono: 4.2.7
+      hono: 4.4.0
       zod: 3.22.4
 
   '@hookform/resolvers@3.3.4(react-hook-form@7.51.1(react@18.2.0))':
@@ -9682,6 +9689,8 @@ snapshots:
       react-is: 16.13.1
 
   hono@4.2.7: {}
+
+  hono@4.4.0: {}
 
   html-escaper@2.0.2: {}
 
