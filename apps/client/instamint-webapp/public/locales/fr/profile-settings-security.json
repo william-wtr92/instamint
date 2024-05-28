@@ -1,5 +1,8 @@
 {
   "title": "Securité du compte",
+  "subtitle-actions": "Actions sur votre compte",
+  "subtitle-danger-zone": "Zone dangereuse",
+  "subtitle-visibility": "Changer la visibilité",
   "2fa-title": "Authentification à deux facteurs",
   "2fa-description": "L'activation de l'authentification à deux facteurs renforce la sécurité en ajoutant une couche supplémentaire de protection, réduisant ainsi le risque d'accès non autorisé à vos comptes.",
   "2fa-enabled": "Statut : Activé",
@@ -127,5 +130,16 @@
     },
     "success": "Votre email a été modifié avec succès. Regardez votre boite mail pour réactiver votre compte.",
     "submit": "Valider"
+  },
+  "visibility": {
+    "label": "Visibilité du compte",
+    "description": "La visibilité de votre compte détermine si votre profil est visible par les autres utilisateurs ou non.",
+    "cta": {
+      "submit": "Modifier la visibilité"
+    },
+    "messages": {
+      "private": "Votre compte est maintenant privé.",
+      "public": "Votre compte est maintenant public."
+    }
   }
 }

@@ -2,9 +2,29 @@
     "settings": {
         "accountInformation": "Account information"
     },
-    "publications": "publication",
-    "followers": "follower",
-    "followed": "followed",
+    "publications": "Publication",
+    "followers": "Follower",
+    "followed": "Followed",
+    "actions": {
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "pending": "Pending",
+        "accept-request": "Accept request",
+        "delete-request": "Delete request",
+        "messages": {
+            "followSuccess": "You are now following {{username}}.",
+            "unfollowSuccess": "You are no longer following {{username}}.",
+            "acceptFollowRequestSuccess": "You have accepted the follow request from {{username}}.",
+            "rejectFollowRequestSuccess": "You have rejected the follow request from {{username}}.",
+            "deleteRequestSuccess": "You have deleted the follow request to {{username}}."
+        }
+    },
+    "requests": {
+        "title": "Pending requests",
+        "placeholder": "Search for a request...",
+        "no-requests": "You have no pending requests."
+    },
+    "private-publications": "Private Account - Follow to see posts",
     "no-publication": "You have no publications on your account.",
     "loading": "Loading...",
     "add-publication": {

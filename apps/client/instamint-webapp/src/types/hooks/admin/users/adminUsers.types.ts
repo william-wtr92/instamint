@@ -15,7 +15,7 @@ export type Pagination = {
   totalPages: number
 }
 
-export type Users = {
+export type UsersResult = {
   result: {
     users: User[]
     pagination: Pagination

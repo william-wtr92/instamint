@@ -12,6 +12,7 @@ import {
   usersMessages,
 } from "@/def"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import type { InsertedPublication } from "@/types/publications.types"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { uploadBlob } from "@/utils/helpers/actions/azureActions"
@@ -85,6 +86,8 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
     }
   )
+
+  uploadPublication.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/users", uploadPublication)
 }

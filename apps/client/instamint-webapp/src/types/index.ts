@@ -16,6 +16,9 @@ export * from "./services/authServices.types"
 /* USERS SERVICES */
 export * from "./services/usersServices.types"
 
+/* PROFILE SERVICES */
+export * from "./services/profileServices.types"
+
 /* ADMIN SERVICES */
 export * from "./services/adminServices.types"
 

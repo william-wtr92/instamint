@@ -1,7 +1,7 @@
 import type { AdminUsersAll } from "@instamint/shared-types"
 import useSWR, { type SWRConfiguration } from "swr"
 
-import type { Users } from "@/types"
+import type { UsersResult } from "@/types"
 import { routes } from "@/web/routes"
 
 export const useUsers = (queries: AdminUsersAll) => {
@@ -11,7 +11,7 @@ export const useUsers = (queries: AdminUsersAll) => {
     revalidateOnReconnect: true,
   }
 
-  const { data, ...query } = useSWR<Users, Error>(
+  const { data, ...query } = useSWR<UsersResult, Error>(
     routes.api.admin.users.all(queries),
     config
   )

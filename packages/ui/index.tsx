@@ -21,5 +21,6 @@ export * from "./src/components/Select"
 export * from "./src/components/Table"
 export * from "./src/components/DataTable"
 export * from "./src/components/DataTablePagination"
+export * from "./src/components/Switch"
 
 export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"

@@ -8,6 +8,7 @@ import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
 import { adminMessages, globalsMessages } from "@/def"
+import { handleError } from "@/middlewares/handleError"
 import { sanitizeUsers } from "@/utils/dto/sanitizeUsers"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 
@@ -82,6 +83,8 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
     }
   )
+
+  adminUsers.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/admin", adminUsers)
 }

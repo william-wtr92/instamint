@@ -1,4 +1,5 @@
 import {
+  type Visibility,
   type ModifyPassword,
   type DeleteAccount,
   type ModifyEmail,
@@ -12,6 +13,7 @@ import React, { useCallback, useState } from "react"
 import { DeleteAccountForm } from "@/web/components/forms/DeleteAccount"
 import { ModifyEmailForm } from "@/web/components/forms/ModifyEmail"
 import { ModifyPasswordForm } from "@/web/components/forms/ModifyPassword"
+import { VisibilityAccount } from "@/web/components/forms/Visibility"
 import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer"
 import TwoFactorAuthModal from "@/web/components/settings/TwoFactorAuthModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
@@ -39,7 +41,7 @@ const ProfileSettingsSecurityPage = () => {
 
   const {
     services: {
-      users: { deleteAccount, modifyPassword, modifyEmail },
+      users: { deleteAccount, modifyPassword, modifyEmail, visibility },
       auth: { signOut },
     },
   } = useAppContext()
@@ -72,7 +74,7 @@ const ProfileSettingsSecurityPage = () => {
 
       toast({
         variant: "success",
-        description: t("profile-settings:delete-account.success"),
+        description: t("profile-settings-security:delete-account.success"),
       })
       redirect(routes.client.home, 3000)
     },
@@ -96,7 +98,7 @@ const ProfileSettingsSecurityPage = () => {
 
       toast({
         variant: "success",
-        description: t("profile-settings:modify-password.success"),
+        description: t("profile-settings-security:modify-password.success"),
       })
       await signOut(null)
 
@@ -122,13 +124,38 @@ const ProfileSettingsSecurityPage = () => {
 
       toast({
         variant: "success",
-        description: t("profile-settings:modify-email.success"),
+        description: t("profile-settings-security:modify-email.success"),
       })
       await signOut(null)
 
       redirect(routes.client.signIn, 3000)
     },
     [redirect, toast, modifyEmail, signOut, t]
+  )
+
+  const handleVisibilitySubmit = useCallback(
+    async (values: Visibility) => {
+      const [err] = await visibility(values)
+
+      if (err) {
+        toast({
+          variant: "error",
+          description: t(
+            `errors:users.profile-settings.security.visibility.${err.message}`
+          ),
+        })
+
+        return
+      }
+
+      toast({
+        variant: "success",
+        description: t(
+          `profile-settings-security:visibility.messages.${values.isPrivate ? "private" : "public"}`
+        ),
+      })
+    },
+    [visibility, toast, t]
   )
 
   return (
@@ -139,19 +166,24 @@ const ProfileSettingsSecurityPage = () => {
         </Text>
 
         <div className="flex flex-col gap-4">
-          <Text type="subheading" variant="neutral">
-            {t("2fa-title")}
-          </Text>
+          <div className="flex flex-col items-center gap-3 xl:flex-row">
+            <Text
+              type="subheading"
+              variant="neutral"
+              className="whitespace-nowrap"
+            >
+              {t("2fa-title")}
+            </Text>
+            <div
+              className={`${is2faEnabled ? "border-accent-500 text-accent-500" : "border-error-primary text-error-primary"} text-small xl:text-medium flex w-fit flex-row items-center gap-2 whitespace-nowrap rounded-md border-2 px-2 py-0.5 text-center`}
+            >
+              {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
+            </div>
+          </div>
 
           <Text type="medium" variant="neutral">
             {t("2fa-description")}
           </Text>
-
-          <div
-            className={`${is2faEnabled ? "border-accent-500 text-accent-500" : "border-error-primary text-error-primary"}  mx-auto flex w-fit flex-row items-center gap-2 rounded-md border-2 p-1.5 text-center`}
-          >
-            {is2faEnabled ? t("2fa-enabled") : t("2fa-disabled")}
-          </div>
 
           <Button
             variant={is2faEnabled ? "danger" : "default"}
@@ -161,16 +193,45 @@ const ProfileSettingsSecurityPage = () => {
           </Button>
         </div>
 
-        <div className=" flex flex-col gap-6 xl:w-[25%]">
-          <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
-            <ModifyEmailForm onSubmit={handleModifyEmailSubmit} />
-          </Button>
-          <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
-            <ModifyPasswordForm onSubmit={handleModifyPasswordSubmit} />
-          </Button>
-          <Button className="mt-6 bg-red-500 py-2.5 font-semibold text-white">
-            <DeleteAccountForm onSubmit={handleDeleteAccountSubmit} />
-          </Button>
+        <div className="flex flex-col gap-6 border-t-2 border-neutral-300 border-opacity-35 xl:flex-row xl:justify-center xl:gap-40">
+          <div className="mt-4">
+            <Text type="subheading" variant="neutral" className="text-center">
+              {t("profile-settings-security:subtitle-actions")}
+            </Text>
+            <div className="flex justify-center gap-3">
+              <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
+                <ModifyEmailForm onSubmit={handleModifyEmailSubmit} />
+              </Button>
+              <Button className="bg-accent-500 mt-6 py-2.5 font-semibold text-white">
+                <ModifyPasswordForm onSubmit={handleModifyPasswordSubmit} />
+              </Button>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-col xl:justify-center">
+            <Text type="subheading" variant="neutral" className="text-center">
+              {t("profile-settings-security:subtitle-danger-zone")}
+            </Text>
+            <div className="flex justify-center gap-3">
+              <Button className="mt-6 bg-red-500 py-2.5 font-semibold text-white">
+                <DeleteAccountForm onSubmit={handleDeleteAccountSubmit} />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t-2 border-neutral-300 border-opacity-35">
+          <Text
+            type="subheading"
+            variant="neutral"
+            className="mt-4 text-center xl:text-left"
+          >
+            {t("profile-settings-security:subtitle-visibility")}
+          </Text>
+          <VisibilityAccount
+            isPrivate={data?.private}
+            onSubmit={(values) => handleVisibilitySubmit(values)}
+          />
         </div>
       </SettingsPageContainer>
 

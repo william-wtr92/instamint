@@ -34,8 +34,8 @@ const getKey = (pageIndex: number, previousPageData: FetcherData | null) => {
 
 export const usePublication = (): SWRInfiniteResponse => {
   const config: SWRConfiguration = {
-    revalidateOnFocus: false,
-    refreshInterval: 1000,
+    revalidateOnFocus: true,
+    refreshInterval: 60000,
     revalidateOnReconnect: true,
   }
 

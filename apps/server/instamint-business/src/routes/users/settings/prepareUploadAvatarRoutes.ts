@@ -11,6 +11,7 @@ import {
   usersMessages,
 } from "@/def"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { deleteBlob, uploadBlob } from "@/utils/helpers/actions/azureActions"
 import { tenMB } from "@/utils/helpers/files"
@@ -82,6 +83,8 @@ const prepareUploadAvatarRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
     }
   )
+
+  uploadAvatar.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/users", uploadAvatar)
 }

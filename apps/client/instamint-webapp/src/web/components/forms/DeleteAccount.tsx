@@ -51,7 +51,7 @@ export const DeleteAccountForm = (props: Props) => {
       <Form {...form}>
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
-            <Label className="font-semibold hover:cursor-pointer">
+            <Label className="cursor-pointer">
               {t("delete-account.triggerLabel")}
             </Label>
           </DialogTrigger>
