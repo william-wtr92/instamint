@@ -83,6 +83,8 @@ const apiRoutes = {
         `/users/publications/${publicationId}/like`,
       comment: (publicationId: string) =>
         `/users/publications/${publicationId}/comment`,
+      deleteComment: (publicationId: string, commentId: string) =>
+        `/users/publications/${publicationId}/comment/${commentId}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

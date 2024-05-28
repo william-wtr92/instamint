@@ -63,8 +63,8 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
       return c.json(
         {
           result: sanitizeUser(user, [
-            "bio",
             "id",
+            "bio",
             "publicationData",
             "avatar",
           ]),

@@ -10,10 +10,17 @@
     "publication-modal": {
       "likes": "j'aimes",
       "add-comment-placeholder": "Ajouter un commentaire...",
+      "delete-comment-modal": {
+        "title": "Supprimer le commentaire",
+        "description": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+        "cancel": "Annuler",
+        "confirm": "Supprimer"
+      },
       "icons": {
         "like-title": "Aimer",
         "comment-title": "Commenter",
-        "reply-title": "Répondre"
+        "reply-title": "Répondre",
+        "delete-title": "Delete"
       }
     },
     "cta": {

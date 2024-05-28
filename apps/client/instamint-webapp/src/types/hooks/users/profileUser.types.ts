@@ -2,6 +2,7 @@ import type { Publication } from "@instamint/shared-types"
 
 export type ProfileUser = {
   result: {
+    id: string
     email: string
     username: string
     bio: string | null

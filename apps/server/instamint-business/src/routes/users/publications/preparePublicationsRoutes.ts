@@ -45,13 +45,6 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
       query.where({ userId: contextUser.id })
       query.orderBy("createdAt", "desc")
 
-      // const [{ count }]: PublicationsModel[] = await query
-      //   .clone()
-      //   .clearOrder()
-      //   .count("id")
-
-      // const totalPages = Math.ceil(parseInt(count) / limit)
-
       const publications = await query
         .modify("paginate", limit, offset)
         .withGraphFetched("likes")

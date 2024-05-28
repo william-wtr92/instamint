@@ -162,6 +162,16 @@ export const publicationSuccessfullyDisliked = {
 } as const
 
 /* Comments messages */
+export const commentNotFound = {
+  errorCode: "commentNotFound",
+  message: "Comment not found.",
+} as const
+
+export const notAuthorizedToDeleteComment = {
+  errorCode: "notAuthorizedToDeleteComment",
+  message: "Not authorized to delete comment.",
+} as const
+
 export const commentContentRequired = {
   errorCode: "commentContentRequired",
   message: "Comment content required.",
@@ -169,4 +179,8 @@ export const commentContentRequired = {
 
 export const commentsSuccessfullyAdded = {
   message: "Comment successfully added.",
+} as const
+
+export const commentSuccessfullyDeleted = {
+  message: "Comment successfully deleted.",
 } as const

@@ -22,6 +22,7 @@ import twoFactorDeactivationService from "@/web/services/users/account/twoFactor
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
 import addPublicationCommentService from "@/web/services/users/publications/addPublicationCommentService"
+import deletePublicationCommentService from "@/web/services/users/publications/deletePublicationCommentService"
 import likePublicationService from "@/web/services/users/publications/likePublicationService"
 import uploadPublicationService from "@/web/services/users/publications/uploadPublicationService"
 
@@ -53,6 +54,8 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         uploadPublication: uploadPublicationService(context),
         likePublicationService: likePublicationService(context),
         addPublicationCommentService: addPublicationCommentService(context),
+        deletePublicationCommentService:
+          deletePublicationCommentService(context),
       },
       admin: {
         deactivateAccount: deactivateAccountAdminService(context),

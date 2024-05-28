@@ -1,8 +1,5 @@
-import {
-  Publication,
-  publicationSchema,
-} from "types/publications/publications.types"
-import { Role, RoleSchema } from "./roles.types"
+import { Publication } from "../publications/publications.types"
+import { Role } from "./roles.types"
 import { z } from "zod"
 
 export const InsertedUserSchema = z.object({

@@ -67,8 +67,6 @@ const PublicationModalContent = (props: Props) => {
           />
         </div>
 
-        {/* md:w-[calc(95vw-70vh)] lg:w-[calc(80vw-80vh)] */}
-        {/* className={`border-t-1 w-full flex-1 overflow-y-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`} */}
         <div
           className={`border-t-1 w-full flex-1 overflow-x-hidden overflow-y-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`}
         >
@@ -92,9 +90,13 @@ const PublicationModalContent = (props: Props) => {
               }
               username={comment.user.username}
               content={comment.content}
+              commentId={comment.id}
+              commentUser={comment.user}
+              publicationId={publication.id}
             />
           ))}
         </div>
+
         <PublicationModalContentActions
           publication={publication}
           handleShowComments={handleShowComments}

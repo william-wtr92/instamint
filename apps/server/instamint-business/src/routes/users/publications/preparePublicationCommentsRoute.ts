@@ -1,9 +1,11 @@
 import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
 import {
-  type AddCommentParam,
   addCommentParamSchema,
   addCommentSchema,
+  deleteCommentParamSchema,
+  type DeleteCommentParam,
+  type AddCommentParam,
 } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
@@ -75,6 +77,48 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
       })
 
       return c.json(authMessages.commentsSuccessfullyAdded, SC.success.OK)
+    }
+  )
+
+  publicationsComments.delete(
+    "/publications/:publicationId/comment/:commentId",
+    auth,
+    zValidator("param", deleteCommentParamSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { publicationId, commentId } = c.req.param() as DeleteCommentParam
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const publication =
+        await PublicationsModel.query().findById(publicationId)
+
+      if (!publication) {
+        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const comment = await CommentsModel.query().findById(commentId)
+
+      if (!comment) {
+        return c.json(authMessages.commentNotFound, SC.errors.NOT_FOUND)
+      }
+
+      if (comment.userId !== contextUser.id) {
+        return c.json(
+          authMessages.notAuthorizedToDeleteComment,
+          SC.errors.UNAUTHORIZED
+        )
+      }
+
+      await PublicationsCommentsRelationModel.query().delete().where({
+        commentId,
+      })
+
+      await CommentsModel.query().deleteById(commentId)
+
+      return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)
     }
   )
 
