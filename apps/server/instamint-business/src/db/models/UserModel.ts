@@ -1,3 +1,5 @@
+import type { QueryBuilderType } from "objection"
+
 import BaseModel from "./BaseModel"
 import PublicationsModel from "./PublicationsModel"
 import RoleModel from "./RoleModel"
@@ -31,6 +33,12 @@ class UserModel extends BaseModel {
   publicationData!: PublicationsModel
 
   count!: string
+
+  static modifiers = {
+    selectUserData: (query: QueryBuilderType<UserModel>) => {
+      query.select("id", "username")
+    },
+  }
 
   static relationMappings() {
     return {

@@ -81,6 +81,8 @@ const apiRoutes = {
         `/users/publications?limit=${queries.limit}&offset=${queries.offset}`,
       like: (publicationId: string) =>
         `/users/publications/${publicationId}/like`,
+      comment: (publicationId: string) =>
+        `/users/publications/${publicationId}/comment`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

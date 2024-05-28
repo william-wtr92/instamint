@@ -6,6 +6,8 @@ export * from "./types/auth/emailValidation.types"
 export * from "./types/auth/signIn.types"
 
 /* Users Profile Schemas & Types */
+export * from "./types/users/roles.types"
+export * from "./types/users/users.types"
 export * from "./types/users/resetPassword.types"
 export * from "./types/users/updateUserInfos.types"
 export * from "./types/users/deleteAccount.types"
@@ -17,6 +19,7 @@ export * from "./types/users/profile/profile.types"
 /* Publications Schemas & Types */
 export * from "./types/publications/publications.types"
 export * from "./types/publications/publicationsLikes.types"
+export * from "./types/publications/publicationsComments.types"
 
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"

@@ -18,7 +18,7 @@ const PublicationModalContentHeader = (props: Props) => {
 
   return (
     <div
-      className={`border-b-1 flex h-fit w-full flex-row items-center gap-2 border-neutral-300 p-2 ${className} md:flex`}
+      className={`border-b-1 flex h-fit w-full flex-row items-center gap-2 border-neutral-300 p-2 ${className}`}
     >
       <Link href={routes.client.profile.getProfile(username)}>
         <Avatar className="border-accent-500 size-8 border">

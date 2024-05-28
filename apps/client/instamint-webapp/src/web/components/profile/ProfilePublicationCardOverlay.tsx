@@ -23,7 +23,7 @@ const ProfilePublicationCardOverlay = (props: Props) => {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <p>9982</p>
+          <p>{publication.comments.length}</p>
           <ChatBubbleOvalLeftIcon
             title={t("publication-modal.icons.comment-title")}
             className="size-8"

@@ -55,6 +55,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
       const publications = await query
         .modify("paginate", limit, offset)
         .withGraphFetched("likes")
+        .withGraphFetched("comments")
 
       const finalPublications = publications.reduce(
         (acc: PublicationsModel[], publication: PublicationsModel) => {

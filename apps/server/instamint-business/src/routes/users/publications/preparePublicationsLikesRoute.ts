@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
 import {
-  publicationsLikesSchema,
+  publicationsLikesParamSchema,
   type PublicationsLikes,
 } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
@@ -34,7 +34,7 @@ const preparePublicationsLikesRoutes: ApiRoutes = ({ app, db, redis }) => {
   publicationsLikes.post(
     "/publications/:publicationId/like",
     auth,
-    zValidator("param", publicationsLikesSchema),
+    zValidator("param", publicationsLikesParamSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const { publicationId } = c.req.param() as PublicationsLikes

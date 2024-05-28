@@ -160,3 +160,13 @@ export const publicationSuccessfullyLiked = {
 export const publicationSuccessfullyDisliked = {
   message: "Publication successfully disliked.",
 } as const
+
+/* Comments messages */
+export const commentContentRequired = {
+  errorCode: "commentContentRequired",
+  message: "Comment content required.",
+} as const
+
+export const commentsSuccessfullyAdded = {
+  message: "Comment successfully added.",
+} as const

@@ -1,5 +1,7 @@
 import type { QueryBuilder, QueryBuilderType } from "objection"
 
+import CommentsModel from "./CommentsModel"
+
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
 
@@ -55,6 +57,23 @@ class PublicationsModel extends BaseModel {
         },
         modify: (query: QueryBuilder<UserModel>) =>
           query.select("id", "username"),
+      },
+      comments: {
+        relation: BaseModel.ManyToManyRelation,
+        modelClass: CommentsModel,
+        join: {
+          from: "publications.id",
+          through: {
+            from: "publications_comments_relation.publicationId",
+            to: "publications_comments_relation.commentId",
+          },
+          to: "comments.id",
+        },
+        modify: (query: QueryBuilder<CommentsModel>) =>
+          query
+            .select("comments.id", "content", "createdAt")
+            .orderBy("createdAt", "desc")
+            .withGraphJoined("user"),
       },
     }
   }

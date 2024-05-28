@@ -12,6 +12,8 @@ import type {
   UserAvatar,
   AddPublication,
   PublicationsLikes,
+  AddComment,
+  AddCommentParam,
 } from "@instamint/shared-types"
 
 export type UsersServices = {
@@ -29,4 +31,5 @@ export type UsersServices = {
   uploadAvatar: [UserAvatar, null]
   uploadPublication: [AddPublication, null]
   likePublicationService: [PublicationsLikes, null]
+  addPublicationCommentService: [AddComment & AddCommentParam, null]
 }
