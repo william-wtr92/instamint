@@ -1,7 +1,7 @@
 import { events, type JoinRoom } from "@instamint/shared-types"
 import type { Socket } from "socket.io"
 
-import FollowersModel from "@/db/models/FollowersModel"
+import FollowerModel from "@/db/models/FollowerModel"
 import RoomModel from "@/db/models/RoomModel"
 import RoomUserModel from "@/db/models/RoomUserModel"
 import UserModel from "@/db/models/UserModel"
@@ -29,7 +29,7 @@ export const joinRoom = async (socket: Socket, data: JoinRoom) => {
     })
   }
 
-  const isFollowing = await FollowersModel.query().where({
+  const isFollowing = await FollowerModel.query().where({
     followerId: userAuthenticated.id,
     followedId: userTargeted.id,
     status: "accepted",

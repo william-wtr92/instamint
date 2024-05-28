@@ -9,7 +9,7 @@ import {
 } from "@instamint/shared-types"
 import { Hono, type Context } from "hono"
 
-import FollowersModel from "@/db/models/FollowersModel"
+import FollowerModel from "@/db/models/FollowerModel"
 import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
@@ -62,7 +62,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.cannotFollowYourself, SC.errors.BAD_REQUEST)
       }
 
-      const isFollowing = await FollowersModel.query().findOne({
+      const isFollowing = await FollowerModel.query().findOne({
         followerId: user.id,
         followedId: targetUser.id,
       })
@@ -71,7 +71,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.alreadyFollowing, SC.success.OK)
       }
 
-      await FollowersModel.query().insert({
+      await FollowerModel.query().insert({
         status: targetUser.private ? "pending" : "accepted",
         followerId: user.id,
         followedId: targetUser.id,
@@ -95,7 +95,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const allRequests = await FollowersModel.query()
+      const allRequests = await FollowerModel.query()
         .where({
           followedId: user.id,
           status: "pending",
@@ -129,7 +129,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const followRequest = await FollowersModel.query().findOne({
+      const followRequest = await FollowerModel.query().findOne({
         followerId: targetUser.id,
         followedId: user.id,
         status: "pending",
@@ -141,13 +141,13 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const finalStatus: FollowersStatus = accepted ? "accepted" : "rejected"
 
-      await FollowersModel.transaction(async (trx) => {
+      await FollowerModel.transaction(async (trx) => {
         if (accepted) {
-          await FollowersModel.query(trx).patchAndFetchById(followRequest.id, {
+          await FollowerModel.query(trx).patchAndFetchById(followRequest.id, {
             status: finalStatus,
           })
         } else {
-          await FollowersModel.query(trx).deleteById(followRequest.id)
+          await FollowerModel.query(trx).deleteById(followRequest.id)
         }
       })
 
@@ -178,7 +178,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const followRequest = await FollowersModel.query().findOne({
+      const followRequest = await FollowerModel.query().findOne({
         followerId: user.id,
         followedId: targetUser.id,
         status: "pending",
@@ -188,7 +188,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.followRequestNotFound, SC.errors.NOT_FOUND)
       }
 
-      await FollowersModel.query().deleteById(followRequest.id)
+      await FollowerModel.query().deleteById(followRequest.id)
 
       return c.json(
         { message: usersMessages.followRequestDeleted.message },
@@ -217,7 +217,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const isFollowing = await FollowersModel.query().findOne({
+      const isFollowing = await FollowerModel.query().findOne({
         followerId: user.id,
         followedId: targetUser.id,
         status: "accepted",
@@ -227,7 +227,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(usersMessages.followRequestNotFound, SC.errors.NOT_FOUND)
       }
 
-      await FollowersModel.query().deleteById(isFollowing.id)
+      await FollowerModel.query().deleteById(isFollowing.id)
 
       return c.json(
         { message: usersMessages.unfollowedSuccessfully.message },

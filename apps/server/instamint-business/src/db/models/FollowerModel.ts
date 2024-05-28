@@ -3,7 +3,7 @@ import type { FollowersStatus } from "@instamint/shared-types"
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
 
-class FollowersModel extends BaseModel {
+class FollowerModel extends BaseModel {
   static tableName = "followers"
 
   id!: number
@@ -36,4 +36,4 @@ class FollowersModel extends BaseModel {
   }
 }
 
-export default FollowersModel
+export default FollowerModel

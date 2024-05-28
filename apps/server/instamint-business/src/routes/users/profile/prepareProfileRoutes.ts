@@ -3,7 +3,7 @@ import { type ApiRoutes, SC } from "@instamint/server-types"
 import { profileSchema, type Profile } from "@instamint/shared-types"
 import { Hono, type Context } from "hono"
 
-import FollowersModel from "@/db/models/FollowersModel"
+import FollowerModel from "@/db/models/FollowerModel"
 import UserModel from "@/db/models/UserModel"
 import { authMessages, contextsKeys, globalsMessages } from "@/def"
 import { auth } from "@/middlewares/auth"
@@ -56,22 +56,22 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const countFollower = await FollowersModel.query()
+      const countFollower = await FollowerModel.query()
         .where({ followedId: targetUser.id, status: "accepted" })
         .count()
         .first()
 
-      const countFollowed = await FollowersModel.query()
+      const countFollowed = await FollowerModel.query()
         .where({ followerId: targetUser.id, status: "accepted" })
         .count()
         .first()
 
-      const isFollowing = await FollowersModel.query().findOne({
+      const isFollowing = await FollowerModel.query().findOne({
         followerId: userAuth.id,
         followedId: targetUser.id,
       })
 
-      const requestPending = await FollowersModel.query()
+      const requestPending = await FollowerModel.query()
         .findOne({
           followerId: targetUser.id,
           followedId: userAuth.id,

@@ -3,7 +3,7 @@ import { type ApiRoutes, SC } from "@instamint/server-types"
 import { visibilitySchema, type Visibility } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
-import FollowersModel from "@/db/models/FollowersModel"
+import FollowerModel from "@/db/models/FollowerModel"
 import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
@@ -52,7 +52,7 @@ const prepareVisibilityAccountRoutes: ApiRoutes = ({ app, db, redis }) => {
       })
 
       if (!isPrivate) {
-        await FollowersModel.query()
+        await FollowerModel.query()
           .where({ followedId: user.id, status: "pending" })
           .patch({ status: "accepted" })
       }

@@ -4,7 +4,7 @@ import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const visibilityAccountService: Services<Visibility, null> =
+const updateVisibilityAccountService: Services<Visibility, null> =
   ({ api }) =>
   async (data) => {
     try {
@@ -28,4 +28,4 @@ const visibilityAccountService: Services<Visibility, null> =
     }
   }
 
-export default visibilityAccountService
+export default updateVisibilityAccountService

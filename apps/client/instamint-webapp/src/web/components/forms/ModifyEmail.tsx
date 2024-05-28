@@ -48,7 +48,7 @@ export const ModifyEmailForm = (props: Props) => {
       <Form {...form}>
         <Dialog onOpenChange={() => form.reset()}>
           <DialogTrigger asChild>
-            <Label className="hover:cursor-pointer">
+            <Label className="cursor-pointer">
               {t(`modify-email.triggerLabel`)}
             </Label>
           </DialogTrigger>

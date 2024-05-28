@@ -20,8 +20,8 @@ import twoFactorAuthenticationService from "@/web/services/users/account/twoFact
 import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
 import twoFactorDeactivationService from "@/web/services/users/account/twoFactorDeactivationService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
+import updateVisibilityAccountService from "@/web/services/users/account/updateVisibilityAccountService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
-import visibilityAccountService from "@/web/services/users/account/visibilityAccountService"
 import deleteFollowRequestService from "@/web/services/users/profile/deleteFollowRequestService"
 import followRequestService from "@/web/services/users/profile/followRequestService"
 import followService from "@/web/services/users/profile/followService"
@@ -54,7 +54,7 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         modifyEmail: modifyEmailService(context),
         uploadAvatar: uploadAvatarService(context),
         uploadPublication: uploadPublicationService(context),
-        visibility: visibilityAccountService(context),
+        visibility: updateVisibilityAccountService(context),
       },
       profile: {
         follow: followService(context),
