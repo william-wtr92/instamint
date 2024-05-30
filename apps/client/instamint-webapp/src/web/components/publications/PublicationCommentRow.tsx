@@ -24,9 +24,7 @@ type Props = {
   hashtags?: string[]
   isDescription?: boolean
 
-  publicationId?: number
   publicationAuthorId?: number
-  publicationAuthorUsername?: string
   commentAuthor?: CommentUser
   commentId?: number
   commentParentId?: number | null
@@ -47,9 +45,7 @@ const PublicationCommentRow = (props: Props) => {
     commentId,
     commentParentId,
     commentReplies,
-    publicationId,
     publicationAuthorId,
-    publicationAuthorUsername,
     setReplyCommentId,
     setReplyCommentUsername,
   } = props
@@ -123,55 +119,58 @@ const PublicationCommentRow = (props: Props) => {
             </Text>
           </CollapsibleTrigger>
 
-          <CollapsibleContent className="flex flex-col gap-2 bg-neutral-100 pt-2">
-            {commentReplies.map((commentReply, index) => (
-              <CommentWithActions
-                key={index}
-                username={publicationAuthorUsername}
-                commentId={commentReply.id}
-                commentAuthor={commentReply.user}
-                commentParentId={commentReply.parentId}
-                publicationId={publicationId}
-                publicationAuthorId={publicationAuthorId}
-                handleReplyCommentUser={handleReplyCommentUser}
-              >
-                <div key={index} className="flex flex-row gap-2">
-                  <Avatar className="border-accent-500 size-8 cursor-pointer border">
-                    {commentReply.user.avatar ? (
-                      <AvatarImage
-                        src={
-                          commentReply.user.avatar
-                            ? `${config.api.blobUrl}${commentReply.user.avatar}`
-                            : ""
-                        }
-                        alt={commentAuthorUsername}
-                      />
-                    ) : (
-                      <AvatarFallback>
-                        {commentReply.user.username[0]}
-                      </AvatarFallback>
-                    )}
-                  </Avatar>
+          <CollapsibleContent
+            className={`flex flex-col gap-2 bg-neutral-100 ${showCommentReplies ? "pt-2" : "pt-0"}`}
+          >
+            {commentReplies.map((commentReply, index) => {
+              const replyUsernameFirstLetter = commentReply.user.username[0]
+              const replyUserAvatar = commentReply.user.avatar
+                ? `${config.api.blobUrl}${commentReply.user.avatar}`
+                : ""
 
-                  <Text
-                    type="medium"
-                    variant="none"
-                    className="break-word w-[calc(90vw-96px)] text-pretty break-words md:w-[calc(95vw-70vh-96px)] lg:w-[calc(80vw-80vh-96px)]"
-                  >
-                    <Link
-                      href={routes.client.profile.getProfile(
-                        commentReply.user.username
+              return (
+                <CommentWithActions
+                  key={index}
+                  commentId={commentReply.id}
+                  commentAuthor={commentReply.user}
+                  commentParentId={commentReply.parentId}
+                  publicationAuthorId={publicationAuthorId}
+                  handleReplyCommentUser={handleReplyCommentUser}
+                >
+                  <div key={index} className="flex flex-row gap-2">
+                    <Avatar className="border-accent-500 size-8 cursor-pointer border">
+                      {commentReply.user.avatar ? (
+                        <AvatarImage
+                          src={replyUserAvatar}
+                          alt={commentAuthorUsername}
+                        />
+                      ) : (
+                        <AvatarFallback>
+                          {replyUsernameFirstLetter}
+                        </AvatarFallback>
                       )}
-                      className="float-left mr-1.5 font-bold"
-                    >
-                      {commentReply.user.username}
-                    </Link>
+                    </Avatar>
 
-                    <p className="font-normal">{commentReply.content}</p>
-                  </Text>
-                </div>
-              </CommentWithActions>
-            ))}
+                    <Text
+                      type="medium"
+                      variant="none"
+                      className="break-word w-[calc(90vw-96px)] text-pretty break-words md:w-[calc(95vw-70vh-96px)] lg:w-[calc(80vw-80vh-96px)]"
+                    >
+                      <Link
+                        href={routes.client.profile.getProfile(
+                          commentReply.user.username
+                        )}
+                        className="float-left mr-1.5 font-bold"
+                      >
+                        {commentReply.user.username}
+                      </Link>
+
+                      <p className="font-normal">{commentReply.content}</p>
+                    </Text>
+                  </div>
+                </CommentWithActions>
+              )
+            })}
           </CollapsibleContent>
         </Collapsible>
       )
@@ -181,8 +180,6 @@ const PublicationCommentRow = (props: Props) => {
     commentReplies,
     handleReplyCommentUser,
     publicationAuthorId,
-    publicationAuthorUsername,
-    publicationId,
     showCommentReplies,
     t,
   ])
@@ -190,11 +187,9 @@ const PublicationCommentRow = (props: Props) => {
   return (
     <>
       <CommentWithActions
-        username={publicationAuthorUsername}
         commentId={commentId}
         commentAuthor={commentAuthor}
         commentParentId={commentParentId}
-        publicationId={publicationId}
         publicationAuthorId={publicationAuthorId}
         handleReplyCommentUser={handleReplyCommentUser}
       >

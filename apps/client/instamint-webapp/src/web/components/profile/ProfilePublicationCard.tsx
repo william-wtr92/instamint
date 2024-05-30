@@ -24,7 +24,7 @@ const ProfilePublicationCard = (props: Props) => {
         className="size-full object-contain"
       />
 
-      <PublicationModal publication={publication} />
+      <PublicationModal publicationInList={publication} />
     </div>
   )
 }

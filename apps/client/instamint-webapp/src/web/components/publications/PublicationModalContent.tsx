@@ -9,7 +9,7 @@ import PublicationModalContentHeader from "@/web/components/publications/Publica
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
+import { useGetPublicationById } from "@/web/hooks/publications/useGetPublicationById"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
@@ -20,23 +20,25 @@ type Props = {
 const PublicationModalContent = (props: Props) => {
   const { publication } = props
 
-  const username = publication.author
-
   const {
     services: {
       users: { replyPublicationCommentService },
     },
+    publicationId,
   } = useAppContext()
+
   const { toast } = useActionsContext()
 
-  const { mutate } = useGetPublicationsFromUser(username)
+  const { mutate } = useGetPublicationById(publicationId)
 
   const { data, isLoading } = useUserByUsername({
-    username,
+    username: publication.author,
   })
   const user = isLoading ? null : data
-  const usernameFirstLetter = firstLetter(username)
-  const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
+  const usernameFirstLetter = firstLetter(publication.author)
+  const publicationAuthorAvatar = user?.avatar
+    ? `${config.api.blobUrl}${user.avatar}`
+    : null
 
   const [showComments, setShowComments] = useState<boolean>(false)
   const [replyCommentId, setReplyCommentId] = useState<number | null>(null)
@@ -93,8 +95,8 @@ const PublicationModalContent = (props: Props) => {
 
       <div className="md:border-l-1 flex h-full flex-col md:w-[calc(95vw-70vh)] lg:w-[calc(80vw-80vh)]">
         <PublicationModalContentHeader
-          username={username}
-          userAvatar={userAvatar}
+          username={publication.author}
+          userAvatar={publicationAuthorAvatar}
           usernameFirstLetter={usernameFirstLetter}
           location={publication.location}
         />
@@ -115,8 +117,8 @@ const PublicationModalContent = (props: Props) => {
         >
           {/* This component is used here for the publication description as the design is almost the same */}
           <PublicationCommentRow
-            avatar={userAvatar}
-            commentAuthorUsername={username}
+            avatar={publicationAuthorAvatar}
+            commentAuthorUsername={publication.author}
             content={publication.description}
             hashtags={JSON.parse(publication.hashtags)}
             isDescription={true}
@@ -133,8 +135,7 @@ const PublicationModalContent = (props: Props) => {
                   : null
               }
               content={comment.content}
-              publicationId={publication.id}
-              publicationAuthorUsername={username}
+              publicationAuthorId={publication.userId}
               commentAuthor={comment.user}
               commentAuthorUsername={comment.user.username}
               commentId={comment.id}
@@ -148,7 +149,6 @@ const PublicationModalContent = (props: Props) => {
 
         <PublicationModalContentActions
           publication={publication}
-          username={username}
           replyCommentId={replyCommentId}
           replyCommentUsername={replyCommentUsername}
           handleShowComments={handleShowComments}

@@ -17,7 +17,7 @@ const BaseLayout = (props: Props) => {
     >
       <Navbar />
 
-      <main className="flex-1 border-red-500">{children}</main>
+      <main className="flex-1">{children}</main>
 
       <Header />
     </div>

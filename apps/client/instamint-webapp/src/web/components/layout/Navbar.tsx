@@ -95,22 +95,20 @@ const Navbar = () => {
               {t("publish")}
             </Text>
           </button>
+
+          {user?.roleData === "admin" && (
+            <Link
+              href={routes.client.admin.users}
+              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+            >
+              <AdjustmentsHorizontalIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+              <Text type="body" variant="accent" className="hidden md:block">
+                {t("admin")}
+              </Text>
+            </Link>
+          )}
         </div>
       </div>
-
-      {user?.roleData === "admin" && (
-        <div className="mb-6 hidden md:flex md:gap-4">
-          <Link
-            href={routes.client.admin.users}
-            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
-          >
-            <AdjustmentsHorizontalIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-            <Text type="body" variant="accent" className="hidden md:block">
-              {t("admin")}
-            </Text>
-          </Link>
-        </div>
-      )}
 
       {showAddPublicationModal && (
         <AddPublicationModal

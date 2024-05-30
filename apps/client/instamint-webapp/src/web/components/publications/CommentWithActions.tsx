@@ -17,15 +17,13 @@ import { AlertPopup } from "@/web/components/utils/AlertPopup"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
-import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
+import { useGetPublicationById } from "@/web/hooks/publications/useGetPublicationById"
 
 type Props = {
   children: ReactNode
-  username: string | undefined
   commentId: number | undefined
   commentAuthor: CommentUser | undefined
   commentParentId: number | null | undefined
-  publicationId: number | undefined
   publicationAuthorId: number | undefined
   handleReplyCommentUser: () => void
 }
@@ -33,11 +31,9 @@ type Props = {
 const CommentWithActions = (props: Props) => {
   const {
     children,
-    username,
     commentId,
     commentAuthor,
     commentParentId,
-    publicationId,
     publicationAuthorId,
     handleReplyCommentUser,
   } = props
@@ -47,11 +43,12 @@ const CommentWithActions = (props: Props) => {
     services: {
       users: { deletePublicationCommentService },
     },
+    publicationId,
   } = useAppContext()
 
   const { toast } = useActionsContext()
 
-  const { mutate } = useGetPublicationsFromUser(username!)
+  const { mutate } = useGetPublicationById(publicationId)
 
   const { data: userConnectedData, isLoading: isLoadingUserConnected } =
     useUser()
@@ -76,6 +73,7 @@ const CommentWithActions = (props: Props) => {
     }
   }, [commentParentId, handleReplyCommentUser, t])
 
+  // Tu peux supp si c'est ton commentaire, ou si le post est le tien
   const deleteCommentButton = useMemo(() => {
     if (
       userConnected?.id === commentAuthor?.id ||

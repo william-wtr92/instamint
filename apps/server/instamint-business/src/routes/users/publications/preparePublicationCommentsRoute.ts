@@ -108,17 +108,22 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.commentNotFound, SC.errors.NOT_FOUND)
       }
 
-      if (comment.userId !== contextUser.id) {
+      const isUserAuthorizedToDeleteComment = () => {
+        return (
+          contextUser.id === comment.userId ||
+          contextUser.id === publication.userId
+        )
+      }
+
+      // If not your comment, you're unauthorized to delete it
+      if (!isUserAuthorizedToDeleteComment) {
         return c.json(
           authMessages.notAuthorizedToDeleteComment,
           SC.errors.UNAUTHORIZED
         )
       }
 
-      {
-        /* If it has a parentId, then it's a reply to a comment */
-      }
-
+      /* If it has a parentId, then it's a reply to a comment -> we're deleting a reply */
       if (comment.parentId !== null) {
         await PublicationsCommentsRelationModel.query().delete().where({
           commentId,
@@ -142,6 +147,11 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
           await CommentsModel.query().deleteById(reply.id)
         })
       )
+
+      await PublicationsCommentsRelationModel.query().delete().where({
+        commentId,
+      })
+
       await CommentsModel.query().deleteById(commentId)
 
       return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)

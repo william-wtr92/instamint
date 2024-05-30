@@ -7,7 +7,7 @@ type FetcherData = {
   result: Publication
 }
 
-export const useGetPublicationFromId = (publicationId: number) => {
+export const useGetPublicationById = (publicationId: number | null) => {
   const config: SWRConfiguration = {
     revalidateOnFocus: false,
     refreshInterval: 10000,
@@ -15,7 +15,9 @@ export const useGetPublicationFromId = (publicationId: number) => {
   }
 
   const { data, ...query } = useSWR<FetcherData, Error>(
-    routes.api.users.publications.getPublication(publicationId.toString()),
+    publicationId
+      ? routes.api.users.publications.getPublication(publicationId.toString())
+      : null,
     config
   )
 

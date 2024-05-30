@@ -9,12 +9,11 @@ import LikeButton from "@/web/components/publications/LikeButton"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
-import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
+import { useGetPublicationById } from "@/web/hooks/publications/useGetPublicationById"
 import { dateIntoString, formatDate } from "@/web/utils/helpers/dateHelper"
 
 type Props = {
   publication: Publication
-  username: string
   replyCommentId: number | null
   replyCommentUsername: string | null
   handleShowComments: () => void
@@ -29,7 +28,6 @@ type Props = {
 const PublicationModalContentActions = (props: Props) => {
   const {
     publication,
-    username,
     replyCommentId,
     replyCommentUsername,
     handleShowComments,
@@ -46,16 +44,17 @@ const PublicationModalContentActions = (props: Props) => {
     services: {
       users: { addPublicationCommentService },
     },
+    publicationId,
   } = useAppContext()
   const { toast } = useActionsContext()
+
+  const { mutate } = useGetPublicationById(publicationId)
 
   const { data, isLoading } = useUser()
   const user = isLoading ? null : data
 
-  const { mutate } = useGetPublicationsFromUser(username)
-
   const sendComment = useCallback(async () => {
-    if (!user || !inputRef.current) {
+    if (!user || !inputRef.current || !publicationId) {
       return
     }
 
@@ -65,7 +64,7 @@ const PublicationModalContentActions = (props: Props) => {
     const content = input.value
 
     const [err] = await addPublicationCommentService({
-      publicationId: publication.id.toString(),
+      publicationId: publicationId.toString(),
       content,
     })
 
@@ -81,10 +80,10 @@ const PublicationModalContentActions = (props: Props) => {
     await mutate()
     input.value = ""
     topAnchor?.scrollIntoView({ behavior: "smooth", block: "start" })
-  }, [addPublicationCommentService, mutate, publication.id, t, toast, user])
+  }, [addPublicationCommentService, mutate, publicationId, t, toast, user])
 
   const handleReplyToComment = useCallback(async () => {
-    if (!replyCommentId || !inputRef.current) {
+    if (!replyCommentId || !inputRef.current || !publicationId) {
       return
     }
 
@@ -93,11 +92,11 @@ const PublicationModalContentActions = (props: Props) => {
     const topAnchor = document.getElementById("comments-top-anchor")
     const content = input.value
 
-    await replyToComment(replyCommentId, publication.id, content)
+    await replyToComment(replyCommentId, publicationId, content)
 
     input.value = ""
     topAnchor?.scrollIntoView({ behavior: "smooth", block: "start" })
-  }, [publication.id, replyCommentId, replyToComment])
+  }, [publicationId, replyCommentId, replyToComment])
 
   useEffect(() => {
     if (!inputRef.current) {
@@ -132,11 +131,7 @@ const PublicationModalContentActions = (props: Props) => {
   return (
     <div className="border-t-1 flex w-full flex-col justify-between border-neutral-300 p-2 md:flex-1">
       <div className="flex flex-row items-start justify-start gap-2">
-        <LikeButton
-          username={username}
-          publicationId={publication.id}
-          isLiked={publication.isLiked}
-        />
+        <LikeButton isLiked={publication.isLiked} />
 
         <ChatBubbleOvalLeftIcon
           title={t("publication-modal.icons.comment-title")}

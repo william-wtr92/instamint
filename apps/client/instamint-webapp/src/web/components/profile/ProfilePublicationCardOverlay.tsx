@@ -4,18 +4,25 @@ import { DialogTrigger } from "@instamint/ui-kit"
 import { t } from "i18next"
 import React from "react"
 
+import useAppContext from "@/web/contexts/useAppContext"
+
 type Props = {
-  publication: Publication
+  publicationInList: Publication
 }
 
 const ProfilePublicationCardOverlay = (props: Props) => {
-  const { publication } = props
+  const { publicationInList } = props
+
+  const { setPublicationId } = useAppContext()
 
   return (
-    <DialogTrigger asChild>
+    <DialogTrigger
+      asChild
+      onClick={() => setPublicationId(publicationInList.id)}
+    >
       <div className="absolute left-0 top-0 flex size-full flex-col items-center justify-center gap-2 bg-black p-2 text-white opacity-0 duration-300 group-hover/publication:opacity-50">
         <div className="flex flex-row items-center gap-2">
-          <p>{publication.likes.length}</p>
+          <p>{publicationInList.likes.length}</p>
           <HeartIcon
             title={t("publication-modal.icons.like-title")}
             className="size-8"
@@ -23,7 +30,7 @@ const ProfilePublicationCardOverlay = (props: Props) => {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <p>{publication.comments.length}</p>
+          <p>{publicationInList.comments.length}</p>
           <ChatBubbleOvalLeftIcon
             title={t("publication-modal.icons.comment-title")}
             className="size-8"

@@ -27,6 +27,8 @@ export type AppContextType = {
     joinRoom: <C>(data: JoinRoom, callback: C) => void
     chatMessage: (data: ChatMessage) => void
   }
+  publicationId: number | null
+  setPublicationId: (id: number | null) => void
 }
 
 /* Actions Context */

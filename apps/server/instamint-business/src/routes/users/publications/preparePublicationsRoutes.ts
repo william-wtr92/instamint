@@ -91,7 +91,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
   )
 
   publications.get(
-    "/publications/:publicationId",
+    "/publication/:publicationId",
     auth,
     zValidator("param", getPublicationParamSchema),
     async (c: Context) => {
@@ -103,7 +103,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const publication = await PublicationsModel.query()
-        .findById(publicationId)
+        .findOne("id", publicationId)
         .withGraphFetched("likes")
         .withGraphFetched("comments")
 
@@ -119,9 +119,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       return c.json(
         {
-          result: {
-            publication,
-          },
+          result: publication,
         },
         SC.success.OK
       )

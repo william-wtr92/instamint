@@ -4,29 +4,32 @@ import React from "react"
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
+import { useGetPublicationById } from "@/web/hooks/publications/useGetPublicationById"
 
 type Props = {
-  username: string
-  publicationId: number
   isLiked: boolean
 }
 
 const LikeButton = (props: Props) => {
-  const { username, publicationId, isLiked } = props
+  const { isLiked } = props
   const { t } = useTranslation("profile")
 
   const {
     services: {
       users: { likePublicationService },
     },
+    publicationId,
   } = useAppContext()
 
-  const { mutate } = useGetPublicationsFromUser(username)
+  const { mutate } = useGetPublicationById(publicationId)
 
   const { toast } = useActionsContext()
 
   const likePublication = async () => {
+    if (!publicationId) {
+      return
+    }
+
     const [error] = await likePublicationService({
       publicationId: publicationId.toString(),
     })

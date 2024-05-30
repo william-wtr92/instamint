@@ -3,6 +3,7 @@ import {
   type FC,
   type PropsWithChildren,
   useContext,
+  useState,
 } from "react"
 
 import type { AppContextProviderProps, AppContextType } from "@/types"
@@ -23,11 +24,15 @@ export const AppContextProvider: FC<
   const apiServices = prepareApiServices({ api })
   const socketServices = prepareSocketServices({ socket })
 
+  const [publicationId, setPublicationId] = useState<number | null>(null)
+
   return (
     <AppContext.Provider
       value={{
         ...apiServices,
         ...socketServices,
+        publicationId,
+        setPublicationId,
       }}
     >
       {children}
