@@ -1,12 +1,12 @@
 import { type SWRConfiguration } from "swr"
 import useSWRInfinite, { type SWRInfiniteResponse } from "swr/infinite"
 
-import type { Notifications } from "@/types"
+import type { Notification } from "@/types"
 import { routes } from "@/web/routes"
 
 type FetcherData = {
   result: {
-    notifications: Notifications[]
+    notifications: Notification[]
     totalCount: number
     totalPage: number
   }

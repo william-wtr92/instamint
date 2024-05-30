@@ -2,7 +2,7 @@ import type { NotificationTypes } from "@instamint/shared-types"
 
 import type { ProfileUser } from "@/types"
 
-export type Notifications = {
+export type Notification = {
   id: number
   type: NotificationTypes
   read: boolean

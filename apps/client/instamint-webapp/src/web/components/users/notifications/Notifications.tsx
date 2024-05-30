@@ -16,6 +16,7 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback } from "react"
 
+import type { Notification } from "@/types"
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -87,7 +88,11 @@ export const Notifications = () => {
   }
 
   const handleReadNotification = useCallback(
-    async (values: ReadNotification) => {
+    async (values: ReadNotification, notification: Notification) => {
+      if (notification.read) {
+        return
+      }
+
       const [err] = await readNotification(values)
 
       if (err) {
@@ -150,9 +155,12 @@ export const Notifications = () => {
                   key={notification.id}
                   className="flex items-center justify-center gap-3"
                   onClick={() =>
-                    handleReadNotification({
-                      notificationId: notification.id.toString(),
-                    })
+                    handleReadNotification(
+                      {
+                        notificationId: notification.id.toString(),
+                      },
+                      notification
+                    )
                   }
                 >
                   <div className="flex flex-col items-center justify-between gap-3">
@@ -177,7 +185,7 @@ export const Notifications = () => {
                   >
                     <div className="flex gap-2 py-1.5">
                       <div className="flex items-center">
-                        <Avatar className="size-6 rounded-3xl outline-dashed outline-neutral-500 xl:size-9">
+                        <Avatar className="size-6 rounded-3xl outline-dashed outline-1 outline-neutral-500 xl:size-9">
                           <AvatarImage
                             src={notifierUserAvatar(
                               notification.notifierUserData.avatar!
