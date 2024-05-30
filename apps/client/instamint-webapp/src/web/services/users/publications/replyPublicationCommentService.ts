@@ -1,17 +1,17 @@
-import type { AddComment, AddCommentParam } from "@instamint/shared-types"
+import type { ReplyComment, ReplyCommentParam } from "@instamint/shared-types"
 
 import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const addPublicationCommentService: Services<
-  AddComment & AddCommentParam,
+const replyPublicationCommentService: Services<
+  ReplyCommentParam & ReplyComment,
   null
 > =
   ({ api }) =>
   async (data) => {
     try {
-      const { publicationId, content } = data
+      const { publicationId, commentId, content } = data
 
       const body = {
         content,
@@ -22,7 +22,7 @@ const addPublicationCommentService: Services<
       }
 
       const { data: responseData } = await api.post(
-        routes.api.users.publications.comment(publicationId),
+        routes.api.users.publications.replyComment(publicationId, commentId),
         body,
         config
       )
@@ -33,4 +33,4 @@ const addPublicationCommentService: Services<
     }
   }
 
-export default addPublicationCommentService
+export default replyPublicationCommentService

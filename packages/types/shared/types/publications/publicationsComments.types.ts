@@ -5,7 +5,6 @@ export const addCommentParamSchema = z.object({
 })
 
 export const addCommentSchema = z.object({
-  userId: z.number(),
   content: z.string(),
 })
 
@@ -14,11 +13,35 @@ export const deleteCommentParamSchema = z.object({
   commentId: z.string(),
 })
 
+export const replyCommentParamSchema = z.object({
+  publicationId: z.string(),
+  commentId: z.string(),
+})
+
+export const replyCommentSchema = z.object({
+  content: z.string().min(1, "Comment must have at least 1 character"),
+})
+
+export const subCommentSchema = z.object({
+  id: z.number(),
+  content: z.string(),
+  userId: z.number(),
+  createdAt: z.string(),
+  parentId: z.number().nullable(),
+  user: z.object({
+    id: z.number(),
+    avatar: z.string(),
+    username: z.string(),
+  }),
+})
+
 export const commentSchema = z.object({
   id: z.number(),
   content: z.string(),
   userId: z.number(),
   createdAt: z.string(),
+  parentId: z.number().nullable(),
+  replies: z.array(subCommentSchema),
   user: z.object({
     id: z.number(),
     avatar: z.string(),
@@ -27,6 +50,9 @@ export const commentSchema = z.object({
 })
 
 export type AddCommentParam = z.infer<typeof addCommentParamSchema>
-export type AddComment = z.infer<typeof addCommentSchema>
 export type DeleteCommentParam = z.infer<typeof deleteCommentParamSchema>
+export type ReplyCommentParam = z.infer<typeof replyCommentParamSchema>
+export type AddComment = z.infer<typeof addCommentSchema>
+export type ReplyComment = z.infer<typeof replyCommentSchema>
 export type Comment = z.infer<typeof commentSchema>
+export type SubComment = z.infer<typeof subCommentSchema>

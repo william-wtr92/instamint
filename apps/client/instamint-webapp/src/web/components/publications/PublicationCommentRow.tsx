@@ -1,206 +1,225 @@
-import { ArrowUturnLeftIcon, HeartIcon } from "@heroicons/react/24/outline"
-import { TrashIcon } from "@heroicons/react/24/solid"
-import type { CommentUser } from "@instamint/shared-types"
+import type { CommentUser, SubComment } from "@instamint/shared-types"
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
   Text,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
 } from "@instamint/ui-kit"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useMemo, useState } from "react"
 
-import { AlertPopup } from "@/web/components/utils/AlertPopup"
-import useActionsContext from "@/web/contexts/useActionsContext"
-import useAppContext from "@/web/contexts/useAppContext"
-import { useUser } from "@/web/hooks/auth/useUser"
-import { usePublication } from "@/web/hooks/publications/usePublication"
-import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
+import CommentWithActions from "@/web/components/publications/CommentWithActions"
 import { routes } from "@/web/routes"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
 type Props = {
   avatar: string | null
-  username: string
+  commentAuthorUsername: string
   content: string
   hashtags?: string[]
   isDescription?: boolean
 
-  commentUser?: CommentUser
-  commentId?: number
   publicationId?: number
   publicationAuthorId?: number
+  commentAuthor?: CommentUser
+  commentId?: number
+  commentParentId?: number | null
+  commentReplies?: SubComment[]
+  setReplyCommentId?: (commentId: number) => void
+  setReplyCommentUsername?: (username: string) => void
 }
 
 const PublicationCommentRow = (props: Props) => {
   const {
     avatar,
-    username,
     content,
+    commentAuthorUsername,
     hashtags,
     isDescription,
 
-    commentUser,
+    commentAuthor,
     commentId,
+    commentParentId,
+    commentReplies,
     publicationId,
     publicationAuthorId,
+    setReplyCommentId,
+    setReplyCommentUsername,
   } = props
   const { t } = useTranslation("profile")
 
-  const { data: userConnectedData, isLoading: isLoadingUserConnected } =
-    useUser()
-  const userConnected = isLoadingUserConnected ? null : userConnectedData
+  const usernameFirstLetter = firstLetter(commentAuthorUsername)
 
-  const { data: userByUsernameData, isLoading: isLoadingUserByUsername } =
-    useUserByUsername({
-      username,
-    })
-  const userFromUsername = isLoadingUserByUsername ? null : userByUsernameData
-  const usernameFirstLetter = firstLetter(username)
+  const [showCommentReplies, setShowCommentReplies] = useState<boolean>(false)
 
-  const { mutate } = usePublication()
-
-  const {
-    services: {
-      users: { deletePublicationCommentService },
-    },
-  } = useAppContext()
-
-  const { toast } = useActionsContext()
-
-  const [showDeleteCommentDialog, setShowDeleteCommentDialog] =
-    useState<boolean>(false)
-
-  const handleShowDeleteCommentDialog = () => {
-    setShowDeleteCommentDialog((prevState) => !prevState)
+  const handleShowCommentReplies = () => {
+    setShowCommentReplies((prevState) => !prevState)
   }
 
-  const deleteComment = useCallback(async () => {
-    if (!commentId || !publicationId) {
+  const handleReplyCommentUser = useCallback(() => {
+    const commentInput = document.getElementById(
+      "comment-input"
+    ) as HTMLInputElement
+
+    if (!setReplyCommentId || !setReplyCommentUsername) {
       return
     }
 
-    const [err] = await deletePublicationCommentService({
-      commentId: commentId.toString(),
-      publicationId: publicationId.toString(),
-    })
+    commentInput.focus()
 
-    if (err) {
-      toast({
-        variant: "error",
-        description: err.message,
-      })
+    setReplyCommentId(commentId!)
+    setReplyCommentUsername(commentAuthorUsername)
+  }, [
+    commentId,
+    setReplyCommentId,
+    setReplyCommentUsername,
+    commentAuthorUsername,
+  ])
 
-      return
-    }
-
-    await mutate()
-  }, [commentId, deletePublicationCommentService, mutate, publicationId, toast])
-
-  const deleteCommentButton = useMemo(() => {
-    if (
-      userFromUsername?.id === commentUser?.id ||
-      userConnected?.id === publicationAuthorId
-    ) {
+  const hashtagsList = useMemo(() => {
+    if (hashtags && hashtags.length > 0) {
       return (
-        <TrashIcon
-          title={t("publication-modal.icons.delete-title")}
-          className="size-6 cursor-pointer text-white"
-          onClick={handleShowDeleteCommentDialog}
-        />
+        <div className="mt-2 flex flex-row justify-start gap-1">
+          {hashtags.map((hashtag, index) => (
+            <Text
+              key={index}
+              type="small"
+              variant="none"
+              className="text-neutral-300"
+            >
+              {hashtag}
+            </Text>
+          ))}
+        </div>
       )
     }
-  }, [userFromUsername, commentUser, userConnected, publicationAuthorId, t])
+  }, [hashtags])
+
+  const commentRepliesCollapsible = useMemo(() => {
+    if (commentReplies && commentReplies.length > 0) {
+      return (
+        <Collapsible
+          open={showCommentReplies}
+          onOpenChange={handleShowCommentReplies}
+        >
+          <CollapsibleTrigger>
+            <Text
+              type={"small"}
+              variant={"none"}
+              className="text-[0.7rem] font-light"
+            >
+              {showCommentReplies
+                ? t("publication-modal.hide-replies")
+                : t("publication-modal.show-replies", {
+                    repliesCount: commentReplies.length,
+                  })}
+            </Text>
+          </CollapsibleTrigger>
+
+          <CollapsibleContent className="flex flex-col gap-2 bg-neutral-100 pt-2">
+            {commentReplies.map((commentReply, index) => (
+              <CommentWithActions
+                key={index}
+                commentId={commentReply.id}
+                commentAuthor={commentReply.user}
+                commentParentId={commentReply.parentId}
+                publicationId={publicationId}
+                publicationAuthorId={publicationAuthorId}
+                handleReplyCommentUser={handleReplyCommentUser}
+              >
+                <div key={index} className="flex flex-row gap-2">
+                  <Avatar className="border-accent-500 size-8 cursor-pointer border">
+                    {avatar ? (
+                      <AvatarImage src={avatar} alt={commentAuthorUsername} />
+                    ) : (
+                      <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+                    )}
+                  </Avatar>
+
+                  <Text
+                    type="medium"
+                    variant="none"
+                    className="break-word w-[calc(90vw-96px)] text-pretty break-words md:w-[calc(95vw-70vh-96px)] lg:w-[calc(80vw-80vh-96px)]"
+                  >
+                    <Link
+                      href={routes.client.profile.getProfile(
+                        commentReply.user.username
+                      )}
+                      className="float-left mr-1.5 font-bold"
+                    >
+                      {commentReply.user.username}
+                    </Link>
+
+                    <p className="font-normal">{commentReply.content}</p>
+                  </Text>
+                </div>
+              </CommentWithActions>
+            ))}
+          </CollapsibleContent>
+        </Collapsible>
+      )
+    }
+  }, [
+    avatar,
+    commentAuthorUsername,
+    commentReplies,
+    handleReplyCommentUser,
+    publicationAuthorId,
+    publicationId,
+    showCommentReplies,
+    t,
+    usernameFirstLetter,
+  ])
 
   return (
     <>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger className="text-left">
-            <div
-              className={`flex flex-row items-start gap-2 ${isDescription ? "border-b-1 border-neutral-200" : "peer-hover:bg-accent-300 hover:bg-accent-300"} p-2`}
+      <CommentWithActions
+        commentId={commentId}
+        commentAuthor={commentAuthor}
+        commentParentId={commentParentId}
+        publicationId={publicationId}
+        publicationAuthorId={publicationAuthorId}
+        handleReplyCommentUser={handleReplyCommentUser}
+      >
+        <div
+          className={`flex flex-row items-start gap-2 duration-200 ${isDescription ? "border-b-1 border-neutral-200" : ""} p-2`}
+        >
+          <Avatar className="border-accent-500 size-8 cursor-pointer border">
+            {avatar ? (
+              <AvatarImage src={avatar} alt={commentAuthorUsername} />
+            ) : (
+              <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+            )}
+          </Avatar>
+
+          {/* Width calculation (mostly for text to make it wrap) : modal width - image size - (padding + gap + avatar) */}
+          {/* 56px is : avatar size(32px) + X-padding (8px + 8px) + gap-2 (8px) */}
+          <div className="flex w-[calc(90vw-56px)] flex-col md:w-[calc(95vw-70vh-56px)] lg:w-[calc(80vw-80vh-56px)]">
+            <Text
+              type="medium"
+              variant="none"
+              className="break-word max-w-full text-pretty break-words"
             >
-              <Avatar className="border-accent-500 size-8 border">
-                {avatar ? (
-                  <AvatarImage src={avatar} alt={username} />
-                ) : (
-                  <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-                )}
-              </Avatar>
+              <Link
+                href={routes.client.profile.getProfile(commentAuthorUsername!)}
+                className="float-left mr-1.5 font-bold"
+              >
+                {commentAuthorUsername}
+              </Link>
 
-              {/* Width calculation (mostly for text to make it wrap) : modal width - image size - (padding + gap + avatar) */}
-              {/* 56px is : avatar size(32px) + X-padding (8px + 8px) + gap-2 (8px) */}
-              <div className="flex w-[calc(90vw-56px)] flex-col md:w-[calc(95vw-70vh-56px)] lg:w-[calc(80vw-80vh-56px)]">
-                <Text
-                  type="medium"
-                  variant="none"
-                  className="break-word max-w-full text-pretty break-words"
-                >
-                  <Link
-                    href={routes.client.profile.getProfile(username!)}
-                    className="float-left mr-1.5 font-bold"
-                  >
-                    {username}
-                  </Link>
+              <p className="font-normal">{content}</p>
+            </Text>
 
-                  <p className="font-normal">{content}</p>
-                </Text>
+            {hashtagsList}
 
-                {hashtags && hashtags.length > 0 && (
-                  <div className="mt-2 flex flex-row justify-start gap-1">
-                    {hashtags.map((hashtag, index) => (
-                      <Text
-                        key={index}
-                        type="small"
-                        variant="none"
-                        className="text-neutral-300"
-                      >
-                        {hashtag}
-                      </Text>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </TooltipTrigger>
-
-          {isDescription === undefined && (
-            <TooltipContent
-              side="bottom"
-              sideOffset={-10}
-              className="bg-accent-500 peer flex flex-row gap-2"
-            >
-              <HeartIcon
-                title={t("publication-modal.icons.like-title")}
-                className="size-6 cursor-pointer text-white"
-              />
-
-              <ArrowUturnLeftIcon
-                title={t("publication-modal.icons.reply-title")}
-                className="size-6 cursor-pointer text-white"
-              />
-
-              {deleteCommentButton}
-            </TooltipContent>
-          )}
-        </Tooltip>
-      </TooltipProvider>
-
-      <AlertPopup
-        type="danger"
-        open={showDeleteCommentDialog}
-        onClose={handleShowDeleteCommentDialog}
-        onConfirm={deleteComment}
-        titleKey={t("publication-modal.delete-comment-modal.title")}
-        descriptionKey={t("publication-modal.delete-comment-modal.description")}
-        cancelKey={t("publication-modal.delete-comment-modal.cancel")}
-        confirmKey={t("publication-modal.delete-comment-modal.confirm")}
-      />
+            {commentRepliesCollapsible}
+          </div>
+        </div>
+      </CommentWithActions>
     </>
   )
 }

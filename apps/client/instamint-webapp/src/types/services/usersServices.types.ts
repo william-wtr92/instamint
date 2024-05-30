@@ -15,6 +15,8 @@ import type {
   AddComment,
   AddCommentParam,
   DeleteCommentParam,
+  ReplyComment,
+  ReplyCommentParam,
 } from "@instamint/shared-types"
 
 export type UsersServices = {
@@ -34,4 +36,5 @@ export type UsersServices = {
   likePublicationService: [PublicationsLikes, null]
   addPublicationCommentService: [AddComment & AddCommentParam, null]
   deletePublicationCommentService: [DeleteCommentParam, null]
+  replyPublicationCommentService: [ReplyComment & ReplyCommentParam, null]
 }

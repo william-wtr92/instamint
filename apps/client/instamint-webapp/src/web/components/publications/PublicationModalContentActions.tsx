@@ -1,4 +1,4 @@
-import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/solid"
+import { ChatBubbleOvalLeftIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import type { Publication } from "@instamint/shared-types"
 import { Button, Input, Text } from "@instamint/ui-kit"
 import { useRouter } from "next/router"
@@ -14,11 +14,26 @@ import { dateIntoString, formatDate } from "@/web/utils/helpers/dateHelper"
 
 type Props = {
   publication: Publication
+  replyCommentId: number | null
+  replyCommentUsername: string | null
   handleShowComments: () => void
+  replyToComment: (
+    commentId: number,
+    publicationId: number,
+    content: string
+  ) => Promise<void>
+  setReplyCommentId: (commentId: number | null) => void
 }
 
 const PublicationModalContentActions = (props: Props) => {
-  const { publication, handleShowComments } = props
+  const {
+    publication,
+    replyCommentId,
+    replyCommentUsername,
+    handleShowComments,
+    replyToComment,
+    setReplyCommentId,
+  } = props
 
   const { t } = useTranslation("profile")
   const { locale } = useRouter()
@@ -52,7 +67,6 @@ const PublicationModalContentActions = (props: Props) => {
     const content = input.value
 
     const [err] = await addPublicationCommentService({
-      userId: user.id,
       publicationId: publication.id.toString(),
       content,
     })
@@ -71,6 +85,22 @@ const PublicationModalContentActions = (props: Props) => {
     topAnchor?.scrollIntoView({ behavior: "smooth", block: "start" })
   }, [addPublicationCommentService, mutate, publication.id, t, toast, user])
 
+  const handleReplyToComment = useCallback(async () => {
+    if (!replyCommentId || !inputRef.current) {
+      return
+    }
+
+    const input = inputRef.current
+
+    const topAnchor = document.getElementById("comments-top-anchor")
+    const content = input.value
+
+    await replyToComment(replyCommentId, publication.id, content)
+
+    input.value = ""
+    topAnchor?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [publication.id, replyCommentId, replyToComment])
+
   useEffect(() => {
     if (!inputRef.current) {
       return
@@ -82,7 +112,9 @@ const PublicationModalContentActions = (props: Props) => {
       if (event.key === "Enter") {
         event.preventDefault()
 
-        await sendComment()
+        replyCommentId !== null
+          ? await handleReplyToComment()
+          : await sendComment()
       }
     }
 
@@ -91,7 +123,13 @@ const PublicationModalContentActions = (props: Props) => {
     return () => {
       input.removeEventListener("keydown", handleKeyDown)
     }
-  }, [sendComment])
+  }, [
+    handleReplyToComment,
+    publication.id,
+    replyCommentId,
+    replyToComment,
+    sendComment,
+  ])
 
   return (
     <div className="border-t-1 flex w-full flex-col justify-between border-neutral-300 p-2 md:flex-1">
@@ -113,7 +151,9 @@ const PublicationModalContentActions = (props: Props) => {
         />
       </div>
 
-      <div className="flex h-fit max-h-full flex-1 flex-col justify-between gap-2 py-1 pl-1 md:py-2">
+      <div
+        className={`flex h-fit max-h-full flex-1 flex-col justify-between gap-2 py-1 pl-1 md:py-2`}
+      >
         <Text type="medium" variant="none">
           {publication.likes.length} {t("publication-modal.likes")}
         </Text>
@@ -123,16 +163,34 @@ const PublicationModalContentActions = (props: Props) => {
         </Text>
       </div>
 
-      <div className="flex flex-row gap-2">
+      <div className={`relative flex flex-row gap-2`}>
+        <Text
+          type="medium"
+          variant="none"
+          className={`group/reply-username bg-accent-500 absolute left-1 z-10 flex h-fit w-fit flex-row items-center rounded-t-sm p-1 text-white duration-200 ${replyCommentId ? "translate-y-[calc(-100%)]" : ""}`}
+        >
+          <XMarkIcon
+            className="hidden size-4 group-hover/reply-username:block"
+            onClick={() => setReplyCommentId(null)}
+          />
+
+          <span>
+            {t("publication-modal.reply-comment-placeholder", {
+              username: replyCommentUsername,
+            })}
+          </span>
+        </Text>
+
         <Input
           ref={inputRef}
+          id="comment-input"
           type="text"
           maxLength={255}
-          className="border-0 outline-offset-0"
+          className="z-20 border-0 outline-offset-0"
           placeholder={t("publication-modal.add-comment-placeholder")}
         />
 
-        <Button onClick={sendComment}> Envoyer </Button>
+        <Button onClick={sendComment}>{t("cta.send")}</Button>
       </div>
     </div>
   )

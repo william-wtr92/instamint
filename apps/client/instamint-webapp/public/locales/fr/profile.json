@@ -10,6 +10,9 @@
     "publication-modal": {
       "likes": "j'aimes",
       "add-comment-placeholder": "Ajouter un commentaire...",
+      "reply-comment-placeholder": "Répondre à {{ username }}...",
+      "show-replies": "Voir les réponses ({{ repliesCount }})",
+      "hide-replies": "Cacher les réponses",
       "delete-comment-modal": {
         "title": "Supprimer le commentaire",
         "description": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
@@ -24,6 +27,7 @@
       }
     },
     "cta": {
-        "submit": "Enregistrer"
+      "submit": "Enregistrer",
+      "send": "Envoyer"
     }
 }

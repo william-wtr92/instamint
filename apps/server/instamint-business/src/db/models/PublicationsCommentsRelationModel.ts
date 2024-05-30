@@ -9,7 +9,6 @@ class PublicationsCommentsRelationModel extends BaseModel {
   userId!: number
   publicationId!: number
   commentId!: number
-  parentId!: number | null
 
   static relationMappings() {
     return {

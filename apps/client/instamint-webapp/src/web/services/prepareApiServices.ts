@@ -24,6 +24,7 @@ import uploadAvatarService from "@/web/services/users/account/uploadAvatarServic
 import addPublicationCommentService from "@/web/services/users/publications/addPublicationCommentService"
 import deletePublicationCommentService from "@/web/services/users/publications/deletePublicationCommentService"
 import likePublicationService from "@/web/services/users/publications/likePublicationService"
+import replyPublicationCommentService from "@/web/services/users/publications/replyPublicationCommentService"
 import uploadPublicationService from "@/web/services/users/publications/uploadPublicationService"
 
 export const prepareApiServices: PrepareServicesContext = (context) => {
@@ -56,6 +57,7 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         addPublicationCommentService: addPublicationCommentService(context),
         deletePublicationCommentService:
           deletePublicationCommentService(context),
+        replyPublicationCommentService: replyPublicationCommentService(context),
       },
       admin: {
         deactivateAccount: deactivateAccountAdminService(context),

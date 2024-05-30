@@ -23,6 +23,7 @@ class PublicationsModel extends BaseModel {
     id: number
     username: string
   }[]
+  comments!: CommentsModel[]
 
   static modifiers = {
     paginate: (
@@ -71,9 +72,11 @@ class PublicationsModel extends BaseModel {
         },
         modify: (query: QueryBuilder<CommentsModel>) =>
           query
-            .select("comments.id", "content", "createdAt")
+            .select("comments.id", "content", "createdAt", "parentId")
+            .whereNull("comments.parentId")
             .orderBy("createdAt", "desc")
-            .withGraphJoined("user"),
+            .withGraphJoined("user")
+            .withGraphFetched("replies"),
       },
     }
   }

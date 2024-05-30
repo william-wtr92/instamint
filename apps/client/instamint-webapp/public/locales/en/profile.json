@@ -10,6 +10,9 @@
   "publication-modal": {
     "likes": "likes",
     "add-comment-placeholder": "Add a comment...",
+    "reply-comment-placeholder": "Reply to {{ username }}...",
+    "show-replies": "Show replies ({{ repliesCount }})",
+    "hide-replies": "Hide replies",
     "delete-comment-modal": {
       "title": "Delete comment",
       "description": "Are you sure you want to delete this comment?",
@@ -24,6 +27,7 @@
     }
   },
   "cta": {
-      "submit": "Save"
+    "submit": "Save",
+    "send": "Send"
   }
 }

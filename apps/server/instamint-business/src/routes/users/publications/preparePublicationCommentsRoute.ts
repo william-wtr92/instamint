@@ -4,6 +4,9 @@ import {
   addCommentParamSchema,
   addCommentSchema,
   deleteCommentParamSchema,
+  replyCommentParamSchema,
+  replyCommentSchema,
+  type ReplyCommentParam,
   type DeleteCommentParam,
   type AddCommentParam,
 } from "@instamint/shared-types"
@@ -43,7 +46,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
       const { publicationId } = c.req.param() as AddCommentParam
-      const { userId, content } = await c.req.json()
+      const { content } = await c.req.json()
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -65,13 +68,13 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const comment = await CommentsModel.query()
         .insert({
-          userId,
+          userId: contextUser.id,
           content,
         })
         .returning("*")
 
       await PublicationsCommentsRelationModel.query().insert({
-        userId,
+        userId: contextUser.id,
         publicationId: publication.id,
         commentId: comment.id,
       })
@@ -112,13 +115,88 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         )
       }
 
-      await PublicationsCommentsRelationModel.query().delete().where({
-        commentId,
-      })
+      {
+        /* If it has a parentId, then it's a reply to a comment */
+      }
 
+      if (comment.parentId !== null) {
+        await PublicationsCommentsRelationModel.query().delete().where({
+          commentId,
+        })
+
+        await CommentsModel.query().deleteById(commentId)
+
+        return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)
+      }
+
+      const commentRepliesIds = await CommentsModel.query()
+        .select("id")
+        .where("parentId", commentId)
+
+      await Promise.all(
+        commentRepliesIds.map(async (reply: CommentsModel) => {
+          await PublicationsCommentsRelationModel.query().delete().where({
+            commentId: reply.id,
+          })
+
+          await CommentsModel.query().deleteById(reply.id)
+        })
+      )
       await CommentsModel.query().deleteById(commentId)
 
       return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)
+    }
+  )
+
+  publicationsComments.post(
+    "/publications/:publicationId/comment/:commentId",
+    auth,
+    zValidator("param", replyCommentParamSchema),
+    zValidator("json", replyCommentSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { publicationId, commentId } = c.req.param() as ReplyCommentParam
+      const { content } = await c.req.json()
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      if (!content) {
+        return c.json(
+          authMessages.commentContentRequired,
+          SC.errors.BAD_REQUEST
+        )
+      }
+
+      const publication =
+        await PublicationsModel.query().findById(publicationId)
+
+      if (!publication) {
+        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const comment = await CommentsModel.query().findById(commentId)
+
+      if (!comment) {
+        return c.json(authMessages.commentNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const replyComment = await CommentsModel.query()
+        .insert({
+          userId: contextUser.id,
+          content,
+          parentId: parseInt(commentId),
+        })
+        .returning("*")
+
+      await PublicationsCommentsRelationModel.query().insert({
+        userId: contextUser.id,
+        publicationId: publication.id,
+        commentId: replyComment.id,
+      })
+
+      return c.json(authMessages.commentsSuccessfullyAdded, SC.success.OK)
     }
   )
 

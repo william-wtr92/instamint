@@ -16,7 +16,6 @@ export const up = async (knex: Knex): Promise<void> => {
         .references("id")
         .inTable("comments")
         .notNullable()
-      table.integer("parentId").nullable()
       table.primary(["id", "userId", "publicationId", "commentId"])
     }
   )

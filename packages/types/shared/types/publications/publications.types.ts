@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { commentSchema, subCommentSchema } from "./publicationsComments.types"
 
 export const addPublicationSchema = z.object({
   description: z.string().min(1).max(200),
@@ -23,19 +24,7 @@ export const publicationSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   likes: z.array(z.object({ id: z.number(), username: z.string() })),
-  comments: z.array(
-    z.object({
-      id: z.number(),
-      content: z.string(),
-      userId: z.number(),
-      createdAt: z.string(),
-      user: z.object({
-        id: z.number(),
-        avatar: z.string(),
-        username: z.string(),
-      }),
-    })
-  ),
+  comments: z.array(commentSchema),
   isLiked: z.boolean(),
 })
 

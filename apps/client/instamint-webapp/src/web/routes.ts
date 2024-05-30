@@ -85,6 +85,8 @@ const apiRoutes = {
         `/users/publications/${publicationId}/comment`,
       deleteComment: (publicationId: string, commentId: string) =>
         `/users/publications/${publicationId}/comment/${commentId}`,
+      replyComment: (publicationId: string, commentId: string) =>
+        `/users/publications/${publicationId}/comment/${commentId}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

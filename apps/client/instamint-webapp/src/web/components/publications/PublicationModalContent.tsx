@@ -1,12 +1,15 @@
 import type { Comment, Publication } from "@instamint/shared-types"
 import { DialogContent } from "@instamint/ui-kit"
 import Image from "next/image"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 
 import PublicationCommentRow from "@/web/components/publications/PublicationCommentRow"
 import PublicationModalContentActions from "@/web/components/publications/PublicationModalContentActions"
 import PublicationModalContentHeader from "@/web/components/publications/PublicationModalContentHeader"
 import { config } from "@/web/config"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
+import { usePublication } from "@/web/hooks/publications/usePublication"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
@@ -19,6 +22,15 @@ const PublicationModalContent = (props: Props) => {
 
   const username = publication.author
 
+  const {
+    services: {
+      users: { replyPublicationCommentService },
+    },
+  } = useAppContext()
+  const { toast } = useActionsContext()
+
+  const { mutate } = usePublication()
+
   const { data, isLoading } = useUserByUsername({
     username,
   })
@@ -27,10 +39,41 @@ const PublicationModalContent = (props: Props) => {
   const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
 
   const [showComments, setShowComments] = useState<boolean>(false)
+  const [replyCommentId, setReplyCommentId] = useState<number | null>(null)
+  const [replyCommentUsername, setReplyCommentUsername] = useState<
+    string | null
+  >(null)
 
   const handleShowComments = () => {
     setShowComments((prevState) => !prevState)
   }
+
+  const replyToComment = useCallback(
+    async (commentId: number, publicationId: number, content: string) => {
+      if (!commentId || !publicationId) {
+        return
+      }
+
+      const [err] = await replyPublicationCommentService({
+        commentId: commentId.toString(),
+        publicationId: publicationId.toString(),
+        content,
+      })
+
+      if (err) {
+        toast({
+          variant: "error",
+          description: err.message,
+        })
+
+        return
+      }
+
+      await mutate()
+      setReplyCommentId(null)
+    },
+    [mutate, replyPublicationCommentService, toast]
+  )
 
   return (
     <DialogContent
@@ -70,9 +113,10 @@ const PublicationModalContent = (props: Props) => {
         <div
           className={`border-t-1 w-full flex-1 overflow-x-hidden overflow-y-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`}
         >
+          {/* This component is used here for the publication description as the design is almost the same */}
           <PublicationCommentRow
             avatar={userAvatar}
-            username={username}
+            commentAuthorUsername={username}
             content={publication.description}
             hashtags={JSON.parse(publication.hashtags)}
             isDescription={true}
@@ -88,18 +132,26 @@ const PublicationModalContent = (props: Props) => {
                   ? `${config.api.blobUrl}${comment.user.avatar}`
                   : null
               }
-              username={comment.user.username}
               content={comment.content}
-              commentId={comment.id}
-              commentUser={comment.user}
               publicationId={publication.id}
+              commentAuthor={comment.user}
+              commentAuthorUsername={comment.user.username}
+              commentId={comment.id}
+              commentParentId={comment.parentId}
+              commentReplies={comment.replies}
+              setReplyCommentId={setReplyCommentId}
+              setReplyCommentUsername={setReplyCommentUsername}
             />
           ))}
         </div>
 
         <PublicationModalContentActions
           publication={publication}
+          replyCommentId={replyCommentId}
+          replyCommentUsername={replyCommentUsername}
           handleShowComments={handleShowComments}
+          replyToComment={replyToComment}
+          setReplyCommentId={setReplyCommentId}
         />
       </div>
     </DialogContent>
