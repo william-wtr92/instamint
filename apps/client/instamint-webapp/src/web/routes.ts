@@ -77,8 +77,10 @@ const apiRoutes = {
     },
     publications: {
       uploadPublication: "/users/upload-publication",
-      getPublications: (queries: GetPublications) =>
-        `/users/publications?limit=${queries.limit}&offset=${queries.offset}`,
+      getPublication: (publicationId: string) =>
+        `/users/publications/${publicationId}`,
+      getPublications: (username: string, queries: GetPublications) =>
+        `/users/publications/${username}?limit=${queries.limit}&offset=${queries.offset}`,
       like: (publicationId: string) =>
         `/users/publications/${publicationId}/like`,
       comment: (publicationId: string) =>

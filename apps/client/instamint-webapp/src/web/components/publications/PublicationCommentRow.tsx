@@ -13,6 +13,7 @@ import { useTranslation } from "next-i18next"
 import React, { useCallback, useMemo, useState } from "react"
 
 import CommentWithActions from "@/web/components/publications/CommentWithActions"
+import { config } from "@/web/config"
 import { routes } from "@/web/routes"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
@@ -25,6 +26,7 @@ type Props = {
 
   publicationId?: number
   publicationAuthorId?: number
+  publicationAuthorUsername?: string
   commentAuthor?: CommentUser
   commentId?: number
   commentParentId?: number | null
@@ -47,6 +49,7 @@ const PublicationCommentRow = (props: Props) => {
     commentReplies,
     publicationId,
     publicationAuthorId,
+    publicationAuthorUsername,
     setReplyCommentId,
     setReplyCommentUsername,
   } = props
@@ -124,6 +127,7 @@ const PublicationCommentRow = (props: Props) => {
             {commentReplies.map((commentReply, index) => (
               <CommentWithActions
                 key={index}
+                username={publicationAuthorUsername}
                 commentId={commentReply.id}
                 commentAuthor={commentReply.user}
                 commentParentId={commentReply.parentId}
@@ -133,10 +137,19 @@ const PublicationCommentRow = (props: Props) => {
               >
                 <div key={index} className="flex flex-row gap-2">
                   <Avatar className="border-accent-500 size-8 cursor-pointer border">
-                    {avatar ? (
-                      <AvatarImage src={avatar} alt={commentAuthorUsername} />
+                    {commentReply.user.avatar ? (
+                      <AvatarImage
+                        src={
+                          commentReply.user.avatar
+                            ? `${config.api.blobUrl}${commentReply.user.avatar}`
+                            : ""
+                        }
+                        alt={commentAuthorUsername}
+                      />
                     ) : (
-                      <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+                      <AvatarFallback>
+                        {commentReply.user.username[0]}
+                      </AvatarFallback>
                     )}
                   </Avatar>
 
@@ -164,20 +177,20 @@ const PublicationCommentRow = (props: Props) => {
       )
     }
   }, [
-    avatar,
     commentAuthorUsername,
     commentReplies,
     handleReplyCommentUser,
     publicationAuthorId,
+    publicationAuthorUsername,
     publicationId,
     showCommentReplies,
     t,
-    usernameFirstLetter,
   ])
 
   return (
     <>
       <CommentWithActions
+        username={publicationAuthorUsername}
         commentId={commentId}
         commentAuthor={commentAuthor}
         commentParentId={commentParentId}

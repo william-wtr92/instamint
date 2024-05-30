@@ -17,10 +17,11 @@ import { AlertPopup } from "@/web/components/utils/AlertPopup"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 
 type Props = {
   children: ReactNode
+  username: string | undefined
   commentId: number | undefined
   commentAuthor: CommentUser | undefined
   commentParentId: number | null | undefined
@@ -32,6 +33,7 @@ type Props = {
 const CommentWithActions = (props: Props) => {
   const {
     children,
+    username,
     commentId,
     commentAuthor,
     commentParentId,
@@ -49,7 +51,7 @@ const CommentWithActions = (props: Props) => {
 
   const { toast } = useActionsContext()
 
-  const { mutate } = usePublication()
+  const { mutate } = useGetPublicationsFromUser(username!)
 
   const { data: userConnectedData, isLoading: isLoadingUserConnected } =
     useUser()

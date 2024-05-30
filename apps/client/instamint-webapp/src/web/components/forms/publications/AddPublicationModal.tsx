@@ -10,7 +10,7 @@ import SetPublicationInformationsStep from "@/web/components/forms/publications/
 import UploadImageStep from "@/web/components/forms/publications/UploadImageStep"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 
 export const steps = {
@@ -30,6 +30,7 @@ const AddPublicationModal = (props: Props) => {
   const { t } = useTranslation("navbar")
 
   const router = useRouter()
+  const username = router.query.username as string
 
   const {
     services: {
@@ -40,10 +41,10 @@ const AddPublicationModal = (props: Props) => {
   const { toast } = useActionsContext()
 
   const { mutate: refreshUserStats } = useUserByUsername({
-    username: router.query.username as string,
+    username: username,
   })
 
-  const { mutate: refreshPublications } = usePublication()
+  const { mutate: refreshPublications } = useGetPublicationsFromUser(username)
 
   const [step, setStep] = useState<number>(1)
   const [description, setDescription] = useState<string>("")

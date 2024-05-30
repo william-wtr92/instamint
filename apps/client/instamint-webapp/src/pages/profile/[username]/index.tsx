@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
 import { PublicationsList } from "@/web/components/profile/PublicationsList"
 import { useUser } from "@/web/hooks/auth/useUser"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -36,7 +36,7 @@ const ProfilePage = (
 
   const { data: userData } = useUser()
 
-  const { data, isLoading, setSize } = usePublication()
+  const { data, isLoading, setSize } = useGetPublicationsFromUser(username)
   const publications = data
     ? data.reduce(
         (acc: Publication[], { result }) => [...acc, ...result.publications],

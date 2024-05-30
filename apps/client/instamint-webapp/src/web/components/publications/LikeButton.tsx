@@ -4,15 +4,16 @@ import React from "react"
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 
 type Props = {
+  username: string
   publicationId: number
   isLiked: boolean
 }
 
 const LikeButton = (props: Props) => {
-  const { publicationId, isLiked } = props
+  const { username, publicationId, isLiked } = props
   const { t } = useTranslation("profile")
 
   const {
@@ -21,7 +22,7 @@ const LikeButton = (props: Props) => {
     },
   } = useAppContext()
 
-  const { mutate } = usePublication()
+  const { mutate } = useGetPublicationsFromUser(username)
 
   const { toast } = useActionsContext()
 

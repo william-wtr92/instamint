@@ -8,6 +8,14 @@ export const addPublicationSchema = z.object({
   location: z.string().optional(),
 })
 
+export const getPublicationParamSchema = z.object({
+  publicationId: z.string(),
+})
+
+export const getPublicationsParamSchema = z.object({
+  username: z.string(),
+})
+
 export const getPublicationsSchema = z.object({
   limit: z.string().default("6"),
   offset: z.string().default("0"),
@@ -29,5 +37,7 @@ export const publicationSchema = z.object({
 })
 
 export type AddPublication = z.infer<typeof addPublicationSchema>
+export type GetPublicationParam = z.infer<typeof getPublicationParamSchema>
+export type GetPublicationsParam = z.infer<typeof getPublicationsParamSchema>
 export type GetPublications = z.infer<typeof getPublicationsSchema>
 export type Publication = z.infer<typeof publicationSchema>

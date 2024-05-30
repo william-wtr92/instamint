@@ -13,21 +13,19 @@ const ProfilePublicationCard = (props: Props) => {
   const { publication } = props
 
   return (
-    <>
-      <div
-        key={publication?.id}
-        className="group/publication relative aspect-square h-fit w-[calc((100%/3)-2.7px)] cursor-pointer overflow-hidden rounded-sm"
-      >
-        <Image
-          src={config.api.blobUrl + publication?.image}
-          alt="Publication"
-          fill
-          className="size-full object-contain"
-        />
+    <div
+      key={publication?.id}
+      className="group/publication relative aspect-square h-fit w-[calc((100%/3)-2.7px)] cursor-pointer overflow-hidden rounded-sm"
+    >
+      <Image
+        src={config.api.blobUrl + publication?.image}
+        alt="Publication"
+        fill
+        className="size-full object-contain"
+      />
 
-        <PublicationModal publication={publication} />
-      </div>
-    </>
+      <PublicationModal publication={publication} />
+    </div>
   )
 }
 

@@ -9,7 +9,7 @@ import PublicationModalContentHeader from "@/web/components/publications/Publica
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
@@ -29,7 +29,7 @@ const PublicationModalContent = (props: Props) => {
   } = useAppContext()
   const { toast } = useActionsContext()
 
-  const { mutate } = usePublication()
+  const { mutate } = useGetPublicationsFromUser(username)
 
   const { data, isLoading } = useUserByUsername({
     username,
@@ -134,6 +134,7 @@ const PublicationModalContent = (props: Props) => {
               }
               content={comment.content}
               publicationId={publication.id}
+              publicationAuthorUsername={username}
               commentAuthor={comment.user}
               commentAuthorUsername={comment.user.username}
               commentId={comment.id}
@@ -147,6 +148,7 @@ const PublicationModalContent = (props: Props) => {
 
         <PublicationModalContentActions
           publication={publication}
+          username={username}
           replyCommentId={replyCommentId}
           replyCommentUsername={replyCommentUsername}
           handleShowComments={handleShowComments}

@@ -1,10 +1,16 @@
 import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
-import { getPublicationsSchema } from "@instamint/shared-types"
+import {
+  getPublicationParamSchema,
+  getPublicationsParamSchema,
+  getPublicationsSchema,
+  type GetPublicationParam,
+  type GetPublicationsParam,
+} from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import PublicationsModel from "@/db/models/PublicationsModel"
-import type UserModel from "@/db/models/UserModel"
+import UserModel from "@/db/models/UserModel"
 import { authMessages, contextsKeys, globalsMessages } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
@@ -28,11 +34,13 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
   }
 
   publications.get(
-    "/publications",
+    "/publications/:username",
     auth,
+    zValidator("param", getPublicationsParamSchema),
     zValidator("query", getPublicationsSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
+      const { username } = c.req.param() as GetPublicationsParam
       const { limit: limitString, offset: offsetString } = c.req.query()
       const limit = parseInt(limitString, 10)
       const offset = parseInt(offsetString, 10)
@@ -41,8 +49,14 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
+      const searchedUser = await UserModel.query().findOne({ username })
+
+      if (!searchedUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
       const query = PublicationsModel.query()
-      query.where({ userId: contextUser.id })
+      query.where({ userId: searchedUser.id })
       query.orderBy("createdAt", "desc")
 
       const publications = await query
@@ -69,6 +83,44 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
         {
           result: {
             publications: finalPublications,
+          },
+        },
+        SC.success.OK
+      )
+    }
+  )
+
+  publications.get(
+    "/publications/:publicationId",
+    auth,
+    zValidator("param", getPublicationParamSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { publicationId } = c.req.param() as GetPublicationParam
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const publication = await PublicationsModel.query()
+        .findById(publicationId)
+        .withGraphFetched("likes")
+        .withGraphFetched("comments")
+
+      if (!publication) {
+        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const isLiked = publication.likes.some(
+        (like) => like.id === contextUser.id
+      )
+
+      publication.isLiked = isLiked
+
+      return c.json(
+        {
+          result: {
+            publication,
           },
         },
         SC.success.OK

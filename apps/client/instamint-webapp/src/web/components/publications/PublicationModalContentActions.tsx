@@ -9,11 +9,12 @@ import LikeButton from "@/web/components/publications/LikeButton"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
-import { usePublication } from "@/web/hooks/publications/usePublication"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 import { dateIntoString, formatDate } from "@/web/utils/helpers/dateHelper"
 
 type Props = {
   publication: Publication
+  username: string
   replyCommentId: number | null
   replyCommentUsername: string | null
   handleShowComments: () => void
@@ -28,6 +29,7 @@ type Props = {
 const PublicationModalContentActions = (props: Props) => {
   const {
     publication,
+    username,
     replyCommentId,
     replyCommentUsername,
     handleShowComments,
@@ -50,18 +52,14 @@ const PublicationModalContentActions = (props: Props) => {
   const { data, isLoading } = useUser()
   const user = isLoading ? null : data
 
-  const { mutate } = usePublication()
+  const { mutate } = useGetPublicationsFromUser(username)
 
   const sendComment = useCallback(async () => {
-    if (!user) {
+    if (!user || !inputRef.current) {
       return
     }
 
     const input = inputRef.current
-
-    if (!input) {
-      return
-    }
 
     const topAnchor = document.getElementById("comments-top-anchor")
     const content = input.value
@@ -135,6 +133,7 @@ const PublicationModalContentActions = (props: Props) => {
     <div className="border-t-1 flex w-full flex-col justify-between border-neutral-300 p-2 md:flex-1">
       <div className="flex flex-row items-start justify-start gap-2">
         <LikeButton
+          username={username}
           publicationId={publication.id}
           isLiked={publication.isLiked}
         />
