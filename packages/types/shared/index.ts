@@ -17,6 +17,9 @@ export * from "./types/users/profile/publication.types"
 export * from "./types/users/profile/visibility.types"
 export * from "./types/users/profile/follows.types"
 
+/* Notifications Schemas & Types */
+export * from "./types/users/notifications/notifications.types"
+
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 

@@ -111,6 +111,10 @@
         "alreadyFollowing": "You are already following this user.",
         "followRequestNotFound": "Follow request not found."
       }
+    },
+    "notifications": {
+      "userNotFound": "This account does not exist.",
+      "notificationNotFound": "Notification not found."
     }
   },
   "admin": {

@@ -153,6 +153,11 @@ export const cannotFollowYourself = {
   message: "Cannot follow yourself.",
 } as const
 
+export const followFailed = {
+  errorCode: "followFailed",
+  message: "Follow failed.",
+} as const
+
 export const followedSuccessfully = {
   message: "Followed.",
 } as const
@@ -174,6 +179,17 @@ export const unfollowedSuccessfully = {
 
 export const followRequestDeleted = {
   message: "Follow request deleted.",
+} as const
+
+/* Notification */
+
+export const notificationNotFound = {
+  errorCode: "notificationNotFound",
+  message: "Notification not found.",
+} as const
+
+export const notificationReadSuccessfully = {
+  message: "Notification read.",
 } as const
 
 /* Publication */

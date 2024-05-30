@@ -3,7 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table"
 import { useTranslation } from "next-i18next"
 
 import type { User, UserActions } from "@/types"
-import { DropdownAdminMenu } from "@/web/components/actions/DropdownAdminMenu"
+import { DropdownAdminMenu } from "@/web/components/admin/actions/DropdownAdminMenu"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { formatDate } from "@/web/utils/helpers/dateHelper"
 import { firstLetterUppercase } from "@/web/utils/helpers/stringHelper"

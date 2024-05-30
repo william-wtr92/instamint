@@ -1,6 +1,6 @@
 import React from "react"
 
-import UserInfo from "../utils/UserInfo"
+import UserInfo from "../users/UserInfo"
 
 const Header = () => {
   return (
