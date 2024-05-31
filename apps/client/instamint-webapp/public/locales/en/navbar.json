@@ -14,7 +14,6 @@
   "settingsNavbarTitle": "Account settings",
   "accountInformation": "Account information",
   "security": "Security and privacy",
-  "notifications": "Notifications",
   "about": "About Instamint",
   "cta": {
     "button-sign-out": "Sign out",
@@ -22,6 +21,18 @@
     "description-sign-out": "You will be signed out of your Instamint account.",
     "confirm-sign-out": "Confirm",
     "cancel-sign-out": "Cancel"
+  },
+  "notifications": {
+    "follow": "follow you!",
+    "request": "requested to follow you",
+    "like": "liked your publication",
+    "comment": "commented on your publication",
+    "date": {
+      "day": "d",
+      "hour": "h",
+      "minute": "m"
+    },
+    "success": "The notification has been read"
   },
   "add-publication-modal": {
     "step-one": {

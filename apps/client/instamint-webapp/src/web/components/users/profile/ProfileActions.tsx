@@ -2,216 +2,34 @@ import {
   CheckIcon,
   ClockIcon,
   EnvelopeIcon,
-  LockClosedIcon,
-  UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import type {
-  FollowersStatus,
-  FollowPending,
-  Publication,
-} from "@instamint/shared-types"
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
   Button,
   Dialog,
   DialogContent,
-  DialogTrigger,
   DialogHeader,
-  Text,
   DialogTitle,
+  DialogTrigger,
   Input,
+  Text,
 } from "@instamint/ui-kit"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
 
-import type { ProfileUser, ProfileUserFollowerRequests } from "@/types"
-import { config } from "@/web/config"
+import type { ProfileHeaderProps, ProfileUserFollowerRequests } from "@/types"
 import { routes } from "@/web/routes"
-import {
-  pluralCheckArray,
-  pluralCheckNumber,
-} from "@/web/utils/helpers/pluralCheckHelper"
-import {
-  firstLetter,
-  firstLetterUppercase,
-} from "@/web/utils/helpers/stringHelper"
-
-type ProfileHeaderProps = {
-  userEmail: string | undefined
-  userPage: ProfileUser | undefined
-  userFollowRequests: ProfileUserFollowerRequests[] | undefined
-  handleFollow: () => void
-  handleUnfollow: () => void
-  handleTriggerFollowRequest: (values: FollowPending) => void
-  handleDeleteFollowRequest: () => void
-  handleDmUser: () => void
-  publications: Publication[]
-  followers: number | undefined
-  followed: number | undefined
-  isFollowing: FollowersStatus | undefined
-  requestPending: boolean | undefined
-}
-
-export const ProfileHeader = ({
-  userEmail,
-  userPage,
-  userFollowRequests,
-  handleFollow,
-  handleUnfollow,
-  handleTriggerFollowRequest,
-  handleDeleteFollowRequest,
-  handleDmUser,
-  publications,
-  followers,
-  followed,
-  isFollowing,
-  requestPending,
-}: ProfileHeaderProps) => {
-  const { t } = useTranslation("profile")
-
-  const userAvatar = userPage?.avatar
-    ? `${config.api.blobUrl}${userPage?.avatar}`
-    : null
-  const userUsername = firstLetterUppercase(userPage?.username)
-  const usernameFirstLetter = firstLetter(userPage?.username)
-
-  return (
-    <div className="border-1 flex flex-row justify-start gap-2.5 rounded-md border-dashed p-2 lg:items-center">
-      <Avatar className="relative mt-3 size-12 rounded-xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-28">
-        {userAvatar ? (
-          <AvatarImage src={userAvatar} alt={userUsername} />
-        ) : (
-          <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-        )}
-      </Avatar>
-
-      <div className="ml-4 flex flex-col justify-between xl:w-full">
-        <div className="flex flex-row gap-1 pt-2 xl:gap-5">
-          <div className="flex items-center gap-1">
-            <Text
-              variant="neutral"
-              type="body"
-              className="text-medium xl:text-subheading relative -left-1 p-1 sm:pr-4"
-            >
-              {userUsername}
-            </Text>
-            {userPage?.private && <LockClosedIcon className="size-6" />}
-          </div>
-          {userEmail === userPage?.email && (
-            <Link
-              href={routes.client.profile.settings.edit}
-              className="bg-accent-200 flex flex-row items-center justify-between rounded-lg p-1"
-            >
-              <Text
-                type="medium"
-                variant="neutral"
-                className="text-small xl:text-body hidden text-center font-normal sm:px-2 xl:block"
-              >
-                {t("profile:settings.accountInformation")}
-              </Text>
-              <UserIcon className="block size-6 xl:hidden" />
-            </Link>
-          )}
-        </div>
-
-        <ProfileStats
-          publications={publications}
-          followers={followers}
-          followed={followed}
-          t={t}
-        />
-        <Text variant="neutral" type="body" className="pt-3">
-          {userPage?.bio}
-        </Text>
-        <ProfileActions
-          userEmail={userEmail}
-          userPage={userPage}
-          userFollowRequests={userFollowRequests}
-          handleFollow={handleFollow}
-          handleUnfollow={handleUnfollow}
-          handleTriggerFollowRequest={handleTriggerFollowRequest}
-          handleDeleteFollowRequest={handleDeleteFollowRequest}
-          handleDmUser={handleDmUser}
-          isFollowing={isFollowing}
-          requestPending={requestPending}
-        />
-      </div>
-    </div>
-  )
-}
-
-type ProfileStatsProps = Pick<
-  ProfileHeaderProps,
-  "publications" | "followers" | "followed"
-> & {
-  t: (key: string) => string
-}
-
-const ProfileStats = ({
-  publications,
-  followers,
-  followed,
-  t,
-}: ProfileStatsProps) => {
-  const numberPublications = pluralCheckArray(publications) ? (
-    <div className="flex flex-col">
-      <span className="text-center">{publications.length}</span>
-      <span className="text-small xl:text-medium">{t("publications")}</span>
-    </div>
-  ) : (
-    <div className="flex flex-col">
-      <span className="text-center">{publications.length}</span>
-      <span className="text-small xl:text-medium">{t("publications")}</span>
-    </div>
-  )
-  const numberFollowers = pluralCheckNumber(followers) ? (
-    <div className="flex flex-col">
-      <span className="text-center">{followers}</span>
-      <span className="text-small xl:text-medium">{`${t("followers")}s`}</span>
-    </div>
-  ) : (
-    <div className="flex flex-col">
-      <span className="text-center">{followers}</span>
-      <span className="text-small xl:text-medium">{`${t("followers")}`}</span>
-    </div>
-  )
-  const numberFollowed = pluralCheckNumber(followed) ? (
-    <div className="flex flex-col">
-      <span className="text-center">{followed}</span>
-      <span className="text-small xl:text-medium">{`${t("followed")}s`}</span>
-    </div>
-  ) : (
-    <div className="flex flex-col">
-      <span className="text-center">{followed}</span>
-      <span className="text-small xl:text-medium">{`${t("followed")}`}</span>
-    </div>
-  )
-
-  return (
-    <div className="flex flex-row gap-5 pt-5 xl:gap-10">
-      <Text variant="neutral" type="body" className="text-medium xl:text-body">
-        {numberPublications}
-      </Text>
-      <Text variant="neutral" type="body" className="text-medium xl:text-body">
-        {numberFollowers}
-      </Text>
-      <Text variant="neutral" type="body" className="text-medium xl:text-body">
-        {numberFollowed}
-      </Text>
-    </div>
-  )
-}
+import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
 type ProfileActionsProps = Omit<
   ProfileHeaderProps,
   "publications" | "followers" | "followed"
 >
 
-const ProfileActions = ({
+export const ProfileActions = ({
   userEmail,
   userPage,
   userFollowRequests,

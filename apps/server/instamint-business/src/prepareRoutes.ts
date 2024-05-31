@@ -11,6 +11,7 @@ import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
 import prepareTwoFactorAuthRoutes from "@/routes/auth/prepareTwoFactorAuthRoutes"
 import prepareMessagesRoutes from "@/routes/messages/prepareMessagesRoutes"
+import prepareNotificationsRoutes from "@/routes/users/notifications/prepareNotificationsRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareFollowsRoutes from "@/routes/users/profile/prepareFollowsRoutes"
 import prepareProfileRoutes from "@/routes/users/profile/prepareProfileRoutes"
@@ -43,6 +44,8 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   preparePublicationsRoutes(ctx)
   preparePublicationsLikesRoutes(ctx)
   preparePublicationsCommentsRoutes(ctx)
+
+  prepareNotificationsRoutes(ctx)
 
   prepareAdminUsersRoutes(ctx)
   prepareAdminUsersActionsRoutes(ctx)

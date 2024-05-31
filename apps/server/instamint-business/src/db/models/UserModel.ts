@@ -43,6 +43,10 @@ class UserModel extends BaseModel {
     async selectFollowerData(query: QueryBuilder<UserModel>) {
       query.select("username", "email", "avatar", "private")
     },
+
+    async selectSanitizedUser(query: QueryBuilder<UserModel>) {
+      query.select("username", "email", "avatar", "private")
+    },
   }
 
   static relationMappings() {
@@ -65,6 +69,7 @@ class UserModel extends BaseModel {
       },
     }
   }
+
   checkPassword = async (password: string) => {
     const [passwordHash] = await hashPassword(password, this.passwordSalt)
 

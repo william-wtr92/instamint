@@ -1,34 +1,38 @@
-import type { FollowersStatus } from "@instamint/shared-types"
+import type { NotificationTypes } from "@instamint/shared-types"
 
 import BaseModel from "@/db/models/BaseModel"
 import UserModel from "@/db/models/UserModel"
 
-class FollowerModel extends BaseModel {
-  static tableName = "followers"
+class NotificationModel extends BaseModel {
+  static tableName = "notifications"
 
   id!: number
-  status!: FollowersStatus
-  followerId!: number
-  followedId!: number
+  type!: NotificationTypes
+  read!: boolean
+  createdAt!: Date
+  updatedAt!: Date
+  notifiedUserId!: number
+  notifierUserId!: number
+  notifierUserData!: UserModel
 
   count!: string
 
   static relationMappings() {
     return {
-      followerData: {
+      notifiedUserData: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: UserModel,
         join: {
-          from: "followers.followerId",
+          from: "notifications.notifiedUserId",
           to: "users.id",
         },
         modify: "selectSanitizedUser",
       },
-      followedData: {
+      notifierUserData: {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: UserModel,
         join: {
-          from: "followers.followedId",
+          from: "notifications.notifierUserId",
           to: "users.id",
         },
         modify: "selectSanitizedUser",
@@ -37,4 +41,4 @@ class FollowerModel extends BaseModel {
   }
 }
 
-export default FollowerModel
+export default NotificationModel

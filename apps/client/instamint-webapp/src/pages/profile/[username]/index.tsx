@@ -4,8 +4,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
-import { PublicationsList } from "@/web/components/profile/PublicationsList"
+import { ProfileHeader } from "@/web/components/users/profile/ProfileHeader"
+import { PublicationsList } from "@/web/components/users/profile/PublicationsList"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
@@ -59,7 +59,7 @@ const ProfilePage = (
   const { data: userFollowRequestsData, mutate: userFollowRequestsMutate } =
     useUserFollowRequests()
 
-  const { data, isLoading, setSize } = useGetPublicationsFromUser(username)
+  const { data, setSize } = useGetPublicationsFromUser(username)
   const publications = data
     ? data.reduce(
         (acc: Publication[], { result }) => [...acc, ...result.publications],
@@ -238,7 +238,7 @@ const ProfilePage = (
             requestPending={requestPending}
           />
 
-          <PublicationsList publications={publications} isLoading={isLoading} />
+          <PublicationsList publications={publications} />
         </>
       )}
     </div>

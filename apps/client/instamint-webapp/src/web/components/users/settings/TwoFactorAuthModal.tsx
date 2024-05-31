@@ -1,8 +1,8 @@
 import { AlertDialog } from "@instamint/ui-kit"
 import React, { useState } from "react"
 
-import DisableTwoFactorAuthModal from "@/web/components/settings/DisableTwoFactorAuthModal"
-import EnableTwoFactorAuthModal from "@/web/components/settings/EnableTwoFactorAuthModal"
+import DisableTwoFactorAuthModal from "@/web/components/users/settings/DisableTwoFactorAuthModal"
+import EnableTwoFactorAuthModal from "@/web/components/users/settings/EnableTwoFactorAuthModal"
 
 type Props = {
   isOpen: boolean

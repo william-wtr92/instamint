@@ -18,6 +18,9 @@ export * from "./types/users/profile/profile.types"
 export * from "./types/users/profile/visibility.types"
 export * from "./types/users/profile/follows.types"
 
+/* Notifications Schemas & Types */
+export * from "./types/users/notifications/notifications.types"
+
 /* Publications Schemas & Types */
 export * from "./types/publications/publications.types"
 export * from "./types/publications/publicationsLikes.types"

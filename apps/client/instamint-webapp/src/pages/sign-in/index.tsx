@@ -17,7 +17,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import TwoFactorLoginModal from "@/web/components/settings/TwoFactorLoginModal"
+import TwoFactorLoginModal from "@/web/components/users/settings/TwoFactorLoginModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { routes } from "@/web/routes"

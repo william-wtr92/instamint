@@ -15,7 +15,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
-import { MessagesBox } from "@/web/components/messages/MessagesBox"
+import { MessagesBox } from "@/web/components/users/messages/MessagesBox"
 import useAppContext from "@/web/contexts/useAppContext"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 

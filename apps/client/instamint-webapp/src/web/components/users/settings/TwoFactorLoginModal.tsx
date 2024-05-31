@@ -2,7 +2,7 @@ import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
-import EnterTwoFactorCodeModalContent from "@/web/components/settings/2fa/EnterTwoFactorCodeModalContent"
+import EnterTwoFactorCodeModalContent from "@/web/components/users/settings/2fa/EnterTwoFactorCodeModalContent"
 
 type Props = {
   isOpen: boolean

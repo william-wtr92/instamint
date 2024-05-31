@@ -4,6 +4,8 @@ import type {
   Profile,
   GetMessages,
   GetPublications,
+  GetNotifications,
+  ReadNotification,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -102,6 +104,12 @@ const apiRoutes = {
       deleteRequest: (queries: Profile) =>
         `/profile/${queries.username}/follow/request`,
       getFollowRequests: "/profile/follow/requests",
+    },
+    notifications: {
+      getNotifications: (queries: Omit<GetNotifications, "limit">) =>
+        `/users/notifications?limit=10&offset=${queries.offset}`,
+      readNotification: (params: ReadNotification) =>
+        `/users/notifications/${params.notificationId}/read`,
     },
   },
   messages: {

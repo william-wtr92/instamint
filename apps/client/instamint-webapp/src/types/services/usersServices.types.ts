@@ -12,6 +12,7 @@ import type {
   UserAvatar,
   AddPublication,
   Visibility,
+  ReadNotification,
   PublicationsLikes,
   AddComment,
   AddCommentParam,
@@ -35,6 +36,7 @@ export type UsersServices = {
   uploadAvatar: [UserAvatar, null]
   uploadPublication: [AddPublication, null]
   visibility: [Visibility, null]
+  readNotification: [ReadNotification, null]
   likePublicationService: [PublicationsLikes, null]
   addPublicationCommentService: [AddComment & AddCommentParam, null]
   deletePublicationCommentService: [DeleteCommentParam, null]

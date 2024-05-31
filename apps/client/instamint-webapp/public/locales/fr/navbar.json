@@ -14,7 +14,6 @@
   "settingsNavbarTitle": "Paramètres du compte",
   "accountInformation": "Informations du compte",
   "security": "Sécurité et confidentialité",
-  "notifications": "Notifications",
   "about": "À propos d'Instamint",
   "cta": {
     "button-sign-out": "Déconnexion",
@@ -22,6 +21,18 @@
     "description-sign-out": "Vous serez déconnecté de votre compte Instamint.",
     "confirm-sign-out": "Confirmer",
     "cancel-sign-out": "Annuler"
+  },
+  "notifications": {
+    "follow": "vous a suivi !",
+    "request": "vous a envoyé une demande d'abonnement",
+    "like": "a aimé votre publication",
+    "comment": "a commenté votre publication",
+    "date": {
+      "day": "j",
+      "hour": "h",
+      "minute": "m"
+    },
+    "success": "La notification a été lue"
   },
   "add-publication-modal": {
     "step-one": {

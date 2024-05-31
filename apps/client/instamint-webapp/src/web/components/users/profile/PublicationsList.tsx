@@ -6,11 +6,10 @@ import ProfilePublicationCard from "./ProfilePublicationCard"
 
 type PublicationsListProps = {
   publications: Publication[]
-  isLoading: boolean
 }
 
 export const PublicationsList = (props: PublicationsListProps) => {
-  const { publications, isLoading } = props
+  const { publications } = props
 
   const { t } = useTranslation("profile")
 
@@ -24,12 +23,10 @@ export const PublicationsList = (props: PublicationsListProps) => {
           />
         ))
       ) : (
-        <Text variant="neutral" type="body" className="pt-3">
+        <Text variant="neutral" type="body" className="">
           {t("no-publication")}
         </Text>
       )}
-
-      {isLoading && <p>{t("loading")}</p>}
     </div>
   )
 }
