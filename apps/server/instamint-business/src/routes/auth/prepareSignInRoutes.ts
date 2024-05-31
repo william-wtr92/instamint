@@ -300,6 +300,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           "twoFactorAuthentication",
           "location",
           "avatar",
+          "private",
         ]),
       },
       SC.success.OK

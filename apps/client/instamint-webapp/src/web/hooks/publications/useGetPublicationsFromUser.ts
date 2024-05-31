@@ -20,7 +20,7 @@ const getKey = (
     return null
   }
 
-  const limitPerPage = 10
+  const limitPerPage = 6
   const offset = pageIndex
 
   return routes.api.users.publications.getPublications(username, {

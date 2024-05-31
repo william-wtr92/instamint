@@ -1,5 +1,8 @@
 {
   "title": "Account security",
+  "subtitle-actions": "Account actions",
+  "subtitle-danger-zone": "Danger zone",
+  "subtitle-visibility": "Change visibility",
   "2fa-title": "Two-factor authentication",
   "2fa-description": "Enabling two-factor authentication enhances security by adding an extra layer of protection, reducing the risk of unauthorized access to your accounts.",
   "2fa-enabled": "Status : Enabled",
@@ -127,5 +130,16 @@
     },
     "success": "Your email has been modified, Look out for an email to verify your it.",
     "submit": "Confirm"
+  },
+  "visibility": {
+    "label": "Account visibility",
+    "description": "Visibility settings determine who can see your profile and your activity.",
+    "cta": {
+      "submit": "Update visibility"
+    },
+    "messages": {
+      "private": "Your account is now private.",
+      "public": "Your account is now public."
+    }
   }
 }

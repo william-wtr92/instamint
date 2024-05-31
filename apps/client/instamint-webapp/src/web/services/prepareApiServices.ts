@@ -20,7 +20,12 @@ import twoFactorAuthenticationService from "@/web/services/users/account/twoFact
 import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
 import twoFactorDeactivationService from "@/web/services/users/account/twoFactorDeactivationService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
+import updateVisibilityAccountService from "@/web/services/users/account/updateVisibilityAccountService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
+import deleteFollowRequestService from "@/web/services/users/profile/deleteFollowRequestService"
+import followRequestService from "@/web/services/users/profile/followRequestService"
+import followService from "@/web/services/users/profile/followService"
+import unfollowService from "@/web/services/users/profile/unfollowService"
 import addPublicationCommentService from "@/web/services/users/publications/addPublicationCommentService"
 import deletePublicationCommentService from "@/web/services/users/publications/deletePublicationCommentService"
 import likePublicationService from "@/web/services/users/publications/likePublicationService"
@@ -53,11 +58,18 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         modifyEmail: modifyEmailService(context),
         uploadAvatar: uploadAvatarService(context),
         uploadPublication: uploadPublicationService(context),
+        visibility: updateVisibilityAccountService(context),
         likePublicationService: likePublicationService(context),
         addPublicationCommentService: addPublicationCommentService(context),
         deletePublicationCommentService:
           deletePublicationCommentService(context),
         replyPublicationCommentService: replyPublicationCommentService(context),
+      },
+      profile: {
+        follow: followService(context),
+        unfollow: unfollowService(context),
+        followRequest: followRequestService(context),
+        deleteFollowRequest: deleteFollowRequestService(context),
       },
       admin: {
         deactivateAccount: deactivateAccountAdminService(context),

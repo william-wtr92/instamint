@@ -1,4 +1,4 @@
-import type { QueryBuilderType } from "objection"
+import type { QueryBuilder, QueryBuilderType } from "objection"
 
 import BaseModel from "./BaseModel"
 import PublicationsModel from "./PublicationsModel"
@@ -23,6 +23,7 @@ class UserModel extends BaseModel {
   emailValidation!: boolean
   gdprValidation!: boolean
   active!: boolean
+  private!: boolean
   deactivationDate!: Date | null
   deletionDate!: Date | null
   roleId!: number
@@ -37,6 +38,10 @@ class UserModel extends BaseModel {
   static modifiers = {
     selectUserData: (query: QueryBuilderType<UserModel>) => {
       query.select("id", "username")
+    },
+
+    async selectFollowerData(query: QueryBuilder<UserModel>) {
+      query.select("username", "email", "avatar", "private")
     },
   }
 
@@ -60,7 +65,6 @@ class UserModel extends BaseModel {
       },
     }
   }
-
   checkPassword = async (password: string) => {
     const [passwordHash] = await hashPassword(password, this.passwordSalt)
 

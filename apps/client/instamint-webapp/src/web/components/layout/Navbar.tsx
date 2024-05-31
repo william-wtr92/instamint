@@ -76,7 +76,7 @@ const Navbar = () => {
             <Link
               key={index}
               href={button.path}
-              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 "
             >
               {button.icon}
               <Text type="body" variant="accent" className="hidden md:block">

@@ -1,13 +1,18 @@
-import type { Publication } from "@instamint/shared-types"
+import { type Publication, type FollowPending } from "@instamint/shared-types"
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ProfileHeader } from "@/web/components/profile/ProfileHeader"
 import { PublicationsList } from "@/web/components/profile/PublicationsList"
+import useActionsContext from "@/web/contexts/useActionsContext"
+import useAppContext from "@/web/contexts/useAppContext"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
+import { useUserFollowRequests } from "@/web/hooks/users/profile/useUserFollowRequests"
+import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
+import { routes } from "@/web/routes"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -34,7 +39,25 @@ const ProfilePage = (
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
+  const {
+    services: {
+      profile: { follow, unfollow, followRequest, deleteFollowRequest },
+    },
+    socket: { joinRoom },
+  } = useAppContext()
+  const { redirect, toast } = useActionsContext()
+
   const { data: userData } = useUser()
+  const {
+    data: userTargetedData,
+    followers: followersTargetedData,
+    followed: followedTargetedData,
+    isFollowing,
+    requestPending,
+    mutate: userTargetedMutate,
+  } = useUserByUsername({ username })
+  const { data: userFollowRequestsData, mutate: userFollowRequestsMutate } =
+    useUserFollowRequests()
 
   const { data, isLoading, setSize } = useGetPublicationsFromUser(username)
   const publications = data
@@ -65,8 +88,121 @@ const ProfilePage = (
     }
   }
 
+  const handleFollowUser = useCallback(async () => {
+    const [err] = await follow({ username })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:users.profile.follow.${err.message}`),
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("profile:actions.messages.followSuccess", { username }),
+    })
+
+    await userTargetedMutate()
+    await userFollowRequestsMutate()
+  }, [follow, userTargetedMutate, userFollowRequestsMutate, username, toast, t])
+
+  const handleUnfollowUser = useCallback(async () => {
+    const [err] = await unfollow({ username })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:users.profile.follow.${err.message}`),
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("profile:actions.messages.unfollowSuccess", { username }),
+    })
+
+    await userTargetedMutate()
+    await userFollowRequestsMutate()
+  }, [
+    unfollow,
+    userTargetedMutate,
+    userFollowRequestsMutate,
+    username,
+    toast,
+    t,
+  ])
+
+  const handleTriggerFollowRequest = useCallback(
+    async (values: FollowPending) => {
+      const [err] = await followRequest(values)
+
+      if (err) {
+        toast({
+          variant: "error",
+          description: t(`errors:users.profile.follow.${err.message}`),
+        })
+
+        return
+      }
+
+      toast({
+        variant: "success",
+        description: t(
+          `profile:actions.messages.${values.accepted ? "acceptFollowRequestSuccess" : "rejectFollowRequestSuccess"}`,
+          {
+            username: values.username,
+          }
+        ),
+      })
+
+      await userTargetedMutate()
+      await userFollowRequestsMutate()
+    },
+    [followRequest, userTargetedMutate, userFollowRequestsMutate, toast, t]
+  )
+
+  const handleDeleteFollowRequest = useCallback(async () => {
+    const [err] = await deleteFollowRequest({ username })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:users.profile.follow.${err.message}`),
+      })
+
+      return
+    }
+
+    toast({
+      variant: "success",
+      description: t("profile:actions.messages.deleteRequestSuccess", {
+        username,
+      }),
+    })
+
+    await userTargetedMutate()
+  }, [deleteFollowRequest, userTargetedMutate, username, toast, t])
+
+  const handleDmUser = useCallback(() => {
+    if (!userTargetedData) {
+      return
+    }
+
+    joinRoom(
+      { userTargetedUsername: userTargetedData.username },
+      (roomName: string) => {
+        redirect(routes.client.messages(roomName), 800)
+      }
+    )
+  }, [joinRoom, redirect, userTargetedData])
+
   useEffect(() => {
-    const translatedTitle = `${t("titles:profile.user")} ${username}`
+    const translatedTitle = `${t("titles:profile.user")}${username}`
     setPageTitle(translatedTitle)
   }, [username, t])
 
@@ -82,7 +218,25 @@ const ProfilePage = (
     >
       {userData && (
         <>
-          <ProfileHeader username={username} />
+          <ProfileHeader
+            userEmail={userData?.email}
+            userPage={userTargetedData}
+            userFollowRequests={
+              userData?.private ? userFollowRequestsData : undefined
+            }
+            handleFollow={handleFollowUser}
+            handleUnfollow={handleUnfollowUser}
+            handleTriggerFollowRequest={(values) =>
+              handleTriggerFollowRequest(values)
+            }
+            handleDeleteFollowRequest={handleDeleteFollowRequest}
+            handleDmUser={handleDmUser}
+            publications={publications}
+            followers={followersTargetedData}
+            followed={followedTargetedData}
+            isFollowing={isFollowing}
+            requestPending={requestPending}
+          />
 
           <PublicationsList publications={publications} isLoading={isLoading} />
         </>

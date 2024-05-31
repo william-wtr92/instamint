@@ -8,6 +8,7 @@ export type ConnectedUser = {
   location: string
   avatar: string
   roleData: string
+  private: boolean
 }
 
 export type ConnectedUserResult = {

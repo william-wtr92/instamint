@@ -1,4 +1,7 @@
+import type { FollowersStatus } from "@instamint/shared-types"
+
 /* Reset Passwords */
+
 export const passwordsMustMatch = {
   errorCode: "passwordsMustMatch",
   message: "Passwords must match.",
@@ -130,6 +133,47 @@ export const avatarDeleteFailed = {
 
 export const avatarDeleted = {
   message: "Avatar deleted.",
+} as const
+
+/* Visibility */
+
+export const visibilityUpdated = {
+  message: "Visibility updated.",
+} as const
+
+/* Follows */
+
+export const alreadyFollowing = {
+  errorCode: "alreadyFollowing",
+  message: "Already following.",
+} as const
+
+export const cannotFollowYourself = {
+  errorCode: "cannotFollowYourself",
+  message: "Cannot follow yourself.",
+} as const
+
+export const followedSuccessfully = {
+  message: "Followed.",
+} as const
+
+export const followRequestNotFound = {
+  errorCode: "followRequestNotFound",
+  message: "Follow request not found.",
+} as const
+
+export const followRequestResult = (value: FollowersStatus) => {
+  return {
+    message: `Follow request ${value}.`,
+  } as const
+}
+
+export const unfollowedSuccessfully = {
+  message: "Unfollowed.",
+} as const
+
+export const followRequestDeleted = {
+  message: "Follow request deleted.",
 } as const
 
 /* Publication */

@@ -14,6 +14,7 @@ import {
   redisKeys,
   usersMessages,
 } from "@/def"
+import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { nowDate, sixMonthsDate } from "@/utils/helpers/times"
 
@@ -133,6 +134,8 @@ const prepareAdminUsersActionsRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
     }
   )
+
+  adminUsersActions.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/admin/users", adminUsersActions)
 }

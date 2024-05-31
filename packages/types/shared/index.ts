@@ -15,6 +15,8 @@ export * from "./types/users/twoFactorAuth.types"
 export * from "./types/users/modifyPassword.types"
 export * from "./types/users/modifyEmail.types"
 export * from "./types/users/profile/profile.types"
+export * from "./types/users/profile/visibility.types"
+export * from "./types/users/profile/follows.types"
 
 /* Publications Schemas & Types */
 export * from "./types/publications/publications.types"

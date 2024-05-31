@@ -15,7 +15,7 @@ const ProfilePublicationCard = (props: Props) => {
   return (
     <div
       key={publication?.id}
-      className="group/publication relative aspect-square h-fit w-[calc((100%/3)-2.7px)] cursor-pointer overflow-hidden rounded-sm"
+      className="group/publication relative aspect-square h-fit w-[calc((100%/2)-2.7px)] cursor-pointer overflow-hidden rounded-sm lg:w-[calc((100%/3)-2.7px)]"
     >
       <Image
         src={config.api.blobUrl + publication?.image}
