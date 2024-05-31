@@ -23,7 +23,7 @@
   },
   "notifications": {
     "follow": "vous a suivi !",
-    "request": "vous as envoyé une demande d'abonnement",
+    "request": "vous a envoyé une demande d'abonnement",
     "like": "a aimé votre publication",
     "comment": "a commenté votre publication",
     "date": {
