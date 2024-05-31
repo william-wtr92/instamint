@@ -111,6 +111,10 @@
         "alreadyFollowing": "Vous suivez déjà cet utilisateur.",
         "followRequestNotFound": "Demande de suivi introuvable."
       }
+    },
+    "notifications": {
+      "userNotFound": "Ce compte n'existe pas.",
+      "notificationNotFound": "Notification introuvable."
     }
   },
   "admin": {

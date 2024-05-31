@@ -10,6 +10,7 @@ import {
 import { Hono, type Context } from "hono"
 
 import FollowerModel from "@/db/models/FollowerModel"
+import NotificationModel from "@/db/models/NotificationModel"
 import UserModel from "@/db/models/UserModel"
 import {
   authMessages,
@@ -63,19 +64,35 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const isFollowing = await FollowerModel.query().findOne({
-        followerId: user.id,
         followedId: targetUser.id,
+        followerId: user.id,
       })
 
       if (isFollowing) {
         return c.json(usersMessages.alreadyFollowing, SC.success.OK)
       }
 
-      await FollowerModel.query().insert({
-        status: targetUser.private ? "pending" : "accepted",
-        followerId: user.id,
-        followedId: targetUser.id,
-      })
+      const trx = await db.transaction()
+
+      try {
+        await FollowerModel.query(trx).insert({
+          status: targetUser.private ? "pending" : "accepted",
+          followedId: targetUser.id,
+          followerId: user.id,
+        })
+
+        await NotificationModel.query(trx).insert({
+          type: "follow",
+          notifiedUserId: targetUser.id,
+          notifierUserId: user.id,
+        })
+
+        await trx.commit()
+      } catch (e) {
+        await trx.rollback()
+
+        return c.json(usersMessages.followFailed, SC.errors.BAD_REQUEST)
+      }
 
       return c.json(
         { message: usersMessages.followedSuccessfully.message },
@@ -100,7 +117,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
           followedId: user.id,
           status: "pending",
         })
-        .withGraphFetched("followerData(selectFollowerData)")
+        .withGraphFetched("followerData(selectSanitizedUser)")
 
       return c.json({ result: allRequests }, SC.success.OK)
     }
@@ -130,9 +147,9 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const followRequest = await FollowerModel.query().findOne({
-        followerId: targetUser.id,
-        followedId: user.id,
         status: "pending",
+        followedId: user.id,
+        followerId: targetUser.id,
       })
 
       if (!followRequest) {
@@ -179,9 +196,9 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const followRequest = await FollowerModel.query().findOne({
-        followerId: user.id,
-        followedId: targetUser.id,
         status: "pending",
+        followedId: targetUser.id,
+        followerId: user.id,
       })
 
       if (!followRequest) {
@@ -218,9 +235,9 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
       }
 
       const isFollowing = await FollowerModel.query().findOne({
-        followerId: user.id,
-        followedId: targetUser.id,
         status: "accepted",
+        followedId: targetUser.id,
+        followerId: user.id,
       })
 
       if (!isFollowing) {

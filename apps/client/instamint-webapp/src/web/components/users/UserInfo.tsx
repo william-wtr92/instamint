@@ -1,7 +1,4 @@
-import {
-  ArrowLeftStartOnRectangleIcon,
-  Cog6ToothIcon,
-} from "@heroicons/react/24/outline"
+import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline"
 import {
   Avatar,
   AvatarFallback,
@@ -13,8 +10,9 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
-import { AlertPopup } from "./AlertPopup"
-import { ChangeLanguage } from "./ChangeLanguage"
+import { AlertPopup } from "../utils/AlertPopup"
+import { ChangeLanguage } from "../utils/ChangeLanguage"
+import { Notifications } from "@/web/components/users/notifications/Notifications"
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -36,8 +34,8 @@ const UserInfo = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
-  const { data, isLoading } = useUser()
-  const user = isLoading ? null : data
+  const { data: userData, isLoading } = useUser()
+  const user = isLoading ? null : userData
   const usernameFirstLetter = firstLetter(user?.username)
   const userUsername = firstLetterUppercase(user?.username)
   const userAvatar = user?.avatar ? `${config.api.blobUrl}${user.avatar}` : null
@@ -89,9 +87,8 @@ const UserInfo = () => {
                   {user.email}
                 </Text>
               </div>
-              <Link href={routes.client.profile.settings.base}>
-                <Cog6ToothIcon className="text-accent-500 w-6" />
-              </Link>
+
+              <Notifications />
             </div>
             <Button
               onClick={handleTriggerModal}

@@ -57,7 +57,7 @@ class UserModel extends BaseModel {
   }
 
   static modifiers = {
-    async selectFollowerData(query: QueryBuilder<UserModel>) {
+    async selectSanitizedUser(query: QueryBuilder<UserModel>) {
       query.select("username", "email", "avatar", "private")
     },
   }
