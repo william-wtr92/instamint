@@ -13,12 +13,12 @@ type Props = {
 const ProfilePublicationCardOverlay = (props: Props) => {
   const { publicationInList } = props
 
-  const { setPublicationId } = useAppContext()
+  const { handlePublicationId } = useAppContext()
 
   return (
     <DialogTrigger
       asChild
-      onClick={() => setPublicationId(publicationInList.id)}
+      onClick={() => handlePublicationId(publicationInList.id)}
     >
       <div className="absolute left-0 top-0 flex size-full flex-col items-center justify-center gap-2 bg-black p-2 text-white opacity-0 duration-300 group-hover/publication:opacity-50">
         <div className="flex flex-row items-center gap-2">

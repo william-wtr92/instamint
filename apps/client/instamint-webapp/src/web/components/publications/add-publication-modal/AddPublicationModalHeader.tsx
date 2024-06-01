@@ -18,7 +18,7 @@ type Props = {
   handleNextStep: () => void
   handleShowAddPublicationModal: () => void
   handlePreviousStep: () => void
-  onSubmit: () => void
+  handleSubmit: () => void
 }
 
 const AddPublicationModalHeader = (props: Props) => {
@@ -30,7 +30,7 @@ const AddPublicationModalHeader = (props: Props) => {
     handleNextStep,
     handleShowAddPublicationModal,
     handlePreviousStep,
-    onSubmit,
+    handleSubmit,
   } = props
 
   const { t } = useTranslation("navbar")
@@ -102,7 +102,7 @@ const AddPublicationModalHeader = (props: Props) => {
 
       <Button
         className="space-0 mr-1 mt-0 h-full rounded-md border-0 bg-none"
-        onClick={step !== steps.three ? handleNextStep : onSubmit}
+        onClick={step !== steps.three ? handleNextStep : handleSubmit}
         disabled={handleNextButtonDisabled()}
       >
         {step !== steps.three

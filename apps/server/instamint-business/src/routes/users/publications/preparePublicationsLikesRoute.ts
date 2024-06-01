@@ -2,14 +2,19 @@ import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
 import {
   publicationsLikesParamSchema,
-  type PublicationsLikes,
+  type PublicationsLikesParam,
 } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import PublicationsLikesModel from "@/db/models/PublicationsLikesModel"
 import PublicationsModel from "@/db/models/PublicationsModel"
 import type UserModel from "@/db/models/UserModel"
-import { authMessages, contextsKeys, globalsMessages } from "@/def"
+import {
+  authMessages,
+  contextsKeys,
+  globalsMessages,
+  usersMessages,
+} from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
@@ -37,7 +42,7 @@ const preparePublicationsLikesRoutes: ApiRoutes = ({ app, db, redis }) => {
     zValidator("param", publicationsLikesParamSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
-      const { publicationId } = c.req.param() as PublicationsLikes
+      const { publicationId } = c.req.param() as PublicationsLikesParam
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -47,7 +52,7 @@ const preparePublicationsLikesRoutes: ApiRoutes = ({ app, db, redis }) => {
         await PublicationsModel.query().findById(publicationId)
 
       if (!publication) {
-        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
       }
 
       const publicationLike = await PublicationsLikesModel.query()
@@ -68,7 +73,7 @@ const preparePublicationsLikesRoutes: ApiRoutes = ({ app, db, redis }) => {
           })
 
         return c.json(
-          authMessages.publicationSuccessfullyDisliked,
+          usersMessages.publicationSuccessfullyDisliked,
           SC.success.OK
         )
       }
@@ -80,7 +85,7 @@ const preparePublicationsLikesRoutes: ApiRoutes = ({ app, db, redis }) => {
         })
         .returning("*")
 
-      return c.json(authMessages.publicationSuccessfullyLiked, SC.success.OK)
+      return c.json(usersMessages.publicationSuccessfullyLiked, SC.success.OK)
     }
   )
 

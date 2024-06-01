@@ -13,7 +13,7 @@ import type {
   AddPublication,
   Visibility,
   ReadNotification,
-  PublicationsLikes,
+  PublicationsLikesParam,
   AddComment,
   AddCommentParam,
   DeleteCommentParam,
@@ -37,7 +37,7 @@ export type UsersServices = {
   uploadPublication: [AddPublication, null]
   visibility: [Visibility, null]
   readNotification: [ReadNotification, null]
-  likePublicationService: [PublicationsLikes, null]
+  likePublicationService: [PublicationsLikesParam, null]
   addPublicationCommentService: [AddComment & AddCommentParam, null]
   deletePublicationCommentService: [DeleteCommentParam, null]
   replyPublicationCommentService: [ReplyComment & ReplyCommentParam, null]

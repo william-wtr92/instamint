@@ -144,8 +144,8 @@ export const Notifications = () => {
           <BellIcon className="text-accent-500 relative size-6" />
         </PopoverTrigger>
         <PopoverContent
-          side="left"
-          className="relative left-20 top-14 flex h-80 w-72 flex-col gap-5 overflow-y-auto bg-white opacity-80 xl:left-3 xl:w-80 xl:opacity-90"
+          side="bottom"
+          className="flex h-80 w-72 flex-col gap-5 overflow-y-auto bg-white bg-opacity-95 xl:left-3 xl:w-80"
           onScroll={handleScroll}
         >
           {notificationsData &&
@@ -220,7 +220,10 @@ export const Notifications = () => {
             )}
         </PopoverContent>
       </Popover>
-      <Link href={routes.client.profile.settings.base}>
+      <Link
+        href={routes.client.profile.settings.base}
+        className="hidden md:block"
+      >
         <Cog6ToothIcon className="text-accent-500 size-6" />
       </Link>
     </div>

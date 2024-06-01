@@ -1,10 +1,10 @@
-import type { PublicationsLikes } from "@instamint/shared-types"
+import type { PublicationsLikesParam } from "@instamint/shared-types"
 
 import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const likePublicationService: Services<PublicationsLikes, null> =
+const likePublicationService: Services<PublicationsLikesParam, null> =
   ({ api }) =>
   async (data) => {
     try {
@@ -14,8 +14,12 @@ const likePublicationService: Services<PublicationsLikes, null> =
         withCredentials: true,
       }
 
+      const param = {
+        publicationId,
+      }
+
       const { data: responseData } = await api.post(
-        routes.api.users.publications.like(publicationId),
+        routes.api.users.publications.like(param),
         null,
         config
       )

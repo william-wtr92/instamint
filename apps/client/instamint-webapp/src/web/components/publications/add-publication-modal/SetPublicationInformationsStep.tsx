@@ -23,7 +23,7 @@ type Props = {
   setDescription: (description: string) => void
   setLocation: (location: string) => void
   setHashtags: (hashtags: string[]) => void
-  removeHashtag: (index: number) => void
+  handleRemoveHashtag: (index: number) => void
 }
 
 const SetPublicationInformationsStep = (props: Props) => {
@@ -34,7 +34,7 @@ const SetPublicationInformationsStep = (props: Props) => {
     setDescription: handleDescription,
     setLocation: handleLocation,
     setHashtags: handleHashtags,
-    removeHashtag,
+    handleRemoveHashtag,
   } = props
 
   const { t } = useTranslation("navbar")
@@ -168,7 +168,7 @@ const SetPublicationInformationsStep = (props: Props) => {
                   type="button"
                   key={index}
                   className="bg-accent-500 group/hashtag flex flex-row flex-wrap items-center justify-between rounded-sm p-1 text-white hover:gap-2"
-                  onClick={() => removeHashtag(index)}
+                  onClick={() => handleRemoveHashtag(index)}
                 >
                   <Text type="medium" variant="none">
                     {hashtag}

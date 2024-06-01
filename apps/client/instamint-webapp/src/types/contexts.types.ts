@@ -34,7 +34,7 @@ export type AppContextType = {
     chatMessage: (data: ChatMessage) => void
   }
   publicationId: number | null
-  setPublicationId: (id: number | null) => void
+  handlePublicationId: (id: number | null) => void
 }
 
 /* Actions Context */

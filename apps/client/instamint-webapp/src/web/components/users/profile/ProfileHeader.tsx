@@ -51,7 +51,7 @@ export const ProfileHeader = ({
             <Text
               variant="neutral"
               type="body"
-              className="text-medium xl:text-subheading relative -left-1 p-1 sm:pr-4"
+              className="text-body xl:text-subheading relative -left-1 p-1 sm:pr-4"
             >
               {userUsername}
             </Text>
@@ -73,15 +73,18 @@ export const ProfileHeader = ({
             </Link>
           )}
         </div>
+
         <ProfileStats
           publications={publications}
           followers={followers}
           followed={followed}
           t={t}
         />
+
         <Text variant="neutral" type="body" className="pt-3">
           {userPage?.bio}
         </Text>
+
         <ProfileActions
           userEmail={userEmail}
           userPage={userPage}

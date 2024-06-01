@@ -26,9 +26,20 @@ const CroppableImage = (props: Props) => {
     height: 0,
   })
 
-  const onCropComplete = (croppedArea: Area, croppedAreaPixelsParam: Area) => {
-    setCroppedAreaPixels(croppedAreaPixelsParam)
-  }
+  const handleCrop = useCallback((crop: Point) => {
+    setCrop(crop)
+  }, [])
+
+  const handleZoom = useCallback((zoom: number) => {
+    setZoom(zoom)
+  }, [])
+
+  const onCropComplete = useCallback(
+    (croppedArea: Area, croppedAreaPixelsParam: Area) => {
+      setCroppedAreaPixels(croppedAreaPixelsParam)
+    },
+    []
+  )
 
   const cropImage = useCallback(async () => {
     const rotation = 0
@@ -81,9 +92,9 @@ const CroppableImage = (props: Props) => {
               crop={crop}
               zoom={zoom}
               aspect={1 / 1}
-              onCropChange={setCrop}
+              onCropChange={handleCrop}
               onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
+              onZoomChange={handleZoom}
             />
 
             <Button
@@ -101,7 +112,7 @@ const CroppableImage = (props: Props) => {
               max={3}
               step={0.1}
               aria-labelledby="Zoom"
-              onValueChange={([zoom]: [number]) => setZoom(zoom)}
+              onValueChange={([zoom]: [number]) => handleZoom(zoom)}
             />
           </>
         )}

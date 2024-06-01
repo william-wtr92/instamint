@@ -6,6 +6,12 @@ import type {
   GetPublications,
   GetNotifications,
   ReadNotification,
+  GetPublicationParam,
+  GetPublicationsParam,
+  PublicationsLikesParam,
+  AddCommentParam,
+  DeleteCommentParam,
+  ReplyCommentParam,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -79,18 +85,21 @@ const apiRoutes = {
     },
     publications: {
       uploadPublication: "/users/upload-publication",
-      getPublication: (publicationId: string) =>
-        `/users/publication/${publicationId}`,
-      getPublications: (username: string, queries: GetPublications) =>
-        `/users/publications/${username}?limit=${queries.limit}&offset=${queries.offset}`,
-      like: (publicationId: string) =>
-        `/users/publications/${publicationId}/like`,
-      comment: (publicationId: string) =>
-        `/users/publications/${publicationId}/comment`,
-      deleteComment: (publicationId: string, commentId: string) =>
-        `/users/publications/${publicationId}/comment/${commentId}`,
-      replyComment: (publicationId: string, commentId: string) =>
-        `/users/publications/${publicationId}/comment/${commentId}`,
+      getPublication: (param: GetPublicationParam) =>
+        `/users/publication/${param.publicationId}`,
+      getPublications: (
+        param: GetPublicationsParam,
+        queries: GetPublications
+      ) =>
+        `/users/publications/${param.username}?limit=${queries.limit}&offset=${queries.offset}`,
+      like: (param: PublicationsLikesParam) =>
+        `/users/publications/${param.publicationId}/like`,
+      comment: (param: AddCommentParam) =>
+        `/users/publications/${param.publicationId}/comment`,
+      deleteComment: (param: DeleteCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}`,
+      replyComment: (param: ReplyCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

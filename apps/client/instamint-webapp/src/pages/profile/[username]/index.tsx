@@ -47,7 +47,8 @@ const ProfilePage = (
   } = useAppContext()
   const { redirect, toast } = useActionsContext()
 
-  const { data: userData } = useUser()
+  const { data: userLoggedData } = useUser()
+
   const {
     data: userTargetedData,
     followers: followersTargetedData,
@@ -56,6 +57,7 @@ const ProfilePage = (
     requestPending,
     mutate: userTargetedMutate,
   } = useUserByUsername({ username })
+
   const { data: userFollowRequestsData, mutate: userFollowRequestsMutate } =
     useUserFollowRequests()
 
@@ -216,13 +218,13 @@ const ProfilePage = (
       className="p-text-large-screen flex h-full flex-col gap-6 overflow-scroll xl:h-screen"
       onScroll={onScroll}
     >
-      {userData && (
+      {userLoggedData && (
         <>
           <ProfileHeader
-            userEmail={userData?.email}
+            userEmail={userLoggedData?.email}
             userPage={userTargetedData}
             userFollowRequests={
-              userData?.private ? userFollowRequestsData : undefined
+              userLoggedData?.private ? userFollowRequestsData : undefined
             }
             handleFollow={handleFollowUser}
             handleUnfollow={handleUnfollowUser}
@@ -238,7 +240,12 @@ const ProfilePage = (
             requestPending={requestPending}
           />
 
-          <PublicationsList publications={publications} />
+          <PublicationsList
+            publications={publications}
+            userLoggedEmail={userLoggedData?.email}
+            userTargeted={userTargetedData}
+            isFollowing={isFollowing}
+          />
         </>
       )}
     </div>

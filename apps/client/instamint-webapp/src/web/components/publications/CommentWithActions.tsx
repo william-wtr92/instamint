@@ -73,7 +73,6 @@ const CommentWithActions = (props: Props) => {
     }
   }, [commentParentId, handleReplyCommentUser, t])
 
-  // Tu peux supp si c'est ton commentaire, ou si le post est le tien
   const deleteCommentButton = useMemo(() => {
     if (
       userConnected?.id === commentAuthor?.id ||
@@ -95,7 +94,7 @@ const CommentWithActions = (props: Props) => {
     handleShowDeleteCommentDialog,
   ])
 
-  const deleteComment = useCallback(async () => {
+  const handleDeleteComment = useCallback(async () => {
     if (!commentId || !publicationId) {
       return
     }
@@ -108,7 +107,7 @@ const CommentWithActions = (props: Props) => {
     if (err) {
       toast({
         variant: "error",
-        description: err.message,
+        description: t(`errors.publications.${err.message}`),
       })
 
       return
@@ -122,6 +121,7 @@ const CommentWithActions = (props: Props) => {
     handleShowDeleteCommentDialog,
     mutate,
     publicationId,
+    t,
     toast,
   ])
 
@@ -153,7 +153,7 @@ const CommentWithActions = (props: Props) => {
         type="danger"
         open={showDeleteCommentDialog}
         onClose={handleShowDeleteCommentDialog}
-        onConfirm={deleteComment}
+        onConfirm={handleDeleteComment}
         titleKey={t("publication-modal.delete-comment-modal.title")}
         descriptionKey={t("publication-modal.delete-comment-modal.description")}
         cancelKey={t("publication-modal.delete-comment-modal.cancel")}

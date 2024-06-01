@@ -1,19 +1,21 @@
 import {
   AdjustmentsHorizontalIcon,
+  Cog6ToothIcon,
   HomeIcon,
   MagnifyingGlassIcon,
   PlusCircleIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline"
-import { Text } from "@instamint/ui-kit"
+import { Avatar, AvatarFallback, AvatarImage, Text } from "@instamint/ui-kit"
 import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
-import AddPublicationModal from "@/web/components/forms/publications/AddPublicationModal"
+import AddPublicationModal from "@/web/components/publications/add-publication-modal/AddPublicationModal"
+import { config } from "@/web/config"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
+import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
 const buttons = [
   {
@@ -32,10 +34,10 @@ const buttons = [
   },
   {
     icon: (
-      <UserIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+      <Cog6ToothIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
     ),
-    path: routes.client.profile.settings.edit,
-    label: "profile",
+    path: routes.client.profile.settings.base,
+    label: "settings",
   },
 ]
 
@@ -76,7 +78,7 @@ const Navbar = () => {
             <Link
               key={index}
               href={button.path}
-              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 "
+              className={`xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 order-${index + 1} md:order-none`}
             >
               {button.icon}
               <Text type="body" variant="accent" className="hidden md:block">
@@ -87,7 +89,7 @@ const Navbar = () => {
 
           <button
             onClick={handleShowAddPublicationModal}
-            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md order-2 flex h-full w-1/5 items-center justify-center duration-200 md:order-last md:justify-start md:gap-4 md:p-4"
           >
             <PlusCircleIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
 
@@ -95,6 +97,28 @@ const Navbar = () => {
               {t("publish")}
             </Text>
           </button>
+
+          {user && (
+            <Link
+              className="order-5 flex w-full flex-1 flex-row items-center justify-center md:hidden"
+              href={
+                user.link
+                  ? routes.client.profile.getProfile(user.link)
+                  : routes.client.profile.getProfile(user.username)
+              }
+            >
+              <Avatar className="xs:hidden relative block size-7 rounded-3xl">
+                {user.avatar ? (
+                  <AvatarImage
+                    src={config.api.blobUrl + user.avatar}
+                    alt={user.username}
+                  />
+                ) : (
+                  <AvatarFallback>{firstLetter(user.username)}</AvatarFallback>
+                )}
+              </Avatar>
+            </Link>
+          )}
 
           {user?.roleData === "admin" && (
             <Link

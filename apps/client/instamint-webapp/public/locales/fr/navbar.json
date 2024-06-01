@@ -1,9 +1,10 @@
 {
   "home": "Accueil",
   "search": "Recherche",
+  "settings": "Paramètres",
   "admin": "Administration",
   "profile": "Profil",
-    "select-lang": {
+  "select-lang": {
     "label": "Changez la langue",
     "options": {
       "en": "Anglais",

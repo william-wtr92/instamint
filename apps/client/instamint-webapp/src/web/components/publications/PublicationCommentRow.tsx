@@ -29,7 +29,7 @@ type Props = {
   commentId?: number
   commentParentId?: number | null
   commentReplies?: SubComment[]
-  setReplyCommentId?: (commentId: number) => void
+  handleReplyCommentId?: (commentId: number) => void
   setReplyCommentUsername?: (username: string) => void
 }
 
@@ -46,7 +46,7 @@ const PublicationCommentRow = (props: Props) => {
     commentParentId,
     commentReplies,
     publicationAuthorId,
-    setReplyCommentId,
+    handleReplyCommentId,
     setReplyCommentUsername,
   } = props
   const { t } = useTranslation("profile")
@@ -55,26 +55,26 @@ const PublicationCommentRow = (props: Props) => {
 
   const [showCommentReplies, setShowCommentReplies] = useState<boolean>(false)
 
-  const handleShowCommentReplies = () => {
+  const handleShowCommentReplies = useCallback(() => {
     setShowCommentReplies((prevState) => !prevState)
-  }
+  }, [])
 
   const handleReplyCommentUser = useCallback(() => {
     const commentInput = document.getElementById(
       "comment-input"
     ) as HTMLInputElement
 
-    if (!setReplyCommentId || !setReplyCommentUsername) {
+    if (!handleReplyCommentId || !setReplyCommentUsername) {
       return
     }
 
     commentInput.focus()
 
-    setReplyCommentId(commentId!)
+    handleReplyCommentId(commentId!)
     setReplyCommentUsername(commentAuthorUsername)
   }, [
     commentId,
-    setReplyCommentId,
+    handleReplyCommentId,
     setReplyCommentUsername,
     commentAuthorUsername,
   ])
@@ -179,6 +179,7 @@ const PublicationCommentRow = (props: Props) => {
     commentAuthorUsername,
     commentReplies,
     handleReplyCommentUser,
+    handleShowCommentReplies,
     publicationAuthorId,
     showCommentReplies,
     t,

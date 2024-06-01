@@ -21,8 +21,12 @@ const addPublicationCommentService: Services<
         withCredentials: true,
       }
 
+      const param = {
+        publicationId,
+      }
+
       const { data: responseData } = await api.post(
-        routes.api.users.publications.comment(publicationId),
+        routes.api.users.publications.comment(param),
         body,
         config
       )

@@ -46,10 +46,8 @@ export const timePassed = (isoString: string): TimePassed => {
 export const dateIntoString = (isoDate: string, locale: string) => {
   const [day, month, year] = isoDate.split("/").map(Number)
 
-  // Création d'un objet Date
   const date = new Date(year, month - 1, day)
 
-  // Options pour la mise en forme de la date
   const options: Intl.DateTimeFormatOptions = {
     day: "numeric",
     month: "long",
@@ -58,6 +56,5 @@ export const dateIntoString = (isoDate: string, locale: string) => {
 
   const lang = locale === "en" ? "en-US" : "fr-FR"
 
-  // Formater la date en français
   return new Intl.DateTimeFormat(lang, options).format(date)
 }

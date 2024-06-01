@@ -1,6 +1,6 @@
 import { HeartIcon } from "@heroicons/react/24/solid"
 import { useTranslation } from "next-i18next"
-import React from "react"
+import React, { useCallback } from "react"
 
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -25,7 +25,7 @@ const LikeButton = (props: Props) => {
 
   const { toast } = useActionsContext()
 
-  const likePublication = async () => {
+  const handleLikePublication = useCallback(async () => {
     if (!publicationId) {
       return
     }
@@ -37,18 +37,18 @@ const LikeButton = (props: Props) => {
     if (error) {
       toast({
         variant: "error",
-        description: error.message,
+        description: t(`errors.publications.${error.message}`),
       })
     }
 
     await mutate()
-  }
+  }, [likePublicationService, mutate, publicationId, t, toast])
 
   return (
     <HeartIcon
       title={t("publication-modal.icons.like-title")}
       className={`size-8 ${isLiked ? "animate-jump stroke-red-500 text-red-500" : "stroke-black text-neutral-100"} stroke-1 duration-200`}
-      onClick={likePublication}
+      onClick={handleLikePublication}
     />
   )
 }

@@ -34,12 +34,12 @@ export const ChangeLanguage = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="size-10/12 border-0 outline-dotted outline-2 outline-offset-4 outline-neutral-800 focus-visible:outline-dotted focus-visible:outline-offset-4 focus-visible:ring-0"
+          className="h-fit w-full border border-dotted focus-visible:ring-0"
         >
           🌍
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-56 backdrop-blur-[2px] ">
         <DropdownMenuLabel>{t("navbar:select-lang.label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup

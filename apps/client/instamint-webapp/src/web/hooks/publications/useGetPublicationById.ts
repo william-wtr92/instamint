@@ -16,7 +16,9 @@ export const useGetPublicationById = (publicationId: number | null) => {
 
   const { data, ...query } = useSWR<FetcherData, Error>(
     publicationId
-      ? routes.api.users.publications.getPublication(publicationId.toString())
+      ? routes.api.users.publications.getPublication({
+          publicationId: publicationId.toString(),
+        })
       : null,
     config
   )

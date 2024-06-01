@@ -85,6 +85,10 @@
       }
     },
     "publications": {
+      "publicationNotFound": "Publication not found.",
+      "commentNotFound": "Comment not found.",
+      "notAuthorizedToDeleteComment": "You are not authorized to delete this comment.",
+      "commentContentRequired": "Comment content is required.",
       "image": {
         "fileNotFound": "File not found.",
         "fileSizeTooLarge": "File size too large.",
@@ -92,30 +96,30 @@
         "userNotFound": "Session expired. Please sign-in again.",
         "imageUploadFailed": "An error has occurred while uploading your image."
       }
-    },
-    "reactivate-account": {
-      "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
-      "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
-      "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
-      "tokenExpired": "Your link is expired. Please request a new one.",
-      "reactivateAccountDateExpired": "Your account has been deactivated for more than 30 days. Please create a new account.",
-      "reactivateAccountEmailMismatch": "Email does not match the account.",
-      "userNotFound": "This account does not exist.",
-      "accountAlreadyActivated": "Account already activated.",
-      "invalidPassword": "Invalid password."
-    },
-    "profile": {
-      "follow": {
-        "userNotFound": "This account does not exist.",
-        "cannotFollowYourself": "You cannot follow yourself.",
-        "alreadyFollowing": "You are already following this user.",
-        "followRequestNotFound": "Follow request not found."
-      }
-    },
-    "notifications": {
-      "userNotFound": "This account does not exist.",
-      "notificationNotFound": "Notification not found."
     }
+  },
+  "reactivate-account": {
+    "tokenNotProvided": "Invalid or expired link. Make sure you click on the link you received by email.",
+    "tokenInvalidStructure": "Invalid or expired link. Make sure you click on the link you received by email.",
+    "tokenSignatureMismatched": "Invalid or expired link. Make sure you click on the link you received by email.",
+    "tokenExpired": "Your link is expired. Please request a new one.",
+    "reactivateAccountDateExpired": "Your account has been deactivated for more than 30 days. Please create a new account.",
+    "reactivateAccountEmailMismatch": "Email does not match the account.",
+    "userNotFound": "This account does not exist.",
+    "accountAlreadyActivated": "Account already activated.",
+    "invalidPassword": "Invalid password."
+  },
+  "profile": {
+    "follow": {
+      "userNotFound": "This account does not exist.",
+      "cannotFollowYourself": "You cannot follow yourself.",
+      "alreadyFollowing": "You are already following this user.",
+      "followRequestNotFound": "Follow request not found."
+    }
+  },
+  "notifications": {
+    "userNotFound": "This account does not exist.",
+    "notificationNotFound": "Notification not found."
   },
   "admin": {
     "users": {

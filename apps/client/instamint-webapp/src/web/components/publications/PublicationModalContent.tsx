@@ -1,6 +1,7 @@
 import type { Comment, Publication } from "@instamint/shared-types"
 import { DialogContent } from "@instamint/ui-kit"
 import Image from "next/image"
+import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
 import PublicationCommentRow from "@/web/components/publications/PublicationCommentRow"
@@ -19,6 +20,8 @@ type Props = {
 
 const PublicationModalContent = (props: Props) => {
   const { publication } = props
+
+  const { t } = useTranslation("profile")
 
   const {
     services: {
@@ -46,9 +49,13 @@ const PublicationModalContent = (props: Props) => {
     string | null
   >(null)
 
-  const handleShowComments = () => {
+  const handleShowComments = useCallback(() => {
     setShowComments((prevState) => !prevState)
-  }
+  }, [])
+
+  const handleReplyCommentId = useCallback((replyCommentId: number | null) => {
+    setReplyCommentId(replyCommentId)
+  }, [])
 
   const replyToComment = useCallback(
     async (commentId: number, publicationId: number, content: string) => {
@@ -65,7 +72,7 @@ const PublicationModalContent = (props: Props) => {
       if (err) {
         toast({
           variant: "error",
-          description: err.message,
+          description: t(`errors.publications.${err.message}`),
         })
 
         return
@@ -74,7 +81,7 @@ const PublicationModalContent = (props: Props) => {
       await mutate()
       setReplyCommentId(null)
     },
-    [mutate, replyPublicationCommentService, toast]
+    [mutate, replyPublicationCommentService, t, toast]
   )
 
   return (
@@ -82,9 +89,7 @@ const PublicationModalContent = (props: Props) => {
       variant="fit"
       className="block h-[90vh] w-[90vw] overflow-hidden rounded-sm border-0 bg-neutral-100 p-0 md:flex md:h-[70vh] md:w-[95vw] md:flex-row md:gap-0 lg:h-[80vh] lg:w-fit lg:max-w-[80vw]"
     >
-      <div
-        className={`border-b-1 relative hidden aspect-square duration-300 md:mt-0 md:block md:border-0`}
-      >
+      <div className="border-b-1 relative hidden aspect-square duration-300 md:mt-0 md:block md:border-0">
         <Image
           src={config.api.blobUrl + publication.image}
           alt={"Publication " + publication.id}
@@ -106,7 +111,7 @@ const PublicationModalContent = (props: Props) => {
         >
           <Image
             src={config.api.blobUrl + publication.image}
-            alt={"Publication " + publication.id}
+            alt={`Publication ${publication.id}`}
             fill
             className="size-full object-contain"
           />
@@ -141,7 +146,7 @@ const PublicationModalContent = (props: Props) => {
               commentId={comment.id}
               commentParentId={comment.parentId}
               commentReplies={comment.replies}
-              setReplyCommentId={setReplyCommentId}
+              handleReplyCommentId={handleReplyCommentId}
               setReplyCommentUsername={setReplyCommentUsername}
             />
           ))}
@@ -153,7 +158,7 @@ const PublicationModalContent = (props: Props) => {
           replyCommentUsername={replyCommentUsername}
           handleShowComments={handleShowComments}
           replyToComment={replyToComment}
-          setReplyCommentId={setReplyCommentId}
+          handleReplyCommentId={handleReplyCommentId}
         />
       </div>
     </DialogContent>

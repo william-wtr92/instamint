@@ -198,11 +198,43 @@ export const publicationUploadFailed = {
   message: "Publication upload failed.",
 } as const
 
-export const uploadFailed = {
-  errorCode: "uploadFailed",
-  message: "Upload failed.",
-} as const
-
 export const publicationUploaded = {
   message: "Publication uploaded.",
+} as const
+
+export const publicationNotFound = {
+  errorCode: "publicationNotFound",
+  message: "Publication not found.",
+} as const
+
+export const publicationSuccessfullyLiked = {
+  message: "Publication successfully liked.",
+} as const
+
+export const publicationSuccessfullyDisliked = {
+  message: "Publication successfully disliked.",
+} as const
+
+/* Comments messages */
+export const commentNotFound = {
+  errorCode: "commentNotFound",
+  message: "Comment not found.",
+} as const
+
+export const notAuthorizedToDeleteComment = {
+  errorCode: "notAuthorizedToDeleteComment",
+  message: "Not authorized to delete comment.",
+} as const
+
+export const commentContentRequired = {
+  errorCode: "commentContentRequired",
+  message: "Comment content required.",
+} as const
+
+export const commentsSuccessfullyAdded = {
+  message: "Comment successfully added.",
+} as const
+
+export const commentSuccessfullyDeleted = {
+  message: "Comment successfully deleted.",
 } as const

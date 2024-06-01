@@ -4,6 +4,7 @@ import {
   type PropsWithChildren,
   useContext,
   useState,
+  useCallback,
 } from "react"
 
 import type { AppContextProviderProps, AppContextType } from "@/types"
@@ -26,13 +27,17 @@ export const AppContextProvider: FC<
 
   const [publicationId, setPublicationId] = useState<number | null>(null)
 
+  const handlePublicationId = useCallback((publicationId: number | null) => {
+    setPublicationId(publicationId)
+  }, [])
+
   return (
     <AppContext.Provider
       value={{
         ...apiServices,
         ...socketServices,
         publicationId,
-        setPublicationId,
+        handlePublicationId,
       }}
     >
       {children}

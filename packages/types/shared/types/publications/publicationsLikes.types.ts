@@ -4,4 +4,6 @@ export const publicationsLikesParamSchema = z.object({
   publicationId: z.string(),
 })
 
-export type PublicationsLikes = z.infer<typeof publicationsLikesParamSchema>
+export type PublicationsLikesParam = z.infer<
+  typeof publicationsLikesParamSchema
+>

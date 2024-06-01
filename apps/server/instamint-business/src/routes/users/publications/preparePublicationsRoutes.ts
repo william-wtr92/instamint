@@ -11,7 +11,12 @@ import { type Context, Hono } from "hono"
 
 import PublicationsModel from "@/db/models/PublicationsModel"
 import UserModel from "@/db/models/UserModel"
-import { authMessages, contextsKeys, globalsMessages } from "@/def"
+import {
+  authMessages,
+  contextsKeys,
+  globalsMessages,
+  usersMessages,
+} from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
@@ -108,7 +113,7 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
         .withGraphFetched("comments")
 
       if (!publication) {
-        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
       }
 
       const isLiked = publication.likes.some(

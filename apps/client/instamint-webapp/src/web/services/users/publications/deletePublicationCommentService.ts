@@ -14,8 +14,13 @@ const deletePublicationCommentService: Services<DeleteCommentParam, null> =
         withCredentials: true,
       }
 
+      const param = {
+        publicationId,
+        commentId,
+      }
+
       const { data: responseData } = await api.delete(
-        routes.api.users.publications.deleteComment(publicationId, commentId),
+        routes.api.users.publications.deleteComment(param),
         config
       )
 

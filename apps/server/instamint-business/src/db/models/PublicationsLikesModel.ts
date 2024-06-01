@@ -7,10 +7,6 @@ class PublicationsLikesModel extends BaseModel {
   publicationId!: number
 
   count!: string
-
-  static relationMappings() {
-    return {}
-  }
 }
 
 export default PublicationsLikesModel

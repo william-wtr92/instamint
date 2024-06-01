@@ -16,7 +16,12 @@ import CommentsModel from "@/db/models/CommentsModel"
 import PublicationsCommentsRelationModel from "@/db/models/PublicationsCommentsRelationModel"
 import PublicationsModel from "@/db/models/PublicationsModel"
 import type UserModel from "@/db/models/UserModel"
-import { authMessages, contextsKeys, globalsMessages } from "@/def"
+import {
+  authMessages,
+  contextsKeys,
+  globalsMessages,
+  usersMessages,
+} from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
@@ -54,7 +59,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (!content) {
         return c.json(
-          authMessages.commentContentRequired,
+          usersMessages.commentContentRequired,
           SC.errors.BAD_REQUEST
         )
       }
@@ -63,7 +68,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         await PublicationsModel.query().findById(publicationId)
 
       if (!publication) {
-        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
       }
 
       const comment = await CommentsModel.query()
@@ -79,7 +84,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         commentId: comment.id,
       })
 
-      return c.json(authMessages.commentsSuccessfullyAdded, SC.success.OK)
+      return c.json(usersMessages.commentsSuccessfullyAdded, SC.success.OK)
     }
   )
 
@@ -99,13 +104,13 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         await PublicationsModel.query().findById(publicationId)
 
       if (!publication) {
-        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
       }
 
       const comment = await CommentsModel.query().findById(commentId)
 
       if (!comment) {
-        return c.json(authMessages.commentNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.commentNotFound, SC.errors.NOT_FOUND)
       }
 
       const isUserAuthorizedToDeleteComment = () => {
@@ -118,7 +123,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
       // If not your comment, you're unauthorized to delete it
       if (!isUserAuthorizedToDeleteComment) {
         return c.json(
-          authMessages.notAuthorizedToDeleteComment,
+          usersMessages.notAuthorizedToDeleteComment,
           SC.errors.UNAUTHORIZED
         )
       }
@@ -131,7 +136,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
         await CommentsModel.query().deleteById(commentId)
 
-        return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)
+        return c.json(usersMessages.commentSuccessfullyDeleted, SC.success.OK)
       }
 
       const commentRepliesIds = await CommentsModel.query()
@@ -154,7 +159,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       await CommentsModel.query().deleteById(commentId)
 
-      return c.json(authMessages.commentSuccessfullyDeleted, SC.success.OK)
+      return c.json(usersMessages.commentSuccessfullyDeleted, SC.success.OK)
     }
   )
 
@@ -174,7 +179,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       if (!content) {
         return c.json(
-          authMessages.commentContentRequired,
+          usersMessages.commentContentRequired,
           SC.errors.BAD_REQUEST
         )
       }
@@ -183,13 +188,13 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         await PublicationsModel.query().findById(publicationId)
 
       if (!publication) {
-        return c.json(authMessages.publicationNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
       }
 
       const comment = await CommentsModel.query().findById(commentId)
 
       if (!comment) {
-        return c.json(authMessages.commentNotFound, SC.errors.NOT_FOUND)
+        return c.json(usersMessages.commentNotFound, SC.errors.NOT_FOUND)
       }
 
       const replyComment = await CommentsModel.query()
@@ -206,7 +211,7 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
         commentId: replyComment.id,
       })
 
-      return c.json(authMessages.commentsSuccessfullyAdded, SC.success.OK)
+      return c.json(usersMessages.commentsSuccessfullyAdded, SC.success.OK)
     }
   )
 

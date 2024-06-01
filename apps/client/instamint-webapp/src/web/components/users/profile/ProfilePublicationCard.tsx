@@ -19,7 +19,7 @@ const ProfilePublicationCard = (props: Props) => {
     >
       <Image
         src={config.api.blobUrl + publication?.image}
-        alt="Publication"
+        alt={`Publication ${publication?.id}`}
         fill
         className="size-full object-contain"
       />

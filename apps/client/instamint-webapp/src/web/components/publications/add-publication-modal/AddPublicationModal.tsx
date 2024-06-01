@@ -1,13 +1,13 @@
 import { addPublicationSchema } from "@instamint/shared-types"
 import { AlertDialog, AlertDialogContent } from "@instamint/ui-kit"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import AddPublicationModalHeader from "@/web/components/forms/publications/AddPublicationModalHeader"
-import CropImageStep from "@/web/components/forms/publications/CropImageStep"
-import SetPublicationInformationsStep from "@/web/components/forms/publications/SetPublicationInformationsStep"
-import UploadImageStep from "@/web/components/forms/publications/UploadImageStep"
+import AddPublicationModalHeader from "@/web/components/publications/add-publication-modal/AddPublicationModalHeader"
+import CropImageStep from "@/web/components/publications/add-publication-modal/CropImageStep"
+import SetPublicationInformationsStep from "@/web/components/publications/add-publication-modal/SetPublicationInformationsStep"
+import UploadImageStep from "@/web/components/publications/add-publication-modal/UploadImageStep"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
 import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
@@ -17,7 +17,7 @@ export const steps = {
   one: 1,
   two: 2,
   three: 3,
-}
+} as const
 
 type Props = {
   isOpen: boolean
@@ -53,30 +53,30 @@ const AddPublicationModal = (props: Props) => {
   const [baseImage, setBaseImage] = useState<File | null>(null)
   const [croppedImage, setCroppedImage] = useState<File | null>(null)
 
-  const handleNextStep = () => {
+  const handleNextStep = useCallback(() => {
     setStep((prevState) => prevState + 1)
-  }
+  }, [])
 
-  const handlePreviousStep = () => {
+  const handlePreviousStep = useCallback(() => {
     setStep((prevState) => prevState - 1)
-  }
+  }, [])
 
-  const removeHashtag = (index: number) => {
+  const handleRemoveHashtag = useCallback((index: number) => {
     setHashtags((prevState: string[]) =>
       prevState.filter((_, i) => i !== index)
     )
-  }
+  }, [])
 
-  const handleBaseImage = (image: File | null) => {
+  const handleBaseImage = useCallback((image: File | null) => {
     setBaseImage(image)
     setCroppedImage(null)
-  }
+  }, [])
 
-  const handleCroppedImage = (image: File | null) => {
+  const handleCroppedImage = useCallback((image: File | null) => {
     setCroppedImage(image)
-  }
+  }, [])
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     try {
       addPublicationSchema.parse({
         description,
@@ -89,9 +89,9 @@ const AddPublicationModal = (props: Props) => {
     } catch (error) {
       return false
     }
-  }
+  }, [description, croppedImage, location, hashtags])
 
-  const onSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const [err] = await uploadPublication({
       description,
       image: croppedImage!,
@@ -118,7 +118,19 @@ const AddPublicationModal = (props: Props) => {
       description: t("add-publication-modal.step-three.success"),
     })
     handleShowAddPublicationModal()
-  }
+  }, [
+    description,
+    croppedImage,
+    location,
+    hashtags,
+    refreshPublications,
+    refreshUserStats,
+    router.query.username,
+    t,
+    toast,
+    uploadPublication,
+    handleShowAddPublicationModal,
+  ])
 
   return (
     <AlertDialog open={isOpen}>
@@ -134,7 +146,7 @@ const AddPublicationModal = (props: Props) => {
           handleNextStep={handleNextStep}
           handlePreviousStep={handlePreviousStep}
           handleShowAddPublicationModal={handleShowAddPublicationModal}
-          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
         />
 
         <div className="size-full">
@@ -161,7 +173,7 @@ const AddPublicationModal = (props: Props) => {
               setDescription={setDescription}
               setLocation={setLocation}
               setHashtags={setHashtags}
-              removeHashtag={removeHashtag}
+              handleRemoveHashtag={handleRemoveHashtag}
             />
           )}
         </div>

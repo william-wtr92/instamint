@@ -22,7 +22,7 @@ type Props = {
     publicationId: number,
     content: string
   ) => Promise<void>
-  setReplyCommentId: (commentId: number | null) => void
+  handleReplyCommentId: (commentId: number | null) => void
 }
 
 const PublicationModalContentActions = (props: Props) => {
@@ -32,7 +32,7 @@ const PublicationModalContentActions = (props: Props) => {
     replyCommentUsername,
     handleShowComments,
     replyToComment,
-    setReplyCommentId,
+    handleReplyCommentId,
   } = props
 
   const { t } = useTranslation("profile")
@@ -71,7 +71,7 @@ const PublicationModalContentActions = (props: Props) => {
     if (err) {
       toast({
         variant: "error",
-        description: t("publication-modal.errors.comment-error"),
+        description: t(`errors.publications.${err.message}`),
       })
 
       return
@@ -165,7 +165,7 @@ const PublicationModalContentActions = (props: Props) => {
         >
           <XMarkIcon
             className="hidden size-4 group-hover/reply-username:block"
-            onClick={() => setReplyCommentId(null)}
+            onClick={() => handleReplyCommentId(null)}
           />
 
           <span>

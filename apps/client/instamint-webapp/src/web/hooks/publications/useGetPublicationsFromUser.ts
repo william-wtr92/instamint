@@ -1,7 +1,6 @@
 import type { Publication } from "@instamint/shared-types"
 import { type SWRConfiguration } from "swr"
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import useSWRInfinite, { SWRInfiniteResponse } from "swr/infinite"
+import useSWRInfinite, { type SWRInfiniteResponse } from "swr/infinite"
 
 import { routes } from "@/web/routes"
 
@@ -23,7 +22,11 @@ const getKey = (
   const limitPerPage = 6
   const offset = pageIndex
 
-  return routes.api.users.publications.getPublications(username, {
+  const param = {
+    username,
+  }
+
+  return routes.api.users.publications.getPublications(param, {
     limit: limitPerPage.toString(),
     offset: offset.toString(),
   })

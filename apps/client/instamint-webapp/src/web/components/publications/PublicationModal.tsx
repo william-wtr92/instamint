@@ -1,6 +1,6 @@
 import type { Publication } from "@instamint/shared-types"
 import { Dialog } from "@instamint/ui-kit"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 
 import PublicationModalContent from "@/web/components/publications/PublicationModalContent"
 import ProfilePublicationCardOverlay from "@/web/components/users/profile/ProfilePublicationCardOverlay"
@@ -27,10 +27,10 @@ const PublicationModal = (props: Props) => {
   const [showPublicationModal, setShowPublicationModal] =
     useState<boolean>(false)
 
-  const handleShowPublicationModal = async () => {
+  const handleShowPublicationModal = useCallback(async () => {
     await mutate()
     setShowPublicationModal((prevState) => !prevState)
-  }
+  }, [mutate])
 
   return (
     <Dialog
