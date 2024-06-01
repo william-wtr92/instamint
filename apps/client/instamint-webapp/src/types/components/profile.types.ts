@@ -1,10 +1,10 @@
-import type { FollowersStatus, FollowPending } from "@instamint/shared-types"
-
 import type {
-  ProfileUser,
-  ProfileUserFollowerRequests,
+  FollowersStatus,
+  FollowPending,
   Publication,
-} from "@/types"
+} from "@instamint/shared-types"
+
+import type { ProfileUser, ProfileUserFollowerRequests } from "@/types"
 
 export type ProfileHeaderProps = {
   userEmail: string | undefined

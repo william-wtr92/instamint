@@ -1,4 +1,5 @@
 import { type ApiRoutes, SC } from "@instamint/server-types"
+import type { AddPublication } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 import { bodyLimit } from "hono/body-limit"
 
@@ -13,7 +14,6 @@ import {
 } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import type { InsertedPublication } from "@/types/publications.types"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { uploadBlob } from "@/utils/helpers/actions/azureActions"
 import { tenMB } from "@/utils/helpers/files"
@@ -49,7 +49,8 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
     }),
     async (c: Context): Promise<Response> => {
       const contextUser: UserModel = c.get(contextsKeys.user)
-      const { image, description } = await c.req.parseBody()
+      const { description, image, location, hashtags }: AddPublication =
+        await c.req.parseBody()
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -70,13 +71,16 @@ const prepareUploadPublicationRoutes: ApiRoutes = ({ app, db, redis }) => {
 
       const response = await uploadBlob(c, image, filesServiceEndpoints.upload)
 
-      const newPublication: InsertedPublication = {
-        userId: user.id,
-        image: response.url,
-        description: description.toString(),
-      }
-
-      await PublicationsModel.query().insert(newPublication)
+      await PublicationsModel.query()
+        .insert({
+          author: user.username,
+          description: description.toString(),
+          image: response.url,
+          location: location ? location : null,
+          hashtags: JSON.stringify(hashtags),
+          userId: user.id,
+        })
+        .returning("*")
 
       return c.json(
         {

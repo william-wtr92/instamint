@@ -42,3 +42,19 @@ export const timePassed = (isoString: string): TimePassed => {
     type: "hour",
   }
 }
+
+export const dateIntoString = (isoDate: string, locale: string) => {
+  const [day, month, year] = isoDate.split("/").map(Number)
+
+  const date = new Date(year, month - 1, day)
+
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }
+
+  const lang = locale === "en" ? "en-US" : "fr-FR"
+
+  return new Intl.DateTimeFormat(lang, options).format(date)
+}

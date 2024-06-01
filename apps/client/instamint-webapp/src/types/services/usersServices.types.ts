@@ -10,9 +10,15 @@ import type {
   ModifyPassword,
   ModifyEmail,
   UserAvatar,
-  UploadPublication,
+  AddPublication,
   Visibility,
   ReadNotification,
+  PublicationsLikesParam,
+  AddComment,
+  AddCommentParam,
+  DeleteCommentParam,
+  ReplyComment,
+  ReplyCommentParam,
 } from "@instamint/shared-types"
 
 export type UsersServices = {
@@ -28,7 +34,11 @@ export type UsersServices = {
   modifyPassword: [ModifyPassword, null]
   modifyEmail: [ModifyEmail, null]
   uploadAvatar: [UserAvatar, null]
-  uploadPublication: [UploadPublication, null]
+  uploadPublication: [AddPublication, null]
   visibility: [Visibility, null]
   readNotification: [ReadNotification, null]
+  likePublicationService: [PublicationsLikesParam, null]
+  addPublicationCommentService: [AddComment & AddCommentParam, null]
+  deletePublicationCommentService: [DeleteCommentParam, null]
+  replyPublicationCommentService: [ReplyComment & ReplyCommentParam, null]
 }

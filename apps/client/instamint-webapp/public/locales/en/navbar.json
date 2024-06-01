@@ -1,6 +1,7 @@
 {
   "home": "Home",
   "search": "Search",
+  "settings": "Settings",
   "admin": "Administration",
   "profile": "Profile",
     "select-lang": {
@@ -10,6 +11,7 @@
       "fr": "French"
     }
   },
+  "publish": "Publish",
   "settingsNavbarTitle": "Account settings",
   "accountInformation": "Account information",
   "security": "Security and privacy",
@@ -32,5 +34,42 @@
       "minute": "m"
     },
     "success": "The notification has been read"
+  },
+  "add-publication-modal": {
+    "step-one": {
+      "title": "Create a publication",
+      "description": "Select the image you want to publish",
+      "sub-description": "Only .jpg, .png, .webp, .ogg, .flac formats are accepted"
+    },
+    "step-two": {
+      "title": "Crop your image"
+    },
+    "step-three": {
+      "title": "Publication information",
+      "description-input": {
+        "label": "Description",
+        "placeholder": "Add a description...",
+        "error": "Please add a description"
+      },
+      "location-input": {
+        "label": "Location",
+        "placeholder": "Add a location...",
+        "error": "Please add a location"
+      },
+      "hashtags-input": {
+        "label": "Hashtags (Max 5)",
+        "placeholder": "Ajouter des hashtags...",
+        "error": "Veuillez ajouter des hashtags"
+      },
+      "success": "Publication created successfully"
+    },
+    "cta": {
+      "select-image": "Select an image",
+      "change-image": "Change image",
+      "back-to-original": "Back to original",
+      "crop-image": "Crop image",
+      "next": "Next",
+      "publish": "Publish"
+    }
   }
 }

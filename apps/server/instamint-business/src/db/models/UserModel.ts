@@ -1,4 +1,4 @@
-import type { QueryBuilder } from "objection"
+import type { QueryBuilder, QueryBuilderType } from "objection"
 
 import BaseModel from "./BaseModel"
 import PublicationsModel from "./PublicationsModel"
@@ -35,6 +35,20 @@ class UserModel extends BaseModel {
 
   count!: string
 
+  static modifiers = {
+    selectUserData: (query: QueryBuilderType<UserModel>) => {
+      query.select("id", "username")
+    },
+
+    async selectFollowerData(query: QueryBuilder<UserModel>) {
+      query.select("username", "email", "avatar", "private")
+    },
+
+    async selectSanitizedUser(query: QueryBuilder<UserModel>) {
+      query.select("username", "email", "avatar", "private")
+    },
+  }
+
   static relationMappings() {
     return {
       roleData: {
@@ -54,12 +68,6 @@ class UserModel extends BaseModel {
         },
       },
     }
-  }
-
-  static modifiers = {
-    async selectSanitizedUser(query: QueryBuilder<UserModel>) {
-      query.select("username", "email", "avatar", "private")
-    },
   }
 
   checkPassword = async (password: string) => {

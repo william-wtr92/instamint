@@ -6,13 +6,14 @@ import {
   Button,
   Text,
 } from "@instamint/ui-kit"
+import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import React, { useCallback, useState } from "react"
 
 import { AlertPopup } from "../utils/AlertPopup"
-import { ChangeLanguage } from "../utils/ChangeLanguage"
 import { Notifications } from "@/web/components/users/notifications/Notifications"
+import { ChangeLanguage } from "@/web/components/utils/ChangeLanguage"
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -53,56 +54,52 @@ const UserInfo = () => {
   return (
     <>
       {user && (
-        <div className="mt-3 flex flex-col items-center justify-center xl:mt-6">
-          <div className="flex w-full gap-3 xl:w-[80%] xl:flex-col xl:gap-0">
-            <div className="flex w-full flex-row items-center justify-between gap-4 xl:gap-7">
-              <Link
-                href={
-                  user.link
-                    ? routes.client.profile.getProfile(user.link)
-                    : routes.client.profile.getProfile(user.username)
-                }
-              >
-                <Avatar className="relative left-4 size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:left-1.5 xl:size-12">
-                  {userAvatar ? (
-                    <AvatarImage src={userAvatar} alt={user.username} />
-                  ) : (
-                    <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
-                  )}
-                </Avatar>
-              </Link>
-              <div className="text-small xl:text-medium flex flex-col font-semibold">
-                <Text
-                  type={"medium"}
-                  variant={"none"}
-                  className="font-extrabold"
-                >
-                  {userUsername}
-                </Text>
-                <Text
-                  type={"medium"}
-                  variant={"none"}
-                  className="w-36 truncate xl:w-full"
-                >
-                  {user.email}
-                </Text>
-              </div>
+        <div className="xs:flex-col xs:gap-4 xs:justify-start flex h-full w-full flex-row items-center justify-end gap-4 p-2 lg:p-4">
+          <Image
+            alt="Instamint logo"
+            className="xs:hidden ml-2 mr-auto"
+            src={"/favicon.ico"}
+            width={28}
+            height={28}
+          />
 
-              <Notifications />
-            </div>
-            <Button
-              onClick={handleTriggerModal}
-              className="text-small bg-accent-500 xl:text-medium mr-2 w-1/6 rounded-md p-0 font-semibold text-white xl:mr-0 xl:mt-4 xl:w-full xl:p-2"
-            >
-              <span className="text-small xl:text-medium hidden xl:block">
-                {t("cta.button-sign-out")}
-              </span>
+          <Link
+            href={
+              user.link
+                ? routes.client.profile.getProfile(user.link)
+                : routes.client.profile.getProfile(user.username)
+            }
+          >
+            <Avatar className="relative hidden size-8 rounded-3xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 md:block xl:size-12">
+              {userAvatar ? (
+                <AvatarImage src={userAvatar} alt={user.username} />
+              ) : (
+                <AvatarFallback>{usernameFirstLetter}</AvatarFallback>
+              )}
+            </Avatar>
+          </Link>
 
-              <ArrowLeftStartOnRectangleIcon className="block size-5 xl:hidden" />
-            </Button>
+          <div className="xs:flex hidden flex-col items-center font-semibold">
+            <Text type={"medium"} variant={"none"} className="">
+              {userUsername}
+            </Text>
+            <Text type={"medium"} variant={"none"} className="">
+              {user.email}
+            </Text>
           </div>
 
-          <div className="mt-5 hidden xl:flex xl:w-2/3  xl:justify-center">
+          <Notifications />
+
+          <Button
+            onClick={handleTriggerModal}
+            className="bg-accent-500 order-4 w-fit rounded-md font-semibold text-white md:mx-auto md:w-[90%]"
+          >
+            <span className="hidden md:block">{t("cta.button-sign-out")}</span>
+
+            <ArrowLeftStartOnRectangleIcon className="block size-6 md:hidden" />
+          </Button>
+
+          <div className="w-fit md:mx-auto md:w-[90%]">
             <ChangeLanguage />
           </div>
         </div>

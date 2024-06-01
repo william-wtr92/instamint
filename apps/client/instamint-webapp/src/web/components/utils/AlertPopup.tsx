@@ -50,7 +50,7 @@ export const AlertPopup = <T,>({
           <AlertDialogDescription>{t(descriptionKey)}</AlertDialogDescription>
         </AlertDialogHeader>
 
-        <AlertDialogFooter>
+        <AlertDialogFooter className="flex flex-row gap-2">
           <AlertDialogCancel
             onClick={onClose}
             className="outline outline-black"

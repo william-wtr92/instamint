@@ -1,49 +1,53 @@
 {
-    "settings": {
-        "accountInformation": "Informations du compte"
-    },
-    "publications": "Publication",
-    "followers": "Abonné",
-    "followed": "Abonnement",
-    "actions": {
-        "follow": "Suivre",
-        "unfollow": "Se désabonner",
-        "pending": "En attente",
-        "accept-request": "Accepter la demande",
-        "delete-request": "Annuler la demande",
-        "messages": {
-            "followSuccess": "Vous suivez désormais {{username}}.",
-            "unfollowSuccess": "Vous ne suivez plus {{username}}.",
-            "acceptFollowRequestSuccess": "Vous avez accepté la demande de suivi de {{username}}.",
-            "rejectFollowRequestSuccess": "Vous avez refusé la demande de suivi de {{username}}.",
-            "deleteRequestSuccess": "Vous avez supprimé la demande de suivi à {{username}}."
-        }
-    },
-    "requests": {
-        "title": "Demandes de suivi",
-        "placeholder": "Rechercher une demande...",
-        "no-requests": "Vous n'avez aucune demande de suivi."
-    },
-    "private-publications": "Compte privé - Abonnez-vous pour voir les publications",
-    "no-publication": "Vous n'avez aucune publications sur votre compte.",
-    "loading": "Chargement en cours...",
-    "add-publication": {
-        "title": "Ajouter une publication",
-        "p1": "Une publication peux comporter une description, ainsi qu'un fichier de type jpg, png ou jpeg",
-        "description": {
-            "label": "Description",
-            "placeholder": "Veuillez saisir une description...",
-            "error": "Veuillez saisir une description valide."
-        }, 
-        "image": {
-            "label": "Image",
-            "placeholder": "Choisissez votre image",
-            "delete": "x",
-            "error": "L'image doit être de type jpg, png ou jpeg."
-          },
-        "success": "Félicitation vous venez d'ajouter une nouvelle publication !"
-    },
-    "cta": {
-        "submit": "Enregistrer"
+  "settings": {
+      "accountInformation": "Informations du compte"
+  },
+  "publications": "Publication",
+  "followers": "Abonné",
+  "followed": "Abonnement",
+  "actions": {
+    "follow": "Suivre",
+    "unfollow": "Se désabonner",
+    "pending": "En attente",
+    "accept-request": "Accepter la demande",
+    "delete-request": "Annuler la demande",
+    "messages": {
+      "followSuccess": "Vous suivez désormais {{username}}.",
+      "unfollowSuccess": "Vous ne suivez plus {{username}}.",
+      "acceptFollowRequestSuccess": "Vous avez accepté la demande de suivi de {{username}}.",
+      "rejectFollowRequestSuccess": "Vous avez refusé la demande de suivi de {{username}}.",
+      "deleteRequestSuccess": "Vous avez supprimé la demande de suivi à {{username}}."
     }
+  },
+  "requests": {
+    "title": "Demandes de suivi",
+    "placeholder": "Rechercher une demande...",
+    "no-requests": "Vous n'avez aucune demande de suivi."
+  },
+  "private-publications": "Compte privé - Abonnez-vous pour voir les publications",
+  "no-publication": "Vous n'avez aucune publications sur votre compte.",
+  "loading": "Chargement en cours...",
+  "publication-modal": {
+    "likes": "j'aimes",
+    "add-comment-placeholder": "Ajouter un commentaire...",
+    "reply-comment-placeholder": "Répondre à {{ username }}...",
+    "show-replies": "Voir les réponses ({{ repliesCount }})",
+    "hide-replies": "Cacher les réponses",
+    "delete-comment-modal": {
+      "title": "Supprimer le commentaire",
+      "description": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "icons": {
+      "like-title": "Aimer",
+      "comment-title": "Commenter",
+      "reply-title": "Répondre",
+      "delete-title": "Supprimer"
+    }
+  },
+  "cta": {
+    "submit": "Enregistrer",
+    "send": "Envoyer"
+  }
 }

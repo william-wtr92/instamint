@@ -1,6 +1,4 @@
-import type { FollowersStatus } from "@instamint/shared-types"
-
-import type { Publication } from "@/types"
+import type { FollowersStatus, Publication } from "@instamint/shared-types"
 
 export type ProfileUser = {
   email: string
@@ -12,6 +10,7 @@ export type ProfileUser = {
 
 export type ProfileUserResult = {
   result: {
+    id: number
     email: string
     username: string
     bio: string | null

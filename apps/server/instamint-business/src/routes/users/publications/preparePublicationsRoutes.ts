@@ -1,11 +1,22 @@
 import { zValidator } from "@hono/zod-validator"
 import { SC, type ApiRoutes } from "@instamint/server-types"
-import { getPublicationsSchema } from "@instamint/shared-types"
+import {
+  getPublicationParamSchema,
+  getPublicationsParamSchema,
+  getPublicationsSchema,
+  type GetPublicationParam,
+  type GetPublicationsParam,
+} from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
 import PublicationsModel from "@/db/models/PublicationsModel"
-import type UserModel from "@/db/models/UserModel"
-import { authMessages, contextsKeys, globalsMessages } from "@/def"
+import UserModel from "@/db/models/UserModel"
+import {
+  authMessages,
+  contextsKeys,
+  globalsMessages,
+  usersMessages,
+} from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
@@ -28,43 +39,92 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
   }
 
   publications.get(
-    "/publications",
+    "/publications/:username",
     auth,
+    zValidator("param", getPublicationsParamSchema),
     zValidator("query", getPublicationsSchema),
     async (c: Context) => {
       const contextUser: UserModel = c.get(contextsKeys.user)
-      const { limit, offset } = await c.req.query()
-      const noPublication = 0
+      const { username } = c.req.param() as GetPublicationsParam
+      const { limit: limitString, offset: offsetString } = c.req.query()
+      const limit = parseInt(limitString, 10)
+      const offset = parseInt(offsetString, 10)
 
       if (!contextUser) {
         return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
       }
 
-      const totalPublications = await PublicationsModel.query()
-        .where({ userId: contextUser.id })
-        .count()
-        .first()
+      const searchedUser = await UserModel.query().findOne({ username })
 
-      const totalCount = totalPublications
-        ? parseInt(totalPublications.count, 10)
-        : noPublication
+      if (!searchedUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
 
-      const newOffset = Math.max(
-        totalCount - parseInt(offset, 10) - parseInt(limit, 10),
-        0
+      const query = PublicationsModel.query()
+      query.where({ userId: searchedUser.id })
+      query.orderBy("createdAt", "desc")
+
+      const publications = await query
+        .modify("paginate", limit, offset)
+        .withGraphFetched("likes")
+        .withGraphFetched("comments")
+
+      const finalPublications = publications.reduce(
+        (acc: PublicationsModel[], publication: PublicationsModel) => {
+          const isLiked = publication.likes.some(
+            (like) => like.id === contextUser.id
+          )
+
+          publication.isLiked = isLiked
+
+          acc.push(publication)
+
+          return acc
+        },
+        []
       )
-
-      const publications = await PublicationsModel.query()
-        .where({ userId: contextUser.id })
-        .orderBy("createdAt", "desc")
-        .limit(parseInt(limit))
-        .offset(Math.max(0, newOffset))
 
       return c.json(
         {
           result: {
-            publications: publications,
+            publications: finalPublications,
           },
+        },
+        SC.success.OK
+      )
+    }
+  )
+
+  publications.get(
+    "/publication/:publicationId",
+    auth,
+    zValidator("param", getPublicationParamSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { publicationId } = c.req.param() as GetPublicationParam
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const publication = await PublicationsModel.query()
+        .findOne("id", publicationId)
+        .withGraphFetched("likes")
+        .withGraphFetched("comments")
+
+      if (!publication) {
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const isLiked = publication.likes.some(
+        (like) => like.id === contextUser.id
+      )
+
+      publication.isLiked = isLiked
+
+      return c.json(
+        {
+          result: publication,
         },
         SC.success.OK
       )

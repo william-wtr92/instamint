@@ -13,11 +13,11 @@ const BaseLayout = (props: Props) => {
 
   return (
     <div
-      className={`xs:flex-row flex h-screen w-screen flex-col-reverse duration-300 ${poppins.className}`}
+      className={`xs:flex-row flex h-screen w-screen flex-col-reverse overflow-hidden duration-300 ${poppins.className}`}
     >
       <Navbar />
 
-      <main className="flex-1 border-red-500">{children}</main>
+      <main className="flex-1 overflow-scroll">{children}</main>
 
       <Header />
     </div>

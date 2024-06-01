@@ -1,22 +1,23 @@
-import type { UploadPublication } from "@instamint/shared-types"
+import type { AddPublication } from "@instamint/shared-types"
 
 import type { Services } from "@/types"
 import { routes } from "@/web/routes"
 import { handleApiErrors } from "@/web/utils/errors/handleApiErrors"
 
-const uploadPublicationService: Services<UploadPublication, null> =
+const uploadPublicationService: Services<AddPublication, null> =
   ({ api }) =>
   async (data) => {
     try {
       const formData = new FormData()
 
-      if (data?.image) {
-        formData.append("image", data.image, data.image.name)
+      formData.append("image", data.image, data.image.name)
+      formData.append("description", data?.description)
+
+      if (data.location) {
+        formData.append("location", data.location)
       }
 
-      if (data?.description) {
-        formData.append("description", data?.description)
-      }
+      formData.append("hashtags", JSON.stringify(data.hashtags))
 
       const config = {
         withCredentials: true,

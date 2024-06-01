@@ -103,6 +103,7 @@ module.exports = {
       gray: colors.gray,
       blue: colors.blue,
       red: colors.red,
+      transparent: "transparent",
       accent: {
         "50": "#f0fdf4",
         "100": "#ddfbe7",
@@ -146,5 +147,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwind-scrollbar"),
+    require("tailwindcss-animated"),
+  ],
 }

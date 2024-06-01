@@ -85,12 +85,18 @@
       }
     },
     "publications": {
+      "publicationNotFound": "Publication introuvable.",
       "image": {
         "fileNotFound": "Fichier introuvable.",
         "fileSizeTooLarge": "L'image est trop grande.",
         "avatarSizeTooLarge": "L'image est trop grande. La taille maximale est de 10Mo.",
         "userNotFound": "Session expirée, reconnectez-vous.",
         "avatarUploadFailed": "Une erreur est survenue lors de l'envoi de votre image."
+      },
+      "comments": {
+        "commentNotFound": "Commentaire introuvable.",
+        "notAuthorizedToDeleteComment": "Vous n'êtes pas autorisé à supprimer ce commentaire.",
+        "commentContentRequired": "Le contenu du commentaire est requis."
       }
     },
     "reactivate-account": {

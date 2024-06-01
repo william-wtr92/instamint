@@ -37,8 +37,8 @@ export const ProfileHeader = ({
   const usernameFirstLetter = firstLetter(userPage?.username)
 
   return (
-    <div className="border-1 ml-4 mt-4 flex w-[95%] flex-row justify-start gap-2.5 rounded-md border-dashed px-2 py-3 xl:w-[95%]">
-      <Avatar className="relative left-1.5 top-4 size-12 rounded-xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:size-28">
+    <div className="border-1 flex flex-row justify-start gap-2.5 rounded-md border-dashed p-2 lg:items-center">
+      <Avatar className="relative mt-3 size-12 rounded-xl outline-dotted outline-2 outline-offset-2 outline-neutral-400 xl:mt-0 xl:size-28">
         {userAvatar ? (
           <AvatarImage src={userAvatar} alt={userUsername} />
         ) : (
@@ -51,7 +51,7 @@ export const ProfileHeader = ({
             <Text
               variant="neutral"
               type="body"
-              className="text-medium xl:text-subheading relative -left-1 p-1 sm:pr-4"
+              className="text-body xl:text-subheading relative -left-1 p-1 sm:pr-4"
             >
               {userUsername}
             </Text>
@@ -73,15 +73,18 @@ export const ProfileHeader = ({
             </Link>
           )}
         </div>
+
         <ProfileStats
           publications={publications}
           followers={followers}
           followed={followed}
           t={t}
         />
+
         <Text variant="neutral" type="body" className="pt-3">
           {userPage?.bio}
         </Text>
+
         <ProfileActions
           userEmail={userEmail}
           userPage={userPage}
