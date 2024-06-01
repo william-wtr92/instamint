@@ -114,7 +114,7 @@ const prepareNotificationsRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
-  app.onError((e: Error, c: Context) => handleError(e, c))
+  notifications.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/users/notifications", notifications)
 }

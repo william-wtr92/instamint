@@ -12,6 +12,7 @@ import type {
   AddCommentParam,
   DeleteCommentParam,
   ReplyCommentParam,
+  Search,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -120,6 +121,10 @@ const apiRoutes = {
       readNotification: (params: ReadNotification) =>
         `/users/notifications/${params.notificationId}/read`,
     },
+  },
+  search: {
+    get: (queries: Omit<Search, "limit">) =>
+      `/search?query=${queries.query}&limit=10&offset=${queries.offset}`,
   },
   messages: {
     getMessages: (queries: Omit<GetMessages, "limit">) =>

@@ -29,6 +29,9 @@ export * from "./types/publications/publicationsComments.types"
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 
+/* Search Schemas & Types */
+export * from "./types/search/search.types"
+
 /* Admin Schemas & Types */
 export * from "./types/admin/users/adminUsersActions.types"
 export * from "./types/admin/users/adminUsersAll.types"

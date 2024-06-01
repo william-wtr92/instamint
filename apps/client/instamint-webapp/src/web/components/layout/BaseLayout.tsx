@@ -17,7 +17,7 @@ const BaseLayout = (props: Props) => {
     >
       <Navbar />
 
-      <main className="flex-1 overflow-scroll">{children}</main>
+      <main className="no-scrollbar flex-1 overflow-scroll">{children}</main>
 
       <Header />
     </div>

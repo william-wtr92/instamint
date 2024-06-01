@@ -9,37 +9,14 @@ import { Avatar, AvatarFallback, AvatarImage, Text } from "@instamint/ui-kit"
 import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 
 import AddPublicationModal from "@/web/components/publications/add-publication-modal/AddPublicationModal"
+import { SearchBox } from "@/web/components/utils/SearchBox"
 import { config } from "@/web/config"
 import { useUser } from "@/web/hooks/auth/useUser"
 import { routes } from "@/web/routes"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
-
-const buttons = [
-  {
-    icon: (
-      <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-    ),
-    path: routes.client.home,
-    label: "home",
-  },
-  {
-    icon: (
-      <MagnifyingGlassIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-    ),
-    path: routes.client.home,
-    label: "search",
-  },
-  {
-    icon: (
-      <Cog6ToothIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-    ),
-    path: routes.client.profile.settings.base,
-    label: "settings",
-  },
-]
 
 const Navbar = () => {
   const { t } = useTranslation("navbar")
@@ -50,8 +27,101 @@ const Navbar = () => {
   const [showAddPublicationModal, setShowAddPublicationModal] =
     useState<boolean>(false)
 
+  const [openSearch, setOpenSearch] = useState<boolean>(false)
+
   const handleShowAddPublicationModal = useCallback(() => {
     setShowAddPublicationModal((prevState) => !prevState)
+  }, [])
+
+  const handleSearchClick = useCallback(() => {
+    setOpenSearch((open) => !open)
+  }, [])
+
+  const buttons = useMemo(
+    () => [
+      {
+        icon: (
+          <HomeIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+        ),
+        path: routes.client.home,
+        label: "home",
+      },
+      {
+        icon: (
+          <MagnifyingGlassIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+        ),
+        onClick: handleSearchClick,
+        label: "search.title",
+      },
+      {
+        icon: (
+          <Cog6ToothIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+        ),
+        path: routes.client.profile.settings.base,
+        label: "settings",
+      },
+      {
+        icon: (
+          <PlusCircleIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+        ),
+        onClick: handleShowAddPublicationModal,
+        label: "publish",
+      },
+    ],
+    [handleSearchClick, handleShowAddPublicationModal]
+  )
+
+  const renderButtons = useMemo(() => {
+    return buttons.map((button, index) => {
+      if (button.onClick) {
+        return (
+          <button
+            key={index}
+            onClick={button.onClick}
+            className={`xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 order-${index + 1} md:order-none`}
+          >
+            {button.icon}
+            <Text type="body" variant="accent" className="hidden md:block">
+              {t(button.label)}
+            </Text>
+
+            {button.label === "search.title" && (
+              <p className="text-medium">
+                <kbd className="text-accent-900 bg-muted pointer-events-none inline-flex hidden h-5 select-none items-center gap-1 rounded border px-1.5 font-medium opacity-100 xl:flex">
+                  <span className="text-lg">⌘</span>K
+                </kbd>
+              </p>
+            )}
+          </button>
+        )
+      }
+
+      return (
+        <Link
+          key={index}
+          href={button.path}
+          className={`xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 order-${index + 1} md:order-none`}
+        >
+          {button.icon}
+          <Text type="body" variant="accent" className="hidden md:block">
+            {t(button.label)}
+          </Text>
+        </Link>
+      )
+    })
+  }, [buttons, t])
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpenSearch((open) => !open)
+      }
+    }
+
+    document.addEventListener("keydown", down)
+
+    return () => document.removeEventListener("keydown", down)
   }, [])
 
   return (
@@ -74,29 +144,7 @@ const Navbar = () => {
         </Text>
 
         <div className="xs:flex-col xs:gap-8 xs:items-center flex h-full md:gap-4">
-          {buttons.map((button, index) => (
-            <Link
-              key={index}
-              href={button.path}
-              className={`xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4  md:p-4 order-${index + 1} md:order-none`}
-            >
-              {button.icon}
-              <Text type="body" variant="accent" className="hidden md:block">
-                {t(button.label)}
-              </Text>
-            </Link>
-          ))}
-
-          <button
-            onClick={handleShowAddPublicationModal}
-            className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md order-2 flex h-full w-1/5 items-center justify-center duration-200 md:order-last md:justify-start md:gap-4 md:p-4"
-          >
-            <PlusCircleIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
-
-            <Text type="body" variant="accent" className="hidden md:block">
-              {t("publish")}
-            </Text>
-          </button>
+          {renderButtons}
 
           {user && (
             <Link
@@ -114,7 +162,9 @@ const Navbar = () => {
                     alt={user.username}
                   />
                 ) : (
-                  <AvatarFallback>{firstLetter(user.username)}</AvatarFallback>
+                  <AvatarFallback className="font-semibold">
+                    {firstLetter(user.username)}
+                  </AvatarFallback>
                 )}
               </Avatar>
             </Link>
@@ -140,6 +190,8 @@ const Navbar = () => {
           handleShowAddPublicationModal={handleShowAddPublicationModal}
         />
       )}
+
+      {openSearch && <SearchBox open={openSearch} setOpen={setOpenSearch} />}
     </>
   )
 }

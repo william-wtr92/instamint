@@ -1,6 +1,10 @@
 {
   "home": "Accueil",
-  "search": "Recherche",
+  "search": {
+    "title": "Rechercher",
+    "results": "Résultats de la recherche",
+    "placeholder": "Rechercher un utilisateur..."
+  },
   "settings": "Paramètres",
   "admin": "Administration",
   "profile": "Profil",
@@ -24,6 +28,7 @@
     "cancel-sign-out": "Annuler"
   },
   "notifications": {
+    "no-notification": "Aucune notification",
     "follow": "vous a suivi !",
     "request": "vous a envoyé une demande d'abonnement",
     "like": "a aimé votre publication",
@@ -38,7 +43,7 @@
   "add-publication-modal": {
     "step-one": {
       "title": "Créer une publication",
-      "description": "Séléctionnez l'image que vous souhaitez publier",
+      "description": "Sélectionnez l'image que vous souhaitez publier",
       "sub-description": "Seuls les fichiers .jpg, .png, .webp, .ogg, .flac sont acceptés"
     },    
     "step-two": {
