@@ -41,24 +41,14 @@ export const useSearch = (
     revalidateOnReconnect: true,
   }
 
-  const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite<
-    SearchData,
-    Error
-  >(
+  const { data, ...query } = useSWRInfinite<SearchData, Error>(
     (pageIndex, previousPageData) =>
       getKey(queries.query, pageIndex, previousPageData),
     config
   )
 
-  const isLoading = !data && !error && isValidating
-
   return {
     data,
-    isValidating,
-    isLoading,
-    error,
-    size,
-    setSize,
-    mutate,
+    ...query,
   }
 }

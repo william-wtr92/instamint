@@ -30,7 +30,9 @@ export const SearchAccountByEmail = ({ searchByEmail, onSubmit }: Props) => {
   })
 
   useEffect(() => {
-    form.setValue("searchByEmail", searchByEmail!)
+    if (searchByEmail !== undefined) {
+      form.setValue("searchByEmail", searchByEmail)
+    }
   }, [form, searchByEmail])
 
   return (

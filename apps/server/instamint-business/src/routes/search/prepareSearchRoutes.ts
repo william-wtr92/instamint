@@ -35,36 +35,23 @@ const prepareSearchRoutes: ApiRoutes = ({ app, db, redis }) => {
       const { query, limit, offset } = (await c.req.query()) as Search
 
       const queryContainsAtSymbol = query.includes("@")
-
-      const users = await UserModel.query()
-        .where((builder) => {
-          builder.where("username", "like", `%${query}%`).orWhere((qb) => {
-            if (queryContainsAtSymbol) {
-              qb.where("searchByEmail", true).andWhere(
-                "email",
-                "like",
-                `%${query}%`
-              )
-            }
-          })
+      const querySearch = UserModel.query().where((builder) => {
+        builder.where("username", "like", `%${query}%`).orWhere((qb) => {
+          if (queryContainsAtSymbol) {
+            qb.where("searchByEmail", true).andWhere(
+              "email",
+              "like",
+              `%${query}%`
+            )
+          }
         })
+      })
+
+      const users = await querySearch
         .limit(parseInt(limit))
         .offset(parseInt(offset))
 
-      const countResult = await UserModel.query()
-        .where((builder) => {
-          builder.where("username", "like", `%${query}%`).orWhere((qb) => {
-            if (queryContainsAtSymbol) {
-              qb.where("searchByEmail", true).andWhere(
-                "email",
-                "like",
-                `%${query}%`
-              )
-            }
-          })
-        })
-        .count()
-        .first()
+      const countResult = await querySearch.count().first()
 
       const totalResults = parseInt(countResult?.count!)
       const totalPages = Math.ceil(totalResults / parseInt(limit))

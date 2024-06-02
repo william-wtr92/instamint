@@ -145,7 +145,7 @@
   },
   "searchByEmail": {
     "label": "Search by email",
-    "description": "When search by email it's enabled, users can find you by searching your email address.",
+    "description": "When search by email is enabled, users can find you by searching your email address.",
     "cta": {
       "submit": "Update search by email"
     },

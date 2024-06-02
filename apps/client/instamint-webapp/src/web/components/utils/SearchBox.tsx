@@ -60,9 +60,9 @@ export const SearchBox = ({ open, setOpen }: Props) => {
   )
 
   useEffect(() => {
-    const handler = setTimeout(() => {
+    const handler = setTimeout(async () => {
       setDebouncedQuery(searchQuery.trim())
-      mutate()
+      await mutate()
     }, DEBOUNCE_DELAY)
 
     return () => {
