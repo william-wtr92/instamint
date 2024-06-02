@@ -165,7 +165,9 @@ const PublicationCommentRow = (props: Props) => {
                         {commentReply.user.username}
                       </Link>
 
-                      <p className="font-normal">{commentReply.content}</p>
+                      <span className="font-normal">
+                        {commentReply.content}
+                      </span>
                     </Text>
                   </div>
                 </CommentWithActions>
@@ -220,7 +222,7 @@ const PublicationCommentRow = (props: Props) => {
                 {commentAuthorUsername}
               </Link>
 
-              <p className="font-normal">{content}</p>
+              <span className="font-normal">{content}</span>
             </Text>
 
             {hashtagsList}
