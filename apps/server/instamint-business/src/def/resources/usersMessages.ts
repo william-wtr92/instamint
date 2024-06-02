@@ -141,6 +141,14 @@ export const visibilityUpdated = {
   message: "Visibility updated.",
 } as const
 
+/* Search By Email */
+
+export const searchByEmailUpdatedSuccessfully = (value: boolean) => {
+  return {
+    message: `Search by email updated to ${value}.`,
+  } as const
+}
+
 /* Follows */
 
 export const alreadyFollowing = {

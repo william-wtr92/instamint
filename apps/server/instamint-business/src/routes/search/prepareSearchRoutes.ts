@@ -34,21 +34,46 @@ const prepareSearchRoutes: ApiRoutes = ({ app, db, redis }) => {
     async (c: Context): Promise<Response> => {
       const { query, limit, offset } = (await c.req.query()) as Search
 
+      const queryContainsAtSymbol = query.includes("@")
+
       const users = await UserModel.query()
-        .where("username", "like", `%${query}%`)
+        .where((builder) => {
+          builder.where("username", "like", `%${query}%`).orWhere((qb) => {
+            if (queryContainsAtSymbol) {
+              qb.where("searchByEmail", true).andWhere(
+                "email",
+                "like",
+                `%${query}%`
+              )
+            }
+          })
+        })
         .limit(parseInt(limit))
         .offset(parseInt(offset))
 
       const countResult = await UserModel.query()
-        .where("username", "like", `%${query}%`)
+        .where((builder) => {
+          builder.where("username", "like", `%${query}%`).orWhere((qb) => {
+            if (queryContainsAtSymbol) {
+              qb.where("searchByEmail", true).andWhere(
+                "email",
+                "like",
+                `%${query}%`
+              )
+            }
+          })
+        })
         .count()
         .first()
+
+      const totalResults = parseInt(countResult?.count!)
+      const totalPages = Math.ceil(totalResults / parseInt(limit))
 
       const pagination = {
         limit: parseInt(limit),
         page: parseInt(offset),
-        totalUsers: parseInt(countResult?.count!),
-        totalPages: Math.ceil(parseInt(countResult?.count!) / parseInt(limit)),
+        totalResults,
+        totalPages,
       }
 
       return c.json(

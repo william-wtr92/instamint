@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { commentSchema, subCommentSchema } from "./publicationsComments.types"
+import { commentSchema } from "./publicationsComments.types"
 
 export const addPublicationSchema = z.object({
   description: z.string().min(1).max(200),
@@ -17,7 +17,7 @@ export const getPublicationsParamSchema = z.object({
 })
 
 export const getPublicationsSchema = z.object({
-  limit: z.string().default("6"),
+  limit: z.string().default("12"),
   offset: z.string().default("0"),
 })
 

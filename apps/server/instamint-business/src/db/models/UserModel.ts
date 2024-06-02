@@ -31,6 +31,7 @@ class UserModel extends BaseModel {
   twoFactorAuthentication!: boolean
   secret!: string | null
   twoFactorBackupCodes!: string | null
+  searchByEmail!: boolean
   publicationData!: PublicationsModel
 
   count!: string

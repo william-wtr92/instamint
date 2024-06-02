@@ -68,14 +68,15 @@ const ProfilePage = (
         []
       )
     : []
+  const publicationsCount = data ? data[0].result.pagination.totalResults : 0
 
   const [pageTitle, setPageTitle] = useState<string>("")
 
-  const handleSetSize = () => {
-    setSize((prevState) => prevState + 1)
-  }
+  const handleSetSize = useCallback(async () => {
+    await setSize((prevState) => prevState + 1)
+  }, [setSize])
 
-  const onScroll = () => {
+  const onScroll = useCallback(async () => {
     if (!scrollContainerRef.current) {
       return
     }
@@ -85,10 +86,10 @@ const ProfilePage = (
         scrollContainerRef.current
 
       if (scrollTop + clientHeight >= scrollHeight - 5) {
-        handleSetSize()
+        await handleSetSize()
       }
     }
-  }
+  }, [handleSetSize])
 
   const handleFollowUser = useCallback(async () => {
     const [err] = await follow({ username })
@@ -215,7 +216,7 @@ const ProfilePage = (
   return (
     <div
       ref={scrollContainerRef}
-      className="p-text-large-screen flex h-full flex-col gap-6 overflow-scroll xl:h-screen"
+      className="no-scrollbar p-text-large-screen flex h-full flex-col gap-6 overflow-scroll xl:h-screen"
       onScroll={onScroll}
     >
       {userLoggedData && (
@@ -234,6 +235,7 @@ const ProfilePage = (
             handleDeleteFollowRequest={handleDeleteFollowRequest}
             handleDmUser={handleDmUser}
             publications={publications}
+            publicationsCount={publicationsCount}
             followers={followersTargetedData}
             followed={followedTargetedData}
             isFollowing={isFollowing}

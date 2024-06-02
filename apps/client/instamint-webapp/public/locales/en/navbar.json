@@ -28,6 +28,7 @@
     "cancel-sign-out": "Cancel"
   },
   "notifications": {
+    "title": "Notifications",
     "no-notification": "No notification",
     "follow": "follow you!",
     "request": "requested to follow you",

@@ -9,6 +9,7 @@ export type ConnectedUser = {
   avatar: string
   roleData: string
   private: boolean
+  searchByEmail: boolean
 }
 
 export type ConnectedUserResult = {

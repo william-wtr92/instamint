@@ -301,6 +301,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           "location",
           "avatar",
           "private",
+          "searchByEmail",
         ]),
       },
       SC.success.OK

@@ -39,7 +39,11 @@ export const PublicationsList = (props: PublicationsListProps) => {
       }
 
       return (
-        <Text variant="neutral" type="body">
+        <Text
+          variant="neutral"
+          type="body"
+          className="flex h-96 items-center justify-center"
+        >
           {t("no-publication")}
         </Text>
       )

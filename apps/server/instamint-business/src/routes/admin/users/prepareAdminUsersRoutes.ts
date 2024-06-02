@@ -62,7 +62,7 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
       const pagination = {
         limit: parseInt(limit),
         page: parseInt(offset),
-        totalUsers: parseInt(countUsers?.count!),
+        totalResults: parseInt(countUsers?.count!),
         totalPages: Math.ceil(parseInt(countUsers?.count!) / parseInt(limit)),
       }
 

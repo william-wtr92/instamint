@@ -2,11 +2,13 @@ import type { Publication } from "@instamint/shared-types"
 import { type SWRConfiguration } from "swr"
 import useSWRInfinite, { type SWRInfiniteResponse } from "swr/infinite"
 
+import type { Pagination } from "@/types"
 import { routes } from "@/web/routes"
 
 type FetcherData = {
   result: {
     publications: Publication[]
+    pagination: Pagination
   }
 }
 
@@ -19,7 +21,7 @@ const getKey = (
     return null
   }
 
-  const limitPerPage = 6
+  const limitPerPage = 12
   const offset = pageIndex
 
   const param = {

@@ -25,6 +25,7 @@ export * from "./services/profileServices.types"
 export * from "./services/adminServices.types"
 
 /* HOOKS */
+export * from "./hooks/globalHook.types"
 export * from "./hooks/users/connectedUser.types"
 export * from "./hooks/users/profileUser.types"
 export * from "./hooks/messages/message.types"

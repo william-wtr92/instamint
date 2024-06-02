@@ -17,6 +17,7 @@ export * from "./types/users/modifyEmail.types"
 export * from "./types/users/profile/profile.types"
 export * from "./types/users/profile/visibility.types"
 export * from "./types/users/profile/follows.types"
+export * from "./types/users/profile/searchByEmail"
 
 /* Notifications Schemas & Types */
 export * from "./types/users/notifications/notifications.types"

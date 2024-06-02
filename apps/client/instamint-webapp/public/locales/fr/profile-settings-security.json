@@ -3,6 +3,7 @@
   "subtitle-actions": "Actions sur votre compte",
   "subtitle-danger-zone": "Zone dangereuse",
   "subtitle-visibility": "Changer la visibilité",
+  "subtitle-searchByEmail": "Changer la recherche par email",
   "2fa-title": "Authentification à deux facteurs",
   "2fa-description": "L'activation de l'authentification à deux facteurs renforce la sécurité en ajoutant une couche supplémentaire de protection, réduisant ainsi le risque d'accès non autorisé à vos comptes.",
   "2fa-enabled": "Statut : Activé",
@@ -140,6 +141,17 @@
     "messages": {
       "private": "Votre compte est maintenant privé.",
       "public": "Votre compte est maintenant public."
+    }
+  },
+  "searchByEmail": {
+    "label": "Recherche par email",
+    "description": "Quand la recherche par email est activé les utilisateurs peuvent vous trouver en cherchant votre email.",
+    "cta": {
+      "submit": "Modifier la recherche par email"
+    },
+    "messages": {
+      "enabled": "La recherche par email est activée.",
+      "disabled": "La recherche par email est désactivée."
     }
   }
 }

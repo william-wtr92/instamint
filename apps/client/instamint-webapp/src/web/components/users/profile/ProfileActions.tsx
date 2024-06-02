@@ -26,7 +26,7 @@ import { firstLetter } from "@/web/utils/helpers/stringHelper"
 
 type ProfileActionsProps = Omit<
   ProfileHeaderProps,
-  "publications" | "followers" | "followed"
+  "publications" | "publicationsCount" | "followers" | "followed"
 >
 
 export const ProfileActions = ({

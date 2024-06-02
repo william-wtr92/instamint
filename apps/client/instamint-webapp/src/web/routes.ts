@@ -106,6 +106,7 @@ const apiRoutes = {
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
     visibility: "/users/visibility",
+    searchByEmail: "/users/search-by-email",
     profile: {
       getProfile: (queries: Profile) => `/profile/${queries.username}`,
       follow: (queries: Profile) => `/profile/${queries.username}/follow`,

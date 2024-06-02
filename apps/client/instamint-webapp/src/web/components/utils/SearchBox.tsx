@@ -8,7 +8,7 @@ import {
 } from "@instamint/ui-kit"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, useEffect } from "react"
 
 import { useSearch } from "@/web/hooks/search/useSearch"
 import { routes } from "@/web/routes"
@@ -19,25 +19,22 @@ type Props = {
 }
 
 const MIN_QUERY_LENGTH = 3
+const DEBOUNCE_DELAY = 300
 
 export const SearchBox = ({ open, setOpen }: Props) => {
   const { t } = useTranslation("navbar")
-
   const [searchQuery, setSearchQuery] = useState<string>("")
+  const [debouncedQuery, setDebouncedQuery] = useState<string>("")
 
-  const { data, isValidating, size, setSize, mutate } = useSearch({
-    query: searchQuery,
+  const { data, isLoading, isValidating, size, setSize, mutate } = useSearch({
+    query: debouncedQuery,
   })
 
   const users = data ? data.flatMap((page) => page.result.users) : []
 
-  const handleSearch = useCallback(
-    async (search: string) => {
-      setSearchQuery(search)
-      await mutate()
-    },
-    [mutate]
-  )
+  const handleSearch = useCallback((search: string) => {
+    setSearchQuery(search)
+  }, [])
 
   const handleLinkClick = useCallback(() => {
     setOpen(false)
@@ -62,6 +59,17 @@ export const SearchBox = ({ open, setOpen }: Props) => {
     [loadMoreResults]
   )
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery.trim())
+      mutate()
+    }, DEBOUNCE_DELAY)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [searchQuery, mutate])
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput
@@ -69,9 +77,11 @@ export const SearchBox = ({ open, setOpen }: Props) => {
         onValueChange={handleSearch}
       />
       <CommandList className="p-0" onScroll={handleScroll}>
-        {users.length === 0 && searchQuery.length > MIN_QUERY_LENGTH && (
-          <CommandEmpty>No users found</CommandEmpty>
-        )}
+        {!isLoading &&
+          users.length === 0 &&
+          debouncedQuery.length > MIN_QUERY_LENGTH && (
+            <CommandEmpty>No users found</CommandEmpty>
+          )}
         {users.length > 0 && (
           <CommandGroup title={t("search.results")}>
             {users.map((user) => (

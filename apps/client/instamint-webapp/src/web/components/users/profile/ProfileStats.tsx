@@ -1,35 +1,33 @@
 import { Text } from "@instamint/ui-kit"
 
 import type { ProfileHeaderProps } from "@/types"
-import {
-  pluralCheckArray,
-  pluralCheckNumber,
-} from "@/web/utils/helpers/pluralCheckHelper"
+import { pluralCheckNumber } from "@/web/utils/helpers/pluralCheckHelper"
 
 type ProfileStatsProps = Pick<
   ProfileHeaderProps,
-  "publications" | "followers" | "followed"
+  "publicationsCount" | "followers" | "followed"
 > & {
   t: (key: string) => string
 }
 
 export const ProfileStats = ({
-  publications,
+  publicationsCount,
   followers,
   followed,
   t,
 }: ProfileStatsProps) => {
-  const numberPublications = pluralCheckArray(publications) ? (
-    <div className="flex flex-col">
-      <span className="text-center">{publications.length}</span>
-      <span className="text-small xl:text-medium">{t("publications")}</span>
-    </div>
-  ) : (
-    <div className="flex flex-col">
-      <span className="text-center">{publications.length}</span>
-      <span className="text-small xl:text-medium">{t("publications")}</span>
-    </div>
-  )
+  const numberPublications =
+    publicationsCount > 1 ? (
+      <div className="flex flex-col">
+        <span className="text-center">{publicationsCount}</span>
+        <span className="text-small xl:text-medium">{t("publications")}</span>
+      </div>
+    ) : (
+      <div className="flex flex-col">
+        <span className="text-center">{publicationsCount}</span>
+        <span className="text-small xl:text-medium">{t("publications")}</span>
+      </div>
+    )
   const numberFollowers = pluralCheckNumber(followers) ? (
     <div className="flex flex-col">
       <span className="text-center">{followers}</span>

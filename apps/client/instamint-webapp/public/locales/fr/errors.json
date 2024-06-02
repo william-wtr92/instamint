@@ -81,6 +81,9 @@
         },
         "visibility": {
           "userNotFound": "Session expirée, reconnectez-vous."
+        },
+        "searchByEmail": {
+          "userNotFound": "Session expirée, reconnectez-vous."
         }
       }
     },
