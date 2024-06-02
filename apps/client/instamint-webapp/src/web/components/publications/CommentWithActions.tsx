@@ -65,7 +65,7 @@ const CommentWithActions = (props: Props) => {
     if (!commentParentId) {
       return (
         <ArrowUturnLeftIcon
-          title={t("publication-modal.icons.reply-title")}
+          title={t("publication-modal:icons.reply-title")}
           className="size-6 cursor-pointer text-white"
           onClick={handleReplyCommentUser}
         />
@@ -80,7 +80,7 @@ const CommentWithActions = (props: Props) => {
     ) {
       return (
         <TrashIcon
-          title={t("publication-modal.icons.delete-title")}
+          title={t("publication-modal:icons.delete-title")}
           className="size-6 cursor-pointer text-white"
           onClick={handleShowDeleteCommentDialog}
         />
@@ -138,7 +138,7 @@ const CommentWithActions = (props: Props) => {
             className="bg-accent-500 mb-[-20px] flex flex-row gap-2"
           >
             <HeartIcon
-              title={t("publication-modal.icons.like-title")}
+              title={t("publication-modal:icons.like-title")}
               className="size-6 cursor-pointer text-white"
             />
 
@@ -154,10 +154,10 @@ const CommentWithActions = (props: Props) => {
         open={showDeleteCommentDialog}
         onClose={handleShowDeleteCommentDialog}
         onConfirm={handleDeleteComment}
-        titleKey={t("publication-modal.delete-comment-modal.title")}
-        descriptionKey={t("publication-modal.delete-comment-modal.description")}
-        cancelKey={t("publication-modal.delete-comment-modal.cancel")}
-        confirmKey={t("publication-modal.delete-comment-modal.confirm")}
+        titleKey={t("publication-modal:delete-comment-modal.title")}
+        descriptionKey={t("publication-modal:delete-comment-modal.description")}
+        cancelKey={t("publication-modal:delete-comment-modal.cancel")}
+        confirmKey={t("publication-modal:delete-comment-modal.confirm")}
       />
     </>
   )

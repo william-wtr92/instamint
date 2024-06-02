@@ -26,6 +26,8 @@ const FeedPublicationCard = (props: Props) => {
           alt={`Publication ${publication?.id}`}
           fill
           className="size-full object-contain"
+          sizes={"100%"}
+          priority={true}
         />
       </div>
 

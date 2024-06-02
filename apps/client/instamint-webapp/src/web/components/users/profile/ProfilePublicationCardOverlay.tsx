@@ -24,7 +24,7 @@ const ProfilePublicationCardOverlay = (props: Props) => {
         <div className="flex flex-row items-center gap-2">
           <p>{publicationInList.likes.length}</p>
           <HeartIcon
-            title={t("publication-modal.icons.like-title")}
+            title={t("publication-modal:icons.like-title")}
             className="size-8"
           />
         </div>
@@ -32,7 +32,7 @@ const ProfilePublicationCardOverlay = (props: Props) => {
         <div className="flex flex-row items-center gap-2">
           <p>{publicationInList.comments.length}</p>
           <ChatBubbleOvalLeftIcon
-            title={t("publication-modal.icons.comment-title")}
+            title={t("publication-modal:icons.comment-title")}
             className="size-8"
           />
         </div>

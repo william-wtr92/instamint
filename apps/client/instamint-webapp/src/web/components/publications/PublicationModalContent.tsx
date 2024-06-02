@@ -118,7 +118,7 @@ const PublicationModalContent = (props: Props) => {
         </div>
 
         <div
-          className={`border-t-1 w-full flex-1 overflow-x-hidden overflow-y-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`}
+          className={`no-scrollbar border-t-1 w-full flex-1 overflow-x-hidden overflow-y-scroll duration-300 md:h-[70%] md:flex-initial md:border-0 ${showComments ? "border-transparent" : "border-neutral-300"}`}
         >
           {/* This component is used here for the publication description as the design is almost the same */}
           <PublicationCommentRow
