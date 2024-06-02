@@ -1,5 +1,11 @@
 const getTranslationBaseImports = (): string[] => {
-  const baseImports = ["navbar", "titles", "errors", "countries"]
+  const baseImports = [
+    "navbar",
+    "titles",
+    "errors",
+    "countries",
+    "publication-modal",
+  ]
 
   return baseImports
 }

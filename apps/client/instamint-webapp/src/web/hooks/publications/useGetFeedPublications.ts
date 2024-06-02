@@ -10,11 +10,7 @@ type FetcherData = {
   }
 }
 
-const getKey = (
-  pageIndex: number,
-  previousPageData: FetcherData | null,
-  username: string
-) => {
+const getKey = (pageIndex: number, previousPageData: FetcherData | null) => {
   if (previousPageData && previousPageData.result.publications.length === 0) {
     return null
   }
@@ -22,39 +18,28 @@ const getKey = (
   const limitPerPage = 6
   const offset = pageIndex
 
-  const param = {
-    username,
-  }
-
-  return routes.api.users.publications.getUserPublications(param, {
+  return routes.api.users.publications.getFeedPublications({
     limit: limitPerPage.toString(),
     offset: offset.toString(),
   })
 }
 
-export const useGetPublicationsFromUser = (
-  username: string
-): SWRInfiniteResponse<FetcherData, Error> => {
+export const useGetFeedPublications = (): SWRInfiniteResponse<
+  FetcherData,
+  Error
+> => {
   const config: SWRConfiguration = {
     revalidateOnFocus: false,
     refreshInterval: 10000,
     revalidateOnReconnect: true,
   }
 
-  const { data, error, isLoading, isValidating, size, setSize, mutate } =
-    useSWRInfinite<FetcherData, Error>(
-      (pageIndex, previousPageData) =>
-        getKey(pageIndex, previousPageData, username),
-      config
-    )
+  const query = useSWRInfinite<FetcherData, Error>(
+    (pageIndex, previousPageData) => getKey(pageIndex, previousPageData),
+    config
+  )
 
   return {
-    data,
-    error,
-    isLoading,
-    isValidating,
-    size,
-    setSize,
-    mutate,
+    ...query,
   }
 }

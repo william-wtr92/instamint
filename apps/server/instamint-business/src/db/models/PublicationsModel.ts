@@ -23,6 +23,8 @@ class PublicationsModel extends BaseModel {
     id: number
     username: string
   }[]
+
+  user!: UserModel
   comments!: CommentsModel[]
 
   static modifiers = {
@@ -77,6 +79,15 @@ class PublicationsModel extends BaseModel {
             .orderBy("createdAt", "desc")
             .withGraphJoined("user")
             .withGraphFetched("replies"),
+      },
+      user: {
+        relation: BaseModel.BelongsToOneRelation,
+        modelClass: UserModel,
+        join: {
+          from: "publications.userId",
+          to: "users.id",
+        },
+        modify: "selectSanitizedUser",
       },
     }
   }
