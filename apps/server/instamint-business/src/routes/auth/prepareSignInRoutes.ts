@@ -285,6 +285,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
     const user = await UserModel.query()
       .findOne({ email: contextUser.email })
       .withGraphFetched("roleData")
+      .withGraphFetched("followedUsers")
 
     if (!user) {
       return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
@@ -301,6 +302,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           "location",
           "avatar",
           "private",
+          "followedUsers",
         ]),
       },
       SC.success.OK

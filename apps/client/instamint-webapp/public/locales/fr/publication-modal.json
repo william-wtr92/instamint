@@ -1,0 +1,23 @@
+{
+  "likes": "j'aimes",
+  "add-comment-placeholder": "Ajouter un commentaire...",
+  "reply-comment-placeholder": "Répondre à {{ username }}...",
+  "show-replies": "Voir les réponses ({{ repliesCount }})",
+  "hide-replies": "Cacher les réponses",
+  "delete-comment-modal": {
+    "title": "Supprimer le commentaire",
+    "description": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "cancel": "Annuler",
+    "confirm": "Supprimer"
+  },
+  "icons": {
+    "like-title": "Aimer",
+    "comment-title": "Commenter",
+    "reply-title": "Répondre",
+    "delete-title": "Supprimer"
+  },
+  "cta": {
+    "submit": "Enregistrer",
+    "send": "Envoyer"
+  }
+}

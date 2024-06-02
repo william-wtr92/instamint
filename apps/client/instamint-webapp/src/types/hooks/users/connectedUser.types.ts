@@ -1,3 +1,5 @@
+import type { FollowersStatus } from "@instamint/shared-types"
+
 export type ConnectedUser = {
   id: number
   email: string
@@ -9,6 +11,10 @@ export type ConnectedUser = {
   avatar: string
   roleData: string
   private: boolean
+  followedUsers: {
+    status: FollowersStatus
+    followedId: number
+  }[]
 }
 
 export type ConnectedUserResult = {

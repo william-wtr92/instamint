@@ -1,9 +1,11 @@
 import type { Publication } from "@instamint/shared-types"
 import Image from "next/image"
-import React from "react"
+import React, { useCallback } from "react"
 
+import ProfilePublicationCardOverlay from "./ProfilePublicationCardOverlay"
 import PublicationModal from "@/web/components/publications/PublicationModal"
 import { config } from "@/web/config"
+import { useGetPublicationsFromUser } from "@/web/hooks/publications/useGetPublicationsFromUser"
 
 type Props = {
   publication: Publication
@@ -11,6 +13,12 @@ type Props = {
 
 const ProfilePublicationCard = (props: Props) => {
   const { publication } = props
+
+  const { mutate } = useGetPublicationsFromUser(publication.author)
+
+  const handleOnModalChange = useCallback(async () => {
+    await mutate()
+  }, [mutate])
 
   return (
     <div
@@ -24,7 +32,9 @@ const ProfilePublicationCard = (props: Props) => {
         className="size-full object-contain"
       />
 
-      <PublicationModal publicationInList={publication} />
+      <PublicationModal handleOnModalChange={handleOnModalChange}>
+        <ProfilePublicationCardOverlay publicationInList={publication} />
+      </PublicationModal>
     </div>
   )
 }
