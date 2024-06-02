@@ -221,7 +221,7 @@ const DashboardPage = () => {
           pageSize={pageSize}
           pageIndex={pageIndex}
           totalPages={pagination?.totalPages}
-          totalElements={pagination?.totalUsers}
+          totalElements={pagination?.totalResults}
           onFilterChange={handleFilterEmail}
           withFilter={true}
         />
