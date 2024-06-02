@@ -28,7 +28,7 @@ const getKey = (
     username,
   }
 
-  return routes.api.users.publications.getPublications(param, {
+  return routes.api.users.publications.getUserPublications(param, {
     limit: limitPerPage.toString(),
     offset: offset.toString(),
   })

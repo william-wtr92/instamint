@@ -33,6 +33,13 @@ export const publicationSchema = z.object({
   updatedAt: z.string(),
   likes: z.array(z.object({ id: z.number(), username: z.string() })),
   comments: z.array(commentSchema),
+  user: z.object({
+    id: z.number(),
+    username: z.string(),
+    email: z.string().email(),
+    avatar: z.string(),
+    private: z.boolean(),
+  }),
   isLiked: z.boolean(),
 })
 

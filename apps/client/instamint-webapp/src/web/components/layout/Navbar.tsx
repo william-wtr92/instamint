@@ -173,7 +173,7 @@ const Navbar = () => {
           {user?.roleData === "admin" && (
             <Link
               href={routes.client.admin.users}
-              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md flex h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4"
+              className="xs:w-full xs:h-fit xs:items-center xs:flex md:hover:bg-accent-200 xs:rounded-md hidden h-full w-1/5 items-center justify-center duration-200 md:justify-start md:gap-4 md:p-4 lg:flex"
             >
               <AdjustmentsHorizontalIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
               <Text type="body" variant="accent" className="hidden md:block">

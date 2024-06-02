@@ -87,7 +87,7 @@ const PublicationModalContent = (props: Props) => {
   return (
     <DialogContent
       variant="fit"
-      className="block h-[90vh] w-[90vw] overflow-hidden rounded-sm border-0 bg-neutral-100 p-0 md:flex md:h-[70vh] md:w-[95vw] md:flex-row md:gap-0 lg:h-[80vh] lg:w-fit lg:max-w-[80vw]"
+      className="block h-[90vh] w-[90vw] overflow-hidden rounded-sm border-0 bg-white p-0 md:flex md:h-[70vh] md:w-[95vw] md:flex-row md:gap-0 lg:h-[80vh] lg:w-fit lg:max-w-[80vw]"
     >
       <div className="border-b-1 relative hidden aspect-square duration-300 md:mt-0 md:block md:border-0">
         <Image

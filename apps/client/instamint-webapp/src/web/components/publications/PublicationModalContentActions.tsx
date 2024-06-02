@@ -131,16 +131,19 @@ const PublicationModalContentActions = (props: Props) => {
   return (
     <div className="border-t-1 flex w-full flex-col justify-between border-neutral-300 p-2 md:flex-1">
       <div className="flex flex-row items-start justify-start gap-2">
-        <LikeButton isLiked={publication.isLiked} />
-
-        <ChatBubbleOvalLeftIcon
-          title={t("publication-modal.icons.comment-title")}
-          className="hidden size-8 stroke-black stroke-1 text-neutral-100 md:block"
+        <LikeButton
+          publicationId={publication.id}
+          isLiked={publication.isLiked}
         />
 
         <ChatBubbleOvalLeftIcon
-          title={t("publication-modal.icons.comment-title")}
-          className="size-8 stroke-black stroke-1 text-neutral-100 md:hidden"
+          title={t("publication-modal:icons.comment-title")}
+          className="hidden size-8 stroke-black stroke-1 text-white md:block"
+        />
+
+        <ChatBubbleOvalLeftIcon
+          title={t("publication-modal:icons.comment-title")}
+          className="size-8 stroke-black stroke-1 text-white md:hidden"
           onClick={handleShowComments}
         />
       </div>
@@ -149,7 +152,7 @@ const PublicationModalContentActions = (props: Props) => {
         className={`flex h-fit max-h-full flex-1 flex-col justify-between gap-2 py-1 pl-1 md:py-2`}
       >
         <Text type="medium" variant="none">
-          {publication.likes.length} {t("publication-modal.likes")}
+          {publication.likes.length} {t("publication-modal:likes")}
         </Text>
 
         <Text type="small" variant="none">
@@ -169,7 +172,7 @@ const PublicationModalContentActions = (props: Props) => {
           />
 
           <span>
-            {t("publication-modal.reply-comment-placeholder", {
+            {t("publication-modal:reply-comment-placeholder", {
               username: replyCommentUsername,
             })}
           </span>
@@ -180,11 +183,11 @@ const PublicationModalContentActions = (props: Props) => {
           id="comment-input"
           type="text"
           maxLength={255}
-          className="z-20 border-0 outline-offset-0"
-          placeholder={t("publication-modal.add-comment-placeholder")}
+          className="z-20 outline-offset-0"
+          placeholder={t("publication-modal:add-comment-placeholder")}
         />
 
-        <Button onClick={sendComment}>{t("cta.send")}</Button>
+        <Button onClick={sendComment}>{t("publication-modal:cta.send")}</Button>
       </div>
     </div>
   )

@@ -1,3 +1,5 @@
+import type { FollowersStatus } from "@instamint/shared-types"
+
 export type ConnectedUser = {
   id: number
   email: string
@@ -10,6 +12,10 @@ export type ConnectedUser = {
   roleData: string
   private: boolean
   searchByEmail: boolean
+  followedUsers: {
+    status: FollowersStatus
+    followedId: number
+  }[]
 }
 
 export type ConnectedUserResult = {

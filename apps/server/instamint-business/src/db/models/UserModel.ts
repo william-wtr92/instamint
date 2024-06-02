@@ -1,6 +1,7 @@
 import type { QueryBuilder, QueryBuilderType } from "objection"
 
 import BaseModel from "./BaseModel"
+import FollowerModel from "./FollowerModel"
 import PublicationsModel from "./PublicationsModel"
 import RoleModel from "./RoleModel"
 
@@ -34,6 +35,8 @@ class UserModel extends BaseModel {
   searchByEmail!: boolean
   publicationData!: PublicationsModel
 
+  followedUsers!: FollowerModel[]
+
   count!: string
 
   static modifiers = {
@@ -66,6 +69,17 @@ class UserModel extends BaseModel {
         join: {
           from: "users.id",
           to: "publications.userId",
+        },
+      },
+      followedUsers: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: FollowerModel,
+        join: {
+          from: "users.id",
+          to: "followers.followerId",
+        },
+        modify: (query: QueryBuilder<FollowerModel>) => {
+          query.select("followedId", "status")
         },
       },
     }

@@ -88,11 +88,13 @@ const apiRoutes = {
       uploadPublication: "/users/upload-publication",
       getPublication: (param: GetPublicationParam) =>
         `/users/publication/${param.publicationId}`,
-      getPublications: (
+      getUserPublications: (
         param: GetPublicationsParam,
         queries: GetPublications
       ) =>
         `/users/publications/${param.username}?limit=${queries.limit}&offset=${queries.offset}`,
+      getFeedPublications: (queries: GetPublications) =>
+        `/users/publications?limit=${queries.limit}&offset=${queries.offset}`,
       like: (param: PublicationsLikesParam) =>
         `/users/publications/${param.publicationId}/like`,
       comment: (param: AddCommentParam) =>

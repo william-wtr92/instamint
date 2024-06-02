@@ -27,25 +27,6 @@
   "private-publications": "Compte privé - Abonnez-vous pour voir les publications",
   "no-publication": "Vous n'avez aucune publications sur votre compte.",
   "loading": "Chargement en cours...",
-  "publication-modal": {
-    "likes": "j'aimes",
-    "add-comment-placeholder": "Ajouter un commentaire...",
-    "reply-comment-placeholder": "Répondre à {{ username }}...",
-    "show-replies": "Voir les réponses ({{ repliesCount }})",
-    "hide-replies": "Cacher les réponses",
-    "delete-comment-modal": {
-      "title": "Supprimer le commentaire",
-      "description": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
-      "cancel": "Annuler",
-      "confirm": "Supprimer"
-    },
-    "icons": {
-      "like-title": "Aimer",
-      "comment-title": "Commenter",
-      "reply-title": "Répondre",
-      "delete-title": "Supprimer"
-    }
-  },
   "cta": {
     "submit": "Enregistrer",
     "send": "Envoyer"

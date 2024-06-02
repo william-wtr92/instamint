@@ -39,6 +39,55 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
   }
 
   publications.get(
+    "/publications",
+    auth,
+    zValidator("query", getPublicationsSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { limit: limitString, offset: offsetString } = c.req.query()
+      const limit = parseInt(limitString, 10)
+      const offset = parseInt(offsetString, 10)
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const query = PublicationsModel.query()
+      query.orderBy("createdAt", "desc")
+
+      const publications = await query
+        .modify("paginate", limit, offset)
+        .withGraphFetched("likes")
+        .withGraphFetched("comments")
+        .withGraphFetched("user")
+
+      const finalPublications = publications.reduce(
+        (acc: PublicationsModel[], publication: PublicationsModel) => {
+          const isLiked = publication.likes.some(
+            (like) => like.id === contextUser.id
+          )
+
+          publication.isLiked = isLiked
+
+          acc.push(publication)
+
+          return acc
+        },
+        []
+      )
+
+      return c.json(
+        {
+          result: {
+            publications: finalPublications,
+          },
+        },
+        SC.success.OK
+      )
+    }
+  )
+
+  publications.get(
     "/publications/:username",
     auth,
     zValidator("param", getPublicationsParamSchema),
