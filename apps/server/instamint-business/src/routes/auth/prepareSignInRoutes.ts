@@ -302,6 +302,7 @@ const prepareSignInRoutes: ApiRoutes = ({ app, db, redis }) => {
           "location",
           "avatar",
           "private",
+          "searchByEmail",
           "followedUsers",
         ]),
       },

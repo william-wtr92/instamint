@@ -56,7 +56,7 @@ const LikeButton = (props: Props) => {
 
   return (
     <HeartIcon
-      title={t("publication-modal.icons.like-title")}
+      title={t("publication-modal:icons.like-title")}
       className={`size-8 ${isLiked ? "animate-jump stroke-red-500 text-red-500" : "stroke-black text-white"} stroke-1 duration-200`}
       onClick={handleLikePublication}
     />

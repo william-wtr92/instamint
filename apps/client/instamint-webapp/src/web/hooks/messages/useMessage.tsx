@@ -5,7 +5,7 @@ import useSWRInfinite from "swr/infinite"
 import type { Message, UserTargeted } from "@/types"
 import { routes } from "@/web/routes"
 
-type FetcherData = {
+type MessagesData = {
   result: {
     messages: {
       sent: Message[]
@@ -27,7 +27,7 @@ type SWRInfiniteResponse = {
 
 const getKey = (
   pageIndex: number,
-  previousPageData: FetcherData | null,
+  previousPageData: MessagesData | null,
   roomName: string
 ) => {
   if (
@@ -57,7 +57,7 @@ export const useMessage = (
   }
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite<
-    FetcherData,
+    MessagesData,
     Error
   >(
     (pageIndex, previousPageData) =>

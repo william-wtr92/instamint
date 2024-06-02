@@ -133,10 +133,20 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
         []
       )
 
+      const totalResults = await query.resultSize()
+      const totalPages = Math.ceil(totalResults / limit)
+      const pagination = {
+        limit,
+        offset,
+        totalResults,
+        totalPages,
+      }
+
       return c.json(
         {
           result: {
             publications: finalPublications,
+            pagination,
           },
         },
         SC.success.OK

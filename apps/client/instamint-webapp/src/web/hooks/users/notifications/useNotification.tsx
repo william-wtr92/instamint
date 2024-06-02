@@ -4,7 +4,7 @@ import useSWRInfinite, { type SWRInfiniteResponse } from "swr/infinite"
 import type { Notification } from "@/types"
 import { routes } from "@/web/routes"
 
-type FetcherData = {
+type NotificationsData = {
   result: {
     notifications: Notification[]
     totalCount: number
@@ -12,7 +12,10 @@ type FetcherData = {
   }
 }
 
-const getKey = (pageIndex: number, previousPageData: FetcherData | null) => {
+const getKey = (
+  pageIndex: number,
+  previousPageData: NotificationsData | null
+) => {
   if (previousPageData && previousPageData.result.notifications.length === 0) {
     return null
   }
@@ -25,7 +28,10 @@ const getKey = (pageIndex: number, previousPageData: FetcherData | null) => {
   })
 }
 
-export const useNotification = (): SWRInfiniteResponse<FetcherData, Error> => {
+export const useNotification = (): SWRInfiniteResponse<
+  NotificationsData,
+  Error
+> => {
   const config: SWRConfiguration = {
     revalidateOnFocus: false,
     refreshInterval: 5000,
@@ -33,7 +39,7 @@ export const useNotification = (): SWRInfiniteResponse<FetcherData, Error> => {
   }
 
   const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite<
-    FetcherData,
+    NotificationsData,
     Error
   >(getKey, config)
 

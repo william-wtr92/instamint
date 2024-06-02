@@ -1,8 +1,9 @@
-import {
-  type Visibility,
-  type ModifyPassword,
-  type DeleteAccount,
-  type ModifyEmail,
+import type {
+  SearchByEmail,
+  Visibility,
+  ModifyPassword,
+  DeleteAccount,
+  ModifyEmail,
 } from "@instamint/shared-types"
 import { Button, Text } from "@instamint/ui-kit"
 import type { GetServerSideProps } from "next"
@@ -14,6 +15,7 @@ import SettingsPageContainer from "@/web/components/layout/SettingsPageContainer
 import { DeleteAccountForm } from "@/web/components/users/forms/DeleteAccount"
 import { ModifyEmailForm } from "@/web/components/users/forms/ModifyEmail"
 import { ModifyPasswordForm } from "@/web/components/users/forms/ModifyPassword"
+import { SearchAccountByEmail } from "@/web/components/users/forms/SearchByEmail"
 import { VisibilityAccount } from "@/web/components/users/forms/Visibility"
 import TwoFactorAuthModal from "@/web/components/users/settings/TwoFactorAuthModal"
 import useActionsContext from "@/web/contexts/useActionsContext"
@@ -41,7 +43,13 @@ const ProfileSettingsSecurityPage = () => {
 
   const {
     services: {
-      users: { deleteAccount, modifyPassword, modifyEmail, visibility },
+      users: {
+        deleteAccount,
+        modifyPassword,
+        modifyEmail,
+        visibility,
+        searchByEmail,
+      },
       auth: { signOut },
     },
   } = useAppContext()
@@ -158,6 +166,31 @@ const ProfileSettingsSecurityPage = () => {
     [visibility, toast, t]
   )
 
+  const handleSearchByEmailSubmit = useCallback(
+    async (values: SearchByEmail) => {
+      const [err] = await searchByEmail(values)
+
+      if (err) {
+        toast({
+          variant: "error",
+          description: t(
+            `errors:users.profile-settings.security.searchByEmail.${err.message}`
+          ),
+        })
+
+        return
+      }
+
+      toast({
+        variant: "success",
+        description: t(
+          `profile-settings-security:searchByEmail.messages.${values.searchByEmail ? "enabled" : "disabled"}`
+        ),
+      })
+    },
+    [searchByEmail, toast, t]
+  )
+
   return (
     <>
       <SettingsPageContainer>
@@ -231,6 +264,20 @@ const ProfileSettingsSecurityPage = () => {
           <VisibilityAccount
             isPrivate={data?.private}
             onSubmit={(values) => handleVisibilitySubmit(values)}
+          />
+        </div>
+
+        <div className="border-t-2 border-neutral-300 border-opacity-35">
+          <Text
+            type="subheading"
+            variant="neutral"
+            className="mt-4 text-center xl:text-left"
+          >
+            {t("profile-settings-security:subtitle-searchByEmail")}
+          </Text>
+          <SearchAccountByEmail
+            searchByEmail={data?.searchByEmail}
+            onSubmit={(values) => handleSearchByEmailSubmit(values)}
           />
         </div>
       </SettingsPageContainer>

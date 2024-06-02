@@ -80,10 +80,14 @@ const UserInfo = () => {
           </Link>
 
           <div className="xs:flex hidden flex-col items-center font-semibold">
-            <Text type={"medium"} variant={"none"} className="">
+            <Text type={"medium"} variant={"none"}>
               {userUsername}
             </Text>
-            <Text type={"medium"} variant={"none"} className="">
+            <Text
+              type={"medium"}
+              variant={"none"}
+              className="w-32 truncate xl:w-full"
+            >
               {user.email}
             </Text>
           </div>

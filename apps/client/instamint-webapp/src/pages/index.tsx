@@ -26,7 +26,7 @@ const Home = () => {
   )
 
   return (
-    <div className="flex w-full flex-col items-center gap-4 overflow-scroll p-4">
+    <div className="no-scrollbar flex w-full flex-col items-center gap-4 overflow-scroll p-4">
       {publications?.map((publication: Publication) => (
         <FeedPublicationCard key={publication.id} publication={publication} />
       ))}

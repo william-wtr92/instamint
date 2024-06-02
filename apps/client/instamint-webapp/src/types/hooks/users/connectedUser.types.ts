@@ -11,6 +11,7 @@ export type ConnectedUser = {
   avatar: string
   roleData: string
   private: boolean
+  searchByEmail: boolean
   followedUsers: {
     status: FollowersStatus
     followedId: number

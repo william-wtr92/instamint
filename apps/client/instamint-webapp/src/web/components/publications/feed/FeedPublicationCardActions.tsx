@@ -51,7 +51,7 @@ const FeedPublicationCardActions = (props: Props) => {
             className="cursor-pointer"
           >
             <ChatBubbleOvalLeftIcon
-              title={t("publication-modal.icons.comment-title")}
+              title={t("publication-modal:icons.comment-title")}
               className="size-8 stroke-black stroke-1 text-white"
             />
           </DialogTrigger>
@@ -87,7 +87,7 @@ const FeedPublicationCardActions = (props: Props) => {
             {username}
           </Link>
 
-          <p className="font-normal">{publication.description}</p>
+          <span className="font-normal">{publication.description}</span>
         </Text>
 
         <div className="flex flex-col gap-1.5">

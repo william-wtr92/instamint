@@ -253,7 +253,7 @@ const prepareFollowsRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
-  app.onError((e: Error, c: Context) => handleError(e, c))
+  follows.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/profile", follows)
 }

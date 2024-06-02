@@ -1,3 +1,5 @@
+import type { Pagination } from "@/types"
+
 export type User = {
   id: string
   email: string
@@ -6,13 +8,6 @@ export type User = {
   roleData: string
   active: boolean
   deletionDate: string | null
-}
-
-export type Pagination = {
-  limit: number
-  page: number
-  totalUsers: number
-  totalPages: number
 }
 
 export type UsersResult = {

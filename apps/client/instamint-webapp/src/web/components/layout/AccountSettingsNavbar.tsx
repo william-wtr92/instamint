@@ -17,6 +17,10 @@ const buttons = [
     label: "security",
   },
   {
+    path: routes.client.profile.settings.notifications,
+    label: "notifications.title",
+  },
+  {
     path: routes.client.about,
     label: "about",
   },

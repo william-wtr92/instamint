@@ -1,4 +1,8 @@
-import { BellIcon, Cog6ToothIcon } from "@heroicons/react/24/outline"
+import {
+  BellIcon,
+  Cog6ToothIcon,
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/outline"
 import type {
   NotificationTypes,
   ReadNotification,
@@ -47,6 +51,8 @@ export const Notifications = () => {
 
     return unreadNotifications.length > 0
   })[0]
+  const noNotifications =
+    notificationsData?.flatMap((page) => page.result.notifications).length === 0
 
   const notifierUserAvatar = (path: string) => {
     return `${config.api.blobUrl}${path}`
@@ -218,6 +224,19 @@ export const Notifications = () => {
                 </div>
               ))
             )}
+
+          {noNotifications && (
+            <div className="flex h-full items-center justify-center gap-1">
+              <ExclamationCircleIcon className="size-6" />
+              <Text
+                type={"medium"}
+                variant={"none"}
+                className="text-medium text-center font-normal"
+              >
+                {t("notifications.no-notification")}
+              </Text>
+            </div>
+          )}
         </PopoverContent>
       </Popover>
       <Link

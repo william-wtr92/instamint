@@ -1,10 +1,14 @@
 {
   "home": "Home",
-  "search": "Search",
+  "search": {
+    "title": "Search",
+    "results": "Search results",
+    "placeholder": "Search a user..."
+  },
   "settings": "Settings",
   "admin": "Administration",
   "profile": "Profile",
-    "select-lang": {
+  "select-lang": {
     "label": "Select language",
     "options": {
       "en": "English",
@@ -24,6 +28,8 @@
     "cancel-sign-out": "Cancel"
   },
   "notifications": {
+    "title": "Notifications",
+    "no-notification": "No notification",
     "follow": "follow you!",
     "request": "requested to follow you",
     "like": "liked your publication",

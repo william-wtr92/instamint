@@ -25,5 +25,6 @@ export * from "./src/components/DataTablePagination"
 export * from "./src/components/Tooltip"
 export * from "./src/components/Collapsible"
 export * from "./src/components/Switch"
+export * from "./src/components/Command"
 
 export type { ToasterToast, Toast as ToastType } from "./src/types/Toast.types"

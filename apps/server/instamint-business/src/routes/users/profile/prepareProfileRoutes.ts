@@ -98,7 +98,7 @@ const prepareProfileRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
-  app.onError((e: Error, c: Context) => handleError(e, c))
+  profile.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/profile", profile)
 }

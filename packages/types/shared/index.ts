@@ -17,6 +17,7 @@ export * from "./types/users/modifyEmail.types"
 export * from "./types/users/profile/profile.types"
 export * from "./types/users/profile/visibility.types"
 export * from "./types/users/profile/follows.types"
+export * from "./types/users/profile/searchByEmail"
 
 /* Notifications Schemas & Types */
 export * from "./types/users/notifications/notifications.types"
@@ -28,6 +29,9 @@ export * from "./types/publications/publicationsComments.types"
 
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
+
+/* Search Schemas & Types */
+export * from "./types/search/search.types"
 
 /* Admin Schemas & Types */
 export * from "./types/admin/users/adminUsersActions.types"

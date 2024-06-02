@@ -16,6 +16,7 @@ export type ProfileHeaderProps = {
   handleDeleteFollowRequest: () => void
   handleDmUser: () => void
   publications: Publication[]
+  publicationsCount: number
   followers: number | undefined
   followed: number | undefined
   isFollowing: FollowersStatus | undefined

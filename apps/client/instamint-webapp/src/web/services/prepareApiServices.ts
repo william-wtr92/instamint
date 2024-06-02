@@ -19,6 +19,7 @@ import twoFactorActivationService from "@/web/services/users/account/twoFactorAc
 import twoFactorAuthenticationService from "@/web/services/users/account/twoFactorAuthenticationService"
 import twoFactorCodeGenerationService from "@/web/services/users/account/twoFactorCodeGenerationService"
 import twoFactorDeactivationService from "@/web/services/users/account/twoFactorDeactivationService"
+import updateSearchByEmailService from "@/web/services/users/account/updateSearchByEmailService"
 import updateUserInfosService from "@/web/services/users/account/updateUserInfosService"
 import updateVisibilityAccountService from "@/web/services/users/account/updateVisibilityAccountService"
 import uploadAvatarService from "@/web/services/users/account/uploadAvatarService"
@@ -60,6 +61,7 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         uploadAvatar: uploadAvatarService(context),
         uploadPublication: uploadPublicationService(context),
         visibility: updateVisibilityAccountService(context),
+        searchByEmail: updateSearchByEmailService(context),
         readNotification: readNotificationService(context),
         likePublicationService: likePublicationService(context),
         addPublicationCommentService: addPublicationCommentService(context),

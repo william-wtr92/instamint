@@ -22,7 +22,7 @@ export const ProfileHeader = ({
   handleTriggerFollowRequest,
   handleDeleteFollowRequest,
   handleDmUser,
-  publications,
+  publicationsCount,
   followers,
   followed,
   isFollowing,
@@ -75,7 +75,7 @@ export const ProfileHeader = ({
         </div>
 
         <ProfileStats
-          publications={publications}
+          publicationsCount={publicationsCount}
           followers={followers}
           followed={followed}
           t={t}

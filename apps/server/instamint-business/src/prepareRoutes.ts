@@ -11,6 +11,7 @@ import prepareSignOutRoutes from "@/routes/auth/prepareSignOutRoutes"
 import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
 import prepareTwoFactorAuthRoutes from "@/routes/auth/prepareTwoFactorAuthRoutes"
 import prepareMessagesRoutes from "@/routes/messages/prepareMessagesRoutes"
+import prepareSearchRoutes from "@/routes/search/prepareSearchRoutes"
 import prepareNotificationsRoutes from "@/routes/users/notifications/prepareNotificationsRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareFollowsRoutes from "@/routes/users/profile/prepareFollowsRoutes"
@@ -19,6 +20,7 @@ import preparePublicationsRoutes from "@/routes/users/publications/preparePublic
 import prepareDeleteAccountRoutes from "@/routes/users/settings/prepareDeleteAccountRoutes"
 import prepareModifyEmailRoutes from "@/routes/users/settings/prepareModifyEmailRoutes"
 import prepareModifyPasswordRoutes from "@/routes/users/settings/prepareModifyPasswordRoutes"
+import prepareSearchByEmailRoutes from "@/routes/users/settings/prepareSearchByEmailRoutes"
 import prepareUpdateUserInfosRoutes from "@/routes/users/settings/prepareUpdateUserInfosRoutes"
 import prepareUploadAvatarRoutes from "@/routes/users/settings/prepareUploadAvatarRoutes"
 import prepareVisibilityAccountRoutes from "@/routes/users/settings/prepareVisibilityAccountRoutes"
@@ -36,6 +38,7 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   prepareUploadAvatarRoutes(ctx)
   prepareTwoFactorAuthRoutes(ctx)
   prepareVisibilityAccountRoutes(ctx)
+  prepareSearchByEmailRoutes(ctx)
   prepareProfileRoutes(ctx)
 
   prepareFollowsRoutes(ctx)
@@ -46,6 +49,8 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
   preparePublicationsCommentsRoutes(ctx)
 
   prepareNotificationsRoutes(ctx)
+
+  prepareSearchRoutes(ctx)
 
   prepareAdminUsersRoutes(ctx)
   prepareAdminUsersActionsRoutes(ctx)
