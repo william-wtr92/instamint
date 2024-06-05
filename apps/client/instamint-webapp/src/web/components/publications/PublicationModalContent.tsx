@@ -1,4 +1,4 @@
-import type { Comment, Publication } from "@instamint/shared-types"
+import { type Comment, type Publication } from "@instamint/shared-types"
 import { DialogContent } from "@instamint/ui-kit"
 import Image from "next/image"
 import { useTranslation } from "next-i18next"
@@ -10,6 +10,7 @@ import PublicationModalContentHeader from "@/web/components/publications/Publica
 import { config } from "@/web/config"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
+import { useUser } from "@/web/hooks/auth/useUser"
 import { useGetPublicationById } from "@/web/hooks/publications/useGetPublicationById"
 import { useUserByUsername } from "@/web/hooks/users/useUserByUsername"
 import { firstLetter } from "@/web/utils/helpers/stringHelper"
@@ -33,6 +34,8 @@ const PublicationModalContent = (props: Props) => {
   const { toast } = useActionsContext()
 
   const { mutate } = useGetPublicationById(publicationId)
+
+  const { data: loggedUser } = useUser()
 
   const { data, isLoading } = useUserByUsername({
     username: publication.author,
@@ -72,7 +75,7 @@ const PublicationModalContent = (props: Props) => {
       if (err) {
         toast({
           variant: "error",
-          description: t(`errors.publications.${err.message}`),
+          description: t(`errors:users.publications.comments.${err.message}`),
         })
 
         return
@@ -107,6 +110,7 @@ const PublicationModalContent = (props: Props) => {
           usernameFirstLetter={usernameFirstLetter}
           location={publication.location}
         />
+
         {/* Displayed on mobile / Hidden on tablets and bigger */}
         <div
           className={`relative mx-auto block aspect-square overflow-hidden rounded-sm duration-300 md:hidden ${showComments ? "h-0" : "h-[40%]"}`}
@@ -150,6 +154,10 @@ const PublicationModalContent = (props: Props) => {
               commentId={comment.id}
               commentParentId={comment.parentId}
               commentReplies={comment.replies}
+              isLiked={comment.likes.some(
+                (like) => like.username === loggedUser?.username
+              )}
+              likes={comment.likes.length}
               handleReplyCommentId={handleReplyCommentId}
               setReplyCommentUsername={setReplyCommentUsername}
             />

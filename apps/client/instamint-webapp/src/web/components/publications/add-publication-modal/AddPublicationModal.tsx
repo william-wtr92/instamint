@@ -102,7 +102,7 @@ const AddPublicationModal = (props: Props) => {
     if (err) {
       toast({
         variant: "error",
-        description: t(`errors.publications.${err.message}`),
+        description: t(`errors:users.publications.${err.message}`),
       })
 
       return

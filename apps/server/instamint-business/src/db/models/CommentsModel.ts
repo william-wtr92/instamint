@@ -1,9 +1,8 @@
 import type { Comment } from "@instamint/shared-types"
 import type { QueryBuilder } from "objection"
 
-import BaseModel from "./BaseModel"
-import UserModel from "./UserModel"
-
+import BaseModel from "@/db/models/BaseModel"
+import UserModel from "@/db/models/UserModel"
 import type { CommentUser } from "@/types"
 
 class CommentsModel extends BaseModel {
@@ -16,6 +15,12 @@ class CommentsModel extends BaseModel {
 
   user!: CommentUser
   replies!: Comment[]
+  likes!: {
+    id: number
+    username: string
+  }[]
+  createdAt!: string
+  updatedAt!: string
 
   static relationMappings() {
     return {
@@ -40,7 +45,22 @@ class CommentsModel extends BaseModel {
           query
             .select("comments.id", "content", "createdAt", "parentId")
             .orderBy("createdAt", "asc")
-            .withGraphJoined("user"),
+            .withGraphJoined("user")
+            .withGraphFetched("likes"),
+      },
+      likes: {
+        relation: BaseModel.ManyToManyRelation,
+        modelClass: UserModel,
+        join: {
+          from: "comments.id",
+          through: {
+            from: "publications_comments_likes.commentId",
+            to: "publications_comments_likes.userId",
+          },
+          to: "users.id",
+        },
+        modify: (query: QueryBuilder<UserModel>) =>
+          query.select("users.id", "username"),
       },
     }
   }

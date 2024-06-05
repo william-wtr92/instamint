@@ -13,6 +13,7 @@ import type {
   DeleteCommentParam,
   ReplyCommentParam,
   Search,
+  LikeCommentParam,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -103,6 +104,8 @@ const apiRoutes = {
         `/users/publications/${param.publicationId}/comment/${param.commentId}`,
       replyComment: (param: ReplyCommentParam) =>
         `/users/publications/${param.publicationId}/comment/${param.commentId}`,
+      likeComment: (param: LikeCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}/like`,
     },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",

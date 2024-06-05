@@ -1,4 +1,4 @@
-import type { QueryBuilder, QueryBuilderType } from "objection"
+import { type QueryBuilder, type QueryBuilderType } from "objection"
 
 import CommentsModel from "./CommentsModel"
 
@@ -76,9 +76,9 @@ class PublicationsModel extends BaseModel {
           query
             .select("comments.id", "content", "createdAt", "parentId")
             .whereNull("comments.parentId")
-            .orderBy("createdAt", "desc")
             .withGraphJoined("user")
-            .withGraphFetched("replies"),
+            .withGraphFetched("replies")
+            .withGraphFetched("likes"),
       },
       user: {
         relation: BaseModel.BelongsToOneRelation,

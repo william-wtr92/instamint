@@ -9,6 +9,7 @@ import {
 } from "@instamint/shared-types"
 import { type Context, Hono } from "hono"
 
+import type CommentsModel from "@/db/models/CommentsModel"
 import PublicationsModel from "@/db/models/PublicationsModel"
 import UserModel from "@/db/models/UserModel"
 import {
@@ -66,8 +67,20 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
           const isLiked = publication.likes.some(
             (like) => like.id === contextUser.id
           )
-
           publication.isLiked = isLiked
+
+          const sortedCommentsByLikes = publication.comments
+            .sort((a, b) => b.likes.length - a.likes.length)
+            .map((comment: CommentsModel) => {
+              comment.replies = comment.replies.sort(
+                // eslint-disable-next-line max-nested-callbacks
+                (a, b) => b.likes.length - a.likes.length
+              )
+
+              return comment
+            })
+
+          publication.comments = sortedCommentsByLikes
 
           acc.push(publication)
 
@@ -126,6 +139,19 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
 
           publication.isLiked = isLiked
 
+          const sortedCommentsByLikes = publication.comments
+            .sort((a, b) => b.likes.length - a.likes.length)
+            .map((comment: CommentsModel) => {
+              comment.replies = comment.replies.sort(
+                // eslint-disable-next-line max-nested-callbacks
+                (a, b) => b.likes.length - a.likes.length
+              )
+
+              return comment
+            })
+
+          publication.comments = sortedCommentsByLikes
+
           acc.push(publication)
 
           return acc
@@ -180,6 +206,19 @@ const preparePublicationsRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
 
       publication.isLiked = isLiked
+
+      const sortedCommentsByLikes = publication.comments
+        .sort((a, b) => b.likes.length - a.likes.length)
+        .map((comment: CommentsModel) => {
+          comment.replies = comment.replies.sort(
+            // eslint-disable-next-line max-nested-callbacks
+            (a, b) => b.likes.length - a.likes.length
+          )
+
+          return comment
+        })
+
+      publication.comments = sortedCommentsByLikes
 
       return c.json(
         {
