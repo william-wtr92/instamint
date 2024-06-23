@@ -6,7 +6,6 @@
 
 ### 🚀 What's Changed
 
-- **chore(release): 🚀 v24.05**, by [@wwautrin](https://github.com/wwautrin) in ([#355a115](https://github.com/william-wtr92/instamint/commit/355a1158c0dd62b7fbc6aebddb1516766f3b0f01))
 - **feat(version): 🔖 v24.06 ([#67](https://github.com/william-wtr92/instamint/pull/67))**, by [@william-wtr92](https://github.com/william-wtr92) in ([#17ac5c8](https://github.com/william-wtr92/instamint/commit/17ac5c8045abb4f0ae2fcf06633245debc4120e2))
 
 
