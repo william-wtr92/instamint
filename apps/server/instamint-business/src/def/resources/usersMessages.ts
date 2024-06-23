@@ -246,3 +246,11 @@ export const commentsSuccessfullyAdded = {
 export const commentSuccessfullyDeleted = {
   message: "Comment successfully deleted.",
 } as const
+
+export const commentSuccessfullyLiked = {
+  message: "Comment successfully liked.",
+} as const
+
+export const commentSuccessfullyUnliked = {
+  message: "Comment successfully unliked.",
+} as const

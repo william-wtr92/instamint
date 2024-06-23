@@ -39,7 +39,7 @@ const LikeButton = (props: Props) => {
     if (error) {
       toast({
         variant: "error",
-        description: t(`errors.publications.${error.message}`),
+        description: t(`errors:users.publications.comments.${error.message}`),
       })
     }
 

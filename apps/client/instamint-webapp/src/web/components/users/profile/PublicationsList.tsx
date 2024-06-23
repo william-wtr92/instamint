@@ -4,8 +4,8 @@ import { Text } from "@instamint/ui-kit"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import ProfilePublicationCard from "./ProfilePublicationCard"
 import type { ProfileUser } from "@/types"
+import ProfilePublicationCard from "@/web/components/users/profile/ProfilePublicationCard"
 
 type PublicationsListProps = {
   publications: Publication[]

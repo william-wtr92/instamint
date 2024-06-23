@@ -6,6 +6,7 @@ import {
   deleteCommentParamSchema,
   replyCommentParamSchema,
   replyCommentSchema,
+  type LikeCommentParam,
   type ReplyCommentParam,
   type DeleteCommentParam,
   type AddCommentParam,
@@ -13,6 +14,7 @@ import {
 import { type Context, Hono } from "hono"
 
 import CommentsModel from "@/db/models/CommentsModel"
+import PublicationsCommentsLikesModel from "@/db/models/PublicationsCommentsLikesModel"
 import PublicationsCommentsRelationModel from "@/db/models/PublicationsCommentsRelationModel"
 import PublicationsModel from "@/db/models/PublicationsModel"
 import type UserModel from "@/db/models/UserModel"
@@ -88,6 +90,59 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
     }
   )
 
+  publicationsComments.post(
+    "/publications/:publicationId/comment/:commentId/like",
+    auth,
+    zValidator("param", replyCommentParamSchema),
+    async (c: Context) => {
+      const contextUser: UserModel = c.get(contextsKeys.user)
+      const { publicationId, commentId } = c.req.param() as LikeCommentParam
+
+      if (!contextUser) {
+        return c.json(authMessages.userNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const publication =
+        await PublicationsModel.query().findById(publicationId)
+
+      if (!publication) {
+        return c.json(usersMessages.publicationNotFound, SC.errors.NOT_FOUND)
+      }
+
+      const comment = await CommentsModel.query().findById(commentId)
+
+      if (!comment) {
+        return c.json(usersMessages.commentNotFound, SC.errors.NOT_FOUND)
+      }
+
+      // Check if the user has already liked the comment
+      const hasUserAlreadyLikedComment =
+        await PublicationsCommentsLikesModel.query()
+          .where("userId", contextUser.id)
+          .where("commentId", commentId)
+          .where("publicationId", publicationId)
+          .first()
+
+      if (hasUserAlreadyLikedComment) {
+        await PublicationsCommentsLikesModel.query()
+          .delete()
+          .where("userId", contextUser.id)
+          .where("commentId", commentId)
+          .where("publicationId", publicationId)
+
+        return c.json(usersMessages.commentSuccessfullyUnliked, SC.success.OK)
+      }
+
+      await PublicationsCommentsLikesModel.query().insert({
+        userId: contextUser.id,
+        commentId: parseInt(commentId),
+        publicationId: parseInt(publicationId),
+      })
+
+      return c.json(usersMessages.commentSuccessfullyLiked, SC.success.OK)
+    }
+  )
+
   publicationsComments.delete(
     "/publications/:publicationId/comment/:commentId",
     auth,
@@ -134,17 +189,25 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
           commentId,
         })
 
+        await PublicationsCommentsLikesModel.query()
+          .delete()
+          .where("commentId", commentId)
         await CommentsModel.query().deleteById(commentId)
 
         return c.json(usersMessages.commentSuccessfullyDeleted, SC.success.OK)
       }
 
+      /* Deleting a whole comment with it's replies */
       const commentRepliesIds = await CommentsModel.query()
         .select("id")
         .where("parentId", commentId)
 
       await Promise.all(
         commentRepliesIds.map(async (reply: CommentsModel) => {
+          await PublicationsCommentsLikesModel.query().delete().where({
+            commentId: reply.id,
+          })
+
           await PublicationsCommentsRelationModel.query().delete().where({
             commentId: reply.id,
           })
@@ -152,6 +215,10 @@ const preparePublicationsCommentsRoutes: ApiRoutes = ({ app, db, redis }) => {
           await CommentsModel.query().deleteById(reply.id)
         })
       )
+
+      await PublicationsCommentsLikesModel.query().delete().where({
+        commentId,
+      })
 
       await PublicationsCommentsRelationModel.query().delete().where({
         commentId,

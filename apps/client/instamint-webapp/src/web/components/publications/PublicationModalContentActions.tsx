@@ -71,7 +71,7 @@ const PublicationModalContentActions = (props: Props) => {
     if (err) {
       toast({
         variant: "error",
-        description: t(`errors.publications.${err.message}`),
+        description: t(`errors:users.publications.comments.${err.message}`),
       })
 
       return

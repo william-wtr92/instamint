@@ -25,6 +25,8 @@ type Props = {
   commentAuthor: CommentUser | undefined
   commentParentId: number | null | undefined
   publicationAuthorId: number | undefined
+  isLiked: boolean | undefined
+  isDescription?: boolean
   handleReplyCommentUser: () => void
 }
 
@@ -35,20 +37,22 @@ const CommentWithActions = (props: Props) => {
     commentAuthor,
     commentParentId,
     publicationAuthorId,
+    isLiked,
+    isDescription,
     handleReplyCommentUser,
   } = props
   const { t } = useTranslation("profile")
 
   const {
     services: {
-      users: { deletePublicationCommentService },
+      users: { likePublicationCommentService, deletePublicationCommentService },
     },
     publicationId,
   } = useAppContext()
 
   const { toast } = useActionsContext()
 
-  const { mutate } = useGetPublicationById(publicationId)
+  const { mutate: refreshPublication } = useGetPublicationById(publicationId)
 
   const { data: userConnectedData, isLoading: isLoadingUserConnected } =
     useUser()
@@ -94,6 +98,35 @@ const CommentWithActions = (props: Props) => {
     handleShowDeleteCommentDialog,
   ])
 
+  const handleLikeComment = useCallback(async () => {
+    if (!commentId || !publicationId) {
+      return
+    }
+
+    const [err] = await likePublicationCommentService({
+      commentId: commentId.toString(),
+      publicationId: publicationId.toString(),
+    })
+
+    if (err) {
+      toast({
+        variant: "error",
+        description: t(`errors:users.publications.comments.${err.message}`),
+      })
+
+      return
+    }
+
+    await refreshPublication()
+  }, [
+    commentId,
+    likePublicationCommentService,
+    refreshPublication,
+    publicationId,
+    t,
+    toast,
+  ])
+
   const handleDeleteComment = useCallback(async () => {
     if (!commentId || !publicationId) {
       return
@@ -107,19 +140,19 @@ const CommentWithActions = (props: Props) => {
     if (err) {
       toast({
         variant: "error",
-        description: t(`errors.publications.${err.message}`),
+        description: t(`errors:users.publications.comments.${err.message}`),
       })
 
       return
     }
 
-    await mutate()
+    await refreshPublication()
     handleShowDeleteCommentDialog()
   }, [
     commentId,
     deletePublicationCommentService,
     handleShowDeleteCommentDialog,
-    mutate,
+    refreshPublication,
     publicationId,
     t,
     toast,
@@ -127,7 +160,7 @@ const CommentWithActions = (props: Props) => {
 
   return (
     <>
-      <TooltipProvider>
+      <TooltipProvider delayDuration={100}>
         <Tooltip>
           <TooltipTrigger className="cursor-default text-left">
             {children}
@@ -135,11 +168,12 @@ const CommentWithActions = (props: Props) => {
 
           <TooltipContent
             side="top"
-            className="bg-accent-500 mb-[-20px] flex flex-row gap-2"
+            className={`bg-accent-500 mb-[-20px] flex flex-row gap-2 ${isDescription ? "hidden" : ""}`}
           >
             <HeartIcon
               title={t("publication-modal:icons.like-title")}
-              className="size-6 cursor-pointer text-white"
+              className={`text-accent-500 size-6 cursor-pointer stroke-white stroke-[1.5] duration-200 ${isLiked ? "animate-jump fill-white" : ""}`}
+              onClick={handleLikeComment}
             />
 
             {replyCommentButton}

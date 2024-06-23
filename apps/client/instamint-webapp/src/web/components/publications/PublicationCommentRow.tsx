@@ -29,6 +29,8 @@ type Props = {
   commentId?: number
   commentParentId?: number | null
   commentReplies?: SubComment[]
+  isLiked?: boolean
+  likes?: number
   handleReplyCommentId?: (commentId: number) => void
   setReplyCommentUsername?: (username: string) => void
 }
@@ -46,6 +48,8 @@ const PublicationCommentRow = (props: Props) => {
     commentParentId,
     commentReplies,
     publicationAuthorId,
+    isLiked,
+    likes,
     handleReplyCommentId,
     setReplyCommentUsername,
   } = props
@@ -105,7 +109,7 @@ const PublicationCommentRow = (props: Props) => {
           open={showCommentReplies}
           onOpenChange={handleShowCommentReplies}
         >
-          <CollapsibleTrigger>
+          <CollapsibleTrigger className="h-fit">
             <Text
               type={"small"}
               variant={"none"}
@@ -120,13 +124,18 @@ const PublicationCommentRow = (props: Props) => {
           </CollapsibleTrigger>
 
           <CollapsibleContent
-            className={`flex flex-col gap-2 bg-neutral-100 ${showCommentReplies ? "pt-2" : "pt-0"}`}
+            className={`flex flex-col gap-2 ${showCommentReplies ? "pt-2" : "pt-0"}`}
           >
             {commentReplies.map((commentReply, index) => {
               const replyUsernameFirstLetter = commentReply.user.username[0]
               const replyUserAvatar = commentReply.user.avatar
                 ? `${config.api.blobUrl}${commentReply.user.avatar}`
                 : ""
+
+              const replyLikes = commentReply.likes.length
+              const isReplyLiked = commentReply.likes.some(
+                (like) => like.id === commentReply.user.id
+              )
 
               return (
                 <CommentWithActions
@@ -136,6 +145,7 @@ const PublicationCommentRow = (props: Props) => {
                   commentParentId={commentReply.parentId}
                   publicationAuthorId={publicationAuthorId}
                   handleReplyCommentUser={handleReplyCommentUser}
+                  isLiked={isReplyLiked}
                 >
                   <div key={index} className="flex flex-row gap-2">
                     <Avatar className="border-accent-500 size-8 cursor-pointer border">
@@ -151,24 +161,34 @@ const PublicationCommentRow = (props: Props) => {
                       )}
                     </Avatar>
 
-                    <Text
-                      type="medium"
-                      variant="none"
-                      className="break-word w-[calc(90vw-96px)] text-pretty break-words md:w-[calc(95vw-70vh-96px)] lg:w-[calc(80vw-80vh-96px)]"
-                    >
-                      <Link
-                        href={routes.client.profile.getProfile(
-                          commentReply.user.username
-                        )}
-                        className="float-left mr-1.5 font-bold"
+                    <div className="w-[calc(90vw-96px)] md:w-[calc(95vw-70vh-96px)] lg:w-[calc(80vw-80vh-96px)]">
+                      <Text
+                        type="medium"
+                        variant="none"
+                        className="break-words"
                       >
-                        {commentReply.user.username}
-                      </Link>
+                        <Link
+                          href={routes.client.profile.getProfile(
+                            commentReply.user.username
+                          )}
+                          className="float-left mr-1.5 font-bold"
+                        >
+                          {commentReply.user.username}
+                        </Link>
 
-                      <span className="font-normal">
-                        {commentReply.content}
-                      </span>
-                    </Text>
+                        <span className="font-normal">
+                          {commentReply.content}
+                        </span>
+                      </Text>
+
+                      <Text
+                        type="small"
+                        variant={isReplyLiked ? "accent" : "neutral"}
+                        className="mt-2"
+                      >
+                        {replyLikes} {t("publication-modal:likes")}
+                      </Text>
+                    </div>
                   </div>
                 </CommentWithActions>
               )
@@ -195,6 +215,8 @@ const PublicationCommentRow = (props: Props) => {
         commentParentId={commentParentId}
         publicationAuthorId={publicationAuthorId}
         handleReplyCommentUser={handleReplyCommentUser}
+        isLiked={isLiked}
+        isDescription={isDescription}
       >
         <div
           className={`flex flex-row items-start gap-2 duration-200 ${isDescription ? "border-b-1 border-neutral-200" : ""} p-2`}
@@ -213,7 +235,7 @@ const PublicationCommentRow = (props: Props) => {
             <Text
               type="medium"
               variant="none"
-              className="break-word max-w-full text-pretty break-words"
+              className="max-w-full break-words"
             >
               <Link
                 href={routes.client.profile.getProfile(commentAuthorUsername!)}
@@ -226,6 +248,16 @@ const PublicationCommentRow = (props: Props) => {
             </Text>
 
             {hashtagsList}
+
+            {!isDescription && (
+              <Text
+                type="small"
+                variant={isLiked ? "accent" : "neutral"}
+                className="mt-2"
+              >
+                {likes} {t("publication-modal:likes")}
+              </Text>
+            )}
 
             {commentRepliesCollapsible}
           </div>

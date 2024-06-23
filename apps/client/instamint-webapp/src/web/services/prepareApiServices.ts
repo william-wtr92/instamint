@@ -28,10 +28,11 @@ import deleteFollowRequestService from "@/web/services/users/profile/deleteFollo
 import followRequestService from "@/web/services/users/profile/followRequestService"
 import followService from "@/web/services/users/profile/followService"
 import unfollowService from "@/web/services/users/profile/unfollowService"
-import addPublicationCommentService from "@/web/services/users/publications/addPublicationCommentService"
-import deletePublicationCommentService from "@/web/services/users/publications/deletePublicationCommentService"
+import addPublicationCommentService from "@/web/services/users/publications/comments/addPublicationCommentService"
+import deletePublicationCommentService from "@/web/services/users/publications/comments/deletePublicationCommentService"
+import likePublicationCommentService from "@/web/services/users/publications/comments/likePublicationCommentService"
+import replyPublicationCommentService from "@/web/services/users/publications/comments/replyPublicationCommentService"
 import likePublicationService from "@/web/services/users/publications/likePublicationService"
-import replyPublicationCommentService from "@/web/services/users/publications/replyPublicationCommentService"
 import uploadPublicationService from "@/web/services/users/publications/uploadPublicationService"
 
 export const prepareApiServices: PrepareServicesContext = (context) => {
@@ -68,6 +69,7 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         deletePublicationCommentService:
           deletePublicationCommentService(context),
         replyPublicationCommentService: replyPublicationCommentService(context),
+        likePublicationCommentService: likePublicationCommentService(context),
       },
       profile: {
         follow: followService(context),
