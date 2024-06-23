@@ -1,4 +1,7 @@
+import type { FollowersStatus } from "@instamint/shared-types"
+
 /* Reset Passwords */
+
 export const passwordsMustMatch = {
   errorCode: "passwordsMustMatch",
   message: "Passwords must match.",
@@ -130,4 +133,124 @@ export const avatarDeleteFailed = {
 
 export const avatarDeleted = {
   message: "Avatar deleted.",
+} as const
+
+/* Visibility */
+
+export const visibilityUpdated = {
+  message: "Visibility updated.",
+} as const
+
+/* Search By Email */
+
+export const searchByEmailUpdatedSuccessfully = (value: boolean) => {
+  return {
+    message: `Search by email updated to ${value}.`,
+  } as const
+}
+
+/* Follows */
+
+export const alreadyFollowing = {
+  errorCode: "alreadyFollowing",
+  message: "Already following.",
+} as const
+
+export const cannotFollowYourself = {
+  errorCode: "cannotFollowYourself",
+  message: "Cannot follow yourself.",
+} as const
+
+export const followFailed = {
+  errorCode: "followFailed",
+  message: "Follow failed.",
+} as const
+
+export const followedSuccessfully = {
+  message: "Followed.",
+} as const
+
+export const followRequestNotFound = {
+  errorCode: "followRequestNotFound",
+  message: "Follow request not found.",
+} as const
+
+export const followRequestResult = (value: FollowersStatus) => {
+  return {
+    message: `Follow request ${value}.`,
+  } as const
+}
+
+export const unfollowedSuccessfully = {
+  message: "Unfollowed.",
+} as const
+
+export const followRequestDeleted = {
+  message: "Follow request deleted.",
+} as const
+
+/* Notification */
+
+export const notificationNotFound = {
+  errorCode: "notificationNotFound",
+  message: "Notification not found.",
+} as const
+
+export const notificationReadSuccessfully = {
+  message: "Notification read.",
+} as const
+
+/* Publication */
+export const publicationUploadFailed = {
+  errorCode: "publicationUploadFailed",
+  message: "Publication upload failed.",
+} as const
+
+export const publicationUploaded = {
+  message: "Publication uploaded.",
+} as const
+
+export const publicationNotFound = {
+  errorCode: "publicationNotFound",
+  message: "Publication not found.",
+} as const
+
+export const publicationSuccessfullyLiked = {
+  message: "Publication successfully liked.",
+} as const
+
+export const publicationSuccessfullyDisliked = {
+  message: "Publication successfully disliked.",
+} as const
+
+/* Comments messages */
+export const commentNotFound = {
+  errorCode: "commentNotFound",
+  message: "Comment not found.",
+} as const
+
+export const notAuthorizedToDeleteComment = {
+  errorCode: "notAuthorizedToDeleteComment",
+  message: "Not authorized to delete comment.",
+} as const
+
+export const commentContentRequired = {
+  errorCode: "commentContentRequired",
+  message: "Comment content required.",
+} as const
+
+export const commentsSuccessfullyAdded = {
+  message: "Comment successfully added.",
+} as const
+
+export const commentSuccessfullyDeleted = {
+  message: "Comment successfully deleted.",
+} as const
+
+export const commentSuccessfullyLiked = {
+  message: "Comment successfully liked.",
+} as const
+
+export const commentSuccessfullyUnliked = {
+  message: "Comment successfully unliked.",
 } as const

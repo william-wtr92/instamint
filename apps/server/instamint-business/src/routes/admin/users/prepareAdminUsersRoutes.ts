@@ -8,6 +8,7 @@ import { type Context, Hono } from "hono"
 
 import UserModel from "@/db/models/UserModel"
 import { adminMessages, globalsMessages } from "@/def"
+import { handleError } from "@/middlewares/handleError"
 import { sanitizeUsers } from "@/utils/dto/sanitizeUsers"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 
@@ -61,7 +62,7 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
       const pagination = {
         limit: parseInt(limit),
         page: parseInt(offset),
-        totalUsers: parseInt(countUsers?.count!),
+        totalResults: parseInt(countUsers?.count!),
         totalPages: Math.ceil(parseInt(countUsers?.count!) / parseInt(limit)),
       }
 
@@ -69,7 +70,12 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
         {
           message: adminMessages.usersFoundSuccessfully.message,
           result: {
-            users: sanitizeUsers(users, ["id", "createdAt", "active"]),
+            users: sanitizeUsers(users, [
+              "id",
+              "createdAt",
+              "active",
+              "deletionDate",
+            ]),
             pagination,
           },
         },
@@ -77,6 +83,8 @@ const prepareAdminUsersRoutes: ApiRoutes = ({ app, db, redis }) => {
       )
     }
   )
+
+  adminUsers.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/admin", adminUsers)
 }

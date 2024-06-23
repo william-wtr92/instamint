@@ -3,6 +3,17 @@ import type {
   AdminUsersAll,
   Profile,
   GetMessages,
+  GetPublications,
+  GetNotifications,
+  ReadNotification,
+  GetPublicationParam,
+  GetPublicationsParam,
+  PublicationsLikesParam,
+  AddCommentParam,
+  DeleteCommentParam,
+  ReplyCommentParam,
+  Search,
+  LikeCommentParam,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -18,6 +29,7 @@ const clientRoutes = {
     },
   },
   profile: {
+    getProfile: (link: string) => `/profile/${link}`,
     settings: {
       base: "/profile/settings",
       edit: "/profile/settings/edit",
@@ -45,6 +57,7 @@ const apiRoutes = {
         `/admin/users/${params.id}/deactivate`,
       reactivate: (params: UserIdAdminAction) =>
         `/admin/users/${params.id}/reactivate`,
+      delete: (params: UserIdAdminAction) => `/admin/users/${params.id}/delete`,
     },
   },
   auth: {
@@ -72,12 +85,52 @@ const apiRoutes = {
       activate: "auth/2fa/activate",
       deactivate: "auth/2fa/deactivate",
     },
+    publications: {
+      uploadPublication: "/users/upload-publication",
+      getPublication: (param: GetPublicationParam) =>
+        `/users/publication/${param.publicationId}`,
+      getUserPublications: (
+        param: GetPublicationsParam,
+        queries: GetPublications
+      ) =>
+        `/users/publications/${param.username}?limit=${queries.limit}&offset=${queries.offset}`,
+      getFeedPublications: (queries: GetPublications) =>
+        `/users/publications?limit=${queries.limit}&offset=${queries.offset}`,
+      like: (param: PublicationsLikesParam) =>
+        `/users/publications/${param.publicationId}/like`,
+      comment: (param: AddCommentParam) =>
+        `/users/publications/${param.publicationId}/comment`,
+      deleteComment: (param: DeleteCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}`,
+      replyComment: (param: ReplyCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}`,
+      likeComment: (param: LikeCommentParam) =>
+        `/users/publications/${param.publicationId}/comment/${param.commentId}/like`,
+    },
     modifyPassword: "/users/modify-password",
     modifyEmail: "/users/modify-email",
     uploadAvatar: "/users/upload-avatar",
+    visibility: "/users/visibility",
+    searchByEmail: "/users/search-by-email",
     profile: {
       getProfile: (queries: Profile) => `/profile/${queries.username}`,
+      follow: (queries: Profile) => `/profile/${queries.username}/follow`,
+      unfollow: (queries: Profile) => `/profile/${queries.username}/unfollow`,
+      followRequest: "/profile/follow/request",
+      deleteRequest: (queries: Profile) =>
+        `/profile/${queries.username}/follow/request`,
+      getFollowRequests: "/profile/follow/requests",
     },
+    notifications: {
+      getNotifications: (queries: Omit<GetNotifications, "limit">) =>
+        `/users/notifications?limit=10&offset=${queries.offset}`,
+      readNotification: (params: ReadNotification) =>
+        `/users/notifications/${params.notificationId}/read`,
+    },
+  },
+  search: {
+    get: (queries: Omit<Search, "limit">) =>
+      `/search?query=${queries.query}&limit=10&offset=${queries.offset}`,
   },
   messages: {
     getMessages: (queries: Omit<GetMessages, "limit">) =>

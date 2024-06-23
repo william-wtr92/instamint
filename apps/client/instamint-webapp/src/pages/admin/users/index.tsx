@@ -6,8 +6,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React, { useCallback, useEffect, useState } from "react"
 
 import type { UserActions } from "@/types"
-import { useTableColumns } from "@/web/components/tables/admin/users/tableColumns"
-import { usersActionsConfig } from "@/web/components/tables/admin/users/usersActionsConfig"
+import { useTableColumns } from "@/web/components/admin/tables/admin/users/tableColumns"
+import { usersActionsConfig } from "@/web/components/admin/tables/admin/users/usersActionsConfig"
 import { AlertPopup } from "@/web/components/utils/AlertPopup"
 import useActionsContext from "@/web/contexts/useActionsContext"
 import useAppContext from "@/web/contexts/useAppContext"
@@ -36,7 +36,7 @@ const DashboardPage = () => {
   const {
     services: {
       auth: { signOut },
-      admin: { deactivateAccount, reactivateAccount },
+      admin: { deactivateAccount, reactivateAccount, deleteAccount },
     },
   } = useAppContext()
   const { toast, redirect } = useActionsContext()
@@ -134,6 +134,46 @@ const DashboardPage = () => {
     [reactivateAccount, toast, mutate, setModalOpen, userEmail, t]
   )
 
+  const handleDeleteAccount = useCallback(
+    async (values: UserIdAdminAction) => {
+      const [err] = await deleteAccount(values)
+
+      if (err) {
+        toast({
+          variant: "error",
+          description: t(`errors:admin.users.${err.message}`),
+        })
+
+        return
+      }
+
+      setModalOpen(false)
+      toast({
+        variant: "success",
+        description: t("success.deleteAccount", { email: userEmail }),
+      })
+
+      await mutate()
+
+      if (parseInt(userId!) === connectedUserData?.id) {
+        await signOut(null)
+        redirect(routes.client.signIn)
+      }
+    },
+    [
+      deleteAccount,
+      toast,
+      mutate,
+      setModalOpen,
+      userEmail,
+      connectedUserData,
+      userId,
+      redirect,
+      signOut,
+      t,
+    ]
+  )
+
   const handleFilterEmail = useCallback((email: string) => {
     setFilter(email)
   }, [])
@@ -150,6 +190,7 @@ const DashboardPage = () => {
   const usersActions = usersActionsConfig({
     handleDeactivateAccount,
     handleReactivateAccount,
+    handleDeleteAccount,
     t,
   })
   const currentActionConfig = userAction ? usersActions[userAction] : null
@@ -180,7 +221,7 @@ const DashboardPage = () => {
           pageSize={pageSize}
           pageIndex={pageIndex}
           totalPages={pagination?.totalPages}
-          totalElements={pagination?.totalUsers}
+          totalElements={pagination?.totalResults}
           onFilterChange={handleFilterEmail}
           withFilter={true}
         />

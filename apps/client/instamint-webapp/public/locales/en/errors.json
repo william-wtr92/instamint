@@ -78,7 +78,29 @@
           "errorBackupCodeNotProvided": "Backup code not provided.",
           "errorUserHasNoBackupCodes": "User has no backup codes.",
           "errorBackupCodeNotValid": "Backup code not valid."
+        },
+        "visibility": {
+          "userNotFound": "Session expired. Please log in again."
+        },
+        "searchByEmail": {
+          "userNotFound": "Session expired. Please log in again."
         }
+      }
+    },
+    "publications": {
+      "publicationNotFound": "Publication not found.",
+      "image": {
+        "fileNotFound": "File not found.",
+        "fileSizeTooLarge": "File size too large.",
+        "imageSizeTooLarge": "Image size too large. Maximum size is 10MB.",
+        "userNotFound": "Session expired. Please sign-in again.",
+        "imageUploadFailed": "An error has occurred while uploading your image."
+      },
+      "comments": {
+        "commentNotFound": "Comment not found.",
+        "notAuthorizedToDeleteComment": "You are not authorized to delete this comment.",
+        "commentContentRequired": "Comment content is required."
+      
       }
     },
     "reactivate-account": {
@@ -91,6 +113,18 @@
       "userNotFound": "This account does not exist.",
       "accountAlreadyActivated": "Account already activated.",
       "invalidPassword": "Invalid password."
+    },
+    "profile": {
+      "follow": {
+        "userNotFound": "This account does not exist.",
+        "cannotFollowYourself": "You cannot follow yourself.",
+        "alreadyFollowing": "You are already following this user.",
+        "followRequestNotFound": "Follow request not found."
+      }
+    },
+    "notifications": {
+      "userNotFound": "This account does not exist.",
+      "notificationNotFound": "Notification not found."
     }
   },
   "admin": {

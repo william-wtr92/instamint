@@ -10,6 +10,7 @@ import {
   redisKeys,
 } from "@/def"
 import { auth } from "@/middlewares/auth"
+import { handleError } from "@/middlewares/handleError"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 import { delCookie } from "@/utils/helpers/actions/cookiesActions"
 
@@ -47,6 +48,8 @@ const prepareSignOutRoutes: ApiRoutes = ({ app, db, redis }) => {
       SC.success.OK
     )
   })
+
+  signOut.onError((e: Error, c: Context) => handleError(e, c))
 
   app.route("/auth", signOut)
 }

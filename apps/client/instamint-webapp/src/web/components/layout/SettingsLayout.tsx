@@ -30,7 +30,9 @@ const SettingsLayout = (props: Props) => {
     >
       <Navbar />
 
-      <main className={`xs:block xs:order-3 flex-1 ${hideComponentStyle()}`}>
+      <main
+        className={`xs:block xs:order-3 flex-1 overflow-scroll ${hideComponentStyle()}`}
+      >
         {children}
       </main>
 

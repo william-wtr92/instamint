@@ -1,3 +1,5 @@
+import type { Pagination } from "@/types"
+
 export type User = {
   id: string
   email: string
@@ -5,16 +7,10 @@ export type User = {
   createdAt: string
   roleData: string
   active: boolean
+  deletionDate: string | null
 }
 
-export type Pagination = {
-  limit: number
-  page: number
-  totalUsers: number
-  totalPages: number
-}
-
-export type Users = {
+export type UsersResult = {
   result: {
     users: User[]
     pagination: Pagination
@@ -26,6 +22,7 @@ export type Users = {
 const userActions = {
   deactivate: "deactivate",
   reactivate: "reactivate",
+  delete: "delete",
 } as const
 
 export type UserActions = (typeof userActions)[keyof typeof userActions]

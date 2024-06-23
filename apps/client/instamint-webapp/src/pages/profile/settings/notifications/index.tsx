@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const ProfileSettingsNotificationsPage = () => {
   return (
     <SettingsPageContainer>
-      <p>dzakdzalkl</p>
+      <h1>Notifications</h1>
     </SettingsPageContainer>
   )
 }
