@@ -1,6 +1,6 @@
 {
   "name": "@instamint/files-server",
-  "version": "24.05",
+  "version": "24.06",
   "description": "Images service for Instamint",
   "scripts": {
     "azurite": "azurite --silent --location ./azurite --debug ./azurite/debug.log",

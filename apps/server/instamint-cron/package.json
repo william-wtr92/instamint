@@ -1,6 +1,6 @@
 {
   "name": "@instamint/cron-server",
-  "version": "24.05",
+  "version": "24.06",
   "description": "Cron jobs for Instamint",
   "main": "src/index.ts",
   "scripts": {

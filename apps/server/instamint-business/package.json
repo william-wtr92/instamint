@@ -1,6 +1,6 @@
 {
   "name": "@instamint/business-server",
-  "version": "24.05",
+  "version": "24.06",
   "description": "Business API service for Instamint",
   "type": "commonjs",
   "scripts": {
