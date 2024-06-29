@@ -19,7 +19,7 @@ const createTeaBagsService: Services<CreateTeaBags, null> =
       }
 
       const { data: responseData } = await api.post(
-        routes.api.teaBags.createTeaBags,
+        routes.api.teaBags.create,
         body,
         config
       )

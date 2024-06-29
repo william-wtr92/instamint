@@ -7,12 +7,13 @@ import {
 import { type Context, Hono } from "hono"
 
 import MembersModel from "@/db/models/MembersModel"
+import MembersRolesModel from "@/db/models/MembersRoleModel"
 import TeaBagsModel from "@/db/models/TeaBagsModel"
 import UserModel from "@/db/models/UserModel"
 import { globalsMessages, contextsKeys, teabagsMessages } from "@/def"
 import { auth } from "@/middlewares/auth"
 import { handleError } from "@/middlewares/handleError"
-import type { InsertedMembers, InsertedTeabags } from "@/types/teaBags.type"
+import type { InsertedMembers } from "@/types/teaBags.type"
 import { throwInternalError } from "@/utils/errors/throwInternalError"
 
 const prepareCreateTeaBagsRoutes: ApiRoutes = ({ app, db, redis }) => {
@@ -66,12 +67,13 @@ const prepareCreateTeaBagsRoutes: ApiRoutes = ({ app, db, redis }) => {
         return c.json(teabagsMessages.linkAlreadyExist, SC.errors.BAD_REQUEST)
       }
 
-      const newTeabags: InsertedTeabags = {
-        name,
-        bio,
-        link,
-        owner: user.id,
-      }
+      const newTeabags: Pick<TeaBagsModel, "name" | "bio" | "link" | "owner"> =
+        {
+          name,
+          bio,
+          link,
+          owner: user.id,
+        }
 
       try {
         await TeaBagsModel.query().insert(newTeabags)
@@ -82,10 +84,21 @@ const prepareCreateTeaBagsRoutes: ApiRoutes = ({ app, db, redis }) => {
           return c.json(teabagsMessages.teaBagsNotExist, SC.errors.NOT_FOUND)
         }
 
+        const roleId = await MembersRolesModel.query().findOne({
+          right: "owner",
+        })
+
+        if (!roleId) {
+          return c.json(
+            teabagsMessages.errorDuringTeabagsCreation,
+            SC.errors.NOT_FOUND
+          )
+        }
+
         const newTeabagsMembers: InsertedMembers = {
           teaBagsId: teaBagsData.id,
           userId: user.id,
-          membersRolesId: 1,
+          membersRolesId: roleId.id,
         }
 
         await MembersModel.query().insert(newTeabagsMembers)

@@ -1,9 +1,10 @@
 import BaseModel from "./BaseModel"
 
-class membersRolesModel extends BaseModel {
+class MembersRolesModel extends BaseModel {
   static tableName = "membersRoles"
 
+  id!: number
   right!: string
 }
 
-export default membersRolesModel
+export default MembersRolesModel

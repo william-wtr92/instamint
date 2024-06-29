@@ -62,7 +62,7 @@ const apiRoutes = {
       `/messages?roomName=${encodeURIComponent(roomName)}&limit=20&offset=${offset}`,
   },
   teaBags: {
-    createTeaBags: "/teabags/create",
+    create: "/teabags/create",
   },
 } as const
 
