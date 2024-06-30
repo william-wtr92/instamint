@@ -136,7 +136,7 @@ const ProfileSettingsEditPage = () => {
             variant={"neutral"}
             className="border-1 ml-6 flex w-[80%] items-center gap-2 rounded-md border-neutral-600 px-2 py-3"
           >
-            <span className="flex size-6 items-center justify-center rounded-2xl border-2 border-dashed border-neutral-600">
+            <span className="flex size-6 items-center justify-center rounded-2xl border-2 border-dashed border-neutral-600 px-2">
               {t("profile-settings-edit:update-account.i")}
             </span>
             <span>{t("profile-settings-edit:update-account.p1")}</span>

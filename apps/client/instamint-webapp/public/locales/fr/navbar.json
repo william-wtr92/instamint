@@ -1,18 +1,24 @@
 {
   "home": "Accueil",
-  "search": "Recherche",
+  "search": {
+    "title": "Rechercher",
+    "results": "Résultats de la recherche",
+    "placeholder": "Rechercher un utilisateur..."
+  },
+  "settings": "Paramètres",
+  "admin": "Administration",
   "profile": "Profil",
-    "select-lang": {
+  "select-lang": {
     "label": "Changez la langue",
     "options": {
       "en": "Anglais",
       "fr": "Français"
     }
   },
+  "publish": "Publier",
   "settingsNavbarTitle": "Paramètres du compte",
   "accountInformation": "Informations du compte",
   "security": "Sécurité et confidentialité",
-  "notifications": "Notifications",
   "about": "À propos d'Instamint",
   "cta": {
     "button-sign-out": "Déconnexion",
@@ -20,5 +26,56 @@
     "description-sign-out": "Vous serez déconnecté de votre compte Instamint.",
     "confirm-sign-out": "Confirmer",
     "cancel-sign-out": "Annuler"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "no-notification": "Aucune notification",
+    "follow": "vous a suivi !",
+    "request": "vous a envoyé une demande d'abonnement",
+    "like": "a aimé votre publication",
+    "comment": "a commenté votre publication",
+    "date": {
+      "day": "j",
+      "hour": "h",
+      "minute": "m"
+    },
+    "success": "La notification a été lue"
+  },
+  "add-publication-modal": {
+    "step-one": {
+      "title": "Créer une publication",
+      "description": "Sélectionnez l'image que vous souhaitez publier",
+      "sub-description": "Seuls les fichiers .jpg, .png, .webp, .ogg, .flac sont acceptés"
+    },    
+    "step-two": {
+      "title": "Recadrer votre image"
+    },
+    "step-three": {
+      "title": "Information de la publication",
+      "description-input": {
+        "label" : "Description",
+        "placeholder": "Ajouter une description...",
+        "error": "Veuillez ajouter une description"
+      },
+      "location-input": {
+        "label": "Localisation",
+        "placeholder": "Ajouter la localisation...",
+        "error": "Veuillez ajouter une localisation"
+      },
+      "hashtags-input": {
+        "label": "Hashtags (Max 5)",
+        "placeholder": "Ajouter des hashtags",
+        "error": "Veuillez ajouter des hashtags"
+      },
+      "success": "Publication créée avec succès"
+    },
+    "cta": {
+      "select-image": "Selectionner une image",
+      "change-image": "Changer d'image",
+      "back-to-original": "Rétablir à l'original",
+      "crop-image": "Recadrer l'image",
+      "next": "Suivant",
+      "publish": "Publier"
+    }
   }
 }

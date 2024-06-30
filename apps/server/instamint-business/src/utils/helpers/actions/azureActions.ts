@@ -42,10 +42,10 @@ export const uploadBlob = async <T extends File>(
       )
     }
 
-    return c.json({
-      message: usersMessages.avatarUploadFailed,
-      status: SC.serverErrors.INTERNAL_SERVER_ERROR,
-    })
+    return c.json(
+      usersMessages.avatarUploadFailed,
+      SC.serverErrors.INTERNAL_SERVER_ERROR
+    )
   }
 }
 

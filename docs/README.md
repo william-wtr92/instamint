@@ -31,6 +31,14 @@
   - [📦 Docker](./docker/README.md)
   - [📚 Security](./security/README.md)
   - [📝 Utils](./utils/README.md)
+  - [🔗 Deliverables](./report)
+    - [💡 Response to Call for Tends](./report/Call_for_tends.pdf)
+    - [🍀 Ecological Report](./report/Eco_Report.pdf)
+    - [✏️ UX Innovation Report](./report/Innovation_Report.pdf)
+    - [📖 Final Slides](./report/Final_Slides.pdf)
+    - [📅 Agile Sprint](../sprints-reports)
+      - [📊 Sprint 1](../sprints-reports/sprint-1/sprint-report.md)
+      - [📊 Sprint 2](../sprints-reports/sprint-2/sprint-report.md)
 
 ## 📝 License
 

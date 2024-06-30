@@ -31,7 +31,7 @@ export const ActionsProvider: FC<
   )
 
   const redirect = useCallback(
-    (link: string, delay = 3000) => {
+    (link: string, delay = 0) => {
       const timeoutId = setTimeout(() => {
         router.push(link)
       }, delay)

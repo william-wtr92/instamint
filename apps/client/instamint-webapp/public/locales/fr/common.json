@@ -1,3 +1,14 @@
 {
-  "title": "👀 Instamint France WIP !"
+  "title": "👀 Instamint France WIP !",
+  "publications": {
+    "no-likes": "Aucun like",
+    "liked-by": "Aimé par {{ users }}",
+    "and-others-likes": "et {{ othersUsersCount }} personnes",
+    "view-comments": "Voir les {{ commentsCount }} commentaires"
+  },
+  "cta": {
+    "follow": "Suivre",
+    "pending": "En attente",
+    "unfollow": "Désabonner"
+  }
 }

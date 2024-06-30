@@ -1,0 +1,61 @@
+{
+  "table": {
+    "columns": {
+      "email": "Email",
+      "username": "Username",
+      "createAt": "Creation date",
+      "roleData": "Role",
+      "active": "Active",
+      "delete": "Deleted"
+    },
+    "cell": {
+      "emailConnected": "{{email}} (me)",
+      "email": "{{email}}"
+    },
+    "actions": {
+      "trigger": "Open actions",
+      "title": "Actions",
+      "copyEmail": "Copy email",
+      "deactivateAccount": "Deactivate account",
+      "reactivateAccount": "Reactivate account",
+      "deleteAccount": "Delete account"
+    },
+    "pagination": {
+      "rowsPerPage": "Rows per page",
+      "pageLabel": "Page",
+      "ofLabel": "of",
+      "firstPage": "Go to the first page",
+      "previousPage": "Go to the previous page",
+      "nextPage": "Go to the next page",
+      "lastPage": "Go to the last page",
+      "totalElements": "Total users :"
+    },
+    "filterPlaceholder": "Search by email...",
+    "noData": "No users found"
+  },
+  "cta": {
+    "deactivateAccount": {
+      "title": "Would you like to deactivate the {{email}} account?",
+      "description": "The account will be deactivated and will no longer be able to connect to the application.",
+      "cancel": "Cancel",
+      "confirm": "Deactivate"
+    },
+    "reactivateAccount": {
+      "title": "Would you like to reactivate the {{email}} account?",
+      "description": "The account will be reactivated and will be able to connect to the application.",
+      "cancel": "Cancel",
+      "confirm": "Reactivate"
+    },
+    "deleteAccount": {
+      "title": "Would you like to delete the {{email}} account?",
+      "description": "The account will be deleted and will no longer be able to connect to the application.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "success": {
+    "reactivateAccount": "The account of {{email}} has been successfully reactivated.",
+    "deactivateAccount": "The account of {{email}} has been successfully deactivated.",
+    "deleteAccount": "The account of {{email}} has been successfully deleted."
+  }
+}

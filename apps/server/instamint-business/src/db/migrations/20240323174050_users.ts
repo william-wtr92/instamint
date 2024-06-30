@@ -24,11 +24,13 @@ export const up = async (knex: Knex): Promise<void> => {
     table.boolean("emailValidation").notNullable().defaultTo(false)
     table.boolean("gdprValidation").notNullable().defaultTo(false)
     table.boolean("active").notNullable().defaultTo(true)
+    table.boolean("private").notNullable().defaultTo(false)
     table.timestamp("deactivationDate").defaultTo(null)
     table.timestamp("deletionDate").defaultTo(null)
     table.boolean("twoFactorAuthentication").notNullable().defaultTo(false)
     table.text("secret").nullable().defaultTo(null)
     table.text("twoFactorBackupCodes").nullable().defaultTo(null)
+    table.boolean("searchByEmail").notNullable().defaultTo(false)
     table.integer("roleId").references("id").inTable("roles").defaultTo(2)
   })
 }

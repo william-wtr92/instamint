@@ -1,3 +1,14 @@
 {
-  "title": "👀 Instamint England WIP!"
+  "title": "👀 Instamint England WIP!",
+  "publications": {
+    "no-likes": "No likes",
+    "liked-by": "Liked by {{ users }}",
+    "and-others-likes": "and {{ othersUsersCount }} others",
+    "view-comments": "See all {{ commentsCount }} comments"
+  },
+  "cta": {
+    "follow": "Follow",
+    "pending": "Pending",
+    "unfollow": "Unfollow"
+  }
 }

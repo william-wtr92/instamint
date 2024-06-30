@@ -5,7 +5,7 @@ import useSWRInfinite from "swr/infinite"
 import type { Message, UserTargeted } from "@/types"
 import { routes } from "@/web/routes"
 
-type FetcherData = {
+type MessagesData = {
   result: {
     messages: {
       sent: Message[]
@@ -27,7 +27,7 @@ type SWRInfiniteResponse = {
 
 const getKey = (
   pageIndex: number,
-  previousPageData: FetcherData | null,
+  previousPageData: MessagesData | null,
   roomName: string
 ) => {
   if (
@@ -41,7 +41,10 @@ const getKey = (
   const numberOfMessagesPerPage = 20
   const offset = pageIndex * numberOfMessagesPerPage
 
-  return routes.api.messages.getMessages(roomName, offset)
+  return routes.api.messages.getMessages({
+    roomName,
+    offset: offset.toString(),
+  })
 }
 
 export const useMessage = (
@@ -54,7 +57,7 @@ export const useMessage = (
   }
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite<
-    FetcherData,
+    MessagesData,
     Error
   >(
     (pageIndex, previousPageData) =>

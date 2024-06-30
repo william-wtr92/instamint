@@ -15,7 +15,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
-import { MessagesBox } from "@/web/components/messages/MessagesBox"
+import { MessagesBox } from "@/web/components/users/messages/MessagesBox"
 import useAppContext from "@/web/contexts/useAppContext"
 import getTranslationBaseImports from "@/web/utils/helpers/getTranslationBaseImports"
 
@@ -98,10 +98,10 @@ const MessagesPage = (
           />
           <Button
             disabled={!form.formState.isValid}
-            className={`bg-accent-500 py-5 font-semibold text-white ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
+            className={`bg-accent-500 py-2 font-semibold text-white ${!form.formState.isValid ? "cursor-not-allowed opacity-50" : "hover:cursor-pointer"}`}
             type="submit"
           >
-            <PaperAirplaneIcon className="h-6 w-6" />
+            <PaperAirplaneIcon className="size-6" />
           </Button>
         </form>
       </Form>
