@@ -14,6 +14,7 @@ import type {
   ReplyCommentParam,
   Search,
   LikeCommentParam,
+  GetTeaBags,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -22,6 +23,7 @@ const clientRoutes = {
   home: "/",
   signUp: "/sign-up",
   signIn: "/sign-in",
+  teabags: "/teabags",
   auth: {
     email: {
       confirmation: "/auth/email",
@@ -135,6 +137,11 @@ const apiRoutes = {
   messages: {
     getMessages: (queries: Omit<GetMessages, "limit">) =>
       `/messages?roomName=${encodeURIComponent(queries.roomName)}&limit=20&offset=${queries.offset}`,
+  },
+  teaBags: {
+    create: "/teabags/create",
+    get: (queries: Omit<GetTeaBags, "limit">) =>
+      `/teabags?=limit=15&offset=${queries.offset}`,
   },
 } as const
 

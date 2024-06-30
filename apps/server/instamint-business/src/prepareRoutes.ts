@@ -12,6 +12,8 @@ import prepareSignUpRoutes from "@/routes/auth/prepareSignUpRoutes"
 import prepareTwoFactorAuthRoutes from "@/routes/auth/prepareTwoFactorAuthRoutes"
 import prepareMessagesRoutes from "@/routes/messages/prepareMessagesRoutes"
 import prepareSearchRoutes from "@/routes/search/prepareSearchRoutes"
+import prepareCreateTeaBagsRoutes from "@/routes/teaBags/prepareCreateTeaBagsRoutes"
+import prepareTeaBagsRoutes from "@/routes/teaBags/prepareTeaBagsRoutes"
 import prepareNotificationsRoutes from "@/routes/users/notifications/prepareNotificationsRoutes"
 import prepareResetRoutes from "@/routes/users/prepareResetRoutes"
 import prepareFollowsRoutes from "@/routes/users/profile/prepareFollowsRoutes"
@@ -54,6 +56,9 @@ const prepareRoutes: PrepareRoutes = (ctx) => {
 
   prepareAdminUsersRoutes(ctx)
   prepareAdminUsersActionsRoutes(ctx)
+
+  prepareCreateTeaBagsRoutes(ctx)
+  prepareTeaBagsRoutes(ctx)
 }
 
 export default prepareRoutes

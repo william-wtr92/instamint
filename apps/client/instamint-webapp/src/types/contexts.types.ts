@@ -7,6 +7,7 @@ import type {
   UsersServices,
   AdminServices,
   ProfileServices,
+  TeaBagsServices,
 } from "@/types"
 
 export type AppContextProviderProps = {
@@ -28,6 +29,7 @@ export type AppContextType = {
     users: ServicesActionsMappings<UsersServices>
     profile: ServicesActionsMappings<ProfileServices>
     admin: ServicesActionsMappings<AdminServices>
+    teaBags: ServicesActionsMappings<TeaBagsServices>
   }
   socket: {
     joinRoom: <C>(data: JoinRoom, callback: C) => void

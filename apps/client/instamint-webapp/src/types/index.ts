@@ -24,6 +24,9 @@ export * from "./services/profileServices.types"
 /* ADMIN SERVICES */
 export * from "./services/adminServices.types"
 
+/* TEABAGS SERVICES */
+export * from "./services/teaBagsServices.type"
+
 /* HOOKS */
 export * from "./hooks/globalHook.types"
 export * from "./hooks/users/connectedUser.types"
@@ -31,6 +34,7 @@ export * from "./hooks/users/profileUser.types"
 export * from "./hooks/messages/message.types"
 export * from "./hooks/admin/users/adminUsers.types"
 export * from "./hooks/users/notifications.types"
+export * from "./hooks/teaBags/teaBags.types"
 
 /* COMPONENTS */
 export * from "./components/profile.types"

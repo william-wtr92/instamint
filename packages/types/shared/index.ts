@@ -30,6 +30,9 @@ export * from "./types/publications/publicationsComments.types"
 /* Chat messages Schemas & Types */
 export * from "./types/messages/messages.types"
 
+/* TeaBags Schemas & Types */
+export * from "./types/teaBags/teaBags.types"
+
 /* Search Schemas & Types */
 export * from "./types/search/search.types"
 

@@ -9,6 +9,7 @@ import signIn2faService from "@/web/services/auth/signIn2faService"
 import signInService from "@/web/services/auth/signInService"
 import signOutService from "@/web/services/auth/signOutService"
 import signUpService from "@/web/services/auth/signUpService"
+import createTeaBagsService from "@/web/services/teaBags/createTeaBagsService"
 import deleteAccountService from "@/web/services/users/account/deleteAccountService"
 import modifyEmailService from "@/web/services/users/account/modifyEmailService"
 import modifyPasswordService from "@/web/services/users/account/modifyPasswordService"
@@ -81,6 +82,9 @@ export const prepareApiServices: PrepareServicesContext = (context) => {
         deactivateAccount: deactivateAccountAdminService(context),
         reactivateAccount: reactivateAccountAdminService(context),
         deleteAccount: deleteAccountAdminService(context),
+      },
+      teaBags: {
+        createTeaBags: createTeaBagsService(context),
       },
     },
   }

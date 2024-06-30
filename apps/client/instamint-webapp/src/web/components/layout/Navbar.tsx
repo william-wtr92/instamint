@@ -3,6 +3,7 @@ import {
   Cog6ToothIcon,
   HomeIcon,
   MagnifyingGlassIcon,
+  UserGroupIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline"
 import { Avatar, AvatarFallback, AvatarImage, Text } from "@instamint/ui-kit"
@@ -66,6 +67,13 @@ const Navbar = () => {
         ),
         onClick: handleShowAddPublicationModal,
         label: "publish",
+      },
+      {
+        icon: (
+          <UserGroupIcon className="text-accent-500 xs:size-7 size-6 stroke-[0.125rem]" />
+        ),
+        path: "/teabags",
+        label: "teabags",
       },
     ],
     [handleSearchClick, handleShowAddPublicationModal]
