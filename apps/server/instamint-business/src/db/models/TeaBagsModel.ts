@@ -12,6 +12,8 @@ class TeaBagsModel extends BaseModel {
   delete!: boolean
   createdAt!: Date
   updatedAt!: Date
+
+  count!: string
 }
 
 export default TeaBagsModel

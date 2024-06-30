@@ -34,6 +34,7 @@ export * from "./hooks/users/profileUser.types"
 export * from "./hooks/messages/message.types"
 export * from "./hooks/admin/users/adminUsers.types"
 export * from "./hooks/users/notifications.types"
+export * from "./hooks/teaBags/teaBags.types"
 
 /* COMPONENTS */
 export * from "./components/profile.types"

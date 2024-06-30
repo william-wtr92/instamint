@@ -2,13 +2,12 @@ import type { ChatMessage, JoinRoom } from "@instamint/shared-types"
 import type { ToastType as Toast, ToasterToast } from "@instamint/ui-kit"
 import type { ReactNode } from "react"
 
-
 import type {
   AuthServices,
   UsersServices,
   AdminServices,
   ProfileServices,
-  TeaBagsServices
+  TeaBagsServices,
 } from "@/types"
 
 export type AppContextProviderProps = {

@@ -14,6 +14,7 @@ import type {
   ReplyCommentParam,
   Search,
   LikeCommentParam,
+  GetTeaBags,
 } from "@instamint/shared-types"
 
 import { defineRoutes } from "@/types"
@@ -139,6 +140,8 @@ const apiRoutes = {
   },
   teaBags: {
     create: "/teabags/create",
+    get: (queries: Omit<GetTeaBags, "limit">) =>
+      `/teabags?=limit=15&offset=${queries.offset}`,
   },
 } as const
 
