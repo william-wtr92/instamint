@@ -28,7 +28,7 @@
     "@types/uuid": "^9.0.8",
     "azurite": "^3.29.0",
     "concurrently": "^8.2.2",
-    "tsx": "^3.14.0"
+    "tsx": "^4.16.5"
   },
   "license": "All Rights Reserved"
 }
