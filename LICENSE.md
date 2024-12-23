@@ -1,6 +1,6 @@
 # License
 
-© 2024 Wautrin William
+© 2024 W. William
 
 All rights reserved.
 
@@ -24,9 +24,6 @@ This software and its contents are the exclusive copyright of the author. The fo
 The author may give you permission, typically through a written license, to use the software under specified terms and
 conditions. If you receive such permission, you must comply with all the conditions stated in the permission notice.
 
-## Contact for Permissions
-
-To request permission for using this software, please contact `wwautrin@hotmail.fr`.
 
 ## Disclaimer of Warranty
 
